@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.index.dao.Sy15Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.index.domain.Sy15" >
+    <id column="CSY150" property="csy150" jdbcType="INTEGER" />
+    <result column="CSY010" property="csy010" jdbcType="TINYINT" />
+    <result column="CSY151" property="csy151" jdbcType="VARCHAR" />
+    <result column="CSY152" property="csy152" jdbcType="VARCHAR" />
+    <result column="CSY153" property="csy153" jdbcType="VARCHAR" />
+    <result column="CSY154" property="csy154" jdbcType="TINYINT" />
+    <result column="CSY155" property="csy155" jdbcType="TINYINT" />
+    <result column="CSY156" property="csy156" jdbcType="TINYINT" />
+    <result column="CSY157" property="csy157" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY150, CSY010, CSY151, CSY152, CSY153, CSY154, CSY155, CSY156, CSY157
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy15
+    where CSY154 = 1
+      and CSY150 = #{csy150,jdbcType=INTEGER}
+  </select>
+  
+  
+  <!-- 按照类型id查询菜单按钮 -->
+   <select id="selectSy15ByCsy010" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+      select 
+      <include refid="Base_Column_List" />
+         from sy15
+        where CSY154 = 1
+          and CSY156 = 0
+          and CSY010 = #{csy010,jdbcType=INTEGER}
+   </select>
+  
+  
+  <!-- 按照父级id查询子级菜单按钮 -->
+   <select id="selectSy15ByCsy155" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+      select 
+      <include refid="Base_Column_List" />
+         from sy15
+        where CSY154 = 2
+          and CSY156 = 0
+          and CSY155 = #{csy155,jdbcType=INTEGER}
+   </select>
+  
+   <!-- 查询所有菜单 -->
+   <select id="queryAllMenu" resultMap="BaseResultMap">
+      select 
+      <include refid="Base_Column_List" />
+         from sy15
+        where csy156 = 0       
+   </select>
+  
+  <!-- 按照id删除菜单功能 --> 
+  <update id="deleteMenuByCsy150" parameterType="java.lang.Integer" >
+    update sy15
+       set csy156 = 1
+     where CSY150 = #{csy150,jdbcType=INTEGER}
+  </update>
+  
+  
+  <insert id="insert" parameterType="com.bysj.cqjtu.index.domain.Sy15" >
+    insert into sy15 (CSY150, CSY010, CSY151, 
+      CSY152, CSY153, CSY154, 
+      CSY155, CSY156)
+    values (#{csy150,jdbcType=INTEGER}, #{csy010,jdbcType=TINYINT}, #{csy151,jdbcType=VARCHAR}, 
+      #{csy152,jdbcType=VARCHAR}, #{csy153,jdbcType=VARCHAR}, #{csy154,jdbcType=TINYINT}, 
+      #{csy155,jdbcType=TINYINT}, #{csy156,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.index.domain.Sy15" >
+    insert into sy15
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy150 != null" >
+        CSY150,
+      </if>
+      <if test="csy010 != null" >
+        CSY010,
+      </if>
+      <if test="csy151 != null" >
+        CSY151,
+      </if>
+      <if test="csy152 != null" >
+        CSY152,
+      </if>
+      <if test="csy153 != null" >
+        CSY153,
+      </if>
+      <if test="csy154 != null" >
+        CSY154,
+      </if>
+      <if test="csy155 != null" >
+        CSY155,
+      </if>
+      <if test="csy156 != null" >
+        CSY156,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy150 != null" >
+        #{csy150,jdbcType=INTEGER},
+      </if>
+      <if test="csy010 != null" >
+        #{csy010,jdbcType=TINYINT},
+      </if>
+      <if test="csy151 != null" >
+        #{csy151,jdbcType=VARCHAR},
+      </if>
+      <if test="csy152 != null" >
+        #{csy152,jdbcType=VARCHAR},
+      </if>
+      <if test="csy153 != null" >
+        #{csy153,jdbcType=VARCHAR},
+      </if>
+      <if test="csy154 != null" >
+        #{csy154,jdbcType=TINYINT},
+      </if>
+      <if test="csy155 != null" >
+        #{csy155,jdbcType=TINYINT},
+      </if>
+      <if test="csy156 != null" >
+        #{csy156,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.index.domain.Sy15" >
+    update sy15
+    <set >
+      <if test="csy010 != null" >
+        CSY010 = #{csy010,jdbcType=TINYINT},
+      </if>
+      <if test="csy151 != null" >
+        CSY151 = #{csy151,jdbcType=VARCHAR},
+      </if>
+      <if test="csy152 != null" >
+        CSY152 = #{csy152,jdbcType=VARCHAR},
+      </if>
+      <if test="csy153 != null" >
+        CSY153 = #{csy153,jdbcType=VARCHAR},
+      </if>
+      <if test="csy154 != null" >
+        CSY154 = #{csy154,jdbcType=TINYINT},
+      </if>
+      <if test="csy155 != null" >
+        CSY155 = #{csy155,jdbcType=TINYINT},
+      </if>
+      <if test="csy156 != null" >
+        CSY156 = #{csy156,jdbcType=TINYINT},
+      </if>
+    </set>
+    where CSY150 = #{csy150,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.index.domain.Sy15" >
+    update sy15
+    set CSY010 = #{csy010,jdbcType=TINYINT},
+      CSY151 = #{csy151,jdbcType=VARCHAR},
+      CSY152 = #{csy152,jdbcType=VARCHAR},
+      CSY153 = #{csy153,jdbcType=VARCHAR},
+      CSY154 = #{csy154,jdbcType=TINYINT},
+      CSY155 = #{csy155,jdbcType=TINYINT},
+      CSY156 = #{csy156,jdbcType=TINYINT}
+    where CSY150 = #{csy150,jdbcType=INTEGER}
+  </update>
+</mapper>
