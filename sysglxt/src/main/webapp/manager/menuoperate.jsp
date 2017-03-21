@@ -35,58 +35,46 @@
   					修改功能
 		</button>
 	</div>
-	<div id="selectinput_type" style="margin-left:180px;margin-top:80px">
-		<div >
-			<!-- <label style="font-size:16px" >人员类型:</label>
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu_type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="margin-top:-2px">
-					    人员类型
-				<span class="caret"></span>
-			</button>				 
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu_type" style="margin:0px;padding:0px">
-				<li id="teacher"><a href="#">教师</a></li>
-				<li ><a href="#">学生</a></li>
-				<li ><a href="#">管理员</a></li>
-				<li ><a href="#">科研人员</a></li>
-			</ul> -->
+	<div id="selectinput_type" style="margin-left:20spx;margin-top:80px">
+		<div style="margin-left:50px" >
 			<label>人员类型：</label>
-			<select style="width:150px;height:30px" title="人员类型">
+			<select style="width:150px;height:30px" >
 			  <option value ="volvo">Volvo</option>
 			  <option value ="saab">Saab</option>
 			  <option value="opel">Opel</option>
 			  <option value="audi">Audi</option>
             </select>
 		</div>
-		<div class="dropdown" style="float:right;top: -36px;right: 420px;">
-			<label style="font-size:16px">一级菜单:</label>
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu_first" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="margin-top:-2px">
-				    一级菜单
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu_first">
-				<li><a href="#">个人信息</a></li>
-				<li><a href="#">学习资源</a></li>
-				<li><a href="#">课程安排</a></li>
-				<li><a href="#">公告中心</a></li>
-				<li><a href="#">帮助中心</a></li>
-			</ul>
-		</div>
-		<div class="dropdown" style="float:right;top: -36px;right: 40px;">
-			<label style="font-size:16px">二级菜单:</label>
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu_second" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="margin-top:-2px">
-				    二级菜单
-			<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu_second">
-				<li><a href="#">修改密码</a></li>
-				<li><a href="#">个人信息</a></li>
-				<li><a href="#">管理员</a></li>
-				<li><a href="#">科研人员</a></li>
-			</ul>
-		</div>
+		<div style="margin-left:50px;margin-top:20px" >
+            <label>菜单层级：</label>
+            <select style="width:150px;height:30px" >
+              <option value ="1">父级</option>
+              <option value ="2">子级</option>
+            </select>
+        </div>
+		<div style="margin-right:400px;float:right;margin-top:-30px" >
+            <label>父级菜单：</label>
+            <select style="width:150px;height:30px" 、>
+              <option value ="volvo">Volvo</option>
+              <option value ="saab">Saab</option>
+              <option value="opel">Opel</option>
+              <option value="audi">Audi</option>
+            </select>
+        </div>
+        <div style="margin-right:120px;float:right;margin-top:-30px" >
+            <label>子级菜单：</label>
+            <select style="width:150px;height:30px" 、>
+              <option value ="volvo">Volvo</option>
+              <option value ="saab">Saab</option>
+              <option value="opel">Opel</option>
+              <option value="audi">Audi</option>
+            </select>
+        </div>
 	</div>
-	<div id="input_value" style="margin-top:80px;margin-left:50px;padding:0">
+	<div id="input_value" style="margin-top:40px;margin-left:50px;padding:0">
 		功能id:<input type="text" name="menu_id" width="100px" >
 		功能名称:<input type="text" name="menu_name" width="100px">
+		事件:<input type="text" name="menu_page" width="100px" style="float:right;margin-right:176px">
 		功能对应页面:<input type="text" name="menu_page" width="100px" style="float:right;margin-right:176px">
 	</div>
 	<div id="button_menu" style="margin-top:80px;margin-left:400px">
