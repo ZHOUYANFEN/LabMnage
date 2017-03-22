@@ -36,8 +36,8 @@
         </button>
     </div>
     <div id="button_querymenu" style="margin-top:20px;margin-left:60px">
-                     功能id:<input type="text" name="csy150" width="100px" >
-                     功能名称:<input type="text" name="csy151" width="100px">
+                     功能id:<input type="text" name="csy150" width="100px" id="csy150" >
+                     功能名称:<input type="text" name="csy151" width="100px" id="csy151" >
          <div style="margin-right:190px;float:right" >
             <label style="font-family:'黑体';font-size:16px">人员类型：</label>
             <select style="width:150px;height:30px" id="csy010">              
@@ -78,8 +78,19 @@ $(function(){
 	        success:function(data){
 	            
 	              for (var i = 0; i < data.length; i++) {
-	                            $("#menulist")
-	                                    .append(
+	            	  if(data[i].csy010==0){
+	                        data[i].csy010='管理员';
+	                    }
+	                    if(data[i].csy010==1){
+	                        data[i].csy010='学生';
+	                    }
+	                    if(data[i].csy010==2){
+	                        data[i].csy010='科研人员';
+	                    }
+	                    if(data[i].csy010==3){
+	                        data[i].csy010='教师';
+	                    }
+	                     $("#menulist").append(
 	                                            "<tr><td style='width:20px'><input type='checkbox' id='"+data[i].csy150+"'/></td><td style='display:none'>"
 	                                                    + data[i].csy150
 	                                                    + "</td><td style='display:none'>"
@@ -97,9 +108,9 @@ $(function(){
 	                                                    + "</td><td style='display:none'>"
 	                                                    + data[i].csy155
 	                                                    + "</td><td><button type='button' class='btn btn-primary btn-xs' onclick='deleteMenu("+data[i].csy150+")'>删除</button>&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data[i].csy150+")'>修改</button></td></tr>");
-	                        }
 	                    }
-	                });
+	                }
+	          });
 	}
 	/*获取人员类型*/
 	function getCsy010(){
@@ -168,23 +179,59 @@ $(function(){
 		var csy010=$("#csy010").val();
 		var csy150=$("#csy150").val();
 		var csy151=$("#csy151").val();
-		/* console.log(csy010+"==="+csy150+"==="+csy151);
-		var param={};
-		if(csy150){
-			param["csy150"]=csy150;
+		if(csy150==''){
+			csy150=null;
 		}
-		if(csy151){
-			param["csy151"]=csy151;
-		}
-		param["csy010"]=csy010;		 */
+		if(csy151==''){
+            csy151=null;
+        }
+		var sy15={
+			"csy010":csy010,
+			"csy150":csy150,
+			"csy151":csy151
+		};
 		$.ajax({
-            type:"POST",
-            url:"${pageContext.request.contextPath}/menu/queryMenuByCondition",
-            dataType:'json',
-            data:'{"csy010":'+csy010+',"csy150":'+csy150+',"csy151":'+csy151+'}',
+			 type:"POST",
+	         url:"${pageContext.request.contextPath}/menu/queryMenuByCondition",
+	         contentType:"application/json;charset=utf-8",
+	         data:JSON.stringify(sy15),
+	         dataType:"json",
             success:function(data){
-                console.log(data);
-            }
+            	$("#menuhead").siblings().remove();
+            	console.log(data);
+            	for (var i = 0; i < data.length; i++) {
+                    if(data[i].csy010==0){
+                          data[i].csy010='管理员';
+                      }
+                      if(data[i].csy010==1){
+                          data[i].csy010='学生';
+                      }
+                      if(data[i].csy010==2){
+                          data[i].csy010='科研人员';
+                      }
+                      if(data[i].csy010==3){
+                          data[i].csy010='教师';
+                      }
+                       $("#menulist").append(
+                                              "<tr><td style='width:20px'><input type='checkbox' id='"+data[i].csy150+"'/></td><td style='display:none'>"
+                                                      + data[i].csy150
+                                                      + "</td><td style='display:none'>"
+                                                      + data[i].csy157
+                                                      + "</td><td style='width:50px'>"
+                                                      + data[i].csy010
+                                                      + "</td><td style='width:50px'>"
+                                                      + data[i].csy151
+                                                      + "</td><td style='width:50px'>"
+                                                      + data[i].csy152
+                                                      + "</td><td style='width:50px'>"
+                                                      + data[i].csy153
+                                                      + "</td><td style='display:none'>"
+                                                      + data[i].csy154
+                                                      + "</td><td style='display:none'>"
+                                                      + data[i].csy155
+                                                      + "</td><td><button type='button' class='btn btn-primary btn-xs' onclick='deleteMenu("+data[i].csy150+")'>删除</button>&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data[i].csy150+")'>修改</button></td></tr>");
+                      }
+                 }
 		});
 	}
 	function changeMenu(menuid){

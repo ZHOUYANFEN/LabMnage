@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -124,10 +123,10 @@ public class MenuController {
      */
     @RequestMapping("/queryMenuByCondition")    
     @ResponseBody
-    public List<Sy15> queryMenuByCondition(HttpServletRequest request) throws Exception{
-        /*String paramString=request.getas
-        System.out.println(sy15);*/
-        return null;
+    public List<Sy15> queryMenuByCondition(@RequestBody Sy15 sy15) throws Exception{
+        System.out.println(sy15);
+        List<Sy15> list=menuService.queryMenuByCondition(sy15);
+        return list;
     }
     /**
      * 获取父级菜单
@@ -147,10 +146,14 @@ public class MenuController {
      */
     @RequestMapping("/savaMenu")    
     @ResponseBody
-    public Map savaMenu(String str) throws Exception{
-        menuService.saveMenu(str);
+    public Map savaMenu(@RequestBody Sy15 sy15) throws Exception{
+        boolean saveFlage= menuService.saveMenu(sy15);
         Map map= new HashMap<>();
-        map.put("statu", "1");
+        if(saveFlage==true){
+            map.put("statu", "1");
+        }else{
+            map.put("statu", "2");
+        }
         return map;
     }
     public String changeMenu(int csy150) throws Exception{

@@ -50,7 +50,8 @@
       select 
       <include refid="Base_Column_List" />
          from sy15
-        where csy156 = 0       
+        where csy156 = 0   
+        order by csy010     
    </select>
   
   <!-- 按照id删除菜单功能 --> 
@@ -71,13 +72,38 @@
    </select> 
    <!-- 添加菜单信息 -->
   <insert id="saveMenu" parameterType="com.bysj.cqjtu.index.domain.Sy15" >
-    insert into sy15 (CSY010, CSY151, 
-      CSY152, CSY153, CSY154, 
-      CSY155, CSY156, CSY157)
-    values (#{csy010,jdbcType=TINYINT}, #{csy151,jdbcType=VARCHAR}, 
-      #{csy152,jdbcType=VARCHAR}, #{csy153,jdbcType=VARCHAR}, #{csy154,jdbcType=TINYINT}, 
-      #{csy155,jdbcType=TINYINT}, #{csy156,jdbcType=TINYINT},#{csy157,jdbcType=VARCHAR})
+    insert into sy15 (CSY010, 
+                      CSY151, 
+                      CSY152,
+                      CSY153,
+                      CSY154, 
+                      CSY155,
+                      CSY156, 
+                      CSY157)
+              values (#{csy010,jdbcType=TINYINT}, 
+                      #{csy151,jdbcType=VARCHAR}, 
+                      #{csy152,jdbcType=VARCHAR}, 
+                      #{csy153,jdbcType=VARCHAR}, 
+                      #{csy154,jdbcType=TINYINT}, 
+                      #{csy155,jdbcType=TINYINT},
+                      #{csy156,jdbcType=TINYINT},
+                      #{csy157,jdbcType=VARCHAR})
   </insert>
+  
+   <!-- 按条件查询菜单信息 -->
+   <select id="queryMenuByCondition" resultMap="BaseResultMap" parameterType="com.bysj.cqjtu.index.domain.Sy15">
+      select 
+      <include refid="Base_Column_List" />
+         from sy15
+        where csy010 = #{csy010} 
+      <if test="csy150 != null" >
+          and csy150 = #{csy150}
+      </if>
+      <if test="csy151 != null" >
+          and csy151 = #{csy151}
+      </if>
+   </select>
+  
   
   
   

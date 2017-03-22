@@ -136,10 +136,23 @@ function savaMenu(){
 	array.push("csy153_txt:"+csy153_txt);
 	array.push("csy157_txt:"+csy157_txt);
 	var str=array.join(",");
+	var sy15={
+		"csy010":csy010,
+		"csy151":csy151_txt,
+		"csy152":csy152_txt,
+		"csy153":csy153_txt,
+		"csy154":csy154,
+		"csy155":csy155,
+		"csy157":csy157_txt,		
+	}
 	$.ajax({
         type:'POST',
-        url:"${pageContext.request.contextPath}/menu/savaMenu?str="+str,
+        url:"${pageContext.request.contextPath}/menu/savaMenu",
+        contentType:"application/json;charset=utf-8",
+        data:JSON.stringify(sy15),
+        dataType: "json",
         success:function(data){
+        	alert("增加成功");
         	$("#btnSave").attr("disabled",true);
         }
     });

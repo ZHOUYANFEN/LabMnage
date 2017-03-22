@@ -56,4 +56,10 @@ public interface Sy15Mapper {
      * @return
      */
     int saveMenu(Sy15 sy15);
+    /**
+     * 按条件查询菜单
+     * @param sy15
+     * @return
+     */
+    List<Sy15> queryMenuByCondition(Sy15 sy15);
 }

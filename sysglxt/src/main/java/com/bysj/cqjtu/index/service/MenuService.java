@@ -53,8 +53,15 @@ public interface MenuService {
     public List<Sy15> getParentMenu(Integer csy010) throws Exception;
     /**
      * 保存菜单
-     * @param str
+     * @param sy15
      * @throws Exception
      */
-    public void saveMenu(String str) throws Exception;
+    public boolean saveMenu(Sy15 sy15) throws Exception;
+    /**
+     * 按条件查询菜单
+     * @param sy15
+     * @return
+     * @throws Exception
+     */
+    public List<Sy15> queryMenuByCondition(Sy15 sy15) throws Exception;
 }

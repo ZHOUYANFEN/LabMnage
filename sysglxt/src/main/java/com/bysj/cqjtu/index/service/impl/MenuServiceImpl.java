@@ -56,46 +56,19 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
-    public void saveMenu(String str) throws Exception {
-        String []arr=str.split(",");
-        String []a;
-        Sy15 sy15=new Sy15();
-        for (String string : arr) {
-            a=string.split(":");
-            if("csy010".equals(a[0])){
-                sy15.setCsy010(Byte.parseByte(a[1]));
-            }
-            if("z_index".equals(a[0])){
-                sy15.setCsy154(Byte.parseByte(a[1]));
-                if("1".equals(a[1])){                  
-                    sy15.setCsy155(null);
-                }                
-            }
-            if("parentMenu".equals(a[0])){
-                if(!"null".equals(a[1])){
-                   sy15.setCsy155(Byte.parseByte(a[1]));
-                }
-            }
-            if("csy151_txt".equals(a[0])){
-                sy15.setCsy151(a[1]);
-            }
-            if("csy152_txt".equals(a[0])){
-                sy15.setCsy152(a[1]);
-            }
-            if("csy153_txt".equals(a[0])){
-                sy15.setCsy153(a[1]);
-            }
-            if("csy157_txt".equals(a[0])){
-                sy15.setCsy157(a[1]);
-            }
-        }
+    public boolean saveMenu(Sy15 sy15) throws Exception {       
         sy15.setCsy156(Byte.parseByte("0"));
-        System.out.println(sy15);
         int i=sy15Mapper.saveMenu(sy15);
         if(i!=1){
             throw new Exception("添加菜单失败");
         }
+        return true;
         
+    }
+
+    @Override
+    public List<Sy15> queryMenuByCondition(Sy15 sy15) throws Exception {
+        return sy15Mapper.queryMenuByCondition(sy15);
     }
 
 }

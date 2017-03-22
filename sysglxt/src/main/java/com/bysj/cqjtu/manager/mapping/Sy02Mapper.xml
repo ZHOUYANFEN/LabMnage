@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.manager.dao.Sy02Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.Sy02" >
+    <id column="CSY020" property="csy020" jdbcType="INTEGER" />
+    <result column="CSY010" property="csy010" jdbcType="TINYINT" />
+    <result column="CSY021" property="csy021" jdbcType="VARCHAR" />
+    <result column="CSY022" property="csy022" jdbcType="VARCHAR" />
+    <result column="CSY023" property="csy023" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY020, CSY010, CSY021, CSY022, CSY023
+  </sql>
+  
+  <!-- 查询所有的用户 -->
+   <select id="getAllUser" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+     from sy02
+    where csy023 = 0 
+    order by csy010 
+  </select>
+  
+  <!-- 删除用户 -->
+  <update id="deleteUser" parameterType="java.lang.Integer" >
+    update sy02
+       set csy023 = 1
+     where csy020 = #{csy020}
+  </update>
+  
+  
+  <!-- 按照条件查询用户 -->
+   <select id="queryMenuByCondition" resultMap="BaseResultMap" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
+     select 
+     <include refid="Base_Column_List" />
+       from sy02
+      where 1 = 1 
+      <if test="csy021 != null" >
+        and csy021 = #{csy021}
+      </if>
+      <if test="csy010 != null">
+        and csy010 =#{csy010}
+      </if>
+  </select>
+  <!-- 添加新用户 -->
+  <insert id="addUser" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
+    insert into sy02 (CSY010, CSY021, CSY022, CSY023)
+           values (#{csy010,jdbcType=TINYINT}, 
+                   #{csy021,jdbcType=VARCHAR}, 
+                   #{csy022,jdbcType=VARCHAR},
+                   #{csy023,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- 验证用户是否存在 -->
+  <select id="isExistUser" parameterType="com.bysj.cqjtu.manager.domain.Sy02" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+      from sy02
+     where csy023 = 0
+       and csy010 = #{csy010}
+       and csy021 = #{csy021}
+       and csy022 = #{csy022}
+  </select>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy02
+    where CSY020 = #{csy020,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy02
+    where CSY020 = #{csy020,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
+    insert into sy02 (CSY020, CSY010, CSY021, 
+      CSY022, CSY023)
+    values (#{csy020,jdbcType=INTEGER}, #{csy010,jdbcType=TINYINT}, #{csy021,jdbcType=VARCHAR}, 
+      #{csy022,jdbcType=VARCHAR}, #{csy023,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
+    insert into sy02
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy020 != null" >
+        CSY020,
+      </if>
+      <if test="csy010 != null" >
+        CSY010,
+      </if>
+      <if test="csy021 != null" >
+        CSY021,
+      </if>
+      <if test="csy022 != null" >
+        CSY022,
+      </if>
+      <if test="csy023 != null" >
+        CSY023,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy020 != null" >
+        #{csy020,jdbcType=INTEGER},
+      </if>
+      <if test="csy010 != null" >
+        #{csy010,jdbcType=TINYINT},
+      </if>
+      <if test="csy021 != null" >
+        #{csy021,jdbcType=VARCHAR},
+      </if>
+      <if test="csy022 != null" >
+        #{csy022,jdbcType=VARCHAR},
+      </if>
+      <if test="csy023 != null" >
+        #{csy023,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
+    update sy02
+    <set >
+      <if test="csy010 != null" >
+        CSY010 = #{csy010,jdbcType=TINYINT},
+      </if>
+      <if test="csy021 != null" >
+        CSY021 = #{csy021,jdbcType=VARCHAR},
+      </if>
+      <if test="csy022 != null" >
+        CSY022 = #{csy022,jdbcType=VARCHAR},
+      </if>
+      <if test="csy023 != null" >
+        CSY023 = #{csy023,jdbcType=TINYINT},
+      </if>
+    </set>
+    where CSY020 = #{csy020,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
+    update sy02
+    set CSY010 = #{csy010,jdbcType=TINYINT},
+      CSY021 = #{csy021,jdbcType=VARCHAR},
+      CSY022 = #{csy022,jdbcType=VARCHAR},
+      CSY023 = #{csy023,jdbcType=TINYINT}
+    where CSY020 = #{csy020,jdbcType=INTEGER}
+  </update>
+</mapper>
