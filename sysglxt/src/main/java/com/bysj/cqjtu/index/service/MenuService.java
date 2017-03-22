@@ -2,6 +2,7 @@ package com.bysj.cqjtu.index.service;
 
 import java.util.List;
 
+import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.index.domain.Sy15;
 
 /**
@@ -38,4 +39,22 @@ public interface MenuService {
      * @throws Exception
      */
     public boolean deleteMenuByCsy150(int csy150) throws Exception;
+    /**
+     * 获取人员类型
+     * @return
+     * @throws Exception
+     */
+    public List<Sy01> getCsy010() throws Exception;
+    /**
+     * 获取父级菜单
+     * @return
+     * @throws Exception
+     */
+    public List<Sy15> getParentMenu(Integer csy010) throws Exception;
+    /**
+     * 保存菜单
+     * @param str
+     * @throws Exception
+     */
+    public void saveMenu(String str) throws Exception;
 }

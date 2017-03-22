@@ -60,15 +60,27 @@
      where CSY150 = #{csy150,jdbcType=INTEGER}
   </update>
   
-  
-  <insert id="insert" parameterType="com.bysj.cqjtu.index.domain.Sy15" >
-    insert into sy15 (CSY150, CSY010, CSY151, 
+  <!-- 查询父级菜单 -->
+   <select id="getParentMenu" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+      select 
+      <include refid="Base_Column_List" />
+         from sy15
+        where csy156 = 0 
+          and csy155 is null
+          and csy010 = #{csy010}     
+   </select> 
+   <!-- 添加菜单信息 -->
+  <insert id="saveMenu" parameterType="com.bysj.cqjtu.index.domain.Sy15" >
+    insert into sy15 (CSY010, CSY151, 
       CSY152, CSY153, CSY154, 
-      CSY155, CSY156)
-    values (#{csy150,jdbcType=INTEGER}, #{csy010,jdbcType=TINYINT}, #{csy151,jdbcType=VARCHAR}, 
+      CSY155, CSY156, CSY157)
+    values (#{csy010,jdbcType=TINYINT}, #{csy151,jdbcType=VARCHAR}, 
       #{csy152,jdbcType=VARCHAR}, #{csy153,jdbcType=VARCHAR}, #{csy154,jdbcType=TINYINT}, 
-      #{csy155,jdbcType=TINYINT}, #{csy156,jdbcType=TINYINT})
+      #{csy155,jdbcType=TINYINT}, #{csy156,jdbcType=TINYINT},#{csy157,jdbcType=VARCHAR})
   </insert>
+  
+  
+  
   <insert id="insertSelective" parameterType="com.bysj.cqjtu.index.domain.Sy15" >
     insert into sy15
     <trim prefix="(" suffix=")" suffixOverrides="," >

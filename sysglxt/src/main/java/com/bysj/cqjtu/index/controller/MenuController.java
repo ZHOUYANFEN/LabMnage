@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.index.domain.Sy15;
 import com.bysj.cqjtu.index.service.MenuService;
 /**
@@ -101,5 +104,56 @@ public class MenuController {
             map.put("statu", 2);
         }
         return map;
+    }
+    /**
+     * 获取人员类型
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getCsy010")
+    @ResponseBody
+    public List<Sy01> getCsy010() throws Exception{        
+        return menuService.getCsy010();
+        
+    }
+    /**
+     * 按条件查询功能菜单
+     * @param param
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryMenuByCondition")    
+    @ResponseBody
+    public List<Sy15> queryMenuByCondition(HttpServletRequest request) throws Exception{
+        /*String paramString=request.getas
+        System.out.println(sy15);*/
+        return null;
+    }
+    /**
+     * 获取父级菜单
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getParentMenu")    
+    @ResponseBody
+    public List<Sy15> getParentMenu(Integer csy010) throws Exception{
+        return menuService.getParentMenu(csy010);
+    }
+    /**
+     * 保存菜单信息
+     * @param str
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/savaMenu")    
+    @ResponseBody
+    public Map savaMenu(String str) throws Exception{
+        menuService.saveMenu(str);
+        Map map= new HashMap<>();
+        map.put("statu", "1");
+        return map;
+    }
+    public String changeMenu(int csy150) throws Exception{
+        return "menuoperate";
     }
 }

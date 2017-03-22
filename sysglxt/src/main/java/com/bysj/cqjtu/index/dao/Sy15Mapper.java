@@ -45,4 +45,15 @@ public interface Sy15Mapper {
      * @return
      */
     int deleteMenuByCsy150(int csy150);
+    /**
+     * 查询父级菜单
+     * @return
+     */
+    List<Sy15> getParentMenu(Integer csy010);
+    /**
+     * 添加菜单
+     * @param sy15
+     * @return
+     */
+    int saveMenu(Sy15 sy15);
 }

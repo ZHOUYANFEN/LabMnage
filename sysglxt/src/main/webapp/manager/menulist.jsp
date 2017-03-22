@@ -35,15 +35,20 @@
                     修改功能
         </button>
     </div>
-    <div id="button_querymenu" style="margin-top:20px;margin-left:200px">
-                     功能id:<input type="text" name="menu_id" width="100px" >
-                     功能名称:<input type="text" name="menu_name" width="100px">
-        <button type="button" class="btn btn-default" aria-label="Left Align">
+    <div id="button_querymenu" style="margin-top:20px;margin-left:60px">
+                     功能id:<input type="text" name="csy150" width="100px" >
+                     功能名称:<input type="text" name="csy151" width="100px">
+         <div style="margin-right:190px;float:right" >
+            <label style="font-family:'黑体';font-size:16px">人员类型：</label>
+            <select style="width:150px;height:30px" id="csy010">              
+            </select>
+        </div>
+        <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-top:10px;margin-right:40px" onclick="queryMenuByCondition()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                       查询
         </button>        
     </div>
-     <div id="button_querymenu" style="margin-top:20px;margin-left:5px">
+     <div id="button_querymenu" style="margin-top:50px;margin-left:5px">
         <table class="table table-hover" id="menulist" style="font-size:10px">
             <tr style="width:800px;" id="menuhead">
                 <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox()"/></td>
@@ -64,6 +69,7 @@
 <script type="text/javascript">
 $(function(){
 	queryAllmenu();
+	getCsy010()
 	});
 	function queryAllmenu(){
 		$.ajax({
@@ -90,10 +96,23 @@ $(function(){
 	                                                    + data[i].csy154
 	                                                    + "</td><td style='display:none'>"
 	                                                    + data[i].csy155
-	                                                    + "</td><td><button type='button' class='btn btn-primary btn-xs' onclick='deleteMenu("+data[i].csy150+")'>删除</button>&nbsp<button type='button' class='btn btn-primary btn-xs' >修改</button></td></tr>");
+	                                                    + "</td><td><button type='button' class='btn btn-primary btn-xs' onclick='deleteMenu("+data[i].csy150+")'>删除</button>&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data[i].csy150+")'>修改</button></td></tr>");
 	                        }
 	                    }
 	                });
+	}
+	/*获取人员类型*/
+	function getCsy010(){
+		$("#csy010").empty();
+		$.ajax({
+            type:'POST',
+            url:"${pageContext.request.contextPath}/menu/getCsy010",
+            success:function(data){
+                for(var i=0;i<data.length;i++){
+                	$("#csy010").append("<option value ='"+data[i].csy010+"'>"+data[i].csy011+"</option>")
+                }
+            }
+		});
 	}
 	/*设置全选及全不选*/
 	function setCheckbox(){
@@ -143,6 +162,33 @@ $(function(){
                 }
             });
         }
+	}
+	/*按条件查询菜单*/
+	function queryMenuByCondition(){
+		var csy010=$("#csy010").val();
+		var csy150=$("#csy150").val();
+		var csy151=$("#csy151").val();
+		/* console.log(csy010+"==="+csy150+"==="+csy151);
+		var param={};
+		if(csy150){
+			param["csy150"]=csy150;
+		}
+		if(csy151){
+			param["csy151"]=csy151;
+		}
+		param["csy010"]=csy010;		 */
+		$.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath}/menu/queryMenuByCondition",
+            dataType:'json',
+            data:'{"csy010":'+csy010+',"csy150":'+csy150+',"csy151":'+csy151+'}',
+            success:function(data){
+                console.log(data);
+            }
+		});
+	}
+	function changeMenu(menuid){
+		window.open('${pageContext.request.contextPath}/menu/changeMenu?csy150='+menuid, 'newwindow', 'height=500, width=1000, top=150, left=200, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no'); 
 	}
 </script>
 </html>
