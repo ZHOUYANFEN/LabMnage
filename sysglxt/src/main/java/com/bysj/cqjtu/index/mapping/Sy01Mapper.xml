@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.index.dao.Sy01Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.index.domain.Sy01" >
+    <id column="CSY010" property="csy010" jdbcType="TINYINT" />
+    <result column="CSY011" property="csy011" jdbcType="VARCHAR" />
+    <result column="CSY012" property="csy012" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY010, CSY011, CSY012
+  </sql>
+  
+  
+  <!-- 查询用户类型 -->
+  <select id="getCsy010" resultMap="BaseResultMap">
+   select distinct  
+   <include refid="Base_Column_List" />
+                  from sy01
+                 where csy012 = 0
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Byte" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy01
+    where CSY010 = #{csy010,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte" >
+    delete from sy01
+    where CSY010 = #{csy010,jdbcType=TINYINT}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.index.domain.Sy01" >
+    insert into sy01 (CSY010, CSY011, CSY012
+      )
+    values (#{csy010,jdbcType=TINYINT}, #{csy011,jdbcType=VARCHAR}, #{csy012,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.index.domain.Sy01" >
+    insert into sy01
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy010 != null" >
+        CSY010,
+      </if>
+      <if test="csy011 != null" >
+        CSY011,
+      </if>
+      <if test="csy012 != null" >
+        CSY012,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy010 != null" >
+        #{csy010,jdbcType=TINYINT},
+      </if>
+      <if test="csy011 != null" >
+        #{csy011,jdbcType=VARCHAR},
+      </if>
+      <if test="csy012 != null" >
+        #{csy012,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.index.domain.Sy01" >
+    update sy01
+    <set >
+      <if test="csy011 != null" >
+        CSY011 = #{csy011,jdbcType=VARCHAR},
+      </if>
+      <if test="csy012 != null" >
+        CSY012 = #{csy012,jdbcType=TINYINT},
+      </if>
+    </set>
+    where CSY010 = #{csy010,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.index.domain.Sy01" >
+    update sy01
+    set CSY011 = #{csy011,jdbcType=VARCHAR},
+      CSY012 = #{csy012,jdbcType=TINYINT}
+    where CSY010 = #{csy010,jdbcType=TINYINT}
+  </update>
+</mapper>
