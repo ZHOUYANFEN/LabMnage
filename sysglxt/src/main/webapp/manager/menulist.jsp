@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
+    <!-- 弹窗css -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body style="font-family:'黑体';font-size:16px">
@@ -143,9 +146,9 @@ $(function(){
 					if(data.statu==1){
 						$("#menuhead").siblings().remove();
 						queryAllmenu();
-						alert("删除成功");
+						sweetAlert("删除成功");
 					}else{
-						alert("删除失败");
+						sweetAlert("删除失败");
 					}
 				}
 			});
@@ -166,9 +169,9 @@ $(function(){
                     if(data.statu==1){
                         $("#menuhead").siblings().remove();
                         queryAllmenu();
-                        alert("删除成功");
+                        sweetAlert("删除成功");
                     }else{
-                        alert("删除失败");
+                        sweetAlert("删除失败");
                     }
                 }
             });

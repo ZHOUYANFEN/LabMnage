@@ -3,9 +3,11 @@
 package com.bysj.cqjtu.manager.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -136,7 +138,6 @@ public class UserManagerController {
     @RequestMapping("/uploadFile")
     @ResponseBody
     public List uploadFile(String filename)throws Exception{
-        System.out.println(filename);
         List list=ExceltoList.excel2List(filename);
         return list;
     }
@@ -152,8 +153,9 @@ public class UserManagerController {
         //文件类型:btnFile[0].getContentType()  
         //文件名称:btnFile[0].getName()  
         if(btnFile[0].getSize()>Integer.MAX_VALUE){//文件长度  
-            //OutputUtil.jsonArrOutPut(response, JSONArray.fromObject("上传文件过大!"));  
-        }  
+            List list=new ArrayList();
+            list.add("error");  
+        }
         InputStream is = btnFile[0].getInputStream();//多文件也适用,我这里就一个文件  
         byte[] b = new byte[(int)btnFile[0].getSize()];  
         int read = 0;  
@@ -178,8 +180,28 @@ public class UserManagerController {
             sy02.setCsy010(Byte.parseByte(""+rowList.get(0)));
             sy02.setCsy021((String)rowList.get(1));
             sy02.setCsy022((String)rowList.get(2));
-            sy02List.add(sy02);
+            //验证是否存在
+            List<Sy02> isExist=userManagerService.isExistUser(sy02);
+            if(isExist.size()<=0){
+                sy02List.add(sy02);
+            }
         }      
         return sy02List;
     }
-}
+    @RequestMapping("/downloadExampl")
+    public void downloadExampl(HttpServletResponse response)throws Exception{
+        Map map = new HashMap();
+        String realPath = getClass().getResource("/").getFile().toString();;//获取当前项目的路径
+        String fileName = "//exaplefile//上传用户信息模板.xls";
+        //设置content-disposition响应头控制浏览器以下载的形式打开文件，中文文件名要使用URLEncoder.encode方法进行编码，否则会出现文件名乱码  
+        response.setHeader("content-disposition", "attachment;filename="+URLEncoder.encode("模板.xls", "UTF-8"));  
+        InputStream in = new FileInputStream(realPath+fileName);//获取文件输入流  
+        int len = 0;  
+        byte[] buffer = new byte[1024];  
+        OutputStream out = response.getOutputStream();  
+        while ((len = in.read(buffer)) > 0) {  
+            out.write(buffer,0,len);//将缓冲区的数据输出到客户端浏览器  
+        }  
+        in.close();  
+    }
+ }

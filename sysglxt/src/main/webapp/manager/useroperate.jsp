@@ -20,6 +20,9 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/jui/plupload/upload.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
+    <!-- 弹窗css -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body style="font-family:'黑体';font-size:16px">
@@ -46,7 +49,7 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     批量增加
         </button>
-         <button type="button" class="btn btn-default" aria-label="Left Align">
+         <button type="button" class="btn btn-default" aria-label="Left Align" onclick="downloadExampl()">
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                     模板下载
         </button>
@@ -74,6 +77,33 @@
         </table>
      </div>
     
+    
+    <!-- Modal -->
+	<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div id="button_querymenu" style="margin-top:30px;margin-left:60px">
+                <div style="float:left;margin-right:30px">
+                    <label style="font-family:'黑体';font-size:16px">用户类型：</label>
+                    <select style="width:100px;height:30px" id="csy010__change">              
+                    </select>     
+                </div>                    
+                                        用户名:<input type="text" name="csy021_change" width="100px" id="csy021__change" >
+                                        密码:<input type="text" name="csy022__change" width="100px" id="csy022__change">      
+          </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	        <button type="button" class="btn btn-primary">保存</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 <script type="text/javascript">
 $(function(){
@@ -107,7 +137,7 @@ $(function(){
                     		          +"<td >"+data[i].csy010+"</td>"
                     		          +"<td hidden='hidden'>"+data[i].csy022+"</td>"
                     		          +"<td><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>"
-                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data[i].csy020+")'>修改</button></td>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#myModal' onclick='changeMenu("+data[i].csy020+")'>修改</button></td>"
                     		          +"</tr>");
                 }
             }
@@ -145,9 +175,9 @@ $(function(){
 	            	if(data.statu==1){
                         $("#menuhead").siblings().remove();
                         getAllUser();
-                        alert("删除成功");
+                        sweetAlert("删除成功");
                     }else{
-                        alert("删除失败");
+                        sweetAlert("删除失败");
                     }
 	            }
 	        });
@@ -168,9 +198,9 @@ $(function(){
                     if(data.statu==1){
                         $("#menuhead").siblings().remove();
                         getAllUser();
-                        alert("删除成功");
+                        sweetAlert("删除成功");
                     }else{
-                        alert("删除失败");
+                        sweetAlert("删除失败");
                     }
                 }
             });
@@ -183,7 +213,7 @@ $(function(){
         var csy021=$("#csy021").val();
         var csy022=$("#csy022").val();
         if(!(csy010&&csy021&&csy022)){
-        	alert("所有信息必须填完");
+        	sweetAlert("所有信息必须填完");
         	return;
         }
         var sy02={
@@ -203,7 +233,7 @@ $(function(){
             	  $("#menuhead").siblings().remove();
             	  getAllUser();
               }else if(data.statu==0){
-            	  alert("已经存在该用户，请重新添加");
+            	  sweetAlert("已经存在该用户，请重新添加");
             	  $("#csy021").val("");
             	  $("#csy022").val("");
             	  return;
@@ -226,34 +256,50 @@ $(function(){
     }
 	/*读取文件*/
 	function readExcel(){
-		 $.ajaxFileUpload({  
-	            url:"${pageContext.request.contextPath}/userManager/readExcel", //用于文件上传的服务器端请求地址  
-	            secureuri: false, //一般设置为false  
-	            fileElementId: 'btnFile', //文件上传空间的id属性  
-	            dataType: 'json', //返回值类型 一般设置为json  
-	            type:"post",
-	            async : false,
+		 if (!(!!window.ActiveXObject || "ActiveXObject" in window)){
+			 $.ajaxFileUpload({  
+		            url:"${pageContext.request.contextPath}/userManager/readExcel", //用于文件上传的服务器端请求地址  
+		            secureuri: false, //一般设置为false  
+		            fileElementId: 'btnFile', //文件上传空间的id属性  
+		            dataType: 'json', //返回值类型 一般设置为json  
+		            type:"post",
+		            async : false,
+		            success:function(data){
+		            	sweetAlert("上传成功");
+		            	 $("#sy02").empty();
+		            	 $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
+		            			               +"<td >用户账号</td>"
+		            			               +"<td >用户类型</td>"
+		            			               +"<td >用户密码</td>"
+		            			               +"</tr>");
+		            	for(var i=0;i<data.length;i++){
+		            		$("#sy02").append("<tr style='width:800px;'>"
+		            			              +"<td >"+data[i].csy021+"</td>"
+		            			              +"<td >"+data[i].csy010+"</td>"
+		            			              +"<td >"+data[i].csy022+"</td>"
+		            			              +"</tr>");
+		            	}	        
+		            }, 
+		            error : function(data,status,e) {  		           
+		                sweetAlert("暂时支持.xls格式文件上传");  
+		            }  
+			 });
+		 }else{
+			 sweetAlert("暂时不支持ie浏览器");
+		 }
+	}
+	/*下载 批量上传用户信息的模板*/
+	function downloadExampl(){
+		 $.ajax({
+	            type:"POST",
+	            url:"${pageContext.request.contextPath}/userManager/downloadExampl",
+	            contentType:"application/json;charset=utf-8",
+	            dataType: "json",
+	            async: false,
 	            success:function(data){
-	            	alert("上传成功");
-	            	 $("#sy02").empty();
-	            	 $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
-	            			               +"<td >用户账号</td>"
-	            			               +"<td >用户类型</td>"
-	            			               +"<td >用户密码</td>"
-	            			               +"</tr>");
-	            	for(var i=0;i<data.length;i++){
-	            		$("#sy02").append("<tr style='width:800px;'>"
-	            			              +"<td >"+data[i].csy021+"</td>"
-	            			              +"<td >"+data[i].csy010+"</td>"
-	            			              +"<td >"+data[i].csy022+"</td>"
-	            			              +"</tr>");
-	            	}	        
-	            }, 
-	            error : function(data,status,e) {  
-	                alert('Operate Failed!');  
-	            }  
+	            	sweetAlert("下载成功");
+	            }
 		 });
-        
 	}
 </script>
 </html>

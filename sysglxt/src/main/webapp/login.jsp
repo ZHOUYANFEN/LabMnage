@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="<c:url value="resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>" />
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="<c:url value="resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"/>"></script>
+    <!-- 弹窗js -->
+    <script type="text/javascript" src="<c:url value="resources/sweetalert/sweet-alert.min.js"/>"></script>
+    <!-- 弹窗css -->
+    <link rel="stylesheet" type="text/css" href="<c:url value="resources/sweetalert/sweet-alert.css"/>">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body background="<c:url value="resources/img/log_bg2.jpg"/>" >  
@@ -58,11 +62,11 @@
                window.location.href = "${pageContext.request.contextPath}/login/index?username="+username+"&password="+password+"&csy010="+csy010;  
             }  
 		  /*  success : function() {
-			 alert("成功:"+rsult);  
+			 sweetAlert("成功:"+rsult);  
 		   },
 		   error:function(result){
 			   console.log(result);
-			   alert("失败"+result);
+			   sweetAlert("失败"+result);
 		   } */
 	   });
    }

@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
+    <!-- 弹窗css -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body style="font-family:'黑体';font-size:16px">
@@ -124,7 +127,7 @@ function savaMenu(){
 	var csy152_txt= $("#csy152_txt").val();
 	var csy153_txt= $("#csy153_txt").val();
 	if(!(csy157_txt&&csy151_txt&&csy152_txt&&csy153_txt)){
-		alert("菜单功能信息必须全部填写");
+		sweetAlert("菜单功能信息必须全部填写");
 		return;
 	}
 	var array=new Array();
@@ -152,7 +155,7 @@ function savaMenu(){
         data:JSON.stringify(sy15),
         dataType: "json",
         success:function(data){
-        	alert("增加成功");
+        	sweetAlert("增加成功");
         	$("#btnSave").attr("disabled",true);
         }
     });
