@@ -22,7 +22,7 @@
 </head>
 <body style="font-family:'黑体';font-size:16px">
     <div id="button_operatemenu" style="margin-top:50px;margin-left:340px">
-        <button type="button" class="btn btn-default" aria-label="Left Align">
+        <button type="button" class="btn btn-default" aria-label="Left Align" onclick="toaddpage()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                              增加用户
         </button>
@@ -196,6 +196,12 @@ $(function(){
     }
 	/*下载用户列表*/
 	function downloadUser(){
+		
+	}
+	/*跳转到增加页面*/
+	function toaddpage(){
+	
+		$(window.parent.document).find("name:iframe1").attr("src","${pageContext.request.contextPath}/manager/useroperate.jsp");
 		
 	}
 </script>

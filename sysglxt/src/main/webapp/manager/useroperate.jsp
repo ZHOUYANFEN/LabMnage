@@ -18,9 +18,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/jui/plupload/upload.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/ajaxfileupload.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
-<body style="font-family:'黑体';font-size:16px">  
+<body style="font-family:'黑体';font-size:16px">
+    <input id="basePath" value="${pageContext.request.contextPath}" style="display:none">
     <div id="button_querymenu" style="margin-top:30px;margin-left:60px">
         <div style="float:left;margin-right:30px">
             <label style="font-family:'黑体';font-size:16px">用户类型：</label>
@@ -34,8 +37,8 @@
                                  增加
         </button>        
     </div>
-     <div id="button_operatemenu" style="margin-top:30px;margin-left:340px">
-     <button type="button" class="btn btn-default" aria-label="Left Align" onclick="deleteMenuBatch()">
+     <div id="button_operatemenu" style="margin-top:30px;margin-left:100px">
+        <button type="button" class="btn btn-default" aria-label="Left Align" onclick="deleteMenuBatch()">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     批量删除
         </button>
@@ -43,22 +46,29 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     批量增加
         </button>
-        <button type="button" class="btn btn-default" aria-label="Left Align">
-            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-                    导入文件
-        </button>
          <button type="button" class="btn btn-default" aria-label="Left Align">
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                     模板下载
         </button>
-    </div>
-     <div id="button_querymenu" style="margin-top:20px;margin-left:5px">
+        <!--  <button type="button" class="btn btn-default" aria-label="Left Align" onclick="uploadFile()">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                    导入文件
+        </button> -->
+     </div>
+     <div style="float:right;margin-right:300px;margin-top:-35px">
+        <input type="file" id="btnFile" name="btnFile" class="btn btn-default" aria-label="Left Align" onchange="readExcel()">
+            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                    导入文件
+        </input>
+     </div>
+     <div id="button_querymenu" style="margin-top:30px;margin-left:5px">
         <table class="table table-hover" id="sy02" style="font-size:10px" >
             <tr style="width:800px;" id="menuhead">
                 <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox()"/></td>
                 <td >用户id</td>
                 <td >用户账号</td>
                 <td >用户类型</td>
+                <td hidden="hidden">用户密码</td>
                 <td >操作</td>
             </tr>
         </table>
@@ -90,7 +100,15 @@ $(function(){
                 	if(data[i].csy010==3){
                         data[i].csy010='教师';
                     }
-                    $("#sy02").append("<tr style='width:800px;'><td style='width:20px'><input input type='checkbox' id='"+data[i].csy020+"'/></td><td >"+data[i].csy020+"</td><td >"+data[i].csy021+"</td><td >"+data[i].csy010+"</td><td><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data[i].csy020+")'>修改</button></td></tr></tr>");
+                    $("#sy02").append("<tr style='width:800px;'>"
+                    		          +"<td style='width:20px'><input input type='checkbox' id='"+data[i].csy020+"'/></td>"
+                    		          +"<td >"+data[i].csy020+"</td>"
+                    		          +"<td >"+data[i].csy021+"</td>"
+                    		          +"<td >"+data[i].csy010+"</td>"
+                    		          +"<td hidden='hidden'>"+data[i].csy022+"</td>"
+                    		          +"<td><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data[i].csy020+")'>修改</button></td>"
+                    		          +"</tr>");
                 }
             }
         });
@@ -184,8 +202,7 @@ $(function(){
             	  $("#btnSave").attr("disabled",true);
             	  $("#menuhead").siblings().remove();
             	  getAllUser();
-              }
-              if(data.statu==0){
+              }else if(data.statu==0){
             	  alert("已经存在该用户，请重新添加");
             	  $("#csy021").val("");
             	  $("#csy022").val("");
@@ -193,6 +210,50 @@ $(function(){
               }
             }
         });
+	}
+	/*上传文件*/
+	function uploadFile(){
+		var file=$("#file").val();
+		makerUpload(false,spAttach,1,file);
+	}
+	function spAttach(returnVal){
+        if (returnVal.files && returnVal.files.length > 0) {
+            $("#fk_files").empty();
+            $.each(returnVal.files,function(i, n) {               
+               
+            });
+        }
+    }
+	/*读取文件*/
+	function readExcel(){
+		 $.ajaxFileUpload({  
+	            url:"${pageContext.request.contextPath}/userManager/readExcel", //用于文件上传的服务器端请求地址  
+	            secureuri: false, //一般设置为false  
+	            fileElementId: 'btnFile', //文件上传空间的id属性  
+	            dataType: 'json', //返回值类型 一般设置为json  
+	            type:"post",
+	            async : false,
+	            success:function(data){
+	            	alert("上传成功");
+	            	 $("#sy02").empty();
+	            	 $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
+	            			               +"<td >用户账号</td>"
+	            			               +"<td >用户类型</td>"
+	            			               +"<td >用户密码</td>"
+	            			               +"</tr>");
+	            	for(var i=0;i<data.length;i++){
+	            		$("#sy02").append("<tr style='width:800px;'>"
+	            			              +"<td >"+data[i].csy021+"</td>"
+	            			              +"<td >"+data[i].csy010+"</td>"
+	            			              +"<td >"+data[i].csy022+"</td>"
+	            			              +"</tr>");
+	            	}	        
+	            }, 
+	            error : function(data,status,e) {  
+	                alert('Operate Failed!');  
+	            }  
+		 });
+        
 	}
 </script>
 </html>
