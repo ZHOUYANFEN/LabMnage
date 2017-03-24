@@ -19,6 +19,7 @@
   </select>
   
   <!-- 添加科研人员 -->
+
   <insert id="addSy03" parameterType="com.bysj.cqjtu.manager.domain.Sy03" >
     insert into sy03 (CSY020, 
                       CSY031, 
