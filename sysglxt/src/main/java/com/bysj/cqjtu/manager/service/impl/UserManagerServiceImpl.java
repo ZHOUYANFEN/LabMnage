@@ -131,12 +131,10 @@ public class UserManagerServiceImpl implements UserManagerService {
     }
 
     @Override
-    public UserMessage getUserMessage(Sy02 sy02) throws Exception {
-        UserMessage userMessage=new UserMessage();
-        if(OperateStatu.TYPE_STUDENT==sy02.getCsy010()){
-            userMessage=sy02Mapper.getUserMessageOfStudent(sy02);
-        }
-        return userMessage;
+    public Map getUserMessage(Sy02 sy02) throws Exception {
+        Map map=new HashMap();
+        map=sy02Mapper.getUserMessage(sy02);
+        return map;
     }
 
 

@@ -518,7 +518,23 @@ $(function(){
              data:JSON.stringify(sy02),
              dataType: "json",
              success:function(data){
-                 console.log(data);
+            	 console.log(data.CSY021);
+            	 $("#csy021_model").val(data.CSY021);
+                 $("#csy022_model").val(data.CSY022);
+            	 if(csy010==1){
+	                 $("#csy040_model").val(data.CSY040);
+	                 $("#csy041_model").val(data.CSY041);
+	                 $("#csy042_model").val(data.CSY042);
+	                 $("#csy043_model").val(data.CSY043);	                 	                 
+            	 }else if(csy010==2){
+            		 $("#csy051_model").val(data.CSY051);
+                     $("#csy052_model").val(data.CSY052);
+                     $("#csy053_model").val(data.CSY053);
+            	 }else if(csy010==3){
+            		 $("#csy031_model").val(data.CSY031);
+                     $("#csy032_model").val(data.CSY032);
+            	 }
+                 
              }
       });
 	} 
@@ -600,7 +616,7 @@ $(function(){
 		                case "31":
 		                    sweetAlert("添加科研人员成功");
 		                    $("#btnSaveBatch").attr("disabled",true);
-		                    creatTable()
+		                    creatTable();
 		                    break;
 		                case "40":
 		                    sweetAlert("添加学生失败");
@@ -608,7 +624,7 @@ $(function(){
 		                case "41":
 		                    sweetAlert("添加学生成功");
 		                    $("#btnSaveBatch").attr("disabled",true);
-		                    creatTable()
+		                    creatTable();
 		                    break;
 		                case "42":
 		                    sweetAlert("已经存在该学生");
@@ -619,7 +635,7 @@ $(function(){
 		                case "51":
 		                    sweetAlert("添加教师成功");
 		                    $("#btnSaveBatch").attr("disabled",true);
-		                    creatTable()
+		                    creatTable();
 		                    break;
 		                default:break;
 		                }

@@ -283,9 +283,9 @@ public class UserManagerController {
      */
     @RequestMapping("/userDetail")
     @ResponseBody
-    public UserMessage userDetail(@RequestBody Sy02 sy02) throws Exception{
-        UserMessage userMessage=userManagerService.getUserMessage(sy02);
-        return userMessage;
+    public Map userDetail(@RequestBody Sy02 sy02) throws Exception{
+        Map map=userManagerService.getUserMessage(sy02);
+        return map;
     }
     @RequestMapping("/addUserBacth")
     @ResponseBody

@@ -64,31 +64,40 @@
        and csy021 = #{csy021}
   </select>
   
-  <!-- 获取员工详细信息 -->
-  <select id="getUserMessageOfStudent" parameterType="com.bysj.cqjtu.manager.domain.Sy02" resultType="com.bysj.cqjtu.manager.pojo.UserMessage">
-    select sy02.csy010 as sy02.csy010,
-           sy04.csy041 as sy04.csy041
+  <!-- 获取学生详细信息 -->
+  <select id="getUserMessage" parameterType="com.bysj.cqjtu.manager.domain.Sy02" resultType="java.util.HashMap">
+    select sy02.*,
+    <if test="csy010==1">
+           sy04.*
      from  sy04 sy04,
            sy02 sy02
     where  sy02.csy023 = 0
       and  sy02.csy020 = sy04.csy020
       and  sy02.csy020 = #{csy020}
-      and  sy02.csy010 = #{csy010}       
-   <!--  <if test="csy010 == 2">
+      and  sy02.csy010 = #{csy010}
+    </if>
+    <if test="csy010==2">
            sy05.*
      from  sy05 sy05,
            sy02 sy02
     where  sy02.csy023 = 0
-       and sy02.csy020 = sy05.csy020
-       and sy02.csy020 = #{csy020}
-    <if test="csy010 == 3">
+      and  sy02.csy020 = sy05.csy020
+      and  sy02.csy020 = #{csy020}
+      and  sy02.csy010 = #{csy010}
+    </if>
+    <if test="csy010==3">
            sy03.*
      from  sy03 sy03,
            sy02 sy02
     where  sy02.csy023 = 0
-       and sy02.csy020 = sy03.csy020
-       and sy02.csy020 = #{csy020}    -->
+      and  sy02.csy020 = sy03.csy020
+      and  sy02.csy020 = #{csy020}
+      and  sy02.csy010 = #{csy010}
+    </if>       
   </select>
+  
+
+  
   
 
   

@@ -1,9 +1,9 @@
 package com.bysj.cqjtu.manager.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy02;
-import com.bysj.cqjtu.manager.pojo.UserMessage;
 
 public interface Sy02Mapper {
     int deleteByPrimaryKey(Integer csy020);
@@ -52,5 +52,15 @@ public interface Sy02Mapper {
      * 查询用户详细信息
      * @return
      */
-    UserMessage getUserMessageOfStudent(Sy02 sy02);
+    Map getUserMessage(Sy02 sy02);
+    /**
+     * 查询教师详细信息
+     * @return
+     *//*
+    Map getUserMessageOfTeacher(Sy02 sy02);
+    *//**
+     * 查询科研人员详细信息
+     * @return
+     *//*
+    Map getUserMessageOfTecho(Sy02 sy02);*/
   }

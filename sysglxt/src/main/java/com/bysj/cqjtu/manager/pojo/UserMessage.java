@@ -6,11 +6,9 @@ import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy05;
 
 /**
-<<<<<<< HEAD
+
  * 封装类，用于保存信息
-=======
- * 封装类，用于保存学生信息
->>>>>>> 24977a28313ea6997bc7eb1c6daa4427aaaa302a
+
  * @author fuzhengjun
  *2017年3月24日上午9:58:54
  *

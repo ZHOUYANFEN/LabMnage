@@ -52,6 +52,6 @@ public interface UserManagerService {
      * @return
      * @throws Exception
      */
-    public UserMessage getUserMessage(Sy02 sy02) throws Exception;
+    public Map getUserMessage(Sy02 sy02) throws Exception;
     
 }
