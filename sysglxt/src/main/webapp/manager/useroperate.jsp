@@ -600,7 +600,7 @@ $(function(){
 		                case "31":
 		                    sweetAlert("添加科研人员成功");
 		                    $("#btnSaveBatch").attr("disabled",true);
-		                    creatTable()
+		                    creatTable();
 		                    break;
 		                case "40":
 		                    sweetAlert("添加学生失败");
@@ -608,7 +608,7 @@ $(function(){
 		                case "41":
 		                    sweetAlert("添加学生成功");
 		                    $("#btnSaveBatch").attr("disabled",true);
-		                    creatTable()
+		                    creatTable();
 		                    break;
 		                case "42":
 		                    sweetAlert("已经存在该学生");
@@ -619,7 +619,7 @@ $(function(){
 		                case "51":
 		                    sweetAlert("添加教师成功");
 		                    $("#btnSaveBatch").attr("disabled",true);
-		                    creatTable()
+		                    creatTable();
 		                    break;
 		                default:break;
 		                }
