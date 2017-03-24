@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.manager.dao.Sy05Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.Sy05" >
+    <id column="CSY050" property="csy050" jdbcType="INTEGER" />
+    <result column="CSY020" property="csy020" jdbcType="VARCHAR" />
+    <result column="CSY051" property="csy051" jdbcType="VARCHAR" />
+    <result column="CSY052" property="csy052" jdbcType="VARCHAR" />
+    <result column="CSY053" property="csy053" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY050, CSY020, CSY051, CSY052, CSY053
+  </sql>
+  
+  <!-- 验证教师是否存在 -->
+  <select id="isExistSy05" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy05
+    where CSY050 = #{csy050,jdbcType=INTEGER}
+  </select>
+  <!-- 添加教师表 -->
+   <insert id="addSy05" parameterType="com.bysj.cqjtu.manager.domain.Sy05" >
+    insert into sy05 (CSY020, 
+                      CSY051, 
+                      CSY052, 
+                      CSY053)
+               values (#{csy020,jdbcType=VARCHAR}, 
+                       #{csy051,jdbcType=VARCHAR}, 
+                       #{csy052,jdbcType=VARCHAR}, 
+                       #{csy053,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy05
+    where CSY050 = #{csy050,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy05
+    where CSY050 = #{csy050,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Sy05" >
+    insert into sy05 (CSY050, CSY020, CSY051, 
+      CSY052, CSY053)
+    values (#{csy050,jdbcType=INTEGER}, #{csy020,jdbcType=VARCHAR}, #{csy051,jdbcType=VARCHAR}, 
+      #{csy052,jdbcType=VARCHAR}, #{csy053,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Sy05" >
+    insert into sy05
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy050 != null" >
+        CSY050,
+      </if>
+      <if test="csy020 != null" >
+        CSY020,
+      </if>
+      <if test="csy051 != null" >
+        CSY051,
+      </if>
+      <if test="csy052 != null" >
+        CSY052,
+      </if>
+      <if test="csy053 != null" >
+        CSY053,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy050 != null" >
+        #{csy050,jdbcType=INTEGER},
+      </if>
+      <if test="csy020 != null" >
+        #{csy020,jdbcType=VARCHAR},
+      </if>
+      <if test="csy051 != null" >
+        #{csy051,jdbcType=VARCHAR},
+      </if>
+      <if test="csy052 != null" >
+        #{csy052,jdbcType=VARCHAR},
+      </if>
+      <if test="csy053 != null" >
+        #{csy053,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.Sy05" >
+    update sy05
+    <set >
+      <if test="csy020 != null" >
+        CSY020 = #{csy020,jdbcType=VARCHAR},
+      </if>
+      <if test="csy051 != null" >
+        CSY051 = #{csy051,jdbcType=VARCHAR},
+      </if>
+      <if test="csy052 != null" >
+        CSY052 = #{csy052,jdbcType=VARCHAR},
+      </if>
+      <if test="csy053 != null" >
+        CSY053 = #{csy053,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CSY050 = #{csy050,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Sy05" >
+    update sy05
+    set CSY020 = #{csy020,jdbcType=VARCHAR},
+      CSY051 = #{csy051,jdbcType=VARCHAR},
+      CSY052 = #{csy052,jdbcType=VARCHAR},
+      CSY053 = #{csy053,jdbcType=VARCHAR}
+    where CSY050 = #{csy050,jdbcType=INTEGER}
+  </update>
+</mapper>

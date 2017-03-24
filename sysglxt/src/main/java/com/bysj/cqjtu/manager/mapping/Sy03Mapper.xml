@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.manager.dao.Sy03Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.Sy03" >
+    <id column="CSY030" property="csy030" jdbcType="INTEGER" />
+    <result column="CSY020" property="csy020" jdbcType="VARCHAR" />
+    <result column="CSY031" property="csy031" jdbcType="VARCHAR" />
+    <result column="CSY032" property="csy032" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY030, CSY020, CSY031, CSY032
+  </sql>
+  <!-- 验证科研人员是否存在 -->
+  <select id="isExistSy03" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy03
+    where CSY030 = #{csy030,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 添加科研人员 -->
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Sy03" >
+    insert into sy03 (CSY020, 
+                      CSY031, 
+                      CSY032)
+              values (#{csy020,jdbcType=VARCHAR}, 
+                      #{csy031,jdbcType=VARCHAR}, 
+                      #{csy032,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy03
+    where CSY030 = #{csy030,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy03
+    where CSY030 = #{csy030,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Sy03" >
+    insert into sy03 (CSY030, CSY020, CSY031, 
+      CSY032)
+    values (#{csy030,jdbcType=INTEGER}, #{csy020,jdbcType=VARCHAR}, #{csy031,jdbcType=VARCHAR}, 
+      #{csy032,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Sy03" >
+    insert into sy03
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy030 != null" >
+        CSY030,
+      </if>
+      <if test="csy020 != null" >
+        CSY020,
+      </if>
+      <if test="csy031 != null" >
+        CSY031,
+      </if>
+      <if test="csy032 != null" >
+        CSY032,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy030 != null" >
+        #{csy030,jdbcType=INTEGER},
+      </if>
+      <if test="csy020 != null" >
+        #{csy020,jdbcType=VARCHAR},
+      </if>
+      <if test="csy031 != null" >
+        #{csy031,jdbcType=VARCHAR},
+      </if>
+      <if test="csy032 != null" >
+        #{csy032,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.Sy03" >
+    update sy03
+    <set >
+      <if test="csy020 != null" >
+        CSY020 = #{csy020,jdbcType=VARCHAR},
+      </if>
+      <if test="csy031 != null" >
+        CSY031 = #{csy031,jdbcType=VARCHAR},
+      </if>
+      <if test="csy032 != null" >
+        CSY032 = #{csy032,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CSY030 = #{csy030,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Sy03" >
+    update sy03
+    set CSY020 = #{csy020,jdbcType=VARCHAR},
+      CSY031 = #{csy031,jdbcType=VARCHAR},
+      CSY032 = #{csy032,jdbcType=VARCHAR}
+    where CSY030 = #{csy030,jdbcType=INTEGER}
+  </update>
+</mapper>
