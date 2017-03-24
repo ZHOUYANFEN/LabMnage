@@ -27,7 +27,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.domain.Sy02;
+import com.bysj.cqjtu.manager.domain.Sy03;
+import com.bysj.cqjtu.manager.domain.Sy04;
+import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.manager.service.UserManagerService;
 import com.bysj.cqjtu.util.ExceltoList;
@@ -66,9 +70,9 @@ public class UserManagerController {
        boolean deleteFlag=userManagerService.deleteUser(csy020);
        Map map=new HashMap();
        if(deleteFlag==true){
-           map.put("statu", "1");
+           map.put("statu", OperateStatu.DELETE_SUCCESS);
        }else{
-           map.put("statu", "2");
+           map.put("statu", OperateStatu.DELETE_FAIL);
        }
        return map;
     }
@@ -92,9 +96,9 @@ public class UserManagerController {
         }
         Map map=new HashMap();
         if(j==arr.length){           
-            map.put("statu", 1);
+            map.put("statu", OperateStatu.DELETE_SUCCESS);
         }else {
-            map.put("statu", 2);
+            map.put("statu", OperateStatu.DELETE_FAIL);
         }
         return map;
     }
@@ -142,45 +146,109 @@ public class UserManagerController {
      */
     @RequestMapping("/readExcel")
     @ResponseBody
-    public List readExcel(@RequestParam MultipartFile[] btnFile, HttpServletRequest request, HttpServletResponse response)throws Exception{
+    public List readExcel(@RequestParam MultipartFile[] btnFile, HttpServletRequest request, HttpServletResponse response,Integer csy010)throws Exception{
         //文件类型:btnFile[0].getContentType()  
-        //文件名称:btnFile[0].getName()  
-        if(btnFile[0].getSize()>Integer.MAX_VALUE){//文件长度  
-            List list=new ArrayList();
-            list.add("error");  
-        }
-        InputStream is = btnFile[0].getInputStream();//多文件也适用,我这里就一个文件  
-        byte[] b = new byte[(int)btnFile[0].getSize()];  
-        int read = 0;  
-        int i = 0;  
-        while((read=is.read())!=-1){  
-            b[i] = (byte) read;  
-            i++;  
-        }  
-        is.close(); 
-        String newfilename="D://"+btnFile[0].getOriginalFilename();
-        OutputStream os = new FileOutputStream(new File(newfilename));
-        os.write(b);  
-        os.flush();  
-        os.close();
-        //上传完毕
-        //数据处理
-        //读取到list
-        List<List> list=ExceltoList.excel2List(newfilename);
+        //文件名称:btnFile[0].getName()
         List sy02List=new ArrayList();
-        for (List rowList : list) {
-            Sy02 sy02=new Sy02();
-            sy02.setCsy010(Byte.parseByte(""+rowList.get(0)));
-            sy02.setCsy021((String)rowList.get(1));
-            sy02.setCsy022((String)rowList.get(2));
-            //验证是否存在
-            List<Sy02> isExist=userManagerService.isExistUser(sy02);
-            if(isExist.size()<=0){
-                sy02List.add(sy02);
+        if(btnFile[0].getSize()>Integer.MAX_VALUE){//文件长度  
+            sy02List.add("error");  
+        }else{
+            InputStream is = btnFile[0].getInputStream();//多文件也适用,我这里就一个文件  
+            byte[] b = new byte[(int)btnFile[0].getSize()];  
+            int read = 0;  
+            int i = 0;  
+            while((read=is.read())!=-1){  
+                b[i] = (byte) read;  
+                i++;  
+            }  
+            is.close(); 
+            String newfilename="D://"+btnFile[0].getOriginalFilename();
+            OutputStream os = new FileOutputStream(new File(newfilename));
+            os.write(b);  
+            os.flush();  
+            os.close();
+            //上传完毕
+            //数据处理
+            //读取到list
+            List<Integer> rowAndCol=ExceltoList.getExcelRowsAndCols(newfilename);
+            if(csy010==OperateStatu.TYPE_STUDENT&&rowAndCol.get(1)==7){
+                List<List> list=ExceltoList.excel2List(newfilename); 
+               
+                for (List rowList : list) {  
+                    UserMessage userMessage=new UserMessage();
+                    Sy02 sy02=new Sy02();
+                    Sy04 sy04=new Sy04();
+                    sy02.setCsy010(Byte.parseByte(rowList.get(0).toString()));
+                    sy02.setCsy021((String)rowList.get(1));
+                    sy02.setCsy022((String)rowList.get(2));
+                    sy04.setCsy040((String)rowList.get(3));
+                    sy04.setCsy041((String)rowList.get(4));
+                    sy04.setCsy042((String)rowList.get(5));
+                    sy04.setCsy043((String)rowList.get(6));
+                    userMessage.setSy02(sy02);
+                    userMessage.setSy04(sy04);
+                    //验证是否存在
+                    List<Sy02> isExistSy02=userManagerService.isExistUser(userMessage.getSy02());
+                    if(isExistSy02.size()<=0&&sy02.getCsy010()==OperateStatu.TYPE_STUDENT){
+                        sy02List.add(userMessage);
+                    }
+                }      
+            }else if(csy010==OperateStatu.TYPE_TECHO&&rowAndCol.get(1)==OperateStatu.TECHO_FILE_COLS){
+                    List<List> list=ExceltoList.excel2List(newfilename); 
+                   
+                    for (List rowList : list) {  
+                        UserMessage userMessage=new UserMessage();
+                        Sy02 sy02=new Sy02();
+                        Sy03 sy03=new Sy03();
+                        sy02.setCsy010(Byte.parseByte(rowList.get(0).toString()));
+                        sy02.setCsy021((String)rowList.get(1));
+                        sy02.setCsy022((String)rowList.get(2));
+                        sy03.setCsy031((String)rowList.get(3));
+                        sy03.setCsy032((String)rowList.get(4));
+                        userMessage.setSy02(sy02);
+                        userMessage.setSy03(sy03);
+                        //验证是否存在
+                        List<Sy02> isExistSy02=userManagerService.isExistUser(userMessage.getSy02());
+                        if(isExistSy02.size()<=0&&sy02.getCsy010()==OperateStatu.TYPE_TECHO){
+                            sy02List.add(userMessage);
+                        }
+                    }
+            }else if(csy010==OperateStatu.TYPE_TEACHER&&rowAndCol.get(1)==OperateStatu.TEACHER_FILE_COLS){
+                List<List> list=ExceltoList.excel2List(newfilename); 
+                
+                for (List rowList : list) {  
+                    UserMessage userMessage=new UserMessage();
+                    Sy02 sy02=new Sy02();
+                    Sy05 sy05=new Sy05();
+                    sy02.setCsy010(Byte.parseByte(rowList.get(0).toString()));
+                    sy02.setCsy021((String)rowList.get(1));
+                    sy02.setCsy022((String)rowList.get(2));
+                    sy05.setCsy051((String)rowList.get(3));
+                    sy05.setCsy052((String)rowList.get(4));
+                    sy05.setCsy053((String)rowList.get(5));
+                    userMessage.setSy02(sy02);
+                    userMessage.setSy05(sy05);
+                    //验证是否存在
+                    List<Sy02> isExistSy02=userManagerService.isExistUser(userMessage.getSy02());
+                    if(isExistSy02.size()<=0&&sy02.getCsy010()==OperateStatu.TYPE_TEACHER){
+                        sy02List.add(userMessage);
+                    }
+                }
+            }else {
+                sy02List.add("filefail");
             }
-        }      
+            File file=new File(newfilename);
+            if(file.exists()){
+                file.delete();
+            }
+        }        
         return sy02List;
     }
+    /**
+     * 下载文件
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/downloadExampl")
     public ResponseEntity<byte[]>  downloadExampl()throws Exception{
       /*  String realPath = getClass().getResource("/").getFile().toString();//获取当前项目的路径
@@ -218,5 +286,14 @@ public class UserManagerController {
     public UserMessage userDetail(@RequestBody Sy02 sy02) throws Exception{
         UserMessage userMessage=userManagerService.getUserMessage(sy02);
         return userMessage;
+    }
+    @RequestMapping("/addUserBacth")
+    @ResponseBody
+    public Map addUserBacth(Integer csy010,@RequestBody UserMessage[] userMessage)throws Exception{
+        Map map=new HashMap();
+        for (UserMessage userMessage2 : userMessage) {
+           map=userManagerService.addUser(userMessage2);
+        }       
+        return map;
     }
  }

@@ -92,7 +92,15 @@ $(function(){
                 	if(data[i].csy010==3){
                         data[i].csy010='教师';
                     }
-                    $("#sy02").append("<tr style='width:800px;'><td style='width:20px'><input input type='checkbox' id='"+data[i].csy020+"'/></td><td >"+data[i].csy020+"</td><td >"+data[i].csy021+"</td><td >"+data[i].csy010+"</td><td><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data[i].csy020+")'>修改</button></td></tr></tr>");
+                    $("#sy02").append("<tr style='width:800px;'>"
+                    		          "+<td style='width:20px'><input input type='checkbox' id='"+data[i].csy020+"'/></td>"
+                    		          +"<td >"+data[i].csy020+"</td>"
+                    		          +"<td >"+data[i].csy021+"</td>"
+                    		          +"<td >"+data[i].csy010+"</td>"
+                    		          +"<td><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeUser("+data[i].csy020+","+data[i].csy010+")'>修改</button></td>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+")'>详情</button></td>"
+                                      +"</tr>");
                 }
             }
         });
@@ -187,10 +195,10 @@ $(function(){
                         data[i].csy010='学生';
                     }
                     if(data[i].csy010==2){
-                        data[i].csy010='科研人员';
+                        data[i].csy010='教师';
                     }
                     if(data[i].csy010==3){
-                        data[i].csy010='教师';
+                        data[i].csy010='科研人员';
                     }
                     $("#sy02").append("<tr style='width:800px;'><td style='width:20px'><input input type='checkbox' id='"+data[i].csy020+"'/></td><td >"+data[i].csy020+"</td><td >"+data[i].csy021+"</td><td >"+data[i].csy010+"</td><td><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data[i].csy020+")'>修改</button></td></tr></tr>");
                 }

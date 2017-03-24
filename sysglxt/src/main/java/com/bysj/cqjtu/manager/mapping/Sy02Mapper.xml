@@ -66,8 +66,8 @@
   
   <!-- 获取员工详细信息 -->
   <select id="getUserMessageOfStudent" parameterType="com.bysj.cqjtu.manager.domain.Sy02" resultType="com.bysj.cqjtu.manager.pojo.UserMessage">
-    select sy02.*,
-           sy04.*
+    select sy02.csy010 as sy02.csy010,
+           sy04.csy041 as sy04.csy041
      from  sy04 sy04,
            sy02 sy02
     where  sy02.csy023 = 0

@@ -60,11 +60,11 @@
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     批量删除
         </button>
-        <button type="button" class="btn btn-default" aria-label="Left Align" onclick="addUserBacth()">
+        <button type="button" class="btn btn-default" aria-label="Left Align" disabled="disabled" id="btnSaveBatch" onclick="addUserBacth()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     批量增加
         </button>
-         <button type="button" class="btn btn-default" aria-label="Left Align" onclick="downloadExampl()">
+         <button type="button" class="btn btn-default" aria-label="Left Align"  onclick="downloadExampl()">
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                     模板下载
         </button>
@@ -168,8 +168,7 @@ $(function(){
                     		          +"<td style='width:20px'><input input type='checkbox' id='"+data[i].csy020+"'/></td>"
                     		          +"<td >"+data[i].csy020+"</td>"
                     		          +"<td >"+data[i].csy021+"</td>"
-                    		          +"<td >"+data[i].csy010+"</td>"
-                    		          +"<td hidden='hidden'>"+data[i].csy022+"</td>"
+                    		          +"<td >"+data[i].csy010+"</td>"                    		  
                     		          +"<td style='width:300px'><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>"
                     		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+")'>修改</button>"
                     		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+")'>详情</button></td>"
@@ -333,10 +332,7 @@ $(function(){
                     $("#btnSave").attr("disabled",true);
                     $("#menuhead").siblings().remove();
                     getAllUser();
-                	break;
-                case "32":
-	                sweetAlert("已经存在该科研人员");
-	                break; 
+                	break; 
                 case "40":
                 	sweetAlert("添加学生失败");
                     break;
@@ -357,10 +353,7 @@ $(function(){
                     $("#btnSave").attr("disabled",true);
                     $("#menuhead").siblings().remove();
                     getAllUser();
-                    break;
-                case "52":
-                	sweetAlert("已经存在该教师");
-                    break;
+                    break;     
                 default:break;
             	}            
             }
@@ -381,31 +374,92 @@ $(function(){
     }
 	/*读取文件*/
 	function readExcel(){
+		var csy010=$("#csy010").val();
 		 if (!(!!window.ActiveXObject || "ActiveXObject" in window)){
 			 $.ajaxFileUpload({  
-		            url:"${pageContext.request.contextPath}/userManager/readExcel", //用于文件上传的服务器端请求地址  
+		            url:"${pageContext.request.contextPath}/userManager/readExcel?csy010="+csy010, //用于文件上传的服务器端请求地址  
 		            secureuri: false, //一般设置为false  
 		            fileElementId: 'btnFile', //文件上传空间的id属性  
 		            dataType: 'json', //返回值类型 一般设置为json  
 		            type:"post",
 		            async : false,
 		            success:function(data){
+		            	console.log(data);
+		            	if(data=="filefail"){
+		            		sweetAlert("文件不符合要求，请重新上传");
+		            		return;
+		            	}else if(data=="error"){
+		            		sweetAlert("文件太大，不能上传");
+                            return;
+		            	}
 		            	sweetAlert("上传成功");
-		            	 $("#sy02").empty();
-		            	 $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
-		            			               +"<td >用户账号</td>"
-		            			               +"<td >用户类型</td>"
-		            			               +"<td >用户密码</td>"
-		            			               +"</tr>");
-		            	for(var i=0;i<data.length;i++){
-		            		$("#sy02").append("<tr style='width:800px;'>"
-		            			              +"<td >"+data[i].csy021+"</td>"
-		            			              +"<td >"+data[i].csy010+"</td>"
-		            			              +"<td >"+data[i].csy022+"</td>"
-		            			              +"</tr>");
-		            	}	        
+		            	$("#btnSaveBatch").attr("disabled",false);
+		            	$("#csy010").attr("disabled",true);
+		            	 if(csy010==1){
+		            		 $("#sy02").empty();
+			            	 $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
+			            			               +"<td >用户账号</td>"
+			            			               +"<td >用户类型</td>"
+			            			               +"<td >用户密码</td>"
+			            			               +"<td >学号</td>"
+			            			               +"<td >姓名</td>"
+			            			               +"<td >学院</td>"
+			            			               +"<td >班级</td>"
+			            			               +"</tr>");
+			            	for(var i=0;i<data.length;i++){
+			            		$("#sy02").append("<tr style='width:800px;'>"
+			            			              +"<td >"+data[i].sy02.csy021+"</td>"
+			            			              +"<td >"+data[i].sy02.csy010+"</td>"
+			            			              +"<td >"+data[i].sy02.csy022+"</td>"
+			            			              +"<td >"+data[i].sy04.csy040+"</td>"
+			            			              +"<td >"+data[i].sy04.csy041+"</td>"
+			            			              +"<td >"+data[i].sy04.csy042+"</td>"
+			            			              +"<td >"+data[i].sy04.csy043+"</td>"
+			            			              +"</tr>");
+			            	}
+		            	 }else if(csy010==2){
+		            		 $("#sy02").empty();
+		            		 $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
+                                     +"<td >用户账号</td>"
+                                     +"<td >用户类型</td>"
+                                     +"<td >用户密码</td>"
+                                     +"<td >姓名</td>"
+                                     +"<td >学院</td>"
+                                     +"<td >职称</td>"
+                                     +"</tr>");
+				              for(var i=0;i<data.length;i++){
+				                  $("#sy02").append("<tr style='width:800px;'>"
+				                                    +"<td >"+data[i].sy02.csy021+"</td>"
+				                                    +"<td >"+data[i].sy02.csy010+"</td>"
+				                                    +"<td >"+data[i].sy02.csy022+"</td>"
+				                                    +"<td >"+data[i].sy05.csy051+"</td>"
+				                                    +"<td >"+data[i].sy05.csy052+"</td>"
+				                                    +"<td >"+data[i].sy05.csy053+"</td>"
+				                                    +"</tr>");
+				              }
+		            	 }else if(csy010==3){
+		            		 $("#sy02").empty();
+                             $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
+                                     +"<td >用户账号</td>"
+                                     +"<td >用户类型</td>"
+                                     +"<td >用户密码</td>"
+                                     +"<td >姓名</td>"
+                                     +"<td >职称</td>"
+                                     +"</tr>");
+                              for(var i=0;i<data.length;i++){
+                                  $("#sy02").append("<tr style='width:800px;'>"
+                                                    +"<td >"+data[i].sy02.csy021+"</td>"
+                                                    +"<td >"+data[i].sy02.csy010+"</td>"
+                                                    +"<td >"+data[i].sy02.csy022+"</td>"
+                                                    +"<td >"+data[i].sy03.csy031+"</td>"
+                                                    +"<td >"+data[i].sy03.csy032+"</td>"
+                                                    +"</tr>");
+                              }
+		            	 }else{
+		            		 
+		            	 }		            	
 		            }, 
-		            error : function(data,status,e) {  		           
+		            error : function(data,status,e) {
 		                sweetAlert("暂时支持.xls格式文件上传");  
 		            }  
 			 });
@@ -470,21 +524,123 @@ $(function(){
 	} 
 	/*批量添加数据信息*/
 	function addUserBacth(){
-		var milasUrl={};//新建对象，用来存储所有数据 
-	    var subMilasUrlArr={};//存储每一行数据
-	    var tableData={};
-	    $("#sy02 tr").each(function(trindex,tritem){//遍历每一行
-	        tableData[trindex]=new Array();
-	        $(tritem).find("input").each(function(tdindex,tditem){
-	          tableData[trindex][tdindex]=$(tditem).val();//遍历每一个数据，并存入
-	          subMilasUrlArr[trindex]=tableData[trindex];//将每一行的数据存入
-	        });
-	    });
-	    for(var key in subMilasUrlArr)
-	    {
-	        milasUrl[key]=subMilasUrlArr[key];//将每一行存入对象
-	    }
-	    console.log(milasUrl);
+		var isImport=$("#sy02 tr").find("input[type='checkbox']");
+		var trcount=$("#sy02 tr").length;
+		var csy010=$("#csy010").val();
+		if(isImport.length<=0&&trcount>1){
+			var listUserMessage=[];//表格全部数据
+		    var tableData={};
+		    $("#sy02 tr").each(function(trindex,tritem){//遍历每一行
+		        tableData[trindex]=new Array();		       
+		        $(tritem).find("td").each(function(tdindex,tditem){
+		             tableData[trindex][tdindex]=$(tditem).text();//遍历每一个数据，并存入		                
+		        });
+		        if(trindex!=0){
+		            var sy02={
+			        	"csy021":tableData[trindex][0],
+			        	"csy010":tableData[trindex][1],
+			        	"csy022":tableData[trindex][2]
+			        };
+		            if(csy010==3){
+			        	var sy03={
+			        		"csy031":tableData[trindex][3],
+	                        "csy032":tableData[trindex][4]	
+			        	};
+			        	var userMessage={
+			                "sy02":sy02,
+			                "sy03":sy03
+			            };
+			        	
+		        	}else if(csy010==2){
+		        		var sy05={
+	                            "csy051":tableData[trindex][3],
+	                            "csy052":tableData[trindex][4],
+	                            "csy053":tableData[trindex][5] 
+	                        };
+	                    var userMessage={
+	                            "sy02":sy02,
+	                            "sy05":sy05
+	                        };
+		        	}else if(csy010==1){
+		        		var sy04={
+                                "csy040":tableData[trindex][3],
+                                "csy041":tableData[trindex][4],
+                                "csy042":tableData[trindex][5],
+                                "csy043":tableData[trindex][6] 
+                            };
+                        var userMessage={
+                                "sy02":sy02,
+                                "sy04":sy04
+                            };
+		        	}else{
+		        		var userMessage={
+                                "sy02":sy02
+                            };
+		        	}
+		           listUserMessage.push(userMessage);
+		        }
+		    });
+			$.ajax({
+		         type:"POST",
+		         url:"${pageContext.request.contextPath}/userManager/addUserBacth?csy010="+csy010,
+		         contentType:"application/json;charset=utf-8",
+		         data:JSON.stringify(listUserMessage),
+		         dataType: "json",
+		         success:function(data){
+		        	 switch(data.statu){
+		                case "20":
+		                    sweetAlert("添加用户失败");
+		                    break;
+		                case "22":
+		                    sweetAlert("已经存在该用户");
+		                    break;                   
+		                case "30":
+		                    sweetAlert("添加科研人员失败");
+		                    break;
+		                case "31":
+		                    sweetAlert("添加科研人员成功");
+		                    $("#btnSaveBatch").attr("disabled",true);
+		                    creatTable()
+		                    break;
+		                case "40":
+		                    sweetAlert("添加学生失败");
+		                    break;
+		                case "41":
+		                    sweetAlert("添加学生成功");
+		                    $("#btnSaveBatch").attr("disabled",true);
+		                    creatTable()
+		                    break;
+		                case "42":
+		                    sweetAlert("已经存在该学生");
+		                    break;
+		                case "50":
+		                    sweetAlert("添加教师失败");
+		                    break;
+		                case "51":
+		                    sweetAlert("添加教师成功");
+		                    $("#btnSaveBatch").attr("disabled",true);
+		                    creatTable()
+		                    break;
+		                default:break;
+		                }
+		         }
+		    });
+		}else{
+			sweetAlert("请先导入数据后再操作");
+			return;
+		}
+	    
+	}
+	function creatTable(){
+		 $("#sy02").empty();
+		 $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
+				          +"<td style='width:20px'><input id='allcheck' type='checkbox' onclick='setCheckbox()'/></td>"
+				          +"<td >用户id</td>"
+				          +"<td >用户账号</td>"
+				          +"<td >用户类型</td>"
+				          +"<td style='width:300px'>操作</td>"
+				          +"</tr>");
+         getAllUser();
 	}
 	
 </script>

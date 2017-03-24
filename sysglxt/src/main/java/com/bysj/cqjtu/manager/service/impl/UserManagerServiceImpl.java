@@ -84,39 +84,39 @@ public class UserManagerServiceImpl implements UserManagerService {
                         map.put("statu", OperateStatu.QUERY_SY04_IN);//学号重复
                     }
                 }else if(sy02.getCsy010()==OperateStatu.TYPE_TEACHER){
-                    String csy050=userMessage.getSy05().getCsy050().toString();
+                    /*String csy050=userMessage.getSy05().getCsy050().toString();
                     //判断教师是否重复
                     List<Sy05> validateSy05List=sy05Mapper.isExistSy05(csy050);
-                    if(validateSy05List.size()<=0){                    
-                        //添加教师表                    
-                         Sy05 sy05=userMessage.getSy05();
-                         sy05.setCsy020(sy02.getCsy020().toString());       
-                         int j=sy05Mapper.addSy05(sy05);
-                         if(j!=1){
-                             map.put("statu", OperateStatu.ADD_SY05_FAIL);//插入教师错误
-                          }else{                
-                              map.put("statu", OperateStatu.ADD_SY05_SUCCESS);//添加成功
-                          }
-                    }else{
-                         map.put("statu", OperateStatu.QUERY_SY05_IN);//教师ID重复
+                    if(validateSy05List.size()<=0){  */                  
+                    //添加教师表                    
+                    Sy05 sy05=userMessage.getSy05();
+                    sy05.setCsy020(sy02.getCsy020().toString());       
+                    int j=sy05Mapper.addSy05(sy05);
+                    if(j!=1){
+                        map.put("statu", OperateStatu.ADD_SY05_FAIL);//插入教师错误
+                    }else{                
+                        map.put("statu", OperateStatu.ADD_SY05_SUCCESS);//添加成功
                     }
+                    /*}else{
+                         map.put("statu", OperateStatu.QUERY_SY05_IN);//教师ID重复
+                    }*/
                 }else if(sy02.getCsy010()==OperateStatu.TYPE_TECHO){
-                    String csy030=userMessage.getSy03().getCsy030().toString();
+                    /*String csy030=userMessage.getSy03().getCsy030().toString();
                     //判断科研人员id是否重复
                     List<Sy03> validateSy03List=sy03Mapper.isExistSy03(csy030);
-                    if(validateSy03List.size()<=0){                    
+                    if(validateSy03List.size()<=0){   */                 
                         //添加科研人员表                    
-                         Sy03 sy03=userMessage.getSy03();
-                         sy03.setCsy020(sy02.getCsy020().toString());       
-                         int j=sy03Mapper.addSy03(sy03);
-                         if(j!=1){
-                             map.put("statu", OperateStatu.ADD_SY03_FAIL);//插入科研错误
-                          }else{                
-                              map.put("statu", OperateStatu.ADD_SY03_SUCCESS);//添加成功
-                          }
-                    }else{
-                         map.put("statu", OperateStatu.QUERY_SY03_IN);//科研人员id重复
+                    Sy03 sy03=userMessage.getSy03();
+                    sy03.setCsy020(sy02.getCsy020().toString());       
+                    int j=sy03Mapper.addSy03(sy03);
+                    if(j!=1){
+                        map.put("statu", OperateStatu.ADD_SY03_FAIL);//插入科研错误
+                    }else{                
+                        map.put("statu", OperateStatu.ADD_SY03_SUCCESS);//添加成功
                     }
+                    /*}else{
+                         map.put("statu", OperateStatu.QUERY_SY03_IN);//科研人员id重复
+                    }*/
                 }else{
                     map.put("statu", OperateStatu.ADD_SY02_SUCCESS);
                 }

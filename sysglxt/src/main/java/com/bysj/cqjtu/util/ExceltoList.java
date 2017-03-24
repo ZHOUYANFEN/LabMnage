@@ -41,5 +41,22 @@ public class ExceltoList {
         }
         return allList;
     }
+    /**
+     * 获取excel的列数和行数
+     * @param filename
+     * @return
+     * @throws Exception
+     */
+    public static List<Integer> getExcelRowsAndCols(String filename) throws Exception{
+        File file=new File(filename);
+        Workbook book = Workbook.getWorkbook(file); //读取excel文件        
+        Sheet sheet = book.getSheet(0);     //这里是获取第一个工作表格
+        int rows = sheet.getRows();//获取总的行数  
+        int cols = sheet.getColumns();//获取总的列数 
+        List<Integer> list=new ArrayList();
+        list.add(rows);
+        list.add(cols);
+        return list;
+    }
 
 }
