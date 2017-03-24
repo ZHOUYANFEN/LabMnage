@@ -3,11 +3,9 @@
 package com.bysj.cqjtu.manager.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +14,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bysj.cqjtu.manager.domain.Sy02;
+import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.manager.service.UserManagerService;
 import com.bysj.cqjtu.util.ExceltoList;
 
@@ -114,19 +118,8 @@ public class UserManagerController {
      */
     @RequestMapping("/addUser")
     @ResponseBody
-    public Map addUser(@RequestBody Sy02 sy02) throws Exception{
-        Map map=new HashMap();
-        List<Sy02> list=userManagerService.isExistUser(sy02);
-        if(list.size()>=1){
-            map.put("statu", 0);
-        }else{
-            boolean addFlage=userManagerService.addUser(sy02);            
-            if(addFlage==true){
-                map.put("statu", 1);
-            }else{
-                map.put("statu",2);
-            }
-        }
+    public Map addUser(@RequestBody UserMessage userMessage) throws Exception{
+        Map map=userManagerService.addUser(userMessage);
         return map;
     }
     /**
@@ -189,11 +182,11 @@ public class UserManagerController {
         return sy02List;
     }
     @RequestMapping("/downloadExampl")
-    public void downloadExampl(HttpServletResponse response)throws Exception{
-        Map map = new HashMap();
-        String realPath = getClass().getResource("/").getFile().toString();;//获取当前项目的路径
+    public ResponseEntity<byte[]>  downloadExampl()throws Exception{
+      /*  String realPath = getClass().getResource("/").getFile().toString();//获取当前项目的路径
         String fileName = "//exaplefile//上传用户信息模板.xls";
         //设置content-disposition响应头控制浏览器以下载的形式打开文件，中文文件名要使用URLEncoder.encode方法进行编码，否则会出现文件名乱码  
+        response.setContentType("application/octet-stream; charset=utf-8");
         response.setHeader("content-disposition", "attachment;filename="+URLEncoder.encode("模板.xls", "UTF-8"));  
         InputStream in = new FileInputStream(realPath+fileName);//获取文件输入流  
         int len = 0;  
@@ -202,6 +195,28 @@ public class UserManagerController {
         while ((len = in.read(buffer)) > 0) {  
             out.write(buffer,0,len);//将缓冲区的数据输出到客户端浏览器  
         }  
-        in.close();  
+        in.close();  */
+        
+        
+        //springmvc的方法
+        String realPath = getClass().getResource("/").getFile().toString()+"//exaplefile//";//获取当前项目的路径
+        String fileName = "上传用户信息模板.xls";
+       /* String dfileName = new String(fileName.getBytes("utf-8"), "utf-8"); */
+        HttpHeaders headers = new HttpHeaders(); 
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM); 
+        headers.setContentDispositionFormData("attachment", fileName); 
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(realPath+fileName)), headers, HttpStatus.CREATED);        
+    }
+    /**
+     * 查询用户详细信息
+     * @param sy02
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/userDetail")
+    @ResponseBody
+    public UserMessage userDetail(@RequestBody Sy02 sy02) throws Exception{
+        UserMessage userMessage=userManagerService.getUserMessage(sy02);
+        return userMessage;
     }
  }

@@ -1,8 +1,10 @@
 package com.bysj.cqjtu.manager.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy02;
+import com.bysj.cqjtu.manager.pojo.UserMessage;
 
 /**
  * 用户管理service
@@ -36,7 +38,7 @@ public interface UserManagerService {
      * @return
      * @throws Exception
      */
-    public boolean addUser(Sy02 sy02) throws Exception;
+    public Map addUser(UserMessage userMessage) throws Exception;
     /**
      * 验证是否存在用户
      * @param sy02
@@ -44,5 +46,12 @@ public interface UserManagerService {
      * @throws Exception
      */
     public List<Sy02> isExistUser(Sy02 sy02) throws Exception;
+    /**
+     * 查询用户详细信息
+     * @param sy02
+     * @return
+     * @throws Exception
+     */
+    public UserMessage getUserMessage(Sy02 sy02) throws Exception;
     
 }

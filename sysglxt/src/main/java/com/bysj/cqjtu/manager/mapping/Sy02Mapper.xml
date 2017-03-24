@@ -43,7 +43,7 @@
       </if>
   </select>
   <!-- 添加新用户 -->
-  <insert id="addUser" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
+  <insert id="addUser"  useGeneratedKeys="true" keyProperty="csy020" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
     insert into sy02 (CSY010, 
                       CSY021, 
                       CSY022, 
@@ -62,11 +62,35 @@
      where csy023 = 0
        and csy010 = #{csy010}
        and csy021 = #{csy021}
-       and csy022 = #{csy022}
   </select>
   
+  <!-- 获取员工详细信息 -->
+  <select id="getUserMessageOfStudent" parameterType="com.bysj.cqjtu.manager.domain.Sy02" resultType="com.bysj.cqjtu.manager.pojo.UserMessage">
+    select sy02.*,
+           sy04.*
+     from  sy04 sy04,
+           sy02 sy02
+    where  sy02.csy023 = 0
+      and  sy02.csy020 = sy04.csy020
+      and  sy02.csy020 = #{csy020}
+      and  sy02.csy010 = #{csy010}       
+   <!--  <if test="csy010 == 2">
+           sy05.*
+     from  sy05 sy05,
+           sy02 sy02
+    where  sy02.csy023 = 0
+       and sy02.csy020 = sy05.csy020
+       and sy02.csy020 = #{csy020}
+    <if test="csy010 == 3">
+           sy03.*
+     from  sy03 sy03,
+           sy02 sy02
+    where  sy02.csy023 = 0
+       and sy02.csy020 = sy03.csy020
+       and sy02.csy020 = #{csy020}    -->
+  </select>
   
-  
+
   
   
   

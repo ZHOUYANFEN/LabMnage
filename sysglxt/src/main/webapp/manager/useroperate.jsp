@@ -30,22 +30,37 @@
     <div id="button_querymenu" style="margin-top:30px;margin-left:60px">
         <div style="float:left;margin-right:30px">
             <label style="font-family:'黑体';font-size:16px">用户类型：</label>
-            <select style="width:100px;height:30px" id="csy010">              
+            <select style="width:122px;height:30px" id="csy010" onchange="setdiv()">              
             </select>     
         </div>                    
-                     用户名:<input type="text" name="csy021" width="100px" id="csy021" >
-                     密码:<input type="text" name="csy022" width="100px" id="csy022">
-        <button type="button" class="btn btn-default" aria-label="Left Align" id="btnSave" style="float:right;margin-right:100px" onclick="queryUserByCondition()">
+         <lable>用户名:</lable><input type="text" name="csy021" width="100px" id="csy021" maxlength="21">
+         <lable>密码:</lable><input type="text" name="csy022" width="100px" id="csy022" maxlength="12">
+         <button type="button" class="btn btn-default" aria-label="Left Align" id="btnSave" style="float:right;margin-right:100px;" onclick="addUser()">
              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                  增加
-        </button>        
+        </button>  
+         <div style="float:left; margin-top:10px" id="sy04_message">
+	          <lable>学号:</lable><input type="text" name="csy040" width="80px" id="csy040" maxlength="20" >
+	          <lable style="margin-left:37px"> 姓名:</lable><input type="text" name="csy041" width="80px" id="csy041" maxlength="20" >
+	          <lable> 学院:</lable><input type="text" name="csy042" width="80px" id="csy042" maxlength="30">
+	          <lable>班级:</lable><input type="text" name="csy043" width="80px" id="csy043" maxlength="30">
+         </div>
+         <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message">
+              <lable style="margin-left:15px">姓名:</lable><input type="text" name="csy031" width="80px" id="csy031" maxlength="20">
+              <lable>职称:</lable><input type="text" name="csy032" width="80px" id="csy032" maxlength="30" >                   
+         </div> 
+         <div style="float:left; margin-top:10px" hidden="hidden"  id="sy05_message">        
+              <lable> 姓名:</lable><input type="text" name="csy051" width="80px" id="csy051" maxlength="20" >
+              <lable style="margin-left:37px"> 学院:</lable><input type="text" name="csy052" width="80px" id="csy052" maxlength="30">
+              <lable> 职称:</lable><input type="text" name="csy053" width="80px" id="csy053" maxlength="30">
+         </div>     
     </div>
-     <div id="button_operatemenu" style="margin-top:30px;margin-left:100px">
+     <div id="button_operatemenu" style="margin-top:50px;margin-left:100px">
         <button type="button" class="btn btn-default" aria-label="Left Align" onclick="deleteMenuBatch()">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     批量删除
         </button>
-        <button type="button" class="btn btn-default" aria-label="Left Align">
+        <button type="button" class="btn btn-default" aria-label="Left Align" onclick="addUserBacth()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     批量增加
         </button>
@@ -72,30 +87,49 @@
                 <td >用户账号</td>
                 <td >用户类型</td>
                 <td hidden="hidden">用户密码</td>
-                <td >操作</td>
+                <td style="width:300px">操作</td>
             </tr>
         </table>
      </div>
     
     
     <!-- Modal -->
-	<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal fade bs-example-modal-lg" id="changerUserModel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+	        <h4 class="modal-title" id="myModalLabel">详细信息</h4>
 	      </div>
-	      <div class="modal-body">
+	      <div class="modal-body" style="height:200px">
 	        <div id="button_querymenu" style="margin-top:30px;margin-left:60px">
                 <div style="float:left;margin-right:30px">
                     <label style="font-family:'黑体';font-size:16px">用户类型：</label>
-                    <select style="width:100px;height:30px" id="csy010__change">              
+                    <select style="width:122px;height:30px" id="csy010_model" onchange="setdiv()">              
                     </select>     
                 </div>                    
-                                        用户名:<input type="text" name="csy021_change" width="100px" id="csy021__change" >
-                                        密码:<input type="text" name="csy022__change" width="100px" id="csy022__change">      
-          </div>
+		         <lable>用户名:</lable><input type="text" name="csy021_model" width="100px" id="csy021_model" maxlength="21">
+		         <lable>密码:</lable><input type="text" name="csy022_model" width="100px" id="csy022_model" maxlength="12"> 
+		         <div style="margin-top:10px" id="sy04_message_model">
+		              <div style="margin-left:100px">
+		                  <lable>学号:</lable><input type="text" name="csy040_model" width="80px" id="csy040_model" maxlength="20" >
+		                  <lable> 姓名:</lable><input type="text" name="csy041_model" width="80px" id="csy041_model" maxlength="20" >
+		              </div>
+		              <div style="margin-left:100px;margin-top:10px">
+		                  <lable> 学院:</lable><input type="text" name="csy042_model" width="80px" id="csy042_model" maxlength="30">
+		                  <lable>班级:</lable><input type="text" name="csy043_model" width="80px" id="csy043_model" maxlength="30">
+		              </div>
+		         </div>
+		         <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message_model">
+		              <lable>姓名:</lable><input type="text" name="csy031_model" width="80px" id="csy031_model" maxlength="20">
+		              <lable>职称:</lable><input type="text" name="csy032_model" width="80px" id="csy032_model" maxlength="30" >                   
+		         </div> 
+		         <div style="float:left; margin-top:10px" hidden="hidden"  id="sy05_message_model">        
+		              <lable> 姓名:</lable><input type="text" name="csy051_model" width="80px" id="csy051_model" maxlength="20" >
+		              <lable > 学院:</lable><input type="text" name="csy052_model" width="80px" id="csy052_model" maxlength="30">
+		              <lable> 职称:</lable><input type="text" name="csy053_model" width="80px" id="csy053_model" maxlength="30">
+		         </div>     
+            </div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -118,7 +152,7 @@ $(function(){
             url:"${pageContext.request.contextPath}/userManager/getAllUser",
             success:function(data){
                 for(var i=0;i<data.length;i++){
-                	if(data[i].csy010==0){
+                	/* if(data[i].csy010==0){
                 		data[i].csy010='管理员';
                 	}
                 	if(data[i].csy010==1){
@@ -129,15 +163,16 @@ $(function(){
                     }
                 	if(data[i].csy010==3){
                         data[i].csy010='教师';
-                    }
+                    } */
                     $("#sy02").append("<tr style='width:800px;'>"
                     		          +"<td style='width:20px'><input input type='checkbox' id='"+data[i].csy020+"'/></td>"
                     		          +"<td >"+data[i].csy020+"</td>"
                     		          +"<td >"+data[i].csy021+"</td>"
                     		          +"<td >"+data[i].csy010+"</td>"
                     		          +"<td hidden='hidden'>"+data[i].csy022+"</td>"
-                    		          +"<td><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>"
-                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#myModal' onclick='changeMenu("+data[i].csy020+")'>修改</button></td>"
+                    		          +"<td style='width:300px'><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+")'>修改</button>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+")'>详情</button></td>"
                     		          +"</tr>");
                 }
             }
@@ -151,7 +186,9 @@ $(function(){
             url:"${pageContext.request.contextPath}/menu/getCsy010",
             success:function(data){
                 for(var i=0;i<data.length;i++){
-                	$("#csy010").append("<option value ='"+data[i].csy010+"'>"+data[i].csy011+" </option>")
+                	$("#csy010").append("<option value ='"+data[i].csy010+"'>"+data[i].csy011+" </option>");
+                	$("#csy010_model").append("<option value ='"+data[i].csy010+"'>"+data[i].csy011+" </option>");
+                	
                 }
             }
 		});
@@ -208,36 +245,124 @@ $(function(){
     }
 	
 	/*单个增加用户*/
-	function queryUserByCondition(){
+	function addUser(){
 		var csy010=$("#csy010").val();
         var csy021=$("#csy021").val();
         var csy022=$("#csy022").val();
-        if(!(csy010&&csy021&&csy022)){
-        	sweetAlert("所有信息必须填完");
-        	return;
-        }
         var sy02={
-        	"csy010":csy010,
-        	"csy021":csy021,
-        	"csy022":csy022
+                "csy010":csy010,
+                "csy021":csy021,
+                "csy022":csy022
+            };
+        var csy040=$("#csy040").val();
+        var csy041=$("#csy041").val();
+        var csy042=$("#csy042").val();
+        var csy043=$("#csy043").val();
+        var sy04={
+        		"csy040":csy040,
+                "csy041":csy041,
+                "csy042":csy042,
+                "csy043":csy043
+        };
+        var csy031=$("#csy031").val();
+        var csy032=$("#csy032").val();
+        var sy03={
+                "csy031":csy031,
+                "csy032":csy032
+        };
+        var csy051=$("#csy051").val();
+        var csy052=$("#csy052").val();
+        var csy053=$("#csy052").val();
+        var sy05={
+                "csy051":csy051,
+                "csy052":csy052,
+                "csy053":csy053,
+        };
+        if(csy010==1){        	
+        	if(!(csy010&&csy021&&csy022&&csy040&&csy041&&csy042&&csy043)){
+                sweetAlert("所有信息必须填完");
+                return;
+            }      	      	
+        }else if(csy010==2){
+        	if(!(csy010&&csy021&&csy022&&csy051&&csy052&&csy053)){
+                sweetAlert("所有信息必须填完");
+                return;
+            }   
+        }else if(csy010==3){
+            if(!(csy010&&csy021&&csy022&&csy031&&csy032)){
+                sweetAlert("所有信息必须填完");
+                return;
+            }   
+        }else if(csy010==4){
+            if(!(csy010&&csy021&&csy022)){
+                sweetAlert("所有信息必须填完");
+                return;
+            }   
+        }
+        var userMessage={
+        		"sy02":sy02,
+        		"sy03":sy03,
+        		"sy04":sy04,
+        		"sy05":sy05
         };
         $.ajax({
             type:"POST",
             url:"${pageContext.request.contextPath}/userManager/addUser",
             contentType:"application/json;charset=utf-8",
-            data:JSON.stringify(sy02),
+            data:JSON.stringify(userMessage),
             dataType: "json",
             success:function(data){
-              if(data.statu==1){
-            	  $("#btnSave").attr("disabled",true);
-            	  $("#menuhead").siblings().remove();
-            	  getAllUser();
-              }else if(data.statu==0){
-            	  sweetAlert("已经存在该用户，请重新添加");
-            	  $("#csy021").val("");
-            	  $("#csy022").val("");
-            	  return;
-              }
+            	switch(data.statu){
+            	case "20":
+            		sweetAlert("添加用户失败");
+            		break;
+            	case "21":
+            		/* sweetAlert("添加用户成功");
+                    $("#btnSave").attr("disabled",true);
+                    $("#menuhead").siblings().remove();
+                    getAllUser(); */
+            		break;
+            	case "22":
+            		sweetAlert("已经存在该用户");
+            		break;                   
+            	case "30":
+            		sweetAlert("添加科研人员失败");
+                    break;
+                case "31":
+                	sweetAlert("添加科研人员成功");
+                    $("#btnSave").attr("disabled",true);
+                    $("#menuhead").siblings().remove();
+                    getAllUser();
+                	break;
+                case "32":
+	                sweetAlert("已经存在该科研人员");
+	                break; 
+                case "40":
+                	sweetAlert("添加学生失败");
+                    break;
+                case "41":
+                	sweetAlert("添加学生成功");
+                    $("#btnSave").attr("disabled",true);
+                    $("#menuhead").siblings().remove();
+                    getAllUser();
+                    break;
+                case "42":
+	                sweetAlert("已经存在该学生");
+	                break;
+                case "50":
+                	sweetAlert("添加教师失败");
+                    break;
+                case "51":
+                	sweetAlert("添加教师成功");
+                    $("#btnSave").attr("disabled",true);
+                    $("#menuhead").siblings().remove();
+                    getAllUser();
+                    break;
+                case "52":
+                	sweetAlert("已经存在该教师");
+                    break;
+                default:break;
+            	}            
             }
         });
 	}
@@ -293,13 +418,74 @@ $(function(){
 		 $.ajax({
 	            type:"POST",
 	            url:"${pageContext.request.contextPath}/userManager/downloadExampl",
-	            contentType:"application/json;charset=utf-8",
-	            dataType: "json",
 	            async: false,
 	            success:function(data){
+	            	console.log(data);
 	            	sweetAlert("下载成功");
 	            }
 		 });
 	}
+	/*设置添加信息的div*/
+	function setdiv(){
+		var csy010=$("#csy010").val();
+		setHidden(csy010);
+	}
+	function setHidden(csy010){
+		if(csy010=="1"){
+            $("#sy04_message").attr("hidden",false);
+            $("#sy03_message").attr("hidden","hidden");
+            $("#sy05_message").attr("hidden","hidden");
+        } else if(csy010=="2"){
+            $("#sy04_message").attr("hidden","hidden");
+            $("#sy03_message").attr("hidden","hidden");
+            $("#sy05_message").attr("hidden",false);
+        }else if(csy010=="3"){
+            $("#sy04_message").attr("hidden","hidden");
+            $("#sy03_message").attr("hidden",false);
+            $("#sy05_message").attr("hidden","hidden");
+        }else{
+            $("#sy04_message").attr("hidden","hidden");
+            $("#sy03_message").attr("hidden","hidden");
+            $("#sy05_message").attr("hidden","hidden");
+        }
+	}
+	/*用户详细信息及修改信息*/
+	function changeUser(csy020,csy010){
+		$("#csy010_model").val(csy010);
+		setHidden(csy010);
+		var sy02={
+				"csy010":csy010,
+				"csy020":csy020
+		}
+		 $.ajax({
+             type:"POST",
+             url:"${pageContext.request.contextPath}/userManager/userDetail",
+             contentType:"application/json;charset=utf-8",
+             data:JSON.stringify(sy02),
+             dataType: "json",
+             success:function(data){
+                 console.log(data);
+             }
+      });
+	} 
+	/*批量添加数据信息*/
+	function addUserBacth(){
+		var milasUrl={};//新建对象，用来存储所有数据 
+	    var subMilasUrlArr={};//存储每一行数据
+	    var tableData={};
+	    $("#sy02 tr").each(function(trindex,tritem){//遍历每一行
+	        tableData[trindex]=new Array();
+	        $(tritem).find("input").each(function(tdindex,tditem){
+	          tableData[trindex][tdindex]=$(tditem).val();//遍历每一个数据，并存入
+	          subMilasUrlArr[trindex]=tableData[trindex];//将每一行的数据存入
+	        });
+	    });
+	    for(var key in subMilasUrlArr)
+	    {
+	        milasUrl[key]=subMilasUrlArr[key];//将每一行存入对象
+	    }
+	    console.log(milasUrl);
+	}
+	
 </script>
 </html>

@@ -3,6 +3,7 @@ package com.bysj.cqjtu.manager.dao;
 import java.util.List;
 
 import com.bysj.cqjtu.manager.domain.Sy02;
+import com.bysj.cqjtu.manager.pojo.UserMessage;
 
 public interface Sy02Mapper {
     int deleteByPrimaryKey(Integer csy020);
@@ -47,4 +48,9 @@ public interface Sy02Mapper {
      * @return
      */
     List<Sy02> isExistUser(Sy02 sy02);
+    /**
+     * 查询用户详细信息
+     * @return
+     */
+    UserMessage getUserMessageOfStudent(Sy02 sy02);
   }
