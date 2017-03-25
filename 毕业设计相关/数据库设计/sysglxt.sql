@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 50624
+Source Server Version : 50537
 Source Host           : localhost:3306
 Source Database       : sysglxt
 
 Target Server Type    : MYSQL
-Target Server Version : 50624
+Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-03-21 21:48:59
+Date: 2017-03-25 23:15:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,15 +24,15 @@ CREATE TABLE `sy01` (
   `CSY011` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '人员类型名称',
   `CSY012` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标志',
   PRIMARY KEY (`CSY010`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy01
 -- ----------------------------
-INSERT INTO `sy01` VALUES ('0', '管理员', '0');
 INSERT INTO `sy01` VALUES ('1', '学生', '0');
 INSERT INTO `sy01` VALUES ('2', '教师', '0');
 INSERT INTO `sy01` VALUES ('3', '科研人员', '0');
+INSERT INTO `sy01` VALUES ('4', '管理员', '0');
 
 -- ----------------------------
 -- Table structure for sy02
@@ -47,17 +47,18 @@ CREATE TABLE `sy02` (
   PRIMARY KEY (`CSY020`),
   KEY `FK_Relationship_1` (`CSY010`),
   CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`CSY010`) REFERENCES `sy01` (`CSY010`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy02
 -- ----------------------------
-INSERT INTO `sy02` VALUES ('1', '0', 'admin', 'admin', '0');
+INSERT INTO `sy02` VALUES ('1', '4', 'admin', 'admin', '0');
 INSERT INTO `sy02` VALUES ('2', '1', '631306050218', '050218', '0');
 INSERT INTO `sy02` VALUES ('3', '1', '631306050219', '050219', '0');
 INSERT INTO `sy02` VALUES ('4', '2', '20170313', '170313', '0');
 INSERT INTO `sy02` VALUES ('5', '2', '20170314', '170314', '0');
 INSERT INTO `sy02` VALUES ('6', '3', '20170201', '170201', '0');
+INSERT INTO `sy02` VALUES ('31', '1', 'fuzj', 'fuzj', '0');
 
 -- ----------------------------
 -- Table structure for sy03
@@ -69,11 +70,14 @@ CREATE TABLE `sy03` (
   `CSY031` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '姓名',
   `CSY032` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '职称',
   PRIMARY KEY (`CSY030`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy03
 -- ----------------------------
+INSERT INTO `sy03` VALUES ('1', '23', '2222', '222');
+INSERT INTO `sy03` VALUES ('2', '24', '333', '333');
+INSERT INTO `sy03` VALUES ('3', '25', '555', '55');
 
 -- ----------------------------
 -- Table structure for sy04
@@ -91,6 +95,10 @@ CREATE TABLE `sy04` (
 -- ----------------------------
 -- Records of sy04
 -- ----------------------------
+INSERT INTO `sy04` VALUES ('1', '1111', '1111', '1111', '1111');
+INSERT INTO `sy04` VALUES ('17', '11111', '张三', '张三', '其味无穷');
+INSERT INTO `sy04` VALUES ('31', '123456', '付政俊44', '信息学院', '软件1302班');
+INSERT INTO `sy04` VALUES ('21', '631306050218', '631306050218', '631306050218', '631306050218');
 
 -- ----------------------------
 -- Table structure for sy05
@@ -103,11 +111,16 @@ CREATE TABLE `sy05` (
   `CSY052` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '学院',
   `CSY053` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '职称',
   PRIMARY KEY (`CSY050`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy05
 -- ----------------------------
+INSERT INTO `sy05` VALUES ('26', '1', '2222', '222', 'ww');
+INSERT INTO `sy05` VALUES ('27', '2', '333', '333', 'ww');
+INSERT INTO `sy05` VALUES ('28', '3', '444', '444', 'ww');
+INSERT INTO `sy05` VALUES ('29', '4', '2222111', '22112', 'ww');
+INSERT INTO `sy05` VALUES ('30', '5', '33311', '33113', 'ww');
 
 -- ----------------------------
 -- Table structure for sy06
@@ -301,25 +314,25 @@ CREATE TABLE `sy15` (
 -- ----------------------------
 INSERT INTO `sy15` VALUES ('1', '1', '个人信息', 'selectMenu(\"slpt_personnal\",1)', null, '1', null, '0', 'slpt_personnal');
 INSERT INTO `sy15` VALUES ('2', '1', '查看信息', 'openPage(\"student/student_info.jsp\")', 'student_info.jsp', '2', '1', '0', 'studentinfo');
-INSERT INTO `sy15` VALUES ('3', '1', '修改密码', 'openPage(\"student/change_password.jsp\")', 'change_password.jsp', '2', '1', '0', 'changepassword');
+INSERT INTO `sy15` VALUES ('3', '1', '修改密码', 'openPage(\"common/changepassword.jsp\")', 'common/changepassword.jsp', '2', '1', '0', 'changepassword');
 INSERT INTO `sy15` VALUES ('4', '1', '学习资源', 'selectMenu(\"slpt_resource\",4)', null, '1', null, '0', 'slpt_resource');
 INSERT INTO `sy15` VALUES ('5', '1', '资源查看', null, null, '2', '4', '0', '');
 INSERT INTO `sy15` VALUES ('6', '1', '实验安排', null, null, '2', '4', '0', '');
 INSERT INTO `sy15` VALUES ('7', '1', '作业安排', null, null, '2', '4', '0', '');
 INSERT INTO `sy15` VALUES ('8', '1', '实验报告提交 ', 'openPage(\"student/student_info.jsp\")', null, '1', null, '0', 'slpt_report');
-INSERT INTO `sy15` VALUES ('9', '1', '课程安排', 'openPage(\"student/student_info.jsp\")', null, '1', null, '0', 'slpt_class');
+INSERT INTO `sy15` VALUES ('9', '1', '课程安排', 'selectMenu(\"slpt_class\",9)', null, '1', null, '0', 'slpt_class');
 INSERT INTO `sy15` VALUES ('10', '1', '课程表', '', null, '2', '9', '0', '');
-INSERT INTO `sy15` VALUES ('11', '1', '成绩查看', 'openPage(\"student/student_info.jsp\")', null, '1', '9', '0', 'slpt_score');
-INSERT INTO `sy15` VALUES ('12', '1', '公告中心', 'openPage(\"student/student_info.jsp\")', null, '1', null, '0', 'slpt_announcement');
-INSERT INTO `sy15` VALUES ('13', '1', '帮助中心', 'openPage(\"student/student_info.jsp\")', null, '1', null, '0', 'slpt_help');
+INSERT INTO `sy15` VALUES ('11', '1', '成绩查看', 'openPage(\"student/student_info.jsp\")', null, '1', null, '0', 'slpt_score');
+INSERT INTO `sy15` VALUES ('12', '1', '公告中心', 'openPage(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', 'slpt_announcement');
+INSERT INTO `sy15` VALUES ('13', '1', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', 'slpt_help');
 INSERT INTO `sy15` VALUES ('17', '0', '用户管理', 'selectMenu(\"slpt_usermanage\",17)', null, '1', null, '0', 'slpt_usermanage');
-INSERT INTO `sy15` VALUES ('18', '0', '用户添加', null, null, '2', '17', '0', '');
-INSERT INTO `sy15` VALUES ('19', '0', '用户删除', null, null, '2', '17', '0', '');
-INSERT INTO `sy15` VALUES ('20', '0', '用户查询', null, null, '2', '17', '0', '');
+INSERT INTO `sy15` VALUES ('18', '0', '用户添加', 'openPage(\"manager/useroperate.jsp\")', 'manager/useroperate.jsp', '2', '17', '0', '');
+INSERT INTO `sy15` VALUES ('19', '0', '用户删除', null, null, '2', '17', '1', '');
+INSERT INTO `sy15` VALUES ('20', '0', '用户查询', 'openPage(\"manager/userlist.jsp\")', 'manager/userlist.jsp', '2', '17', '0', '');
 INSERT INTO `sy15` VALUES ('21', '0', '菜单管理', 'selectMenu(\"slpt_menumanage\",21)', null, '1', null, '0', 'slpt_menumanage');
 INSERT INTO `sy15` VALUES ('22', '0', '菜单添加', 'openPage(\"manager/menuoperate.jsp\")', 'manager/menuoperate.jsp', '2', '21', '0', '');
-INSERT INTO `sy15` VALUES ('23', '0', '菜单修改', null, null, '2', '21', '0', '');
-INSERT INTO `sy15` VALUES ('24', '0', '菜单删除', null, null, '2', '21', '0', '');
+INSERT INTO `sy15` VALUES ('23', '0', '菜单修改', null, null, '2', '21', '1', '');
+INSERT INTO `sy15` VALUES ('24', '0', '菜单删除', null, null, '2', '21', '1', '');
 INSERT INTO `sy15` VALUES ('25', '0', '资源管理', 'selectMenu(\"slpt_resourcemanage\",25)', null, '1', null, '0', 'slpt_resourcemanage');
 INSERT INTO `sy15` VALUES ('26', '0', '实验室申请审核及分配', null, null, '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('27', '0', '公告管理', null, null, '2', '25', '0', '');
@@ -338,8 +351,8 @@ INSERT INTO `sy15` VALUES ('39', '3', '实验室申请', '', null, '1', null, '0
 INSERT INTO `sy15` VALUES ('40', '3', '资源管理', 'selectMenu(\"slpt_resourcemanage\",40)', null, '1', null, '0', 'slpt_resourcemanage');
 INSERT INTO `sy15` VALUES ('41', '3', '论文管理', null, null, '2', '40', '0', '');
 INSERT INTO `sy15` VALUES ('42', '3', '代码管理', null, null, '2', '40', '0', '');
-INSERT INTO `sy15` VALUES ('43', '3', '通知公告', null, null, '1', null, '0', 'slpt_announcement');
-INSERT INTO `sy15` VALUES ('44', '3', '帮助中心', null, null, '1', null, '0', 'slpt_help');
+INSERT INTO `sy15` VALUES ('43', '3', '通知公告', '(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', 'slpt_announcement');
+INSERT INTO `sy15` VALUES ('44', '3', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', 'slpt_help');
 INSERT INTO `sy15` VALUES ('45', '2', '个人信息管理', 'selectMenu(\"slpt_personnal\",45)', null, '1', null, '0', 'slpt_personnal');
 INSERT INTO `sy15` VALUES ('46', '2', '个人信息查看', null, null, '2', '45', '0', '');
 INSERT INTO `sy15` VALUES ('47', '2', '密码设置', null, null, '2', '45', '0', '');
@@ -352,8 +365,8 @@ INSERT INTO `sy15` VALUES ('53', '2', '资源管理', 'selectMenu(\"slpt_resourc
 INSERT INTO `sy15` VALUES ('54', '2', '课程资源', null, null, '2', '53', '0', '');
 INSERT INTO `sy15` VALUES ('55', '2', '其他资源', null, null, '2', '53', '0', '');
 INSERT INTO `sy15` VALUES ('56', '2', '学生管理', null, null, '1', null, '0', 'slpt_stumanage');
-INSERT INTO `sy15` VALUES ('57', '2', '通知公告', null, null, '1', null, '0', '');
-INSERT INTO `sy15` VALUES ('58', '2', '帮助中心', null, null, '1', null, '0', '');
+INSERT INTO `sy15` VALUES ('57', '2', '通知公告', 'openPage(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', '');
+INSERT INTO `sy15` VALUES ('58', '2', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', '');
 INSERT INTO `sy15` VALUES ('59', '0', '实验室管理', null, null, '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('60', '0', '菜单列表', 'openPage(\"manager/menulist.jsp\")', 'manager/menulist.jsp', '2', '21', '0', '');
 SET FOREIGN_KEY_CHECKS=1;
