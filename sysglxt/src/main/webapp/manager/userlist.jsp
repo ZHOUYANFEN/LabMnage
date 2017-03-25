@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>用户菜单列表</title> 
+    <title>用户列表</title> 
         <!-- 引入JQuery -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/jquery.min.js"></script>
        <!-- 引入EasyUI -->
