@@ -110,6 +110,7 @@
                 </div>                    
 		         <lable>用户名:</lable><input type="text" name="csy021_model" width="100px" id="csy021_model" maxlength="21">
 		         <lable>密码:</lable><input type="text" name="csy022_model" width="100px" id="csy022_model" maxlength="12"> 
+		         <input type="text" name="csy02o_model" hidden="hidden" width="100px" id="csy020_model" maxlength="12"> 
 		         <div style="margin-top:10px" id="sy04_message_model">
 		              <div style="margin-left:100px">
 		                  <lable>学号:</lable><input type="text" name="csy040_model" width="80px" id="csy040_model" maxlength="20" >
@@ -121,7 +122,7 @@
 		              </div>
 		         </div>
 		         <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message_model">
-		              <lable>姓名:</lable><input type="text" name="csy031_model" width="80px" id="csy031_model" maxlength="20">
+		              <lable>姓名:</lable><input type="text" name="csy031_model" width="80px" id="csy031_model" maxlength="20" >
 		              <lable>职称:</lable><input type="text" name="csy032_model" width="80px" id="csy032_model" maxlength="30" >                   
 		         </div> 
 		         <div style="float:left; margin-top:10px" hidden="hidden"  id="sy05_message_model">        
@@ -133,7 +134,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-	        <button type="button" class="btn btn-primary">保存</button>
+	        <button type="button" class="btn btn-primary" id="btnSave_model" onclick="saveChangeUser()">保存</button>
 	      </div>
 	    </div>
 	  </div>
@@ -170,8 +171,8 @@ $(function(){
                     		          +"<td >"+data[i].csy021+"</td>"
                     		          +"<td >"+data[i].csy010+"</td>"                    		  
                     		          +"<td style='width:300px'><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>"
-                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+")'>修改</button>"
-                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+")'>详情</button></td>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+",true)'>修改</button>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+",false)'>详情</button></td>"
                     		          +"</tr>");
                 }
             }
@@ -504,9 +505,23 @@ $(function(){
         }
 	}
 	/*用户详细信息及修改信息*/
-	function changeUser(csy020,csy010){
+	function changeUser(csy020,csy010,ischange){
 		$("#csy010_model").val(csy010);
 		setHidden(csy010);
+		$("#csy021_model").attr("readonly","readonly");
+		if(ischange==false){
+			 $("#btnSave_model").attr("disabled","disabled");	
+	         $("#csy022_model").attr("readonly","readonly");
+			 $("#csy040_model").attr("readonly","readonly");
+             $("#csy041_model").attr("readonly","readonly");
+             $("#csy042_model").attr("readonly","readonly");
+             $("#csy043_model").attr("readonly","readonly");
+             $("#csy051_model").attr("readonly","readonly");
+             $("#csy052_model").attr("readonly","readonly");
+             $("#csy053_model").attr("readonly","readonly");
+             $("#csy031_model").attr("readonly","readonly");
+             $("#csy032_model").attr("readonly","readonly");
+		}
 		var sy02={
 				"csy010":csy010,
 				"csy020":csy020
@@ -518,7 +533,7 @@ $(function(){
              data:JSON.stringify(sy02),
              dataType: "json",
              success:function(data){
-            	 console.log(data.CSY021);
+            	 $("#csy020_model").val(data.CSY020);
             	 $("#csy021_model").val(data.CSY021);
                  $("#csy022_model").val(data.CSY022);
             	 if(csy010==1){
@@ -658,6 +673,77 @@ $(function(){
 				          +"</tr>");
          getAllUser();
 	}
-	
+	/*保存修改后的用户信息*/
+	function saveChangeUser(){
+		var csy010=$("#csy010_model").val();
+		var csy020=$("#csy020_model").val();
+        var csy021=$("#csy021_model").val();
+        var csy022=$("#csy022_model").val();
+        var sy02={
+                "csy010":csy010,
+                "csy020":csy020,
+                "csy021":csy021,
+                "csy022":csy022
+            };
+        var csy040=$("#csy040_model").val();
+        var csy041=$("#csy041_model").val();
+        var csy042=$("#csy042_model").val();
+        var csy043=$("#csy043_model").val();
+        var sy04={
+                "csy040":csy040,
+                "csy041":csy041,
+                "csy042":csy042,
+                "csy043":csy043
+        };
+        var csy031=$("#csy031_model").val();
+        var csy032=$("#csy032_model").val();
+        var sy03={
+                "csy031":csy031,
+                "csy032":csy032
+        };
+        var csy051=$("#csy051_model").val();
+        var csy052=$("#csy052_model").val();
+        var csy053=$("#csy052_model").val();
+        var sy05={
+                "csy051":csy051,
+                "csy052":csy052,
+                "csy053":csy053,
+        };
+        var userMessage={
+                "sy02":sy02,
+                "sy03":sy03,
+                "sy04":sy04,
+                "sy05":sy05
+        };
+        //验证是否为空
+        
+        //提交保存信息
+        $.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath}/userManager/updateUser",
+            contentType:"application/json;charset=utf-8",
+            data:JSON.stringify(userMessage),
+            dataType: "json",
+            success:function(data){
+                switch(data.statu){
+                case "25":
+                	sweetAlert("更新成功");
+                	$("#menuhead").siblings().remove();
+                	$("#btnSave_model").attr("disabled","disabled");
+                    getAllUser(); 
+                    break;
+                case "24":
+                case "34":
+                case "44":
+                case "54":
+                case "ERROR":
+                	sweetAlert("更新失败");
+                	break;
+                default:break;
+                 
+                }
+            }
+        });
+	}
 </script>
 </html>

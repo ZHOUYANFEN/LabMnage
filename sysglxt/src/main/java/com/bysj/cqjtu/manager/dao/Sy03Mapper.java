@@ -29,4 +29,10 @@ public interface Sy03Mapper {
      * @return
      */
     int addSy03(Sy03 sy03);
+    /**
+     * 更新科研人员表
+     * @param sy03
+     * @return
+     */
+    int updateSy03(Sy03 sy03);
 }

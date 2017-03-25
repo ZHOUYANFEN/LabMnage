@@ -287,6 +287,13 @@ public class UserManagerController {
         Map map=userManagerService.getUserMessage(sy02);
         return map;
     }
+    /**
+     * 批量保存用户信息
+     * @param csy010
+     * @param userMessage
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/addUserBacth")
     @ResponseBody
     public Map addUserBacth(Integer csy010,@RequestBody UserMessage[] userMessage)throws Exception{
@@ -296,4 +303,11 @@ public class UserManagerController {
         }       
         return map;
     }
+    @RequestMapping("/updateUser")
+    @ResponseBody
+    public Map updateUser(@RequestBody UserMessage userMessage) throws Exception{
+        Map map=userManagerService.updateUser(userMessage);
+        return map;
+    }
+    
  }

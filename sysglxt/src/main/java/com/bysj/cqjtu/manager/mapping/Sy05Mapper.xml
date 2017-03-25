@@ -31,7 +31,14 @@
                        #{csy053,jdbcType=VARCHAR})
   </insert>
   
-  
+  <!-- 更新教师表 -->
+   <update id="updateSy05" parameterType="com.bysj.cqjtu.manager.domain.Sy05" >
+    update sy05
+       set CSY051 = #{csy051,jdbcType=VARCHAR},
+           CSY052 = #{csy052,jdbcType=VARCHAR},
+           CSY053 = #{csy053,jdbcType=VARCHAR}
+     where CSY020 = #{csy020,jdbcType=VARCHAR}
+  </update>
   
   
   

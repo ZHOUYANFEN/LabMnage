@@ -137,5 +137,42 @@ public class UserManagerServiceImpl implements UserManagerService {
         return map;
     }
 
+    @Override
+    public Map updateUser(UserMessage userMessage) throws Exception {
+        Map map=new HashMap();
+        Sy02 sy02=userMessage.getSy02();
+        int updatesy02=sy02Mapper.updateSy02(sy02);
+        if(updatesy02!=1){
+            map.put("statu", OperateStatu.UPDATE_SY02_FAILE);
+        }else{
+            if(OperateStatu.TYPE_STUDENT==sy02.getCsy010()){
+                Sy04 sy04=userMessage.getSy04();
+                sy04.setCsy020(sy02.getCsy020());
+                int updatesy04=sy04Mapper.updateSy04(sy04);
+                if(updatesy04!=1){
+                    map.put("statu", OperateStatu.UPDATE_SY04_FAILE);
+                }
+            }else if(OperateStatu.TYPE_TEACHER==sy02.getCsy010()){
+                Sy05 sy05=userMessage.getSy05();
+                sy05.setCsy020(sy02.getCsy020().toString());
+                int updatesy05=sy05Mapper.updateSy05(sy05);
+                if(updatesy05!=1){
+                    map.put("statu", OperateStatu.UPDATE_SY05_FAILE);
+                }
+            }else if(OperateStatu.TYPE_TECHO==sy02.getCsy010()){
+                Sy03 sy03=userMessage.getSy03();
+                sy03.setCsy020(sy02.getCsy020().toString());
+                int updatesy03=sy03Mapper.updateSy03(sy03);
+                if(updatesy03!=1){
+                    map.put("statu", OperateStatu.UPDATE_SY03_FAILE);
+                }
+            }else {
+                map.put("statu", OperateStatu.UPDATE_FAIL);
+            }
+            map.put("statu", OperateStatu.UPDATE_USER_SUCCESS);
+        }
+        return map;
+    }
+
 
 }

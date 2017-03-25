@@ -96,7 +96,14 @@
     </if>       
   </select>
   
-
+  <!-- 更新用户信息 -->
+  <update id="updateSy02" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
+    update sy02
+       set CSY010 = #{csy010,jdbcType=TINYINT},
+           CSY021 = #{csy021,jdbcType=VARCHAR},
+           CSY022 = #{csy022,jdbcType=VARCHAR}
+     where CSY020 = #{csy020,jdbcType=INTEGER}
+  </update>
   
   
 

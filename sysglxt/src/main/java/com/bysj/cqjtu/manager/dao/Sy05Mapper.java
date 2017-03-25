@@ -28,5 +28,11 @@ public interface Sy05Mapper {
      * @return
      */
     int addSy05(Sy05 sy05);
+    /**
+     * 更新教师表
+     * @param sy05
+     * @return
+     */
+    int updateSy05(Sy05 sy05);
 
 }

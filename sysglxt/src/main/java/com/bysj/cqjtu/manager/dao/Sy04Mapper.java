@@ -27,4 +27,10 @@ public interface Sy04Mapper {
      * @param sy04
      */
     int addSy04(Sy04 sy04);
+    /**
+     * 更新学生表
+     * @param sy04
+     * @return
+     */
+    int updateSy04(Sy04 sy04);
 }

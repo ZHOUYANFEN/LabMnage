@@ -63,4 +63,9 @@ public interface Sy02Mapper {
      * @return
      *//*
     Map getUserMessageOfTecho(Sy02 sy02);*/
+    /**
+     * 更新用户信息
+     * @param sy02
+     */
+    int updateSy02(Sy02 sy02);
   }

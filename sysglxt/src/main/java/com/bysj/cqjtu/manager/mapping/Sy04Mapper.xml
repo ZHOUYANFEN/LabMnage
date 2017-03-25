@@ -59,8 +59,14 @@
     </trim>
   </insert>
   
-  
-  
+  <!-- 更新学生表 -->
+   <update id="updateSy04" parameterType="com.bysj.cqjtu.manager.domain.Sy04" >
+    update sy04
+       set CSY041 = #{csy041,jdbcType=VARCHAR},
+           CSY042 = #{csy042,jdbcType=VARCHAR},
+           CSY043 = #{csy043,jdbcType=VARCHAR}
+     where CSY020 = #{csy020,jdbcType=INTEGER}
+  </update>
   
   
   

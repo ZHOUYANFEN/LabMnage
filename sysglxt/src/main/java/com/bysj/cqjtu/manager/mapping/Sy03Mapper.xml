@@ -29,6 +29,13 @@
                       #{csy032,jdbcType=VARCHAR})
   </insert>
   
+  <!-- 更新科研人员表 -->
+   <update id="updateSy03" parameterType="com.bysj.cqjtu.manager.domain.Sy03" >
+    update sy03
+       set CSY031 = #{csy031,jdbcType=VARCHAR},
+           CSY032 = #{csy032,jdbcType=VARCHAR}
+     where CSY020 = #{csy020,jdbcType=VARCHAR}
+  </update>
   
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

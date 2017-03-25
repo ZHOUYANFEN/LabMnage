@@ -53,5 +53,12 @@ public interface UserManagerService {
      * @throws Exception
      */
     public Map getUserMessage(Sy02 sy02) throws Exception;
+    /**
+     * 更新用户信息
+     * @param userMessage
+     * @return
+     * @throws Exception
+     */
+    public Map updateUser(UserMessage userMessage) throws Exception;
     
 }

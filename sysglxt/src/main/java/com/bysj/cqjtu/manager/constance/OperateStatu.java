@@ -54,5 +54,22 @@ public interface OperateStatu {
     public static final int TEACHER_FILE_COLS=6;//
     public static final int TECHO_FILE_COLS=5;//
     
+    /***********************更新sy02状态****************/
+    public static final String UPDATE_SY02_FAILE="24";//更新失败
+    
+    /***********************更新sy03状态****************/
+    public static final String UPDATE_SY03_FAILE="34";//更新失败
+    
+    /***********************更新sy04状态****************/
+    public static final String UPDATE_SY04_FAILE="44";//更新失败
+    
+    /***********************更新sy05状态****************/
+    public static final String UPDATE_SY05_FAILE="54";//更新失败
+    
+    /***********************更新错误****************/
+    public static final String UPDATE_FAIL="ERROR";//更新错误
+    
+    /***********************更新成功****************/
+    public static final String UPDATE_USER_SUCCESS="25";//更新成功
     
 }
