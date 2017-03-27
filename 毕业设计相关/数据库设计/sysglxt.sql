@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-03-25 23:15:09
+Date: 2017-03-27 15:49:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -136,6 +136,7 @@ CREATE TABLE `sy06` (
   `CSY065` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '是否开放',
   `CSY066` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '课程地点',
   `CSY067` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
+  `CSY068` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`CSY060`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -321,7 +322,7 @@ INSERT INTO `sy15` VALUES ('6', '1', '实验安排', null, null, '2', '4', '0', 
 INSERT INTO `sy15` VALUES ('7', '1', '作业安排', null, null, '2', '4', '0', '');
 INSERT INTO `sy15` VALUES ('8', '1', '实验报告提交 ', 'openPage(\"student/student_info.jsp\")', null, '1', null, '0', 'slpt_report');
 INSERT INTO `sy15` VALUES ('9', '1', '课程安排', 'selectMenu(\"slpt_class\",9)', null, '1', null, '0', 'slpt_class');
-INSERT INTO `sy15` VALUES ('10', '1', '课程表', '', null, '2', '9', '0', '');
+INSERT INTO `sy15` VALUES ('10', '1', '课程表', 'openPage(\"student/syllabus.jsp\")', 'student/syllabus.jsp', '2', '9', '0', '');
 INSERT INTO `sy15` VALUES ('11', '1', '成绩查看', 'openPage(\"student/student_info.jsp\")', null, '1', null, '0', 'slpt_score');
 INSERT INTO `sy15` VALUES ('12', '1', '公告中心', 'openPage(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', 'slpt_announcement');
 INSERT INTO `sy15` VALUES ('13', '1', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', 'slpt_help');
