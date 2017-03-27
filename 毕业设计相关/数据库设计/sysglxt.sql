@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-03-27 15:49:41
+Date: 2017-03-27 22:05:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -137,6 +137,7 @@ CREATE TABLE `sy06` (
   `CSY066` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '课程地点',
   `CSY067` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   `CSY068` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注',
+  `CSY069` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '班级',
   PRIMARY KEY (`CSY060`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.student.dao.Sy06Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.student.domain.Sy06" >
+    <id column="CSY060" property="csy060" jdbcType="INTEGER" />
+    <result column="CSY050" property="csy050" jdbcType="VARCHAR" />
+    <result column="CSY061" property="csy061" jdbcType="VARCHAR" />
+    <result column="CSY062" property="csy062" jdbcType="INTEGER" />
+    <result column="CSY063" property="csy063" jdbcType="TINYINT" />
+    <result column="CSY064" property="csy064" jdbcType="VARCHAR" />
+    <result column="CSY065" property="csy065" jdbcType="VARCHAR" />
+    <result column="CSY066" property="csy066" jdbcType="VARCHAR" />
+    <result column="CSY067" property="csy067" jdbcType="TINYINT" />
+    <result column="CSY068" property="csy068" jdbcType="VARCHAR" />
+    <result column="CSY069" property="csy069" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY060, CSY050, CSY061, CSY062, CSY063, CSY064, CSY065, CSY066, CSY067, CSY068, CSY069
+  </sql>
+  
+  <!--获取课程表  -->
+ <select id="getSyllabus" parameterType="com.bysj.cqjtu.manager.pojo.UserMessage" resultType="java.util.HashMap">
+   select sy06.*,
+          sy05.csy051 
+     from sy06 sy06,
+          sy05 sy05
+    where sy06.csy061 = sy05.csy050
+      and csy069 = #{sy04.csy043}
+           
+ </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy06
+    where CSY060 = #{csy060,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy06
+    where CSY060 = #{csy060,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.student.domain.Sy06" >
+    insert into sy06 (CSY060, CSY050, CSY061, 
+      CSY062, CSY063, CSY064, 
+      CSY065, CSY066, CSY067, 
+      CSY068, CSY069)
+    values (#{csy060,jdbcType=INTEGER}, #{csy050,jdbcType=VARCHAR}, #{csy061,jdbcType=VARCHAR}, 
+      #{csy062,jdbcType=INTEGER}, #{csy063,jdbcType=TINYINT}, #{csy064,jdbcType=VARCHAR}, 
+      #{csy065,jdbcType=VARCHAR}, #{csy066,jdbcType=VARCHAR}, #{csy067,jdbcType=TINYINT}, 
+      #{csy068,jdbcType=VARCHAR}, #{csy069,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.student.domain.Sy06" >
+    insert into sy06
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy060 != null" >
+        CSY060,
+      </if>
+      <if test="csy050 != null" >
+        CSY050,
+      </if>
+      <if test="csy061 != null" >
+        CSY061,
+      </if>
+      <if test="csy062 != null" >
+        CSY062,
+      </if>
+      <if test="csy063 != null" >
+        CSY063,
+      </if>
+      <if test="csy064 != null" >
+        CSY064,
+      </if>
+      <if test="csy065 != null" >
+        CSY065,
+      </if>
+      <if test="csy066 != null" >
+        CSY066,
+      </if>
+      <if test="csy067 != null" >
+        CSY067,
+      </if>
+      <if test="csy068 != null" >
+        CSY068,
+      </if>
+      <if test="csy069 != null" >
+        CSY069,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy060 != null" >
+        #{csy060,jdbcType=INTEGER},
+      </if>
+      <if test="csy050 != null" >
+        #{csy050,jdbcType=VARCHAR},
+      </if>
+      <if test="csy061 != null" >
+        #{csy061,jdbcType=VARCHAR},
+      </if>
+      <if test="csy062 != null" >
+        #{csy062,jdbcType=INTEGER},
+      </if>
+      <if test="csy063 != null" >
+        #{csy063,jdbcType=TINYINT},
+      </if>
+      <if test="csy064 != null" >
+        #{csy064,jdbcType=VARCHAR},
+      </if>
+      <if test="csy065 != null" >
+        #{csy065,jdbcType=VARCHAR},
+      </if>
+      <if test="csy066 != null" >
+        #{csy066,jdbcType=VARCHAR},
+      </if>
+      <if test="csy067 != null" >
+        #{csy067,jdbcType=TINYINT},
+      </if>
+      <if test="csy068 != null" >
+        #{csy068,jdbcType=VARCHAR},
+      </if>
+      <if test="csy069 != null" >
+        #{csy069,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.student.domain.Sy06" >
+    update sy06
+    <set >
+      <if test="csy050 != null" >
+        CSY050 = #{csy050,jdbcType=VARCHAR},
+      </if>
+      <if test="csy061 != null" >
+        CSY061 = #{csy061,jdbcType=VARCHAR},
+      </if>
+      <if test="csy062 != null" >
+        CSY062 = #{csy062,jdbcType=INTEGER},
+      </if>
+      <if test="csy063 != null" >
+        CSY063 = #{csy063,jdbcType=TINYINT},
+      </if>
+      <if test="csy064 != null" >
+        CSY064 = #{csy064,jdbcType=VARCHAR},
+      </if>
+      <if test="csy065 != null" >
+        CSY065 = #{csy065,jdbcType=VARCHAR},
+      </if>
+      <if test="csy066 != null" >
+        CSY066 = #{csy066,jdbcType=VARCHAR},
+      </if>
+      <if test="csy067 != null" >
+        CSY067 = #{csy067,jdbcType=TINYINT},
+      </if>
+      <if test="csy068 != null" >
+        CSY068 = #{csy068,jdbcType=VARCHAR},
+      </if>
+      <if test="csy069 != null" >
+        CSY069 = #{csy069,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CSY060 = #{csy060,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.student.domain.Sy06" >
+    update sy06
+    set CSY050 = #{csy050,jdbcType=VARCHAR},
+      CSY061 = #{csy061,jdbcType=VARCHAR},
+      CSY062 = #{csy062,jdbcType=INTEGER},
+      CSY063 = #{csy063,jdbcType=TINYINT},
+      CSY064 = #{csy064,jdbcType=VARCHAR},
+      CSY065 = #{csy065,jdbcType=VARCHAR},
+      CSY066 = #{csy066,jdbcType=VARCHAR},
+      CSY067 = #{csy067,jdbcType=TINYINT},
+      CSY068 = #{csy068,jdbcType=VARCHAR},
+      CSY069 = #{csy069,jdbcType=VARCHAR}
+    where CSY060 = #{csy060,jdbcType=INTEGER}
+  </update>
+</mapper>
