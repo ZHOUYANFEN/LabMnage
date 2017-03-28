@@ -26,6 +26,12 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
     
+    /**
+     * 获取课程表
+     * @param session
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/syllabus")
     @ResponseBody
     public List<Map> getSyllabus(HttpSession session) throws Exception{
@@ -39,7 +45,25 @@ public class StudentController {
         Sy04 sy04=new Sy04();
         sy04.setCsy043(csy043);
         userMessage.setSy04(sy04);
+        
+        
         List<Map> list=studentService.getSyllabus(userMessage);
+        return list;
+    }
+    @RequestMapping("/queryExpArrange")
+    @ResponseBody
+    public List<Map> queryExpArrange(HttpSession session) throws Exception{
+        //取session的用户
+        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        
+        UserMessage userMessage=new UserMessage();
+        
+        String csy040="123456";
+        Sy04 sy04=new Sy04();
+        sy04.setCsy040(csy040);
+        userMessage.setSy04(sy04);
+        
+        List<Map> list =studentService.queryExpArrange(userMessage);
         return list;
     }
 }
