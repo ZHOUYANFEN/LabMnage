@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-03-28 22:06:42
+Date: 2017-03-29 13:58:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -273,6 +273,8 @@ CREATE TABLE `sy13` (
   `CSY133` varchar(5000) COLLATE utf8_bin DEFAULT NULL COMMENT '资源类容',
   `CSY134` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '资源附件地址',
   `CSY135` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
+  `CSY136` date DEFAULT NULL COMMENT '上传时间',
+  `CSY137` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '资源权限',
   PRIMARY KEY (`CSY130`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
