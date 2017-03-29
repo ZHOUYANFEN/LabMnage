@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.student.domain.Sy08;
+import com.bysj.cqjtu.student.domain.Sy09;
 
 /**
  * 学生Service
@@ -25,5 +27,26 @@ public interface StudentService {
      * @param userMessage
      * @return
      */
-    public List<Map> queryExpArrange(UserMessage userMessage);
+    public List<Map> queryExpArrange(UserMessage userMessage)throws Exception;
+    /**
+     * 获取具体实验安排的列表
+     * @param userMessage
+     * @return
+     * @throws Exception
+     */
+    public List<Sy08> queryExpArrangeList(Sy08 sy08)throws Exception;
+    /**
+     * 获取实验内容
+     * @param sy08
+     * @return
+     * @throws Exception
+     */
+    public List<Map> queryExpArrangeContent(Sy08 sy08) throws Exception;
+    /**
+     * 保存实验完成内容
+     * @param sy09
+     * @return
+     * @throws Exception
+     */
+    public Map saveExp(Sy09 sy09)throws Exception;
 }

@@ -30,8 +30,38 @@
             
   </select>
   
+  <!-- 获取实验安排列表 -->
+  <select id="queryExpArrangeList" parameterType="com.bysj.cqjtu.student.domain.Sy08" resultType="com.bysj.cqjtu.student.domain.Sy08">
+     select 
+            csy080,
+            csy081,
+            csy083,
+            csy084
+       from sy08
+      where csy085 = '0'
+        and csy060 = #{csy060}
+        and csy040 = #{csy040}
+
+            
+  </select>
   
   
+  <!-- 获取实验内容 -->
+  <select id="queryExpArrangeContent" parameterType="com.bysj.cqjtu.student.domain.Sy08" resultType="java.util.HashMap">
+     select sy06.csy061,
+            sy05.csy051,
+            sy08.*
+       from sy06 sy06,
+            sy05 sy05,
+            sy08 sy08
+      where sy08.csy085 = '0'
+        and sy08.csy060 = sy06.csy060
+        and sy08.csy050 = sy05.csy050
+        and sy08.csy040 = #{csy040}
+        and sy08.csy080 = #{csy080}       
+
+            
+  </select>
   
   
   

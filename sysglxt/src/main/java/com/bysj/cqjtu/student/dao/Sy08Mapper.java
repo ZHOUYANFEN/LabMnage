@@ -25,4 +25,19 @@ public interface Sy08Mapper {
      * @return
      */
     List<Map> queryExpArrange(UserMessage userMessage);
+    
+    /**
+     * 获取实验安排列表
+     * @param userMessage
+     * @return
+     */
+    List<Sy08> queryExpArrangeList(Sy08 sy08);
+    /**
+     * 获取实验内容
+     * @param sy08
+     * @return
+     */
+    List<Map> queryExpArrangeContent(Sy08 sy08);
+    
+    
 }
