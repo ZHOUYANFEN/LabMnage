@@ -31,9 +31,9 @@ public class UserManagerServiceImpl implements UserManagerService {
     private Sy05Mapper sy05Mapper;
     
     @Override
-    public List<Sy02> getAllUser() throws Exception {
+    public List<Map> getAllUser() throws Exception {
        
-        List<Sy02>list  =sy02Mapper.getAllUser();
+        List<Map>list  =sy02Mapper.getAllUser();
         return list;
     }
 

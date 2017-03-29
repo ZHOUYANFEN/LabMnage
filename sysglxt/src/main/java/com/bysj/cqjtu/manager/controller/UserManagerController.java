@@ -55,7 +55,7 @@ public class UserManagerController {
      */
     @RequestMapping("/getAllUser")
     @ResponseBody
-    public List<Sy02> getAllUser()throws Exception{
+    public List<Map> getAllUser()throws Exception{
         return userManagerService.getAllUser();
     }
     /**

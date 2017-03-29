@@ -18,7 +18,7 @@ public interface UserManagerService {
      * @return
      * @throws Exception
      */
-    public List<Sy02> getAllUser() throws Exception;
+    public List<Map> getAllUser() throws Exception;
     /**
      * 删除单个用户
      * @param csy020

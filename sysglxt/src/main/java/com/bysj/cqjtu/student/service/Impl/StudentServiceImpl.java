@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.constance.StudentOperateConstance;
 import com.bysj.cqjtu.student.dao.Sy06Mapper;
+import com.bysj.cqjtu.student.dao.Sy07Mapper;
 import com.bysj.cqjtu.student.dao.Sy08Mapper;
 import com.bysj.cqjtu.student.dao.Sy09Mapper;
+import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 import com.bysj.cqjtu.student.service.StudentService;
@@ -24,6 +26,8 @@ public class StudentServiceImpl implements StudentService {
     private Sy08Mapper sy08Mapper;
     @Autowired
     private Sy09Mapper sy09Mapper;
+    @Autowired
+    private Sy07Mapper sy07Mapper;
     
     @Override
     public List<Map> getSyllabus(UserMessage userMessage) throws Exception {
@@ -58,6 +62,11 @@ public class StudentServiceImpl implements StudentService {
             map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
         }
         return map;
+    }
+
+    @Override
+    public List<Map> queryGrade(Sy07 sy07) throws Exception {
+       return sy07Mapper.queryGrade(sy07);
     }
 
 }

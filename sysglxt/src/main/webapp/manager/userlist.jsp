@@ -140,13 +140,13 @@ $(function(){
                         data[i].csy010='教师';
                     } */
                 	$("#sy02").append("<tr style='width:800px;'>"
-                            +"<td style='width:20px'><input input type='checkbox' id='"+data[i].csy020+"'/></td>"
-                            +"<td >"+data[i].csy020+"</td>"
-                            +"<td >"+data[i].csy021+"</td>"
-                            +"<td >"+data[i].csy010+"</td>"                             
-                            +"<td style='width:300px'><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].csy020+")'>删除</button>"
-                            +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+",true)'>修改</button>"
-                            +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].csy020+","+data[i].csy010+",false)'>详情</button></td>"
+                            +"<td style='width:20px'><input input type='checkbox' id='"+data[i].CSY020+"'/></td>"
+                            +"<td >"+data[i].CSY020+"</td>"
+                            +"<td >"+data[i].CSY021+"</td>"
+                            +"<td >"+data[i].csy011+"</td>"                             
+                            +"<td style='width:300px'><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].CSY020+")'>删除</button>"
+                            +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].CSY020+","+data[i].CSY010+",true)'>修改</button>"
+                            +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].CSY020+","+data[i].CSY010+",false)'>详情</button></td>"
                             +"</tr>");
                 }
             }
@@ -236,18 +236,6 @@ $(function(){
             dataType:"json",
             success:function(data){
             	for(var i=0;i<data.length;i++){
-                    /* if(data[i].csy010==0){
-                        data[i].csy010='管理员';
-                    }
-                    if(data[i].csy010==1){
-                        data[i].csy010='学生';
-                    }
-                    if(data[i].csy010==2){
-                        data[i].csy010='教师';
-                    }
-                    if(data[i].csy010==3){
-                        data[i].csy010='科研人员';
-                    } */
             		$("#sy02").append("<tr style='width:800px;'>"
                             +"<td style='width:20px'><input input type='checkbox' id='"+data[i].csy020+"'/></td>"
                             +"<td >"+data[i].csy020+"</td>"
@@ -434,6 +422,7 @@ $(function(){
                  $("#csy021_model").val(data.CSY021);
                  $("#csy022_model").val(data.CSY022);
                  if(csy010==1){
+                	 console.log(data.CSY040);
                      $("#csy040_model").val(data.CSY040);
                      $("#csy041_model").val(data.CSY041);
                      $("#csy042_model").val(data.CSY042);

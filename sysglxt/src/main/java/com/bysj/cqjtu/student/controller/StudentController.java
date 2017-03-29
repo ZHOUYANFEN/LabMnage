@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 import com.bysj.cqjtu.student.service.StudentService;
@@ -144,5 +145,23 @@ public class StudentController {
         String csy040="123456";
         sy09.setCsy040(csy040);
         return studentService.saveExp(sy09);        
+    }
+    /**
+     * 保存实验完成内容
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryGrade")
+    @ResponseBody
+    public List<Map> queryGrade() throws Exception{
+      //取session的用户
+        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        
+        //UserMessage userMessage=new UserMessage();
+        Sy07 sy07=new Sy07();
+        String csy040="123456";
+        sy07.setCsy040(csy040);
+        return studentService.queryGrade(sy07);
     }
 }

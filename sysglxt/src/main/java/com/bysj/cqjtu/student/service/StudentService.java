@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 
@@ -49,4 +50,11 @@ public interface StudentService {
      * @throws Exception
      */
     public Map saveExp(Sy09 sy09)throws Exception;
+    /**
+     * 查询成绩
+     * @param sy04
+     * @return
+     * @throws Exception
+     */
+    public List<Map> queryGrade(Sy07 sy07)throws Exception;
 }

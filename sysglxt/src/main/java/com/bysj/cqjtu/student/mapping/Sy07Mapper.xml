@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bysj.cqjtu.student.dao.Sy07Mapper">
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.student.domain.Sy07">
+    <result column="CSY040" jdbcType="VARCHAR" property="csy040" />
+    <result column="CSY060" jdbcType="VARCHAR" property="csy060" />
+    <result column="CSY071" jdbcType="INTEGER" property="csy071" />
+  </resultMap>
+  
+  <!-- 查询所有成绩 -->
+  <select id="queryGrade" parameterType="com.bysj.cqjtu.student.domain.Sy07" resultType="java.util.HashMap">
+    select sy06.*,
+           sy07.csy071,
+           sy05.csy051
+      from sy07 sy07,
+           sy06 sy06,
+           sy05 sy05
+     where sy07.csy060 = sy06.csy060
+       and sy06.csy050 = sy05.csy050
+       and sy07.csy040 = #{csy040}
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  <insert id="insert" parameterType="com.bysj.cqjtu.student.domain.Sy07">
+    insert into sy07 (CSY040, CSY060, CSY071
+      )
+    values (#{csy040,jdbcType=VARCHAR}, #{csy060,jdbcType=VARCHAR}, #{csy071,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.student.domain.Sy07">
+    insert into sy07
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="csy040 != null">
+        CSY040,
+      </if>
+      <if test="csy060 != null">
+        CSY060,
+      </if>
+      <if test="csy071 != null">
+        CSY071,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="csy040 != null">
+        #{csy040,jdbcType=VARCHAR},
+      </if>
+      <if test="csy060 != null">
+        #{csy060,jdbcType=VARCHAR},
+      </if>
+      <if test="csy071 != null">
+        #{csy071,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

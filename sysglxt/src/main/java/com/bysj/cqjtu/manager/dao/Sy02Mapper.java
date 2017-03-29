@@ -22,7 +22,7 @@ public interface Sy02Mapper {
      * 查询所有用户信息
      * @return
      */
-    List<Sy02> getAllUser();
+    List<Map> getAllUser();
     /**
      * 按照id删除用户
      * @param csy020

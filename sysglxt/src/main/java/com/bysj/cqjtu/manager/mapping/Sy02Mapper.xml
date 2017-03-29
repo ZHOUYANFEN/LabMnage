@@ -13,12 +13,14 @@
   </sql>
   
   <!-- 查询所有的用户 -->
-   <select id="getAllUser" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-     from sy02
-    where csy023 = 0 
-    order by csy010 
+   <select id="getAllUser" resultType="java.util.HashMap">
+    select sy01.csy011,
+           sy02.*           
+      from sy02 sy02,
+           sy01 sy01
+     where csy023 = 0
+       and sy01.csy010 = sy02.csy010   
+     order by csy010 
   </select>
   
   <!-- 删除用户 -->
