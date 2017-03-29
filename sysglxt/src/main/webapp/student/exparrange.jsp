@@ -162,6 +162,10 @@
         		return;
         	}else{
         		 var csy091 = ue.getContent();
+        		 if(!csy091){
+        			 sweetAlert("内容为空，不能提交");
+        			 return;
+        		 }
         		 var sy09={
         			"csy080":csy080,
         			"csy091":csy091,

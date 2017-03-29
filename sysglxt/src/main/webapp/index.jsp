@@ -86,7 +86,7 @@
    $(function(){
 	    $.ajax({
 	    	type:"POST",
-	    	url:"${pageContext.request.contextPath}/menu/queryMenu?csy010=0",
+	    	url:"${pageContext.request.contextPath}/menu/queryMenu?csy010=1",
 	    	success:function(data){
 	    		$("#center").empty();
 	    		//循环添加父级菜单
