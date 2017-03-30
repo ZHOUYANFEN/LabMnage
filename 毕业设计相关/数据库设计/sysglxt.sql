@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-03-30 08:59:02
+Date: 2017-03-30 22:07:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -332,7 +332,7 @@ INSERT INTO `sy15` VALUES ('4', '1', '学习资源', 'selectMenu(\"slpt_resource
 INSERT INTO `sy15` VALUES ('5', '1', '资源查看', 'openPage(\"student/scanresource.jsp\")', 'student/scanresource.jsp', '2', '4', '0', '');
 INSERT INTO `sy15` VALUES ('6', '1', '实验安排', 'openPage(\"student/exparrange.jsp\")', 'student/exparrange.jsp', '2', '4', '0', '');
 INSERT INTO `sy15` VALUES ('7', '1', '作业安排', null, null, '2', '4', '1', '');
-INSERT INTO `sy15` VALUES ('8', '1', '实验报告提交 ', 'openPage(\"student/student_info.jsp\")', null, '1', null, '0', 'slpt_report');
+INSERT INTO `sy15` VALUES ('8', '1', '实验报告提交 ', 'openPage(\"student/submitreport.jsp\")', 'student/submitreport.jsp', '1', null, '0', 'slpt_report');
 INSERT INTO `sy15` VALUES ('9', '1', '课程安排', 'selectMenu(\"slpt_class\",9)', null, '1', null, '0', 'slpt_class');
 INSERT INTO `sy15` VALUES ('10', '1', '课程表', 'openPage(\"student/syllabus.jsp\")', 'student/syllabus.jsp', '2', '9', '0', '');
 INSERT INTO `sy15` VALUES ('11', '1', '成绩查看', 'openPage(\"student/grade.jsp\")', 'student/grade.jsp', '1', null, '0', 'slpt_score');
