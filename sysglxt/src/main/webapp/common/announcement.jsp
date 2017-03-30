@@ -21,9 +21,91 @@
    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- 时间轴 -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.eeyellow.Timeline.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+       
 </head>
 <body style="font-family:'黑体';font-size:16px">
     
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-12">
+                <div class="VivaTimeline">
+                    <dl>
+                        <dt>2016.12</dt>
+                        <dd class="pos-left clearfix">
+                            <div class="circ"></div>
+                            <div class="time">12.23</div>
+                            <div class="events">
+                                <div class="events-header">资源一</div>
+                                <div class="events-body">
+                                    <div class="row">
+                                        <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="${pageContext.request.contextPath}/resources/img/dog01.png" />
+                                        </div>
+                                        <div class="events-desc">
+                                           
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </dd>
+                        <dt>2017.3</dt>
+                        <dd class="pos-right clearfix">
+                            <div class="circ"></div>
+                            <div class="time">3.21</div>
+                            <div class="events">
+                                <div class="events-header">资源二</div>
+                                <div class="events-body">
+                                    <div class="row">
+                                        <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="${pageContext.request.contextPath}/resources/img/cat01.png" />
+                                        </div>
+                                        <div class="events-desc">
+                                        </div>
+                                    </div>                                    
+                            </div>
+                        </dd>
+                        <dd class="pos-left clearfix">
+                            <div class="circ"></div>
+                            <div class="time">3.25</div>
+                            <div class="events">
+                                <div class="events-header">资源三</div>
+                                <div class="events-body">
+                                    <div class="row">
+                                        <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="${pageContext.request.contextPath}/resources/img/rabbit01.png" />
+                                        </div>
+                                        <div class="events-desc">
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>                        
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="${pageContext.request.contextPath}/resources/jquery/jquery-1.10.2.js"></script>
+    <!-- <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script> -->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.eeyellow.Timeline.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.VivaTimeline').vivaTimeline({
+                carousel: true,
+                carouselTime: 3000
+            });
+        });
+    </script>
 </body>
+
+
 </html>
