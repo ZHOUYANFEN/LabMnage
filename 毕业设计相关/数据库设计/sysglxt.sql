@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-03-29 22:03:01
+Date: 2017-03-30 08:59:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -201,12 +201,13 @@ CREATE TABLE `sy09` (
   `CSY090` int(11) NOT NULL AUTO_INCREMENT COMMENT '实验提交ID',
   `CSY095` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY090`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy09
 -- ----------------------------
 INSERT INTO `sy09` VALUES ('123456', '4', '<p>说的</p>', null, null, null, '1', '0');
+INSERT INTO `sy09` VALUES ('123456', '4', '', null, null, null, '2', '0');
 
 -- ----------------------------
 -- Table structure for sy10
@@ -347,7 +348,7 @@ INSERT INTO `sy15` VALUES ('23', '0', '菜单修改', null, null, '2', '21', '1'
 INSERT INTO `sy15` VALUES ('24', '0', '菜单删除', null, null, '2', '21', '1', '');
 INSERT INTO `sy15` VALUES ('25', '0', '资源管理', 'selectMenu(\"slpt_resourcemanage\",25)', null, '1', null, '0', 'slpt_resourcemanage');
 INSERT INTO `sy15` VALUES ('26', '0', '实验室申请审核及分配', null, null, '2', '25', '0', '');
-INSERT INTO `sy15` VALUES ('27', '0', '公告管理', null, null, '2', '25', '0', '');
+INSERT INTO `sy15` VALUES ('27', '0', '公告管理', 'openPage(\"manager/annoucement.jsp\")', 'manager/annoucement.jsp', '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('28', '0', '实验课程检查', null, null, '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('29', '0', '资源查看', null, null, '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('30', '0', '资源统计', 'selectMenu(\"slpt_statistics\",30)', null, '1', null, '0', 'slpt_statistics');
@@ -363,7 +364,7 @@ INSERT INTO `sy15` VALUES ('39', '3', '实验室申请', '', null, '1', null, '0
 INSERT INTO `sy15` VALUES ('40', '3', '资源管理', 'selectMenu(\"slpt_resourcemanage\",40)', null, '1', null, '0', 'slpt_resourcemanage');
 INSERT INTO `sy15` VALUES ('41', '3', '论文管理', null, null, '2', '40', '0', '');
 INSERT INTO `sy15` VALUES ('42', '3', '代码管理', null, null, '2', '40', '0', '');
-INSERT INTO `sy15` VALUES ('43', '3', '通知公告', '(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', 'slpt_announcement');
+INSERT INTO `sy15` VALUES ('43', '3', '通知公告', 'openPage(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', 'slpt_announcement');
 INSERT INTO `sy15` VALUES ('44', '3', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', 'slpt_help');
 INSERT INTO `sy15` VALUES ('45', '2', '个人信息管理', 'selectMenu(\"slpt_personnal\",45)', null, '1', null, '0', 'slpt_personnal');
 INSERT INTO `sy15` VALUES ('46', '2', '个人信息查看', null, null, '2', '45', '0', '');
