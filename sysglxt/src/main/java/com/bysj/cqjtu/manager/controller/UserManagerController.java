@@ -42,8 +42,8 @@ import com.bysj.cqjtu.util.ExceltoList;
  *2017年3月22日下午5:00:43
  *
  */
-@RequestMapping("/userManager")
-@Controller
+@RequestMapping("/userManager")  
+@Controller 
 public class UserManagerController {
     @Autowired
     private UserManagerService userManagerService;
@@ -64,8 +64,8 @@ public class UserManagerController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/deleteUser")
-    @ResponseBody
+    @RequestMapping("/deleteUser") 
+    @ResponseBody 
     public Map deleteUser(int csy020)throws Exception{
        boolean deleteFlag=userManagerService.deleteUser(csy020);
        Map map=new HashMap();
