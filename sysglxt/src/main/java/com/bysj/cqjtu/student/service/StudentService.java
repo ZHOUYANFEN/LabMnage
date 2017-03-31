@@ -3,6 +3,7 @@ package com.bysj.cqjtu.student.service;
 import java.util.List;
 import java.util.Map;
 
+import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
@@ -57,4 +58,10 @@ public interface StudentService {
      * @throws Exception
      */
     public List<Map> queryGrade(Sy07 sy07)throws Exception;
+    /**
+     * 查询实验安排
+     * @param sy04
+     * @return
+     */
+    public List<Map> queryExpList(Sy04 sy04)throws Exception;
 }

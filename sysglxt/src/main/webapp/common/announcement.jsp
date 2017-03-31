@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>用户菜单列表</title> 
+    <title>公告</title> 
         <!-- 引入JQuery -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/jquery.min.js"></script>
        <!-- 引入EasyUI -->
@@ -32,76 +32,48 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="VivaTimeline">
-                    <dl>
-                        <dt>2016.12</dt>
-                        <dd class="pos-left clearfix">
-                            <div class="circ"></div>
-                            <div class="time">12.23</div>
-                            <div class="events">
-                                <div class="events-header">资源一</div>
-                                <div class="events-body">
-                                    <div class="row">
-                                        <div class="col-md-6 pull-left">
-                                            <img class="events-object img-responsive img-rounded" src="${pageContext.request.contextPath}/resources/img/dog01.png" />
-                                        </div>
-                                        <div class="events-desc">
-                                           
-                                        </div>
-                                    </div>                                    
-                                </div>
-                            </div>
-                        </dd>
-                        <dt>2017.3</dt>
-                        <dd class="pos-right clearfix">
-                            <div class="circ"></div>
-                            <div class="time">3.21</div>
-                            <div class="events">
-                                <div class="events-header">资源二</div>
-                                <div class="events-body">
-                                    <div class="row">
-                                        <div class="col-md-6 pull-left">
-                                            <img class="events-object img-responsive img-rounded" src="${pageContext.request.contextPath}/resources/img/cat01.png" />
-                                        </div>
-                                        <div class="events-desc">
-                                        </div>
-                                    </div>                                    
-                            </div>
-                        </dd>
-                        <dd class="pos-left clearfix">
-                            <div class="circ"></div>
-                            <div class="time">3.25</div>
-                            <div class="events">
-                                <div class="events-header">资源三</div>
-                                <div class="events-body">
-                                    <div class="row">
-                                        <div class="col-md-6 pull-left">
-                                            <img class="events-object img-responsive img-rounded" src="${pageContext.request.contextPath}/resources/img/rabbit01.png" />
-                                        </div>
-                                        <div class="events-desc">
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </dd>                        
+                    <dl id="announcementlist">
+                                
                     </dl>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-
-
-    <script src="${pageContext.request.contextPath}/resources/jquery/jquery-1.10.2.js"></script>
-    <!-- <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script> -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.eeyellow.Timeline.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.VivaTimeline').vivaTimeline({
                 carousel: true,
                 carouselTime: 3000
+            });
+            
+            $.ajax({
+            	type:'post',
+            	url:"${pageContext.request.contextPath}/anouncement/queryanouncement",
+            	success:function(data){
+            		$("#announcementlist").empty();
+            		for(var i=0;i<data.length;i++){
+            			console.log(data[i]);
+            			$("#announcementlist").append("<dd class='pos-left clearfix'>"
+            				                         +"<div class='circ'></div>"
+            				                         +"<div class='time'>"+ Date.parse((data[i].csy142))/1000+"</div>"
+            				                         +"<div class='events'>"
+            				                         +"<div class='events-header'>"+data[i].csy141+"</div>"
+            				                         +"<div class='events-body'>"
+            				                         +"<div class='row'>"
+            				                         +"<div class='col-md-6 pull-left'>"
+            				                         +"</div>"
+            				                         +"<div class='events-desc'>"
+            				                         +data[i].csy143
+            				                         +"</div>"
+            				                         +"</div>"                                   
+            				                         +"</div>"
+            				                         +"</div>"
+            				                         +"</dd>");
+            			
+            		}
+            	}
             });
         });
     </script>

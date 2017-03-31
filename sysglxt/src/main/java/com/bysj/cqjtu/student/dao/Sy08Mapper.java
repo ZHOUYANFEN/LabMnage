@@ -3,6 +3,7 @@ package com.bysj.cqjtu.student.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.domain.Sy08;
 
@@ -38,6 +39,12 @@ public interface Sy08Mapper {
      * @return
      */
     List<Map> queryExpArrangeContent(Sy08 sy08);
+    /**
+     * 查询实验安排
+     * @param sy04
+     * @return
+     */
+    List<Map> queryExpList(Sy04 sy04);
     
     
 }

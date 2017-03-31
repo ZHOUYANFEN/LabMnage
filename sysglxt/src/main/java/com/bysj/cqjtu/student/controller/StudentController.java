@@ -164,4 +164,23 @@ public class StudentController {
         sy07.setCsy040(csy040);
         return studentService.queryGrade(sy07);
     }
+    /**
+     * 查询具体实验安排
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryExpList")
+    @ResponseBody
+    public List<Map> queryExpList() throws Exception{
+        //取session的用户
+        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        
+        //UserMessage userMessage=new UserMessage();
+        String csy040="123456";
+        Sy04 sy04=new Sy04();
+        sy04.setCsy040(csy040);
+        List<Map> list=studentService.queryExpList(sy04);
+        return list;
+    }
 }

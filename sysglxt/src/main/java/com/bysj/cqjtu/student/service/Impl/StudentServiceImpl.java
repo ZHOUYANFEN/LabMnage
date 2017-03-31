@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.constance.StudentOperateConstance;
 import com.bysj.cqjtu.student.dao.Sy06Mapper;
@@ -67,6 +68,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Map> queryGrade(Sy07 sy07) throws Exception {
        return sy07Mapper.queryGrade(sy07);
+    }
+
+    @Override
+    public List<Map> queryExpList(Sy04 sy04) throws Exception {
+        return sy08Mapper.queryExpList(sy04);
     }
 
 }

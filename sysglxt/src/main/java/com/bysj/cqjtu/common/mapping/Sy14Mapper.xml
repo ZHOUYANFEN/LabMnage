@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.common.dao.Sy14Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.common.domain.Sy14" >
+    <id column="CSY140" property="csy140" jdbcType="INTEGER" />
+    <result column="CSY141" property="csy141" jdbcType="VARCHAR" />
+    <result column="CSY142" property="csy142" jdbcType="DATE" />
+    <result column="CSY143" property="csy143" jdbcType="VARCHAR" />
+    <result column="CSY144" property="csy144" jdbcType="DATE" />
+    <result column="CSY145" property="csy145" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY140, CSY141, CSY142, CSY143, CSY144, CSY145
+  </sql>
+  <!-- 查询公告 -->
+  <select id="queryanouncement" resultType="com.bysj.cqjtu.common.domain.Sy14" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy14
+    where csy145 = 0
+  <![CDATA[      and csy144>CURDATE()   ]]>
+  </select>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy14
+    where CSY140 = #{csy140,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy14
+    where CSY140 = #{csy140,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.common.domain.Sy14" >
+    insert into sy14 (CSY140, CSY141, CSY142, 
+      CSY143, CSY144, CSY145
+      )
+    values (#{csy140,jdbcType=INTEGER}, #{csy141,jdbcType=VARCHAR}, #{csy142,jdbcType=DATE}, 
+      #{csy143,jdbcType=VARCHAR}, #{csy144,jdbcType=DATE}, #{csy145,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.common.domain.Sy14" >
+    insert into sy14
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy140 != null" >
+        CSY140,
+      </if>
+      <if test="csy141 != null" >
+        CSY141,
+      </if>
+      <if test="csy142 != null" >
+        CSY142,
+      </if>
+      <if test="csy143 != null" >
+        CSY143,
+      </if>
+      <if test="csy144 != null" >
+        CSY144,
+      </if>
+      <if test="csy145 != null" >
+        CSY145,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy140 != null" >
+        #{csy140,jdbcType=INTEGER},
+      </if>
+      <if test="csy141 != null" >
+        #{csy141,jdbcType=VARCHAR},
+      </if>
+      <if test="csy142 != null" >
+        #{csy142,jdbcType=DATE},
+      </if>
+      <if test="csy143 != null" >
+        #{csy143,jdbcType=VARCHAR},
+      </if>
+      <if test="csy144 != null" >
+        #{csy144,jdbcType=DATE},
+      </if>
+      <if test="csy145 != null" >
+        #{csy145,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.common.domain.Sy14" >
+    update sy14
+    <set >
+      <if test="csy141 != null" >
+        CSY141 = #{csy141,jdbcType=VARCHAR},
+      </if>
+      <if test="csy142 != null" >
+        CSY142 = #{csy142,jdbcType=DATE},
+      </if>
+      <if test="csy143 != null" >
+        CSY143 = #{csy143,jdbcType=VARCHAR},
+      </if>
+      <if test="csy144 != null" >
+        CSY144 = #{csy144,jdbcType=DATE},
+      </if>
+      <if test="csy145 != null" >
+        CSY145 = #{csy145,jdbcType=TINYINT},
+      </if>
+    </set>
+    where CSY140 = #{csy140,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.common.domain.Sy14" >
+    update sy14
+    set CSY141 = #{csy141,jdbcType=VARCHAR},
+      CSY142 = #{csy142,jdbcType=DATE},
+      CSY143 = #{csy143,jdbcType=VARCHAR},
+      CSY144 = #{csy144,jdbcType=DATE},
+      CSY145 = #{csy145,jdbcType=TINYINT}
+    where CSY140 = #{csy140,jdbcType=INTEGER}
+  </update>
+</mapper>

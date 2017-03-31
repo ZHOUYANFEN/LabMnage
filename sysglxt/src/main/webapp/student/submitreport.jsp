@@ -28,8 +28,6 @@
     <link href="${pageContext.request.contextPath}/resources/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
     <!-- <script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script> -->
     <script src="${pageContext.request.contextPath}/resources/js/fileinput.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/fileinput_locale_fr.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/fileinput_locale_es.js" type="text/javascript"></script>
    <!--  <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js" type="text/javascript"></script> -->
     
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -38,14 +36,10 @@
   
     <h2 align="center">实验安排</h2>
 
-   <button type='button' class='btn btn-default ' data-toggle='modal' data-target='#uploadPage'  >
-         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    添加公告
-    </button>
+
     <div id="button_querymenu" style="margin-top:30px;margin-left:5px;width:950px">
         <table class="table table-hover" id="sy08" style="font-size:10px;margin-top:20px" >
             <tr style="width:600px;" id="menuhead">
-                <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox()"/></td>
                 <td >课程</td>
                 <td >实验名称</td>
                 <td >布置时间</td>
@@ -104,5 +98,28 @@
         });
 
     }); */
-    </script>
+    
+    
+    $(function(){
+    	$.ajax({
+    		type:'post',
+    		url:"${pageContext.request.contextPath}/student/queryExpList",
+    		success:function(data){
+    			$("#menuhead").siblings().remove();
+    			for(var i=0;i<data.length;i++){
+    			 $("#sy08").append("<tr style='width:600px;margin-left:20px'>"
+	    				                +"<td >"+data[i].csy061+"</td>"
+	    				                +"<td >"+data[i].CSY081+"</td>"
+	    				                +"<td >"+data[i].CSY083+"</td>"
+	    				                +"<td >"+data[i].CSY084+"</td>"
+	    				                +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#uploadPage'  >"
+	    				                +"<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
+	    				                +"提交报告"
+	    				                +"</button></td>"
+	    				                +" </tr>");
+    			}
+    		},
+    	});
+    })
+</script>
 </html>

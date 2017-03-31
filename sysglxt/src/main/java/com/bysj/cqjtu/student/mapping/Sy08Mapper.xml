@@ -63,7 +63,21 @@
             
   </select>
   
-  
+  <!-- 获取实验安排 -->
+  <select id="queryExpList" parameterType="com.bysj.cqjtu.manager.domain.Sy04" resultType="java.util.HashMap">
+     select 
+            sy08.*,
+            sy05.csy051,
+            sy06.csy061
+       from sy08 sy08,
+            sy06 sy06,
+            sy05 sy05
+      where sy08.csy085 = '0'
+        and sy06.csy067 = 0
+        and sy05.csy050 = sy08.csy050
+        and sy06.csy060 = sy08.csy060
+        and sy08.csy040 = #{csy040}            
+  </select>
   
   
   
