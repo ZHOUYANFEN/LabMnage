@@ -22,24 +22,30 @@
     <!-- 弹窗css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
     
-    
-    
-   <!--  <link href="http://www.jq22.com/jquery/bootstrap-3.3.4.css" rel="stylesheet"> -->
+        
     <link href="${pageContext.request.contextPath}/resources/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
-    <!-- <script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script> -->
     <script src="${pageContext.request.contextPath}/resources/js/fileinput.js" type="text/javascript"></script>
-   <!--  <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js" type="text/javascript"></script> -->
-    
+
+    <link href="${pageContext.request.contextPath}/resources/css/jquery-ui-1.10.1.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/nigran.datepicker.css" rel="stylesheet">    
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui-1.10.1.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body  style="font-family:'黑体';font-size:16px">
   
-    <h2 align="center">实验安排</h2>
+    <h2 align="center">实验列表</h2>
     <div id="button_querymenu" style="margin-top:20px;margin-left:60px">                    
                      课程名称:<input type="text" name="csy021" width="100px" id="csy131">
                      实验名称:<input type="text" name="csy021" width="100px" id="csy132">
-                     布置时间:<input type="text" name="csy021" width="100px" id="csy136">
-        <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-right:70px" >
+                     布置时间:<article style="float:right;margin-right:170px;margin-top:-1px">
+		            <div>
+		                <input type="text" id="csy084" />
+		            </div>
+		         </article>
+                     
+                     
+        <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-right:70px;margin-top:-30px" >
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 查询 
         </button>      
@@ -109,6 +115,10 @@
     
     
     $(function(){
+    	$( "#csy084" ).datepicker({
+            inline:true,
+            showOtherMonths:true
+        }).datepicker('widget').wrap('<div class="ll-skin-nigran"/>');
     	$.ajax({
     		type:'post',
     		url:"${pageContext.request.contextPath}/student/queryExpList",

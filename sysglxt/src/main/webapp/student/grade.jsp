@@ -36,9 +36,34 @@
                 <td>班级</td>
                 <td>成绩</td>
                 <td>备注</td>
+                <td>操作</td>
             </tr>
         </table>
-     </div>
+  </div>
+  
+   <div class="modal fade bs-example-modal-lg" id="gradedetail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">实验成绩详情</h4>
+          </div>
+          <div class="modal-body" style="height:400px">
+                <table class="table table-hover" id="explist" style="font-size:10px">
+            <tr style="width:800px;" id="gradeexp">
+                <td>课程名称</td>
+                <td>实验名称</td>
+                <td>实验完成情况</td>
+                <td>实验完成时间</td>
+            </tr>
+        </table>
+        </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+       </div>
+      </div>
+    </div>
+  </div>
 </body>
 <script type="text/javascript">
   $(function(){
@@ -57,6 +82,10 @@
                   +"<td>"+data[i].CSY069+"</td>"
                   +"<td>"+data[i].csy071+"</td>"
                   +"<td>"+data[i].CSY068+"</td>"
+                  +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#gradedetail'  >"
+                  +"<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
+                  +"详情"
+                  +"</button></td>"
                   +"</tr>");
         	  }
           }

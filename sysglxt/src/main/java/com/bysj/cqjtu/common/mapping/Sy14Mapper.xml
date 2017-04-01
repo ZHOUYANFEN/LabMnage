@@ -19,6 +19,7 @@
     from sy14
     where csy145 = 0
   <![CDATA[      and csy144>CURDATE()   ]]>
+    order by csy142
   </select>
   
   

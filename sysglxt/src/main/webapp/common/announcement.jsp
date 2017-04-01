@@ -53,6 +53,9 @@
             	url:"${pageContext.request.contextPath}/anouncement/queryanouncement",
             	success:function(data){
             		$("#announcementlist").empty();
+            		if(data.length==0){
+            			$("#announcementlist").append("<h2>暂无视频</h2>")
+            		}
             		for(var i=0;i<data.length;i++){
             			if(i%2==0){
 	            			$("#announcementlist").append("<dd class='pos-left clearfix'>"
@@ -62,9 +65,7 @@
 	            				                         +"<div class='events-header'>"+data[i].csy141+"</div>"
 	            				                         +"<div class='events-body'>"
 	            				                         +"<div class='row'>"
-	            				                         +"<div class='col-md-6 pull-left'>"
-	            				                         +"</div>"
-	            				                         +"<div class='events-desc'>"+data[i].csy143+"</div>"
+	            				                         +"<div class='events-desc' >"+data[i].csy143+"</div>"
 	            				                         +"</div>"                                   
 	            				                         +"</div>"
 	            				                         +"</div>"
