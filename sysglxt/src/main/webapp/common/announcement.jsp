@@ -54,23 +54,39 @@
             	success:function(data){
             		$("#announcementlist").empty();
             		for(var i=0;i<data.length;i++){
-            			console.log(data[i]);
-            			$("#announcementlist").append("<dd class='pos-left clearfix'>"
-            				                         +"<div class='circ'></div>"
-            				                         +"<div class='time'>"+ Date.parse((data[i].csy142))/1000+"</div>"
-            				                         +"<div class='events'>"
-            				                         +"<div class='events-header'>"+data[i].csy141+"</div>"
-            				                         +"<div class='events-body'>"
-            				                         +"<div class='row'>"
-            				                         +"<div class='col-md-6 pull-left'>"
-            				                         +"</div>"
-            				                         +"<div class='events-desc'>"
-            				                         +data[i].csy143
-            				                         +"</div>"
-            				                         +"</div>"                                   
-            				                         +"</div>"
-            				                         +"</div>"
-            				                         +"</dd>");
+            			if(i%2==0){
+	            			$("#announcementlist").append("<dd class='pos-left clearfix'>"
+	            				                         +"<div class='circ'></div>"
+	            				                         +"<div class='time' style='width:200px'>"+ (new Date(data[i].csy142).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</div>"
+	            				                         +"<div class='events'>"
+	            				                         +"<div class='events-header'>"+data[i].csy141+"</div>"
+	            				                         +"<div class='events-body'>"
+	            				                         +"<div class='row'>"
+	            				                         +"<div class='col-md-6 pull-left'>"
+	            				                         +"</div>"
+	            				                         +"<div class='events-desc'>"+data[i].csy143+"</div>"
+	            				                         +"</div>"                                   
+	            				                         +"</div>"
+	            				                         +"</div>"
+	            				                         +"</dd>");
+            			}else{
+            				$("#announcementlist").append("<dd class='pos-right clearfix'>"
+                                    +"<div class='circ'></div>"
+                                    +"<div class='time' style='width:105px'>"+ (new Date(data[i].csy142).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</div>"
+                                    +"<div class='events'>"
+                                    +"<div class='events-header'>"+data[i].csy141+"</div>"
+                                    +"<div class='events-body'>"
+                                    +"<div class='row'>"
+                                    +"<div class='col-md-6 pull-left'>"
+                                    +"</div>"
+                                    +"<div class='events-desc'>"
+                                    +data[i].csy143
+                                    +"</div>"
+                                    +"</div>"                                   
+                                    +"</div>"
+                                    +"</div>"
+                                    +"</dd>");
+            			}
             			
             		}
             	}

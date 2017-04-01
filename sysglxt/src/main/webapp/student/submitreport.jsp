@@ -35,7 +35,15 @@
 <body  style="font-family:'黑体';font-size:16px">
   
     <h2 align="center">实验安排</h2>
-
+    <div id="button_querymenu" style="margin-top:20px;margin-left:60px">                    
+                     课程名称:<input type="text" name="csy021" width="100px" id="csy131">
+                     实验名称:<input type="text" name="csy021" width="100px" id="csy132">
+                     布置时间:<input type="text" name="csy021" width="100px" id="csy136">
+        <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-right:70px" >
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                查询 
+        </button>      
+    </div>
 
     <div id="button_querymenu" style="margin-top:30px;margin-left:5px;width:950px">
         <table class="table table-hover" id="sy08" style="font-size:10px;margin-top:20px" >
