@@ -21,23 +21,52 @@
                       CSY080, 
                       CSY091, 
                       CSY092, 
-                      CSY093, 
-                      CSY094, 
                       CSY095)
               values (#{csy040,jdbcType=VARCHAR}, 
                       #{csy080,jdbcType=VARCHAR}, 
                       #{csy091,jdbcType=VARCHAR}, 
-                      #{csy092,jdbcType=DATE}, 
-                      #{csy093,jdbcType=VARCHAR}, 
-                      #{csy094,jdbcType=VARCHAR},
+                      curdate(), 
                       #{csy095,jdbcType=TINYINT})
   </insert>
-  
-  
-  
-  
-  
-  
+  <!--更新实验完成内容  -->
+  <update id="updateExp" parameterType="com.bysj.cqjtu.student.domain.Sy09" >
+    update sy09
+       set CSY091 = #{csy091,jdbcType=VARCHAR},
+	       CSY092 = curdate(),
+	       CSY095 = #{csy095,jdbcType=TINYINT}
+     where csy080 = #{csy080}
+       and csy040 = #{csy040}
+  </update>
+  <!-- 查询是否提交过报告 -->
+  <select id="isExist" resultMap="BaseResultMap" parameterType="com.bysj.cqjtu.student.domain.Sy09" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy09
+    where csy080 = #{csy080}
+      and csy040 = #{csy040}
+      and csy095 = 0
+  </select>
+  <!--更新实验完成表  -->
+  <update id="updateReport" parameterType="com.bysj.cqjtu.student.domain.Sy09" >
+    update sy09
+       set csy093 = #{csy093,jdbcType=VARCHAR},
+           csy092 =curdate()
+     where csy080 = #{csy080}
+       and csy040 = #{csy040}
+  </update>
+  <!-- 保存实验报告 -->
+  <insert id="saveReport" parameterType="com.bysj.cqjtu.student.domain.Sy09" >
+    insert into sy09 (CSY040, 
+                      CSY080,
+                      CSY092,                      
+                      CSY093,  
+                      CSY095)
+              values (#{csy040,jdbcType=VARCHAR}, 
+                      #{csy080,jdbcType=VARCHAR},
+                      curdate(),   
+                      #{csy093,jdbcType=VARCHAR}, 
+                      #{csy095,jdbcType=TINYINT})
+  </insert>
   
   
   

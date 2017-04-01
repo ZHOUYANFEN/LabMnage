@@ -1,5 +1,7 @@
 package com.bysj.cqjtu.student.dao;
 
+import java.util.List;
+
 import com.bysj.cqjtu.student.domain.Sy09;
 
 /**
@@ -27,4 +29,29 @@ public interface Sy09Mapper {
      * @return
      */
     int saveExp(Sy09 sy09);
+    /**
+     * 查询是否提交过该报告
+     * @param sy09
+     * @return
+     */
+    List<Sy09> isExist(Sy09 sy09);
+    /**
+     * 更新实验完成表
+     * @param sy09
+     * @return
+     */
+    int updateReport(Sy09 sy09);
+    /**
+     * 保存实验报告
+     * @param sy09
+     * @return
+     */
+    void saveReport(Sy09 sy09);
+    /**
+     * 更新实验完成内容
+     * @param sy09
+     * @return
+     */
+    int updateExp(Sy09 sy09);
+    
 }

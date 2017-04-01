@@ -127,18 +127,6 @@ public class UserManagerController {
         return map;
     }
     /**
-     * 上传文件
-     * @param filename
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/uploadFile")
-    @ResponseBody
-    public List uploadFile(String filename)throws Exception{
-        List list=ExceltoList.excel2List(filename);
-        return list;
-    }
-    /**
      * 读取文件
      * @param filename
      * @return

@@ -71,7 +71,6 @@
 		  type:'POST',
 		  url:"${pageContext.request.contextPath}/student/queryGrade",
           success:function(data){
-        	  console.log(data);
         	  for(var i=0;i<data.length;i++){
         		  $("#syllabushead").siblings().remove();
         		  $("#syllabuslist").append("<tr style='width:800px;'>"
@@ -82,7 +81,7 @@
                   +"<td>"+data[i].CSY069+"</td>"
                   +"<td>"+data[i].csy071+"</td>"
                   +"<td>"+data[i].CSY068+"</td>"
-                  +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#gradedetail'  >"
+                  +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#gradedetail'  onclick='queryGradeDetai("+data[i].CSY060+")'>"
                   +"<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
                   +"详情"
                   +"</button></td>"
@@ -91,5 +90,23 @@
           }
 	  });
   });
+  /**查看详情*/
+  function queryGradeDetai(csy060){
+	  $.ajax({
+          type:'POST',
+          url:"${pageContext.request.contextPath}/student/queryGradeDetai?csy060="+csy060,
+          success:function(data){
+        	  $("#gradeexp").siblings().remove();
+              for(var i=0;i<data.length;i++){
+            	  $("#explist").append("<tr style='width:800px;' id='gradeexp'>"
+						                  +"<td>"+data[i].csy061+"</td>"
+						                  +"<td>"+data[i].csy081+"</td>"
+						                  +"<td>"+data[i].csy094+"</td>"
+						                  +"<td>"+data[i].csy092+"</td>"
+						                  +"</tr>");
+              }
+          }
+	  });
+  }
 </script>
 </html>

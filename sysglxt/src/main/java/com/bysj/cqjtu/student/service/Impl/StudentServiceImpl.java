@@ -36,8 +36,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Map> queryExpArrange(UserMessage userMessage) {
-        return sy08Mapper.queryExpArrange(userMessage);
+    public List<Map> queryExpArrange(Sy04 sy04) {
+        return sy08Mapper.queryExpArrange(sy04);
     }
 
     @Override
@@ -54,12 +54,19 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Map saveExp(Sy09 sy09) throws Exception {
-        sy09.setCsy095(Byte.parseByte("0"));
-        int i=sy09Mapper.saveExp(sy09);
         Map map=new HashMap();
-        if(i!=1){
-            map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
-        } else{
+        sy09.setCsy095(Byte.parseByte("0"));
+      //查询是否已经提交过报告
+        List<Sy09> sy09List=sy09Mapper.isExist(sy09);
+        if(sy09List.size()>0){
+         int i=sy09Mapper.updateExp(sy09);
+         if(i!=1){
+             map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
+         } else{
+             map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
+         }
+        }else{
+            int i=sy09Mapper.saveExp(sy09);
             map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
         }
         return map;
@@ -74,5 +81,33 @@ public class StudentServiceImpl implements StudentService {
     public List<Map> queryExpList(Sy04 sy04) throws Exception {
         return sy08Mapper.queryExpList(sy04);
     }
+
+    @Override
+    public Map saveReport(Sy09 sy09) {
+        Map map=new HashMap();
+        sy09.setCsy095(new Byte((byte) 0));
+        //查询是否已经提交过报告
+         List<Sy09> sy09List=sy09Mapper.isExist(sy09);
+         if(sy09List.size()>0){
+             int i=sy09Mapper.updateReport(sy09);
+             if(i!=1){
+                 map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
+             }else{
+                 map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
+             }
+         }else{
+             sy09Mapper.saveReport(sy09);            
+             map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
+         }
+         return map;
+    }
+
+    @Override
+    public List<Map> queryGradeDetai(Sy07 sy07) throws Exception {
+   
+        return sy07Mapper.queryGradeDetai(sy07);
+    }
+
+
 
 }

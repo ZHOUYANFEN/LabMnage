@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy04;
-import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.domain.Sy08;
 
 public interface Sy08Mapper {
@@ -25,7 +24,7 @@ public interface Sy08Mapper {
      * @param userMessage
      * @return
      */
-    List<Map> queryExpArrange(UserMessage userMessage);
+    List<Map> queryExpArrange(Sy04 sy04);
     
     /**
      * 获取实验安排列表
@@ -45,6 +44,7 @@ public interface Sy08Mapper {
      * @return
      */
     List<Map> queryExpList(Sy04 sy04);
+
     
     
 }

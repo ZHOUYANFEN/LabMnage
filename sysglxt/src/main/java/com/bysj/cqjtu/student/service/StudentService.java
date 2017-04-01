@@ -29,7 +29,7 @@ public interface StudentService {
      * @param userMessage
      * @return
      */
-    public List<Map> queryExpArrange(UserMessage userMessage)throws Exception;
+    public List<Map> queryExpArrange(Sy04 sy04)throws Exception;
     /**
      * 获取具体实验安排的列表
      * @param userMessage
@@ -64,4 +64,18 @@ public interface StudentService {
      * @return
      */
     public List<Map> queryExpList(Sy04 sy04)throws Exception;
+    
+    /**
+     * 查询是否已经提交过报告
+     * @param sy09
+     */
+    public Map saveReport(Sy09 sy09) throws Exception;
+    /**
+     * 查询成绩详情
+     * @param sy07
+     * @return
+     * @throws Exception
+     */
+    public List<Map> queryGradeDetai(Sy07 sy07) throws Exception;
+
 }

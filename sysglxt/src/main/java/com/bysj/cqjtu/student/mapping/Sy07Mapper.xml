@@ -20,6 +20,23 @@
        and sy07.csy040 = #{csy040}
   </select>
   
+  <!-- 查询成绩详情 -->
+  <select id="queryGradeDetai" parameterType="com.bysj.cqjtu.student.domain.Sy07" resultType="java.util.HashMap">
+    select sy06.csy061,
+           sy08.csy081,
+           sy09.csy092,
+           sy09.csy094
+      from sy07 sy07,
+           sy06 sy06,
+           sy08 sy08,
+           sy09 sy09
+     where sy07.csy060 = sy06.csy060
+       and sy07.csy060 = sy08.csy060
+       and sy08.csy080 = sy09.csy090
+       and sy07.csy040 = #{csy040}
+       and sy07.csy060 = #{csy060}
+  </select>
+  
   
   
   

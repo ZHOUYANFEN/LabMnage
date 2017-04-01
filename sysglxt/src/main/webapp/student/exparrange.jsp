@@ -133,7 +133,6 @@
             type:'post',
             url:"${pageContext.request.contextPath}/student/queryExpArrangeContent?csy080="+data,
             success:function(data){
-            	console.log(data);
                $("#csy081").text(data[0].CSY081);
                $("#csy080").val(data[0].CSY080);
                $("#csy061").text("所属课程："+data[0].csy061);

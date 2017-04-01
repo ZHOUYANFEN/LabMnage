@@ -17,7 +17,7 @@
   </sql>
   
   <!-- 查询实验安排 -->
-  <select id="queryExpArrange" parameterType="com.bysj.cqjtu.manager.pojo.UserMessage" resultType="java.util.HashMap">
+  <select id="queryExpArrange" parameterType="com.bysj.cqjtu.manager.domain.Sy04" resultType="java.util.HashMap">
      select distinct
                      sy06.csy061,
                      sy06.csy060
@@ -25,14 +25,14 @@
                      sy08 sy08
                where sy08.csy060 = sy06.csy060
                  and sy08.csy085 = '0'
-                 and sy08.csy040 = #{sy04.csy040}
+                 and sy08.csy040 = #{csy040}
 
             
   </select>
   
   <!-- 获取实验安排列表 -->
   <select id="queryExpArrangeList" parameterType="com.bysj.cqjtu.student.domain.Sy08" resultType="com.bysj.cqjtu.student.domain.Sy08">
-     select 
+     select csy080,
             csy080,
             csy081,
             csy083,

@@ -15,4 +15,10 @@ public interface Sy07Mapper {
      * @return
      */
     List<Map> queryGrade(Sy07 sy07);
+    /**
+     * 查询成绩详情
+     * @param sy07
+     * @return
+     */
+    List<Map> queryGradeDetai(Sy07 sy07);
 }

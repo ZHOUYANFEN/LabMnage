@@ -1,15 +1,24 @@
 package com.bysj.cqjtu.student.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
@@ -66,14 +75,14 @@ public class StudentController {
         //取session的用户
         //UserMessage userMessage=(UserMessage) session.getAttribute("user");
         
-        UserMessage userMessage=new UserMessage();
+       // UserMessage userMessage=new UserMessage();
         
         String csy040="123456";
         Sy04 sy04=new Sy04();
         sy04.setCsy040(csy040);
-        userMessage.setSy04(sy04);
+
         
-        List<Map> list =studentService.queryExpArrange(userMessage);
+        List<Map> list =studentService.queryExpArrange(sy04);
         return list;
     }
     /**
@@ -182,5 +191,84 @@ public class StudentController {
         sy04.setCsy040(csy040);
         List<Map> list=studentService.queryExpList(sy04);
         return list;
+    }
+    
+    private String filename;
+    
+    public String getFilename() {
+        return filename;
+    }
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+    /**
+     * 查询具体实验安排
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/uploadReport")
+    @ResponseBody
+    public Map uploadReport(@RequestParam MultipartFile btnFile, HttpServletRequest request, HttpServletResponse response) throws Exception{
+        InputStream is = btnFile.getInputStream();//多文件也适用,我这里就一个文件  
+        byte[] b = new byte[(int)btnFile.getSize()];  
+        int read = 0;  
+        int i = 0;  
+        while((read=is.read())!=-1){  
+            b[i] = (byte) read;  
+            i++;  
+        }  
+        is.close(); 
+        filename="D://"+btnFile.getOriginalFilename();
+        OutputStream os = new FileOutputStream(new File(filename));
+        os.write(b);  
+        os.flush();  
+        os.close();
+        Map map=new HashMap();
+        map.put("address", filename);
+        return map;
+    }
+    /**
+     * 保存实验报告
+     * @param csy080
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/saveReport")
+    @ResponseBody
+    public Map saveReport(String csy080) throws Exception{
+        //取session的用户
+        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        
+        //UserMessage userMessage=new UserMessage();
+        String csy040="123456";
+        
+        Sy09 sy09=new Sy09();
+        sy09.setCsy080(csy080);
+        sy09.setCsy093(filename);
+        sy09.setCsy040(csy040);
+        Map map=studentService.saveReport(sy09);       
+        return map;
+    }
+    /**
+     * 查询成绩详情
+     * @param csy060
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryGradeDetai")
+    @ResponseBody
+    public List<Map> queryGradeDetai(String csy060) throws Exception{
+      //取session的用户
+        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        
+        //UserMessage userMessage=new UserMessage();
+        String csy040="123456";
+        Sy07 sy07 =new Sy07();
+        sy07.setCsy040(csy040);
+        sy07.setCsy060(csy060);
+        
+        return studentService.queryGradeDetai(sy07);
+        
     }
 }
