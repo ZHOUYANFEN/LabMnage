@@ -78,7 +78,7 @@
             </div>
         </div>
         <div id="right" style="float:right;width:1000px;height:700px;background-color:white;margin-top:-700px">
-               <iframe id="iframe1" name="iframe1" width="1000px" height="700px"></iframe>                              
+               <iframe id="iframe1" name="iframe1" width="1000px" height="700px" style="border:none"></iframe>                              
         </div>
     </div>
 </body>
