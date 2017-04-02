@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.student.dao.Sy13Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.student.domain.Sy13" >
+    <id column="CSY130" property="csy130" jdbcType="INTEGER" />
+    <result column="CSY020" property="csy020" jdbcType="INTEGER" />
+    <result column="CSY131" property="csy131" jdbcType="VARCHAR" />
+    <result column="CSY132" property="csy132" jdbcType="VARCHAR" />
+    <result column="CSY133" property="csy133" jdbcType="VARCHAR" />
+    <result column="CSY134" property="csy134" jdbcType="VARCHAR" />
+    <result column="CSY135" property="csy135" jdbcType="TINYINT" />
+    <result column="CSY136" property="csy136" jdbcType="DATE" />
+    <result column="CSY137" property="csy137" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY130, CSY020, CSY131, CSY132, CSY133, CSY134, CSY135, CSY136, CSY137
+  </sql>
+  
+  <!-- 查看资源类型 -->
+   <select id="queryResourceType" resultType="java.util.HashMap" >
+    select distinct csy130,
+                    csy131
+               from sy13
+              where csy135 = 0
+                and csy137 = 1
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy13
+    where CSY130 = #{csy130,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy13
+    where CSY130 = #{csy130,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.student.domain.Sy13" >
+    insert into sy13 (CSY130, CSY020, CSY131, 
+      CSY132, CSY133, CSY134, 
+      CSY135, CSY136, CSY137
+      )
+    values (#{csy130,jdbcType=INTEGER}, #{csy020,jdbcType=INTEGER}, #{csy131,jdbcType=VARCHAR}, 
+      #{csy132,jdbcType=VARCHAR}, #{csy133,jdbcType=VARCHAR}, #{csy134,jdbcType=VARCHAR}, 
+      #{csy135,jdbcType=TINYINT}, #{csy136,jdbcType=DATE}, #{csy137,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.student.domain.Sy13" >
+    insert into sy13
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy130 != null" >
+        CSY130,
+      </if>
+      <if test="csy020 != null" >
+        CSY020,
+      </if>
+      <if test="csy131 != null" >
+        CSY131,
+      </if>
+      <if test="csy132 != null" >
+        CSY132,
+      </if>
+      <if test="csy133 != null" >
+        CSY133,
+      </if>
+      <if test="csy134 != null" >
+        CSY134,
+      </if>
+      <if test="csy135 != null" >
+        CSY135,
+      </if>
+      <if test="csy136 != null" >
+        CSY136,
+      </if>
+      <if test="csy137 != null" >
+        CSY137,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy130 != null" >
+        #{csy130,jdbcType=INTEGER},
+      </if>
+      <if test="csy020 != null" >
+        #{csy020,jdbcType=INTEGER},
+      </if>
+      <if test="csy131 != null" >
+        #{csy131,jdbcType=VARCHAR},
+      </if>
+      <if test="csy132 != null" >
+        #{csy132,jdbcType=VARCHAR},
+      </if>
+      <if test="csy133 != null" >
+        #{csy133,jdbcType=VARCHAR},
+      </if>
+      <if test="csy134 != null" >
+        #{csy134,jdbcType=VARCHAR},
+      </if>
+      <if test="csy135 != null" >
+        #{csy135,jdbcType=TINYINT},
+      </if>
+      <if test="csy136 != null" >
+        #{csy136,jdbcType=DATE},
+      </if>
+      <if test="csy137 != null" >
+        #{csy137,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.student.domain.Sy13" >
+    update sy13
+    <set >
+      <if test="csy020 != null" >
+        CSY020 = #{csy020,jdbcType=INTEGER},
+      </if>
+      <if test="csy131 != null" >
+        CSY131 = #{csy131,jdbcType=VARCHAR},
+      </if>
+      <if test="csy132 != null" >
+        CSY132 = #{csy132,jdbcType=VARCHAR},
+      </if>
+      <if test="csy133 != null" >
+        CSY133 = #{csy133,jdbcType=VARCHAR},
+      </if>
+      <if test="csy134 != null" >
+        CSY134 = #{csy134,jdbcType=VARCHAR},
+      </if>
+      <if test="csy135 != null" >
+        CSY135 = #{csy135,jdbcType=TINYINT},
+      </if>
+      <if test="csy136 != null" >
+        CSY136 = #{csy136,jdbcType=DATE},
+      </if>
+      <if test="csy137 != null" >
+        CSY137 = #{csy137,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CSY130 = #{csy130,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.student.domain.Sy13" >
+    update sy13
+    set CSY020 = #{csy020,jdbcType=INTEGER},
+      CSY131 = #{csy131,jdbcType=VARCHAR},
+      CSY132 = #{csy132,jdbcType=VARCHAR},
+      CSY133 = #{csy133,jdbcType=VARCHAR},
+      CSY134 = #{csy134,jdbcType=VARCHAR},
+      CSY135 = #{csy135,jdbcType=TINYINT},
+      CSY136 = #{csy136,jdbcType=DATE},
+      CSY137 = #{csy137,jdbcType=VARCHAR}
+    where CSY130 = #{csy130,jdbcType=INTEGER}
+  </update>
+</mapper>
