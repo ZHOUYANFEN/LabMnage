@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-03-30 22:07:06
+Date: 2017-04-02 23:09:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -201,13 +201,14 @@ CREATE TABLE `sy09` (
   `CSY090` int(11) NOT NULL AUTO_INCREMENT COMMENT '实验提交ID',
   `CSY095` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY090`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy09
 -- ----------------------------
-INSERT INTO `sy09` VALUES ('123456', '4', '<p>说的</p>', null, null, null, '1', '0');
-INSERT INTO `sy09` VALUES ('123456', '4', '', null, null, null, '2', '0');
+INSERT INTO `sy09` VALUES ('123456', '4', '<p>说的</p>', null, 'D://sss.xls', null, '1', '0');
+INSERT INTO `sy09` VALUES ('123456', '4', '', null, 'D://sss.xls', null, '2', '0');
+INSERT INTO `sy09` VALUES ('123456', '1', null, '2017-04-01', 'D://sss.xls', null, '3', '0');
 
 -- ----------------------------
 -- Table structure for sy10
@@ -274,18 +275,21 @@ CREATE TABLE `sy13` (
   `CSY020` int(11) DEFAULT NULL COMMENT '人员ID',
   `CSY130` int(11) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
   `CSY131` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '资源名称',
-  `CSY132` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '资源类型',
+  `CSY160` tinyint(15) NOT NULL COMMENT '资源类型',
   `CSY133` varchar(5000) COLLATE utf8_bin DEFAULT NULL COMMENT '资源类容',
   `CSY134` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '资源附件地址',
   `CSY135` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   `CSY136` date DEFAULT NULL COMMENT '上传时间',
   `CSY137` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '资源权限',
-  PRIMARY KEY (`CSY130`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`CSY130`),
+  KEY `CSY160` (`CSY160`),
+  CONSTRAINT `sy13_ibfk_1` FOREIGN KEY (`CSY160`) REFERENCES `sy16` (`csy160`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy13
 -- ----------------------------
+INSERT INTO `sy13` VALUES ('4', '2', '测试', '1', 'aaaa', 'D：//sss.mp4', '0', '2017-04-02', '1');
 
 -- ----------------------------
 -- Table structure for sy14
@@ -299,11 +303,14 @@ CREATE TABLE `sy14` (
   `CSY144` date DEFAULT NULL COMMENT '公告截止时间',
   `CSY145` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY140`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy14
 -- ----------------------------
+INSERT INTO `sy14` VALUES ('1', '公告1', '2017-03-29', '公告2公告公告', '2017-04-07', '0');
+INSERT INTO `sy14` VALUES ('2', '公告2', '2017-03-30', '是的撒多撒大所大所多', '2017-04-07', '0');
+INSERT INTO `sy14` VALUES ('3', '公告3', '2017-03-29', '萨达撒大所大所大所大所大所大是', '2017-04-08', '0');
 
 -- ----------------------------
 -- Table structure for sy15
@@ -382,4 +389,22 @@ INSERT INTO `sy15` VALUES ('57', '2', '通知公告', 'openPage(\"common/announc
 INSERT INTO `sy15` VALUES ('58', '2', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', '');
 INSERT INTO `sy15` VALUES ('59', '0', '实验室管理', null, null, '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('60', '0', '菜单列表', 'openPage(\"manager/menulist.jsp\")', 'manager/menulist.jsp', '2', '21', '0', '');
+
+-- ----------------------------
+-- Table structure for sy16
+-- ----------------------------
+DROP TABLE IF EXISTS `sy16`;
+CREATE TABLE `sy16` (
+  `csy160` tinyint(15) NOT NULL AUTO_INCREMENT COMMENT '资源类型ID',
+  `csy161` varchar(50) DEFAULT NULL COMMENT '资源类型名称',
+  `csy162` tinyint(4) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`csy160`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sy16
+-- ----------------------------
+INSERT INTO `sy16` VALUES ('1', '工具类', '0');
+INSERT INTO `sy16` VALUES ('2', '学习视频', '0');
+INSERT INTO `sy16` VALUES ('3', '数据库', '0');
 SET FOREIGN_KEY_CHECKS=1;

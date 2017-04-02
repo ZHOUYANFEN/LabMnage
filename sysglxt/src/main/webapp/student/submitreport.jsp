@@ -199,7 +199,7 @@
             }
     	});
     }
-    /*获取当前系统时间*/
+    /*时间处理*/
     function myformatter(date){  
         var y = date.getFullYear();  
         var m = date.getMonth()+1;  

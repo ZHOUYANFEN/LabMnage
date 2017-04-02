@@ -61,7 +61,19 @@
         </div>          
     </div>
     
-
+    <div style="float:right;margin-right:30px;margin-top:40px; width:600px;height:600px;padding:0;">
+        <h2 align="center" id="csy131"></h2>
+        <input id="csy130" hidden="hidden">
+        <span style="font-size:12px" id="csy133"></span>
+        <div style="font-size:12px" id="csy134">
+            <video id="csy134_video" controls="controls" width="400px" height="400px" hidden="hidden"></video>
+        </div>
+        
+        <button type="button" class="btn btn-default" aria-label="Left Align"  onclick="download()" style="margin-left:250px">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                    下载
+        </button>
+    </div>
     
 
 
@@ -83,13 +95,71 @@
                 	for(var i=0;i<data.length;i++){
                         $("#treelist").append(" <ul>"
                                                 +"<li>"
-                                                +"<span onclick='queryResourceList("+data[i].csy130+",event)' id='"+data[i].csy130+"' style='width:200px;margin-left:-30px'><i class='icon-calendar' ></i> "+data[i].csy131+"</span>"                      
+                                                +"<span onclick='queryResourceList("+data[i].csy160+",event)' id='"+data[i].csy160+"' style='width:200px;margin-left:-30px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].csy161+"</span>"                      
                                                 +"</li>"
                                                 +"</ul>");
                     }
                 }
             });
         });
+        
+        /*查询每个类型的资源*/
+        function queryResourceList(csy160,e){
+        	$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+            var children = $("#"+csy160).parent('li.parent_li').find(' > ul');
+            if (children.is(":visible")) {
+                  children.empty();
+                  $("#"+csy160).siblings().remove();
+                  children.hide('fast');
+                  $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+            } else {
+                    children.show('fast');
+                    $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+                    $.ajax({
+                        type:'post',
+                        url:"${pageContext.request.contextPath}/student/queryResourceList?csy160="+csy160,
+                        success:function(data){
+                            for(var i=0;i<data.length;i++){                          
+                                $("#"+csy160).after("<ul>"
+                                                  +"<li>"
+                                                  +"<span onclick='queryResourceDetail("+data[i].csy130+")' class='badge badge-success' style='cursor:pointer'><i class='icon-minus-sign'></i>"+data[i].csy131+"</span>"
+                                                  +"<ul>"
+                                                  +"<li>"
+                                                  +"<span><i class='icon-time'></i>"+(new Date(data[i].csy136).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</span>"
+                                                  +"</li>"
+                                                  +"</ul>"
+                                                  +"</li>"                                 
+                                                  +"</ul>");
+                            }
+                        }
+                    });
+                }
+            e.stopPropagation();
+        	
+        }
+ 
+        /*查询每个资源的详情*/
+        function queryResourceDetail(csy130){
+        	$.ajax({
+                type:'post',
+                url:"${pageContext.request.contextPath}/student/queryResourceDetail?csy130="+csy130,
+                success:function(data){
+                	var type=data.csy134.substr(data.csy134.lastIndexOf(".")+1);
+                	 $("#csy130").val(data.csy130);
+                	 $("#csy131").text(data.csy131);
+                     $("#csy133").text(data.csy133);
+                    // $("#csy134").text(data.csy134);
+                     if(type=='mp4'){
+                    	 $("#csy134_video").attr("hidden",false);
+                    	 $("#csy134_video").attr("src","${pageContext.request.contextPath}/student/ceshi.mp4");
+                     }
+                }
+            });
+        }
+        
+        function download(){
+        	
+        }
     </script>
 
 </html>

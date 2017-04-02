@@ -25,6 +25,7 @@ import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
+import com.bysj.cqjtu.student.domain.Sy13;
 import com.bysj.cqjtu.student.service.StudentService;
 
 /**
@@ -282,5 +283,30 @@ public class StudentController {
         
         List<Map> list=studentService.queryResourceType();
         return list;
+    }
+    /**
+     * 查看资源列表
+     * @param csy060
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryResourceList")
+    @ResponseBody
+    public List<Map>  queryResourceList(String csy160) throws Exception{
+        List<Map> list=studentService.queryResourceList(csy160);
+        return list;
+    }
+    /**
+     * 查看资源详细信息
+     * @param csy060
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryResourceDetail")
+    @ResponseBody
+    public Sy13 queryResourceDetail(Integer csy130) throws Exception{
+        Sy13 sy13=new Sy13();
+        sy13.setCsy130(csy130);
+        return studentService.queryResourceDetail(sy13);
     }
 }

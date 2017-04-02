@@ -15,9 +15,11 @@ import com.bysj.cqjtu.student.dao.Sy07Mapper;
 import com.bysj.cqjtu.student.dao.Sy08Mapper;
 import com.bysj.cqjtu.student.dao.Sy09Mapper;
 import com.bysj.cqjtu.student.dao.Sy13Mapper;
+import com.bysj.cqjtu.student.dao.Sy16Mapper;
 import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
+import com.bysj.cqjtu.student.domain.Sy13;
 import com.bysj.cqjtu.student.service.StudentService;
 
 @Service
@@ -32,7 +34,8 @@ public class StudentServiceImpl implements StudentService {
     private Sy07Mapper sy07Mapper;
     @Autowired
     private Sy13Mapper sy13Mapper;
-    
+    @Autowired
+    private Sy16Mapper sy16Mapper;
     @Override
     public List<Map> getSyllabus(UserMessage userMessage) throws Exception {
         return sy06Mapper.getSyllabus(userMessage); 
@@ -113,7 +116,19 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Map> queryResourceType() throws Exception {
-        return sy13Mapper.queryResourceType();
+        return sy16Mapper.queryResourceType();
+    }
+
+    @Override
+    public List<Map> queryResourceList(String csy160) throws Exception {
+        Sy13 sy13 =new Sy13();
+        sy13.setCsy160(Integer.parseInt(csy160));
+        return sy13Mapper.queryResourceList(sy13);
+    }
+
+    @Override
+    public Sy13 queryResourceDetail(Sy13 sy13) throws Exception {
+        return sy13Mapper.queryResourceDetail(sy13);
     }
 
 

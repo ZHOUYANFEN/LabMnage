@@ -9,7 +9,7 @@ public class Sy13 {
 
     private String csy131;
 
-    private String csy132;
+    private Integer csy160;
 
     private String csy133;
 
@@ -45,12 +45,14 @@ public class Sy13 {
         this.csy131 = csy131 == null ? null : csy131.trim();
     }
 
-    public String getCsy132() {
-        return csy132;
+   
+
+    public Integer getCsy160() {
+        return csy160;
     }
 
-    public void setCsy132(String csy132) {
-        this.csy132 = csy132 == null ? null : csy132.trim();
+    public void setCsy160(Integer csy160) {
+        this.csy160 = csy160;
     }
 
     public String getCsy133() {

@@ -85,7 +85,7 @@
     			for(var i=0;i<data.length;i++){
 	    			$("#treelist").append(" <ul>"
 	    				                    +"<li>"
-	    				                    +"<span onclick='queryExpArrangeList("+data[i].csy060+",event)' id='"+data[i].csy060+"' style='width:200px;margin-left:-30px'><i class='icon-calendar' ></i> "+data[i].csy061+"</span>"                      
+	    				                    +"<span onclick='queryExpArrangeList("+data[i].csy060+",event)' id='"+data[i].csy060+"' style='width:200px;margin-left:-30px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].csy061+"</span>"                      
 	    				                    +"</li>"
 	    				                    +"</ul>");
     			}
