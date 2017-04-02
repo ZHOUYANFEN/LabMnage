@@ -77,5 +77,11 @@ public interface StudentService {
      * @throws Exception
      */
     public List<Map> queryGradeDetai(Sy07 sy07) throws Exception;
+    /**
+     * 查询资源类型
+     * @return
+     * @throws Exception
+     */
+    public List<Map> queryResourceType()  throws Exception;
 
 }

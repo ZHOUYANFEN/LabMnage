@@ -268,7 +268,19 @@ public class StudentController {
         sy07.setCsy040(csy040);
         sy07.setCsy060(csy060);
         
-        return studentService.queryGradeDetai(sy07);
+        return studentService.queryGradeDetai(sy07);        
+    }
+    /**
+     * 查看资源类型
+     * @param csy060
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryResourceType")
+    @ResponseBody
+    public List<Map> queryResourceType() throws Exception{
         
+        List<Map> list=studentService.queryResourceType();
+        return list;
     }
 }

@@ -30,10 +30,16 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui-1.10.1.min.js"></script>   
     
+    <!--树型结构主要样式-->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />
+        
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css" /> 
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.7.2.min.js"></script>
+    
     
 </head>
 <body style="font-family:'黑体';font-size:16px">
-    <div id="button_querymenu" style="margin-top:20px;margin-left:60px">                    
+    <!-- <div id="button_querymenu" style="margin-top:20px;margin-left:60px">                    
                      资源名称:<input type="text" name="csy021" width="100px" id="csy131">
                      资源类型:<input type="text" name="csy021" width="100px" id="csy132">
                      上传时间:
@@ -46,23 +52,44 @@
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 查询 
         </button>      
+    </div> -->
+
+    <div style="float:left;margin-left:30px;margin-top:40px; width:280px;height:600px;padding:0">
+   
+        <div class="tree" id="treelist">
+            <h3 align="center">资源列表</h3>
+        </div>          
     </div>
+    
+
+    
 
 
-
-
-
-
+    
+</body>
     <script type="text/javascript">
         $(document).ready(function () {
            
-            $( "#csy136" ).datepicker({
+           /*  $( "#csy136" ).datepicker({
                 inline:true,
                 showOtherMonths:true
-            }).datepicker('widget').wrap('<div class="ll-skin-nigran"/>');
+            }).datepicker('widget').wrap('<div class="ll-skin-nigran"/>'); */
+            
+            
+            $.ajax({
+                type:'post',
+                url:"${pageContext.request.contextPath}/student/queryResourceType",
+                success:function(data){
+                	for(var i=0;i<data.length;i++){
+                        $("#treelist").append(" <ul>"
+                                                +"<li>"
+                                                +"<span onclick='queryResourceList("+data[i].csy130+",event)' id='"+data[i].csy130+"' style='width:200px;margin-left:-30px'><i class='icon-calendar' ></i> "+data[i].csy131+"</span>"                      
+                                                +"</li>"
+                                                +"</ul>");
+                    }
+                }
+            });
         });
     </script>
-</body>
-
 
 </html>

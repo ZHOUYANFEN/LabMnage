@@ -14,6 +14,7 @@ import com.bysj.cqjtu.student.dao.Sy06Mapper;
 import com.bysj.cqjtu.student.dao.Sy07Mapper;
 import com.bysj.cqjtu.student.dao.Sy08Mapper;
 import com.bysj.cqjtu.student.dao.Sy09Mapper;
+import com.bysj.cqjtu.student.dao.Sy13Mapper;
 import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
@@ -29,6 +30,8 @@ public class StudentServiceImpl implements StudentService {
     private Sy09Mapper sy09Mapper;
     @Autowired
     private Sy07Mapper sy07Mapper;
+    @Autowired
+    private Sy13Mapper sy13Mapper;
     
     @Override
     public List<Map> getSyllabus(UserMessage userMessage) throws Exception {
@@ -106,6 +109,11 @@ public class StudentServiceImpl implements StudentService {
     public List<Map> queryGradeDetai(Sy07 sy07) throws Exception {
    
         return sy07Mapper.queryGradeDetai(sy07);
+    }
+
+    @Override
+    public List<Map> queryResourceType() throws Exception {
+        return sy13Mapper.queryResourceType();
     }
 
 
