@@ -66,37 +66,47 @@
        and csy021 = #{csy021}
   </select>
   
-  <!-- 获取学生详细信息 -->
+  <!-- 获取详细信息 -->
   <select id="getUserMessage" parameterType="com.bysj.cqjtu.manager.domain.Sy02" resultType="java.util.HashMap">
     select sy02.*,
     <if test="csy010==1">
-           sy04.*
+           sy04.*,
+           sy01.*
      from  sy04 sy04,
-           sy02 sy02
+           sy02 sy02,
+           sy01 sy01
     where  sy02.csy023 = 0
+      and  sy02.csy010 =  sy01.csy010
       and  sy02.csy020 = sy04.csy020
       and  sy02.csy020 = #{csy020}
       and  sy02.csy010 = #{csy010}
     </if>
     <if test="csy010==2">
-           sy05.*
+           sy05.*,
+           sy01.*
      from  sy05 sy05,
-           sy02 sy02
+           sy02 sy02,
+           sy01 sy01
     where  sy02.csy023 = 0
+      and  sy02.csy010 = sy01.csy010
       and  sy02.csy020 = sy05.csy020
       and  sy02.csy020 = #{csy020}
       and  sy02.csy010 = #{csy010}
     </if>
     <if test="csy010==3">
-           sy03.*
+           sy03.*,
+           sy01.*
      from  sy03 sy03,
-           sy02 sy02
+           sy02 sy02,
+           sy01 sy01
     where  sy02.csy023 = 0
+      and  sy02.csy010 = sy01.csy010
       and  sy02.csy020 = sy03.csy020
       and  sy02.csy020 = #{csy020}
       and  sy02.csy010 = #{csy010}
     </if>       
   </select>
+  
   
   <!-- 更新用户信息 -->
   <update id="updateSy02" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
@@ -107,7 +117,16 @@
      where CSY020 = #{csy020,jdbcType=INTEGER}
   </update>
   
-  
+  <!-- 登录查询 -->
+  <select id="getUser" resultType="com.bysj.cqjtu.manager.domain.Sy02" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
+    select sy02.*
+      from sy02
+     where csy023 = 0
+       and csy010 = #{csy010}
+       and csy021 = #{csy021}
+       and csy022 = #{csy022}
+       
+  </select>
 
   
   

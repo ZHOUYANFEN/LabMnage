@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.index.domain.Sy15;
 import com.bysj.cqjtu.index.service.MenuService;
+import com.bysj.cqjtu.manager.pojo.UserMessage;
 /**
  * 菜单控制controller
  * @author fuzhengjun
@@ -156,7 +159,27 @@ public class MenuController {
         }
         return map;
     }
+    /**
+     * 修改菜单信息
+     * @param csy150
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/changeMenu")    
+    @ResponseBody
     public String changeMenu(int csy150) throws Exception{
         return "menuoperate";
+    }
+    /**
+     * 修改菜单信息
+     * @param csy150
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getUserInfo")    
+    @ResponseBody
+    public UserMessage getUserInfo(HttpSession session) throws Exception{
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        return userMessage;
     }
 }

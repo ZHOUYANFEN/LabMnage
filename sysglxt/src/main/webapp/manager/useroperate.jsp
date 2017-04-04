@@ -34,25 +34,25 @@
             </select>     
         </div>                    
          <lable>用户名:</lable><input type="text" name="csy021" width="100px" id="csy021" maxlength="21">
-         <lable>密码:</lable><input type="text" name="csy022" width="100px" id="csy022" maxlength="12">
-         <button type="button" class="btn btn-default" aria-label="Left Align" id="btnSave" style="float:right;margin-right:100px;" onclick="addUser()">
+         <lable>密码:</lable><input type="text" name="csy022" width="100px" id="csy022" maxlength="12" onchange="setSaveBtn">
+         <button type="button" class="btn btn-default" aria-label="Left Align" id="btnSave" style="float:right;margin-right:100px;" onclick="addUser()" onchange="setSaveBtn()">
              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                  增加
         </button>  
          <div style="float:left; margin-top:10px" id="sy04_message">
-	          <lable>学号:</lable><input type="text" name="csy040" width="80px" id="csy040" maxlength="20" >
-	          <lable style="margin-left:37px"> 姓名:</lable><input type="text" name="csy041" width="80px" id="csy041" maxlength="20" >
-	          <lable> 学院:</lable><input type="text" name="csy042" width="80px" id="csy042" maxlength="30">
-	          <lable>班级:</lable><input type="text" name="csy043" width="80px" id="csy043" maxlength="30">
+	          <lable>学号:</lable><input type="text" name="csy040" width="80px" id="csy040" maxlength="20" onchange="setSaveBtn()">
+	          <lable style="margin-left:37px"> 姓名:</lable><input type="text" name="csy041" width="80px" id="csy041" maxlength="20" onchange="setSaveBtn()">
+	          <lable> 学院:</lable><input type="text" name="csy042" width="80px" id="csy042" maxlength="30" onchange="setSaveBtn()">
+	          <lable>班级:</lable><input type="text" name="csy043" width="80px" id="csy043" maxlength="30" onchange="setSaveBtn()">
          </div>
          <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message">
-              <lable style="margin-left:15px">姓名:</lable><input type="text" name="csy031" width="80px" id="csy031" maxlength="20">
-              <lable>职称:</lable><input type="text" name="csy032" width="80px" id="csy032" maxlength="30" >                   
+              <lable style="margin-left:15px">姓名:</lable><input type="text" name="csy031" width="80px" id="csy031" maxlength="20" onchange="setSaveBtn()">
+              <lable>职称:</lable><input type="text" name="csy032" width="80px" id="csy032" maxlength="30" onchange="setSaveBtn()">                   
          </div> 
          <div style="float:left; margin-top:10px" hidden="hidden"  id="sy05_message">        
-              <lable> 姓名:</lable><input type="text" name="csy051" width="80px" id="csy051" maxlength="20" >
-              <lable style="margin-left:37px"> 学院:</lable><input type="text" name="csy052" width="80px" id="csy052" maxlength="30">
-              <lable> 职称:</lable><input type="text" name="csy053" width="80px" id="csy053" maxlength="30">
+              <lable> 姓名:</lable><input type="text" name="csy051" width="80px" id="csy051" maxlength="20" onchange="setSaveBtn()">
+              <lable style="margin-left:37px"> 学院:</lable><input type="text" name="csy052" width="80px" id="csy052" maxlength="30" onchange="setSaveBtn()">
+              <lable> 职称:</lable><input type="text" name="csy053" width="80px" id="csy053" maxlength="30" onchange="setSaveBtn()">
          </div>     
     </div>
      <div id="button_operatemenu" style="margin-top:50px;margin-left:100px">
@@ -732,6 +732,10 @@ $(function(){
                 }
             }
         });
+	}
+	/*设置保存按钮*/
+	function setSaveBtn(){
+		$("#btnSave").attr("disabled",false);
 	}
 </script>
 </html>

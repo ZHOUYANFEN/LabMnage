@@ -18,6 +18,7 @@ import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.manager.service.UserManagerService;
+import com.bysj.cqjtu.util.Md5Encoder;
 @Service
 public class UserManagerServiceImpl implements UserManagerService {
     
@@ -56,6 +57,7 @@ public class UserManagerServiceImpl implements UserManagerService {
     public Map addUser(UserMessage userMessage) throws Exception {
         Map map=new HashMap();
         Sy02 sy02=userMessage.getSy02();
+        sy02.setCsy022(Md5Encoder.getMD5(sy02.getCsy022()));
         sy02.setCsy023(Byte.parseByte("0"));
         List<Sy02> list=isExistUser(sy02);
         if(list.size()>=1){

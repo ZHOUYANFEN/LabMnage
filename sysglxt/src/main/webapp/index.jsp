@@ -30,7 +30,7 @@
         <div style="float:right;margin-right:-620px;margin-top:90px" >
             <label style="color:white">
                 <span class="glyphicon glyphicon-user" aria-hidden="true" style="top:2px"></span>
-                                        欢迎你:管理员 张三
+                <label id="welcomeuser">欢迎你:管理员 张三</label>
             </label>
             <a href="#" style="margin-left:20px;color:white">
                 <span class="glyphicon glyphicon-off" aria-hidden="true" style="top:2px"></span>
@@ -54,7 +54,7 @@
                     </p>                    
                 </div>
                 <div style="padding:20px">
-                    <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp姓名：张三</p>
+                    <p id="username"><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp姓名：张三</p>
                     <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp学号：66666666666</p>
                     <!-- <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp专业：计算机科学与技术</p>
                     <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp学院：软件开发1302班</p> -->
@@ -84,7 +84,42 @@
 </body>
 <script>
    $(function(){
-	    $.ajax({
+	   //先获取人员信息
+	   
+	   $.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath}/menu/getUserInfo",
+            success:function(data){
+                console.log(data);
+                //添加信息
+                
+                
+                
+                if(data){
+	                $.ajax({
+	                    type:"POST",
+	                    url:"${pageContext.request.contextPath}/menu/queryMenu?csy010="+data.sy02.csy010,
+	                    success:function(data){
+	                        $("#center").empty();
+	                        //循环添加父级菜单
+	                        for(var i=0;i<data.length;i++){
+	                            var margin="20px";
+	                            if(i==data.length-1){
+	                                margin="80px";
+	                            }                   
+	                            var div = $("<div id='head_menu' class='dropdown' style='float:right; margin-right:"+margin+"; text-align:center;line-height:40px'><a id='"+data[i].csy157+"'+ data-target='#' href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false' onclick='"+data[i].csy152+"'>"
+	                                            + data[i].csy151
+	                                            + "<span class='caret'></span></a></div>");
+	                            $("#center").prepend(div);
+	                        }
+	                    }
+	                });
+                }else{
+                	  window.location.href = "${pageContext.request.contextPath}/login.jsp"; 
+                }
+            }     
+        });
+	    /* $.ajax({
 	    	type:"POST",
 	    	url:"${pageContext.request.contextPath}/menu/queryMenu?csy010=1",
 	    	success:function(data){
@@ -101,7 +136,7 @@
 					$("#center").prepend(div);
 				}
 			}
-		});
+		}); */
 
 	});
 	//添加子级菜单

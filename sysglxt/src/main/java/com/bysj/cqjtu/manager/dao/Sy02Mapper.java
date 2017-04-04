@@ -68,4 +68,10 @@ public interface Sy02Mapper {
      * @param sy02
      */
     int updateSy02(Sy02 sy02);
+    /**
+     * 登录
+     * @param sy02
+     * @return
+     */
+    List<Sy02> getUser(Sy02 sy02);
   }

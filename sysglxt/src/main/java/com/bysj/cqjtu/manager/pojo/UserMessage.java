@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.manager.pojo;
 
+import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy03;
 import com.bysj.cqjtu.manager.domain.Sy04;
@@ -18,7 +19,15 @@ public class UserMessage {
     private Sy04 sy04;
     private Sy03 sy03;
     private Sy05 sy05;
+    private Sy01 sy01;
     
+    
+    public Sy01 getSy01() {
+        return sy01;
+    }
+    public void setSy01(Sy01 sy01) {
+        this.sy01 = sy01;
+    }
     public Sy03 getSy03() {
         return sy03;
     }
