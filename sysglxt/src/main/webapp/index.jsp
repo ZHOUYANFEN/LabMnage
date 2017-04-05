@@ -54,10 +54,10 @@
                     </p>                    
                 </div>
                 <div style="padding:20px">
-                    <p id="username"><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp姓名：张三</p>
-                    <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp学号：66666666666</p>
-                    <!-- <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp专业：计算机科学与技术</p>
-                    <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp学院：软件开发1302班</p> -->
+                    <p id="username"><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></p>
+                    <p id="stunumber"><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></p>
+                    <!-- <p><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp专业：计算机科学与技术</p>-->
+                    <p id="college"><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></p> 
                 </div>
             </div>
             <div style="height:150px;margin-top:30px;background-color:white;overflow:auto" >
@@ -91,11 +91,29 @@
             url:"${pageContext.request.contextPath}/menu/getUserInfo",
             success:function(data){
                 console.log(data);
-                //添加信息
-                
-                
-                
+                //添加信息              
                 if(data){
+                	 if(data.sy03){
+                         $("#welcomeuser").text("欢迎你，"+data.sy03.csy031);
+                         $("#username").html("&nbsp姓名："+data.sy03.csy031);
+                         $("#stunumber").attr("hidden","hidden");
+                         $("#college").html("&nbsp职称："+data.sy03.csy032);                   
+                     }else if(data.sy04){
+                         $("#welcomeuser").text("欢迎你，"+data.sy04.csy041);
+                         $("#username").html("&nbsp姓名："+data.sy04.csy041);
+                         $("#stunumber").attr("hidden",false);
+                         $("#stunumber").html("&nbsp学号："+data.sy04.csy040);
+                         $("#college").html("&nbsp学院："+data.sy04.csy042);
+                     }else if(data.sy05){
+                         $("#welcomeuser").text("欢迎你，"+data.sy05.csy051);
+                         $("#username").html("&nbsp姓名："+data.sy05.csy051);
+                         $("#stunumber").attr("hidden",true);
+                         $("#college").html("&nbsp职称："+data.sy05.csy052);
+                     }else{
+                         $("#welcomeuser").text("欢迎你，"+data.sy02.csy021);
+                         $("#username").html("&nbsp姓名："+data.sy02.csy021);
+                     }
+                	 
 	                $.ajax({
 	                    type:"POST",
 	                    url:"${pageContext.request.contextPath}/menu/queryMenu?csy010="+data.sy02.csy010,
