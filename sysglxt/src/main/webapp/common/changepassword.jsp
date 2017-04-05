@@ -27,7 +27,7 @@
 .fancybox-margin{margin-right:17px;}    
 
 /* 注册页面 */
-body{background:url('images/bg.gif')  repeat!important;}
+
 body,input,button,select,textarea,h1,h2,h3,h4,h5,h6 {
     font-family:'Helvetica Neue',STHeiti,'Microsoft YaHei',Helvetica,Arial,sans-serif
 }
@@ -100,32 +100,31 @@ ul,ol {
 
 <div class="aw-register-box">
     <div class="mod-head">
-        <img src="" alt="">
         <h1>修改密码</h1>
     </div>
     <div class="mod-body">
-        <form class="aw-register-form" action="http://wenda.bootcss.com/account/ajax/register_process/" method="post" id="register_form">
+        <form class="aw-register-form">
                                 
             <ul>
                 <li class="alert alert-danger hide error_message text-left">
                     <i class="icon icon-delete"></i> <em></em>
                 </li>
                 <li>
-                    <input class="aw-register-name form-control" type="text" name="user_name" placeholder="用户名" tips="请输入一个 2-14 位的用户名" errortips="用户名长度不符合" value="">
+                    <input class="aw-register-name form-control" type="text" id="csy021" placeholder="用户名"  >
                 </li>
                 <li>
-                    <input class="aw-register-email form-control" type="text" placeholder="密码" name="email" tips="请输入旧密码" value="" errortips="">
+                    <input class="aw-register-pwd form-control" type="text" id="csy022" placeholder="密码" >
                     
                 </li>
                 <li>
-                    <input class="aw-register-pwd form-control" type="password" name="password" placeholder="新密码" tips="请输入 6-16 个字符,区分大小写" errortips="密码不符合规则">
+                    <input class="aw-register-pwd form-control" type="password" id="new_csy022" placeholder="新密码"  >
                 </li>
                 <li>
-                    <input class="aw-register-pwd form-control" type="password" name="password" placeholder="确认密码" tips="请输入 6-16 个字符,区分大小写" errortips="密码不符合规则">
+                    <input class="aw-register-pwd form-control" type="password" id="new_csy022_1" placeholder="确认密码" >
                 </li>
                                
                 <li class="clearfix">
-                    <button class="btn btn-large btn-blue btn-block" onclick="">修改</button>
+                    <button class="btn btn-large btn-blue btn-block" onclick="changePassword()">修改</button>
                 </li>
             </ul>
         </form>
@@ -133,4 +132,55 @@ ul,ol {
     <div class="mod-footer"></div>
 </div>
 
-</body></html>
+</body>
+<script type="text/javascript">
+/*修改密码*/
+function changePassword(){
+	var csy021=$("#csy021").val();
+	var csy022=$("#csy022").val();
+	var new_csy022=$("#new_csy022").val();
+	var new_csy022_1=$("#new_csy022_1").val();
+	if(new_csy022!=new_csy022_1){
+		sweetAlert("两次密码不一样");
+		return;
+	}else{
+		var sy02={
+			"csy021":csy021,
+			"csy022":csy022
+		};
+		$.ajax({
+			type:'post',
+			url:'${pageContext.request.contextPath}/user/validateUser',
+			contentType:"application/json;charset=utf-8",
+            data:JSON.stringify(sy02),
+            dataType: "json",
+            success:function(data){
+                if(data.statu=='error'){
+                    sweetAlert("账号或密码错误");
+                    return;
+                }
+                var sy02_new={
+                        "csy021":csy021,
+                        "csy022":new_csy022
+                    };
+                $.ajax({
+	                type:'post',
+	                url:'${pageContext.request.contextPath}/user/changePassword',
+	                contentType:"application/json;charset=utf-8",
+	                data:JSON.stringify(sy02_new),
+	                dataType: "json", 
+	                success:function(data_1){
+	                	   if(data_1.statu=='1'){
+	                		   sweetAlert("修改成功");
+	                		   return;
+	                	   }else{
+	                		   sweetAlert("修改失败");
+	                	   }
+	                }
+                });
+            }  
+		});
+	}
+}
+</script>
+</html>

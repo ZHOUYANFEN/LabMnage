@@ -74,4 +74,10 @@ public interface Sy02Mapper {
      * @return
      */
     List<Sy02> getUser(Sy02 sy02);
+    /**
+     * 修改 密码
+     * @param sy02_new
+     * @return
+     */
+    int changePassword(Sy02 sy02_new);
   }

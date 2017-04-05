@@ -81,6 +81,7 @@
 		   success:function(data){
 			   if(data.statu=='error'){
 				   sweetAlert("账号或密码错误");
+				   return;
 			   } 
 			   window.location.href = "${pageContext.request.contextPath}/"+data.url;    
 				   
