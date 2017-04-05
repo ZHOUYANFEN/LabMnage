@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-02 23:09:26
+Date: 2017-04-05 16:11:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,12 +42,12 @@ CREATE TABLE `sy02` (
   `CSY020` int(11) NOT NULL AUTO_INCREMENT COMMENT '人员ID',
   `CSY010` tinyint(4) DEFAULT '0' COMMENT '类型ID',
   `CSY021` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '用户名称',
-  `CSY022` varchar(12) COLLATE utf8_bin DEFAULT NULL COMMENT '登陆密码',
+  `CSY022` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '登陆密码',
   `CSY023` tinyint(4) NOT NULL COMMENT '删除标记',
   PRIMARY KEY (`CSY020`),
   KEY `FK_Relationship_1` (`CSY010`),
   CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`CSY010`) REFERENCES `sy01` (`CSY010`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy02
@@ -59,6 +59,13 @@ INSERT INTO `sy02` VALUES ('4', '2', '20170313', '170313', '0');
 INSERT INTO `sy02` VALUES ('5', '2', '20170314', '170314', '0');
 INSERT INTO `sy02` VALUES ('6', '3', '20170201', '170201', '0');
 INSERT INTO `sy02` VALUES ('31', '1', 'fuzj', 'fuzj', '0');
+INSERT INTO `sy02` VALUES ('32', '1', '001', 'dc5c7986daef50c1e02ab09b442ee34f', '0');
+INSERT INTO `sy02` VALUES ('33', '2', '002', '93dd4de5cddba2c733c65f233097f05a', '0');
+INSERT INTO `sy02` VALUES ('34', '3', '004', '11364907cf269dd2183b64287156072a', '0');
+INSERT INTO `sy02` VALUES ('35', '4', 'developer', '5e8edd851d2fdfbd7415232c67367cc3', '0');
+INSERT INTO `sy02` VALUES ('36', '1', '005', 'ce08becc73195df12d99d761bfbba68d', '0');
+INSERT INTO `sy02` VALUES ('37', '4', '7788', '866c7ee013c58f01fa153a8d32c9ed57', '0');
+INSERT INTO `sy02` VALUES ('38', '3', '2111', '1a0a283bfe7c549dee6c638a05200e32', '0');
 
 -- ----------------------------
 -- Table structure for sy03
@@ -70,7 +77,7 @@ CREATE TABLE `sy03` (
   `CSY031` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '姓名',
   `CSY032` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '职称',
   PRIMARY KEY (`CSY030`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy03
@@ -78,6 +85,8 @@ CREATE TABLE `sy03` (
 INSERT INTO `sy03` VALUES ('1', '23', '2222', '222');
 INSERT INTO `sy03` VALUES ('2', '24', '333', '333');
 INSERT INTO `sy03` VALUES ('3', '25', '555', '55');
+INSERT INTO `sy03` VALUES ('4', '34', '科研004', '教授');
+INSERT INTO `sy03` VALUES ('5', '38', '2111', '2111');
 
 -- ----------------------------
 -- Table structure for sy04
@@ -95,10 +104,12 @@ CREATE TABLE `sy04` (
 -- ----------------------------
 -- Records of sy04
 -- ----------------------------
+INSERT INTO `sy04` VALUES ('32', '001', '测试学生', '信息学院', '计软1302班');
+INSERT INTO `sy04` VALUES ('36', '005', '学生005', '信息学院', '计软1303班');
 INSERT INTO `sy04` VALUES ('1', '1111', '1111', '1111', '1111');
 INSERT INTO `sy04` VALUES ('17', '11111', '张三', '张三', '其味无穷');
 INSERT INTO `sy04` VALUES ('31', '631306050210', '付政俊44', '信息学院', '软件1302班');
-INSERT INTO `sy04` VALUES ('21', '631306050218', '631306050218', '631306050218', '631306050218');
+INSERT INTO `sy04` VALUES ('2', '631306050218', '付政俊', '信息学院', '计软1302班');
 
 -- ----------------------------
 -- Table structure for sy05
@@ -111,7 +122,7 @@ CREATE TABLE `sy05` (
   `CSY052` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '学院',
   `CSY053` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '职称',
   PRIMARY KEY (`CSY050`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy05
@@ -121,6 +132,7 @@ INSERT INTO `sy05` VALUES ('27', '2', '333', '333', 'ww');
 INSERT INTO `sy05` VALUES ('28', '3', '444', '444', 'ww');
 INSERT INTO `sy05` VALUES ('29', '4', '2222111', '22112', 'ww');
 INSERT INTO `sy05` VALUES ('30', '5', '33311', '33113', 'ww');
+INSERT INTO `sy05` VALUES ('33', '6', '教师1', '信息学院', '信息学院');
 
 -- ----------------------------
 -- Table structure for sy06
@@ -345,28 +357,28 @@ INSERT INTO `sy15` VALUES ('10', '1', '课程表', 'openPage(\"student/syllabus.
 INSERT INTO `sy15` VALUES ('11', '1', '成绩查看', 'openPage(\"student/grade.jsp\")', 'student/grade.jsp', '1', null, '0', 'slpt_score');
 INSERT INTO `sy15` VALUES ('12', '1', '公告中心', 'openPage(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', 'slpt_announcement');
 INSERT INTO `sy15` VALUES ('13', '1', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', 'slpt_help');
-INSERT INTO `sy15` VALUES ('17', '0', '用户管理', 'selectMenu(\"slpt_usermanage\",17)', null, '1', null, '0', 'slpt_usermanage');
-INSERT INTO `sy15` VALUES ('18', '0', '用户添加', 'openPage(\"manager/useroperate.jsp\")', 'manager/useroperate.jsp', '2', '17', '0', '');
-INSERT INTO `sy15` VALUES ('19', '0', '用户删除', null, null, '2', '17', '1', '');
-INSERT INTO `sy15` VALUES ('20', '0', '用户查询', 'openPage(\"manager/userlist.jsp\")', 'manager/userlist.jsp', '2', '17', '0', '');
-INSERT INTO `sy15` VALUES ('21', '0', '菜单管理', 'selectMenu(\"slpt_menumanage\",21)', null, '1', null, '0', 'slpt_menumanage');
-INSERT INTO `sy15` VALUES ('22', '0', '菜单添加', 'openPage(\"manager/menuoperate.jsp\")', 'manager/menuoperate.jsp', '2', '21', '0', '');
-INSERT INTO `sy15` VALUES ('23', '0', '菜单修改', null, null, '2', '21', '1', '');
-INSERT INTO `sy15` VALUES ('24', '0', '菜单删除', null, null, '2', '21', '1', '');
-INSERT INTO `sy15` VALUES ('25', '0', '资源管理', 'selectMenu(\"slpt_resourcemanage\",25)', null, '1', null, '0', 'slpt_resourcemanage');
-INSERT INTO `sy15` VALUES ('26', '0', '实验室申请审核及分配', null, null, '2', '25', '0', '');
-INSERT INTO `sy15` VALUES ('27', '0', '公告管理', 'openPage(\"manager/annoucement.jsp\")', 'manager/annoucement.jsp', '2', '25', '0', '');
-INSERT INTO `sy15` VALUES ('28', '0', '实验课程检查', null, null, '2', '25', '0', '');
-INSERT INTO `sy15` VALUES ('29', '0', '资源查看', null, null, '2', '25', '0', '');
-INSERT INTO `sy15` VALUES ('30', '0', '资源统计', 'selectMenu(\"slpt_statistics\",30)', null, '1', null, '0', 'slpt_statistics');
-INSERT INTO `sy15` VALUES ('31', '0', '实验课程统计', null, null, '2', '30', '0', '');
-INSERT INTO `sy15` VALUES ('32', '0', '学生成绩统计', null, null, '2', '30', '0', '');
-INSERT INTO `sy15` VALUES ('33', '0', '学生完成情况统计', null, null, '2', '30', '0', '');
-INSERT INTO `sy15` VALUES ('34', '0', '教师实验安排统计', null, null, '2', '30', '0', '');
-INSERT INTO `sy15` VALUES ('35', '0', '实验室安排统计', null, null, '2', '30', '0', '');
+INSERT INTO `sy15` VALUES ('17', '4', '用户管理', 'selectMenu(\"slpt_usermanage\",17)', null, '1', null, '0', 'slpt_usermanage');
+INSERT INTO `sy15` VALUES ('18', '4', '用户添加', 'openPage(\"manager/useroperate.jsp\")', 'manager/useroperate.jsp', '2', '17', '0', '');
+INSERT INTO `sy15` VALUES ('19', '4', '用户删除', null, null, '2', '17', '1', '');
+INSERT INTO `sy15` VALUES ('20', '4', '用户查询', 'openPage(\"manager/userlist.jsp\")', 'manager/userlist.jsp', '2', '17', '0', '');
+INSERT INTO `sy15` VALUES ('21', '4', '菜单管理', 'selectMenu(\"slpt_menumanage\",21)', null, '1', null, '0', 'slpt_menumanage');
+INSERT INTO `sy15` VALUES ('22', '4', '菜单添加', 'openPage(\"manager/menuoperate.jsp\")', 'manager/menuoperate.jsp', '2', '21', '0', '');
+INSERT INTO `sy15` VALUES ('23', '4', '菜单修改', null, null, '2', '21', '1', '');
+INSERT INTO `sy15` VALUES ('24', '4', '菜单删除', null, null, '2', '21', '1', '');
+INSERT INTO `sy15` VALUES ('25', '4', '资源管理', 'selectMenu(\"slpt_resourcemanage\",25)', null, '1', null, '0', 'slpt_resourcemanage');
+INSERT INTO `sy15` VALUES ('26', '4', '实验室申请审核及分配', null, null, '2', '25', '0', '');
+INSERT INTO `sy15` VALUES ('27', '4', '公告管理', 'openPage(\"manager/annoucement.jsp\")', 'manager/annoucement.jsp', '2', '25', '0', '');
+INSERT INTO `sy15` VALUES ('28', '4', '实验课程检查', null, null, '2', '25', '0', '');
+INSERT INTO `sy15` VALUES ('29', '4', '资源查看', null, null, '2', '25', '0', '');
+INSERT INTO `sy15` VALUES ('30', '4', '资源统计', 'selectMenu(\"slpt_statistics\",30)', null, '1', null, '0', 'slpt_statistics');
+INSERT INTO `sy15` VALUES ('31', '4', '实验课程统计', null, null, '2', '30', '0', '');
+INSERT INTO `sy15` VALUES ('32', '4', '学生成绩统计', null, null, '2', '30', '0', '');
+INSERT INTO `sy15` VALUES ('33', '4', '学生完成情况统计', null, null, '2', '30', '0', '');
+INSERT INTO `sy15` VALUES ('34', '4', '教师实验安排统计', null, null, '2', '30', '0', '');
+INSERT INTO `sy15` VALUES ('35', '4', '实验室安排统计', null, null, '2', '30', '0', '');
 INSERT INTO `sy15` VALUES ('36', '3', '个人信息管理', 'selectMenu(\"slpt_personnal\",36)', null, '1', null, '0', 'slpt_personnal');
 INSERT INTO `sy15` VALUES ('37', '3', '个人信息查看', null, null, '2', '36', '0', '');
-INSERT INTO `sy15` VALUES ('38', '3', '密码修改', null, null, '2', '36', '0', '');
+INSERT INTO `sy15` VALUES ('38', '3', '密码修改', 'openPage(\"common/changepassword.jsp\")', 'common/changepassword.jsp', '2', '36', '0', '');
 INSERT INTO `sy15` VALUES ('39', '3', '实验室申请', '', null, '1', null, '0', 'slpt_labapply');
 INSERT INTO `sy15` VALUES ('40', '3', '资源管理', 'selectMenu(\"slpt_resourcemanage\",40)', null, '1', null, '0', 'slpt_resourcemanage');
 INSERT INTO `sy15` VALUES ('41', '3', '论文管理', null, null, '2', '40', '0', '');
@@ -375,7 +387,7 @@ INSERT INTO `sy15` VALUES ('43', '3', '通知公告', 'openPage(\"common/announc
 INSERT INTO `sy15` VALUES ('44', '3', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', 'slpt_help');
 INSERT INTO `sy15` VALUES ('45', '2', '个人信息管理', 'selectMenu(\"slpt_personnal\",45)', null, '1', null, '0', 'slpt_personnal');
 INSERT INTO `sy15` VALUES ('46', '2', '个人信息查看', null, null, '2', '45', '0', '');
-INSERT INTO `sy15` VALUES ('47', '2', '密码设置', null, null, '2', '45', '0', '');
+INSERT INTO `sy15` VALUES ('47', '2', '密码设置', 'openPage(\"common/changepassword.jsp\")', 'common/changepassword.jsp', '2', '45', '0', '');
 INSERT INTO `sy15` VALUES ('48', '2', '实验管理', 'selectMenu(\"slpt_expmanager\",48)', null, '1', null, '0', 'slpt_expmanager');
 INSERT INTO `sy15` VALUES ('49', '2', '实验室申请', null, null, '2', '48', '0', '');
 INSERT INTO `sy15` VALUES ('50', '2', '实验安排', null, null, '2', '48', '0', '');
