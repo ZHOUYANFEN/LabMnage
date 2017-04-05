@@ -17,4 +17,11 @@ public interface AnouncementService {
      * @throws Exception
      */
     public List<Sy14> queryanouncement() throws Exception;
+    
+    /**
+     * 查询最新公告
+     * @return
+     * @throws Exception
+     */
+    public Sy14 getNewAnouncement() throws Exception;
 }

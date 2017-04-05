@@ -23,6 +23,17 @@
   </select>
   
   
+   <!-- 查询公告 -->
+  <select id="getNewAnouncement" resultType="com.bysj.cqjtu.common.domain.Sy14" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy14
+    where csy145 = 0
+  <![CDATA[      and csy144>CURDATE()   ]]>
+    order by csy142
+    limit 1
+  </select>
+  
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

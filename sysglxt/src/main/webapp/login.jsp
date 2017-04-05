@@ -45,7 +45,7 @@
           </div>          
           <button  class="btn btn-default" type="button"  style="font:20px;margin-left:50px;width:80px;margin-top:20px" onclick="login()"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true" style="top:2px"></span>登录</button>
           <button  class="btn btn-default" style="font:20px;margin-left:20px;width:80px;margin-top:20px"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true" style="top:2px"></span>取消</button>
-        </form>s
+        </form>
     </div>
 </body> 
 </html>

@@ -19,4 +19,9 @@ public class AnouncementServiceImpl implements AnouncementService {
         return sy14Mapper.queryanouncement();
     }
 
+    @Override
+    public Sy14 getNewAnouncement() throws Exception {
+        return sy14Mapper.getNewAnouncement();
+    }
+
 }

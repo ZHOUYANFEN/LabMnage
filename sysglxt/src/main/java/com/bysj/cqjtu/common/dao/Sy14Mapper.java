@@ -22,4 +22,9 @@ public interface Sy14Mapper {
      * @return
      */
     List<Sy14> queryanouncement();
+    /**
+     * 查询最新公告
+     * @return
+     */
+    Sy14 getNewAnouncement();
 }

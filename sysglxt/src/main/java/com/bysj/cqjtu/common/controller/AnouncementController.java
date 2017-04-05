@@ -27,4 +27,15 @@ public class AnouncementController {
         List<Sy14> list=anouncementService.queryanouncement();
         return list;
     }
+    /**
+     * 查询最新公告
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getNewAnouncement")
+    @ResponseBody
+    public Sy14 getNewAnouncement() throws Exception{
+        Sy14 sy14=anouncementService.getNewAnouncement();
+        return sy14;
+    }
 }
