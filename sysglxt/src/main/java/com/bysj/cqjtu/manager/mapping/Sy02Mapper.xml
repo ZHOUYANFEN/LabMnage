@@ -130,7 +130,7 @@
     <!--修改密码  -->
   <update id="changePassword" parameterType="com.bysj.cqjtu.manager.domain.Sy02" >
     update sy02
-       set CSY022 = #{csy022,jdbcType=VARCHAR},
+       set CSY022 = #{csy022,jdbcType=VARCHAR}
     where  CSY021 = #{csy021}
       and  csy010 = #{csy010}
   </update>

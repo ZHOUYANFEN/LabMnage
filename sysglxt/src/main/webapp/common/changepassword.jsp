@@ -103,7 +103,6 @@ ul,ol {
         <h1>修改密码</h1>
     </div>
     <div class="mod-body">
-        <form class="aw-register-form">
                                 
             <ul>
                 <li class="alert alert-danger hide error_message text-left">
@@ -124,10 +123,9 @@ ul,ol {
                 </li>
                                
                 <li class="clearfix">
-                    <button class="btn btn-large btn-blue btn-block" onclick="changePassword()">修改</button>
+                    <button class="btn btn-large btn-blue btn-block" onclick="changePassword()" id="btnChange">修改</button>
                 </li>
             </ul>
-        </form>
     </div>
     <div class="mod-footer"></div>
 </div>
@@ -170,8 +168,9 @@ function changePassword(){
 	                data:JSON.stringify(sy02_new),
 	                dataType: "json", 
 	                success:function(data_1){
-	                	   if(data_1.statu=='1'){
+	                	   if(data_1.statu=='success'){
 	                		   sweetAlert("修改成功");
+	                		   $("#btnChange").attr("disabled","disabled");
 	                		   return;
 	                	   }else{
 	                		   sweetAlert("修改失败");

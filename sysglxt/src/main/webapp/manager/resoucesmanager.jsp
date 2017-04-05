@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>学习资源</title> 
+    <title>资源查看</title> 
     <!-- 引入JQuery -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/jquery.min.js"></script>
        <!-- 引入EasyUI -->
@@ -49,9 +49,9 @@
                      资源类型:<input type="text" name="csy021" width="100px" id="csy132">
                      上传时间:
          <article style="float:right;margin-right:170px;margin-top:1px">
-	        <div>
-	            <input type="text" id="csy136" />
-	        </div>
+            <div>
+                <input type="text" id="csy136" />
+            </div>
          </article>
         <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-right:-280px" >
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -113,7 +113,7 @@
                 type:'post',
                 url:"${pageContext.request.contextPath}/student/queryResourceType",
                 success:function(data){
-                	for(var i=0;i<data.length;i++){
+                    for(var i=0;i<data.length;i++){
                         $("#treelist").append(" <ul>"
                                                 +"<li>"
                                                 +"<span onclick='queryResourceList("+data[i].csy160+",event)' id='"+data[i].csy160+"' style='width:200px;margin-left:-30px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].csy161+"</span>"                      
@@ -126,7 +126,7 @@
         
         /*查询每个类型的资源*/
         function queryResourceList(csy160,e){
-        	$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+            $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
             var children = $("#"+csy160).parent('li.parent_li').find(' > ul');
             if (children.is(":visible")) {
                   children.empty();
@@ -156,30 +156,30 @@
                     });
                 }
             e.stopPropagation();
-        	
+            
         }
  
         /*查询每个资源的详情*/
         function queryResourceDetail(csy130){
-        	$.ajax({
+            $.ajax({
                 type:'post',
                 url:"${pageContext.request.contextPath}/student/queryResourceDetail?csy130="+csy130,
                 success:function(data){
-                	var type=data.csy134.substr(data.csy134.lastIndexOf(".")+1);
-                	 $("#csy130").val(data.csy130);
-                	 $("#csy131").text(data.csy131);
+                    var type=data.csy134.substr(data.csy134.lastIndexOf(".")+1);
+                     $("#csy130").val(data.csy130);
+                     $("#csy131").text(data.csy131);
                      $("#csy133").text(data.csy133);
                     // $("#csy134").text(data.csy134);
                      if(type=='mp4'){
-                    	 $("#csy134_video").attr("hidden",false);
-                    	 $("#csy134_video").attr("src","${pageContext.request.contextPath}/student/ceshi.mp4");
+                         $("#csy134_video").attr("hidden",false);
+                         $("#csy134_video").attr("src","${pageContext.request.contextPath}/student/ceshi.mp4");
                      }
                 }
             });
         }
         
         function download(){
-        	
+            
         }
     </script>
 
