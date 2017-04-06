@@ -21,4 +21,9 @@ public interface Sy07Mapper {
      * @return
      */
     List<Map> queryGradeDetai(Sy07 sy07);
+    /**
+     * 成绩统计
+     * @return
+     */
+    List<Map> gradestatistics();
 }

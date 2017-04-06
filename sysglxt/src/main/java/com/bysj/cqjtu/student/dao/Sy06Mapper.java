@@ -24,4 +24,9 @@ public interface Sy06Mapper {
      * @return
      */
     List<Map> getSyllabus(UserMessage userMessage);
+    /**
+     * 统计课程
+     * @return
+     */
+    List<Map> coursestatistics();
 }

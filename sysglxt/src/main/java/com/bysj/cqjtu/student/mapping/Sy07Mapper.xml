@@ -37,8 +37,15 @@
        and sy07.csy060 = #{csy060}
   </select>
   
-  
-  
+  <!-- 成绩统计 -->
+   <select id="gradestatistics" resultType="java.util.HashMap">
+	 <![CDATA[    
+	   select csy071 as value,
+              csy071 as name
+                from sy07
+            group by csy071
+	]]>      
+   </select>
   
   
   

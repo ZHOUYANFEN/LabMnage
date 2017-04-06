@@ -30,7 +30,15 @@
            
  </select>
   
-  
+  <!-- 统计各学院的视频 -->
+  <select id="coursestatistics" resultType="java.util.HashMap">
+    select sy05.CSY052 as name,
+           count(*) as value
+      from sy05 sy05,
+           sy06 sy06 
+     where sy06.csy050=sy05.csy050 
+  group by sy05.CSY052           
+ </select>
   
   
   
