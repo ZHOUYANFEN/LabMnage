@@ -40,15 +40,40 @@
   <!-- 成绩统计 -->
    <select id="gradestatistics" resultType="java.util.HashMap">
 	 <![CDATA[    
-	   select csy071 as value,
+	   select count(csy071) as value,
               csy071 as name
                 from sy07
             group by csy071
 	]]>      
    </select>
+   
+   <!-- 查询各个班级每个课程的平均成绩 -->
+   <select id="classGradestatistics" resultType="java.util.HashMap">   
+       select sy04.csy043 as csy043,
+              sy06.csy061 as csy061,
+              sy06.csy060 as csy060,
+              AVG(sy07.csy071) as csy071,
+              sy06.csy062 as csy062,
+              sy06.csy063 as csy063
+        from  sy04 sy04,
+              sy06 sy06,
+              sy07 sy07
+       where  sy07.csy040 = sy04.csy040
+         and  sy07.csy060 = sy06.csy060
+    group by  sy04.csy043,
+              sy06.csy061     
+   </select>
   
-  
-  
+  <!-- 查询各个班级每个课程的平均分布 -->
+   <select id="classpeopleGradestatistics" resultType="java.util.HashMap" parameterType="java.util.HashMap">   
+       select count(sy07.csy040) as value,
+              sy07.csy071 as name
+         from sy04 sy04,
+              sy07 sy07
+        where sy04.csy043 = #{csy043}
+          and sy07.csy060 = #{csy060}
+          group by sy07.csy071      
+   </select>
   
   
   <insert id="insert" parameterType="com.bysj.cqjtu.student.domain.Sy07">

@@ -26,4 +26,16 @@ public interface Sy07Mapper {
      * @return
      */
     List<Map> gradestatistics();
+    /**
+     * 查询各个班级每个课程的平均成绩
+     * @return
+     */
+    List<Map> classGradestatistics();
+    /**
+     * 查询各个班级每个课程的平均分布
+     * @param csy043
+     * @param csy060
+     * @return
+     */
+    List<Map> classpeopleGradestatistics(Map map);
 }

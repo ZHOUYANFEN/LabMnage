@@ -25,8 +25,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body style="font-family:'黑体';width:950px;margin:0 auto">
-    <div id="main" style="width: 450px;height:350px;margin-top:50px;margin-left:20px"></div>
-     <div id="main_2" style="width: 450px;height:350px;float:right;margin-top:-350px;margin-right:20px;background-color:red"></div>
+    <div id="main" style="width: 450px;height:300px;margin:20px auto"></div>
+    <div id="main_2" style="height:350px;margin-top:20px;margin-right:20px;">
+        <table class="table table-hover" id="courselist">
+		  <tr id="coursehead">
+		      <td>课程</td>
+		      <td>开课教师</td>
+		      <td>开课学院</td>		      
+		      <td>班级</td>
+		      <td>学时</td>
+		      <td>学分</td>
+		  </tr>
+		</table>
+    </div>
     <script type="text/javascript">
        $(function(){
             $.ajax({
@@ -36,7 +47,7 @@
                    var myChart = echarts.init(document.getElementById('main'));
                    option = {
                             // 基于准备好的dom，初始化echarts实例           
-                           backgroundColor: '#2c343c',
+                           backgroundColor: '#FFFF99',
                            title: {
                                text: '实验课程统计',
                                left: 'center',
@@ -70,14 +81,14 @@
                                    label: {
                                        normal: {
                                            textStyle: {
-                                               color: 'rgba(255, 255, 255, 0.3)'
+                                               color: 'rgba(0, 0, 0, 0.7)'
                                            }
                                        }
                                    },
                                    labelLine: {
                                        normal: {
                                            lineStyle: {
-                                               color: 'rgba(255, 255, 255, 0.3)'
+                                               color: 'rgba(0, 0, 0, 0.7)'
                                            },
                                            smooth: 0.2,
                                            length: 10,
@@ -86,9 +97,9 @@
                                    },
                                    itemStyle: {
                                        normal: {
-                                           color: '#c23531',
+                                           color: '#FF0000',
                                            shadowBlur: 200,
-                                           shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                           shadowColor: 'rgba(255, 255, 255, 0.3)'
                                        }
                                    },
                
@@ -104,7 +115,23 @@
                    // 使用刚指定的配置项和数据显示图表。
                    myChart.setOption(option);
                    myChart.on('click',function(param){
-                       
+                	   $.ajax({
+                           type:'post',
+                           url:"${pageContext.request.contextPath}/statistic/courselist?csy052="+param.name,
+                           success:function(data){
+                        	   $("#coursehead").siblings().remove();
+                        	   for(var i=0;i<data.length;i++){
+	                        	   $("#courselist").append("<tr>"
+					                        	              +"<td>"+data[i].csy061+"</td>"
+					                        	              +"<td>"+data[i].csy051+"</td>"
+					                        	              +"<td>"+data[i].csy052+"</td>"         
+					                        	              +"<td>"+data[i].csy069+"</td>"
+					                        	              +"<td>"+data[i].csy062+"</td>"
+					                        	              +"<td>"+data[i].csy063+"</td>"
+					                        	              +"</tr>");
+                        	   }
+                           }
+                	   });
                    });
                 }
             });

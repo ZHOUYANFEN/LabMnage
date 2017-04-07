@@ -45,4 +45,37 @@ public class StatisticController {
         List<Map> list=statisticService.gradestatistics();
         return list;
     }
+    /**
+     * 查询各个学院的课程安排
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/courselist")
+    @ResponseBody
+    public List<Map> courselist(String csy052) throws Exception{
+        List<Map> list=statisticService.courselist(csy052);
+        return list;
+    }
+    /**
+     * 查询各个班级每个课程的平均成绩
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/classGradestatistics")
+    @ResponseBody
+    public List<Map> classGradestatistics() throws Exception{
+        List<Map> list=statisticService.classGradestatistics();
+        return list;
+    }
+    /**
+     * 查询各个班级每个人的平均成绩
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/classpeopleGradestatistics")
+    @ResponseBody
+    public List<Map> classpeopleGradestatistics(String csy043,String csy060) throws Exception{
+        List<Map> list=statisticService.classpeopleGradestatistics(csy043,csy060);
+        return list;
+    }
 }

@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.manager.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,21 @@ public class StatisticServiceImpl implements StatisticService {
     @Override
     public List<Map> gradestatistics() throws Exception {
         return sy07Mapper.gradestatistics();
+    }
+    @Override
+    public List<Map> courselist(String csy052) throws Exception {
+        return sy06Mapper.courselist(csy052);
+    }
+    @Override
+    public List<Map> classGradestatistics() throws Exception {
+        return sy07Mapper.classGradestatistics();
+    }
+    @Override
+    public List<Map> classpeopleGradestatistics(String csy043, String csy060) {
+        Map map=new HashMap();
+        map.put("csy043", csy043);
+        map.put("csy060", csy060);
+        return sy07Mapper.classpeopleGradestatistics(map);
     }
 
 }

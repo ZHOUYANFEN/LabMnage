@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-06 22:02:27
+Date: 2017-04-07 13:45:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -154,12 +154,14 @@ CREATE TABLE `sy06` (
   `CSY069` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '班级',
   `CSY06A` varchar(30) CHARACTER SET utf8 DEFAULT NULL COMMENT '课程代码',
   PRIMARY KEY (`CSY060`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy06
 -- ----------------------------
-INSERT INTO `sy06` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '0', '1', '计软二班', null);
+INSERT INTO `sy06` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '0', '1', '计软二班', '001');
+INSERT INTO `sy06` VALUES ('2', '2', '实验一', '2', '3', '周一', '1', 'B01214', '0', '无', '计软二班', '002');
+INSERT INTO `sy06` VALUES ('3', '1', '实验二', '3', '3', '周二', '1', 'BO1201', '0', '无', '计软一班', '003');
 
 -- ----------------------------
 -- Table structure for sy07
@@ -175,6 +177,9 @@ CREATE TABLE `sy07` (
 -- Records of sy07
 -- ----------------------------
 INSERT INTO `sy07` VALUES ('123456', '1', '70');
+INSERT INTO `sy07` VALUES ('123456', '2', '70');
+INSERT INTO `sy07` VALUES ('005', '1', '60');
+INSERT INTO `sy07` VALUES ('005', '2', '90');
 
 -- ----------------------------
 -- Table structure for sy08

@@ -29,4 +29,11 @@ public interface Sy06Mapper {
      * @return
      */
     List<Map> coursestatistics();
+    
+    /**
+     * 查询各个学院的课程安排
+     * @param csy052
+     * @return
+     */
+    List<Map> courselist(String csy052);
 }
