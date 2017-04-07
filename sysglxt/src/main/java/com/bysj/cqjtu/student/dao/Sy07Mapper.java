@@ -38,4 +38,5 @@ public interface Sy07Mapper {
      * @return
      */
     List<Map> classpeopleGradestatistics(Map map);
+
 }

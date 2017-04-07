@@ -78,4 +78,26 @@ public class StatisticController {
         List<Map> list=statisticService.classpeopleGradestatistics(csy043,csy060);
         return list;
     }
+    /**
+     * 学院实验安排统计
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/expArrangeStatistics")
+    @ResponseBody
+    public List<Map> expArrangeStatistics() throws Exception{
+        List<Map> list=statisticService.expArrangeStatistics();
+        return list;
+    }
+    /**
+     * 教师实验安排
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/expListStatistics")
+    @ResponseBody
+    public List<Map> expListStatistics(String csy052) throws Exception{
+        List<Map> list=statisticService.expListStatistics(csy052);
+        return list;
+    }
 }

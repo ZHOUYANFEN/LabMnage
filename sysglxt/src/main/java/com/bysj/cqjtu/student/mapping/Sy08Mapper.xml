@@ -79,9 +79,33 @@
         and sy08.csy040 = #{csy040}            
   </select>
   
+  <!-- 统计学院实验安排 -->
+  <select id="expArrangeStatistics"  resultType="java.util.HashMap">
+     select count(sy08.csy080) as value,
+            sy05.csy052 as name
+       from sy08 sy08,
+            sy06 sy06,
+            sy05 sy05
+      where sy08.csy060 = sy06.csy060
+        and sy06.csy050 = sy05.csy050
+        and sy08.csy085 = 0
+        and sy06.csy067 = 0
+       group by sy05.csy052                      
+  </select>
   
-  
-  
+  <!-- 实验明细-->
+  <select id="expListStatistics"  parameterType="String" resultType="java.util.HashMap">
+     select sy05.csy051 as csy051,
+            sy06.csy061 as csy061,
+            sy06.csy069 as csy069,
+            count(sy08.csy080) as csy080
+       from sy05 sy05,
+            sy06 sy06,
+            sy08 sy08
+      where sy08.csy060 = sy06.csy060
+        and sy08.csy050 = sy05.csy050
+        and sy05.csy052 = #{csy052}                     
+  </select>
   
   
   

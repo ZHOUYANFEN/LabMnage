@@ -44,6 +44,19 @@ public interface Sy08Mapper {
      * @return
      */
     List<Map> queryExpList(Sy04 sy04);
+    
+    /**
+     * 教师实验安排统计
+     * @return
+     * @throws Exception
+     */
+    List<Map> expArrangeStatistics();
+    /**
+     * 实验安排明细
+     * @param csy052
+     * @return
+     */
+    List<Map> expListStatistics(String csy052);
 
     
     

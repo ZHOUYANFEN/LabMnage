@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.bysj.cqjtu.manager.service.StatisticService;
 import com.bysj.cqjtu.student.dao.Sy06Mapper;
 import com.bysj.cqjtu.student.dao.Sy07Mapper;
+import com.bysj.cqjtu.student.dao.Sy08Mapper;
 
 @Service
 public class StatisticServiceImpl implements StatisticService {
@@ -18,6 +19,8 @@ public class StatisticServiceImpl implements StatisticService {
     private Sy06Mapper sy06Mapper;
     @Autowired
     private Sy07Mapper sy07Mapper;
+    @Autowired
+    private Sy08Mapper sy08Mapper;
     @Override
     public List<Map> coursestatistics() throws Exception {
         return sy06Mapper.coursestatistics();
@@ -35,11 +38,19 @@ public class StatisticServiceImpl implements StatisticService {
         return sy07Mapper.classGradestatistics();
     }
     @Override
-    public List<Map> classpeopleGradestatistics(String csy043, String csy060) {
+    public List<Map> classpeopleGradestatistics(String csy043, String csy060) throws Exception {
         Map map=new HashMap();
         map.put("csy043", csy043);
         map.put("csy060", csy060);
         return sy07Mapper.classpeopleGradestatistics(map);
+    }
+    @Override
+    public List<Map> expArrangeStatistics() throws Exception {
+        return sy08Mapper.expArrangeStatistics();
+    }
+    @Override
+    public List<Map> expListStatistics(String csy052) throws Exception {
+        return sy08Mapper.expListStatistics(csy052);
     }
 
 }

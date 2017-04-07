@@ -41,5 +41,18 @@ public interface StatisticService {
      * @param csy060
      * @return
      */
-    public List<Map> classpeopleGradestatistics(String csy043, String csy060);
+    public List<Map> classpeopleGradestatistics(String csy043, String csy060) throws Exception;
+    /**
+     * 学院实验安排统计
+     * @return
+     * @throws Exception
+     */
+    public List<Map> expArrangeStatistics() throws Exception;
+    /**
+     * 实验安排明细
+     * @param csy052
+     * @return
+     * @throws Exception
+     */
+    public List<Map> expListStatistics(String csy052) throws Exception;
 }
