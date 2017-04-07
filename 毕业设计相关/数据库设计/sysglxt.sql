@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-07 13:45:12
+Date: 2017-04-07 23:21:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -381,7 +381,7 @@ INSERT INTO `sy15` VALUES ('30', '4', '资源统计', 'selectMenu(\"slpt_statist
 INSERT INTO `sy15` VALUES ('31', '4', '实验课程统计', 'openPage(\"manager/coursestatistics.jsp\")', 'manager/coursestatistics.jsp', '2', '30', '0', '');
 INSERT INTO `sy15` VALUES ('32', '4', '学生成绩统计', 'openPage(\"manager/gradestatistic.jsp\")', 'manager/gradestatistic.jsp', '2', '30', '0', '');
 INSERT INTO `sy15` VALUES ('33', '4', '学生完成情况统计', null, null, '2', '30', '1', '');
-INSERT INTO `sy15` VALUES ('34', '4', '教师实验安排统计', null, null, '2', '30', '0', '');
+INSERT INTO `sy15` VALUES ('34', '4', '教师实验安排统计', 'openPage(\"manager/exparrangestatistic.jsp\")', 'manager/exparrangestatistic.jsp', '2', '30', '0', '');
 INSERT INTO `sy15` VALUES ('35', '4', '实验室安排统计', null, null, '2', '30', '0', '');
 INSERT INTO `sy15` VALUES ('36', '3', '个人信息管理', 'selectMenu(\"slpt_personnal\",36)', null, '1', null, '0', 'slpt_personnal');
 INSERT INTO `sy15` VALUES ('37', '3', '个人信息查看', null, null, '2', '36', '0', '');
@@ -406,7 +406,7 @@ INSERT INTO `sy15` VALUES ('55', '2', '其他资源', null, null, '2', '53', '0'
 INSERT INTO `sy15` VALUES ('56', '2', '学生管理', null, null, '1', null, '0', 'slpt_stumanage');
 INSERT INTO `sy15` VALUES ('57', '2', '通知公告', 'openPage(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', '');
 INSERT INTO `sy15` VALUES ('58', '2', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', '');
-INSERT INTO `sy15` VALUES ('59', '0', '实验室管理', null, null, '2', '25', '0', '');
+INSERT INTO `sy15` VALUES ('59', '0', '实验室管理', 'openPage(\"manager/labmanage.jsp\")', 'manager/labmanage.jsp', '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('60', '0', '菜单列表', 'openPage(\"manager/menulist.jsp\")', 'manager/menulist.jsp', '2', '21', '0', '');
 
 -- ----------------------------
