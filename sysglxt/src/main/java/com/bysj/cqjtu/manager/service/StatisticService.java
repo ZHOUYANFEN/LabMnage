@@ -55,4 +55,16 @@ public interface StatisticService {
      * @throws Exception
      */
     public List<Map> expListStatistics(String csy052) throws Exception;
+    /**
+     * 实验室统计
+     * @return
+     * @throws Exception
+     */
+    public List<Map> labStatistics() throws Exception;
+    /**
+     * 实验室列表统计
+     * @return
+     * @throws Exception
+     */
+    public List<Map> labList(String csy100) throws Exception;
 }

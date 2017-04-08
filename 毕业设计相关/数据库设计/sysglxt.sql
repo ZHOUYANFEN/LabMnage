@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-07 23:21:30
+Date: 2017-04-09 00:13:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -238,11 +238,21 @@ CREATE TABLE `sy10` (
   `CSY101` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '实验室类别名称',
   `CSY102` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY100`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy10
 -- ----------------------------
+INSERT INTO `sy10` VALUES ('1', '物理类', '0');
+INSERT INTO `sy10` VALUES ('2', '化学类', '0');
+INSERT INTO `sy10` VALUES ('3', '计算机类', '0');
+INSERT INTO `sy10` VALUES ('4', '光学类', '0');
+INSERT INTO `sy10` VALUES ('5', '电子类', '0');
+INSERT INTO `sy10` VALUES ('6', '机电类', '0');
+INSERT INTO `sy10` VALUES ('7', '人文类', '0');
+INSERT INTO `sy10` VALUES ('8', '测试', '1');
+INSERT INTO `sy10` VALUES ('9', '实验室', '1');
+INSERT INTO `sy10` VALUES ('11', '物理类', '1');
 
 -- ----------------------------
 -- Table structure for sy11
@@ -254,15 +264,29 @@ CREATE TABLE `sy11` (
   `CSY111` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '实验室名称',
   `CSY112` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '实验室位置',
   `CSY113` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '开放时间',
-  `CSY114` tinyint(4) DEFAULT NULL COMMENT '是否开放',
-  `CSY115` varchar(300) COLLATE utf8_bin DEFAULT NULL COMMENT '实验室描述',
+  `CSY114` tinyint(4) DEFAULT '0' COMMENT '是否开放',
+  `CSY115` varchar(300) COLLATE utf8_bin DEFAULT '' COMMENT '实验室描述',
   `CSY116` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY110`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy11
 -- ----------------------------
+INSERT INTO `sy11` VALUES ('1', '1', '物理实验室1', 'B01201', '9：00-11：00', '0', '第一个实验室', '0');
+INSERT INTO `sy11` VALUES ('2', '1', '物理实验室2', 'B01202', '9：00-11：00', '0', '第二个实验室', '0');
+INSERT INTO `sy11` VALUES ('3', '2', '化学实验室1', 'B01303', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('4', '2', '化学实验室2', 'B01304', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('5', '3', '计算机实验室1', 'B01405', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('6', '3', '计算机实验室2', 'B01406', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('7', '4', '光学实验室11', 'B01503', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('8', '4', '光学实验室2', 'B01504', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('9', '5', '电子实验室1', 'B01603', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('10', '5', '电子实验室2', 'B01604', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('11', '6', '机电实验室1', 'B01703', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('12', '6', '机电实验室2', 'B01704', '9：00-11：00', '0', '无', '0');
+INSERT INTO `sy11` VALUES ('13', '6', '机电实验室3', 'B01705', '9：00-11：00', '0', '', '0');
+INSERT INTO `sy11` VALUES ('14', '1', '力学实验室', 'B01234', '11:00-12:00', '1', '无一', '0');
 
 -- ----------------------------
 -- Table structure for sy12
@@ -277,14 +301,16 @@ CREATE TABLE `sy12` (
   `CSY123` longtext COLLATE utf8_bin COMMENT '备注',
   `CSY124` date DEFAULT NULL COMMENT '审核时间',
   `CSY125` tinyint(4) DEFAULT NULL COMMENT '是否通过',
-  `CSY126` date DEFAULT NULL COMMENT '安排时间',
+  `CSY126` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '安排时间',
   `CSY127` tinyint(4) DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY120`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy12
 -- ----------------------------
+INSERT INTO `sy12` VALUES ('1', '1', '2', '2017-04-09', '实验课', 0xE697A0, '2017-04-09', '1', '每周二9:00-11:00', '0');
+INSERT INTO `sy12` VALUES ('2', '2', '2', '2017-04-11', '实验课', 0xE697A0, '2017-04-18', '1', '每周三9:00-11:00', '0');
 
 -- ----------------------------
 -- Table structure for sy13
@@ -382,7 +408,7 @@ INSERT INTO `sy15` VALUES ('31', '4', '实验课程统计', 'openPage(\"manager/
 INSERT INTO `sy15` VALUES ('32', '4', '学生成绩统计', 'openPage(\"manager/gradestatistic.jsp\")', 'manager/gradestatistic.jsp', '2', '30', '0', '');
 INSERT INTO `sy15` VALUES ('33', '4', '学生完成情况统计', null, null, '2', '30', '1', '');
 INSERT INTO `sy15` VALUES ('34', '4', '教师实验安排统计', 'openPage(\"manager/exparrangestatistic.jsp\")', 'manager/exparrangestatistic.jsp', '2', '30', '0', '');
-INSERT INTO `sy15` VALUES ('35', '4', '实验室安排统计', null, null, '2', '30', '0', '');
+INSERT INTO `sy15` VALUES ('35', '4', '实验室安排统计', 'openPage(\"manager/labexpstatistic.jsp\")', 'manager/labexpstatistic.jsp', '2', '30', '0', '');
 INSERT INTO `sy15` VALUES ('36', '3', '个人信息管理', 'selectMenu(\"slpt_personnal\",36)', null, '1', null, '0', 'slpt_personnal');
 INSERT INTO `sy15` VALUES ('37', '3', '个人信息查看', null, null, '2', '36', '0', '');
 INSERT INTO `sy15` VALUES ('38', '3', '密码修改', 'openPage(\"common/changepassword.jsp\")', 'common/changepassword.jsp', '2', '36', '0', '');

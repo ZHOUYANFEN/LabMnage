@@ -100,4 +100,26 @@ public class StatisticController {
         List<Map> list=statisticService.expListStatistics(csy052);
         return list;
     }
+    /**
+     * 实验室统计
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/labStatistics")
+    @ResponseBody
+    public List<Map> labStatistics() throws Exception{
+        List<Map> list=statisticService.labStatistics();
+        return list;
+    }
+    /**
+     * 实验室列表统计
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/labList")
+    @ResponseBody
+    public List<Map> labList(String csy100) throws Exception{
+        List<Map> list=statisticService.labList(csy100);
+        return list;
+    }
 }

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.manager.dao.Sy11Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.Sy11" >
+    <id column="CSY110" property="csy110" jdbcType="INTEGER" />
+    <result column="CSY100" property="csy100" jdbcType="VARCHAR" />
+    <result column="CSY111" property="csy111" jdbcType="VARCHAR" />
+    <result column="CSY112" property="csy112" jdbcType="VARCHAR" />
+    <result column="CSY113" property="csy113" jdbcType="VARCHAR" />
+    <result column="CSY114" property="csy114" jdbcType="TINYINT" />
+    <result column="CSY115" property="csy115" jdbcType="VARCHAR" />
+    <result column="CSY116" property="csy116" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY110, CSY100, CSY111, CSY112, CSY113, CSY114, CSY115, CSY116
+  </sql>
+  
+  <select id="queryLabList" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+    select sy11.csy110 as csy110,
+           sy11.csy111 as csy111,
+           sy11.csy112 as csy112,
+           sy11.csy113 as csy113,
+           sy11.csy114 as csy114,
+           sy11.csy115 as csy115,
+           sy11.csy116 as csy116,
+           sy10.csy101 as csy101   
+      from sy11 sy11,
+           sy10 sy10
+     where sy11.csy100 = sy10.csy100
+       and sy10.csy100 = #{csy100}
+       and sy10.csy102 = 0
+       and sy11.csy116 = 0
+  </select>
+  <!--增加实验室信息  -->
+  <insert id="addLab" parameterType="com.bysj.cqjtu.manager.domain.Sy11" >
+    insert into sy11 (CSY100, 
+                      CSY111, 
+                      CSY112, 
+                      CSY113, 
+                      CSY114, 
+                      CSY115, 
+                      CSY116)
+              values (#{csy100,jdbcType=VARCHAR}, 
+                      #{csy111,jdbcType=VARCHAR}, 
+                      #{csy112,jdbcType=VARCHAR}, 
+                      #{csy113,jdbcType=VARCHAR}, 
+                      #{csy114,jdbcType=TINYINT}, 
+                      #{csy115,jdbcType=VARCHAR}, 
+                      #{csy116,jdbcType=TINYINT})
+  </insert>
+  <!-- 删除实验室信息 -->
+  <update id="deleteSy11" parameterType="java.util.HashMap" >
+     update sy11
+        set csy116 = 1
+      where csy110 = #{csy110}
+  </update>
+  <!-- 查询实验室具体信息 -->
+  <select id="queryLab" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+    select csy100,
+           csy110,
+           csy111,
+           csy112,
+           csy113,
+           csy114,
+           csy115,
+           csy116              
+      from sy11
+     where csy110 = #{csy110}
+  </select>
+  <!-- 更新实验室信息 -->
+  <update id="updateLab" parameterType="com.bysj.cqjtu.manager.domain.Sy11" >
+    update sy11
+       set csy100 = #{csy100,jdbcType=VARCHAR},
+           csy111 = #{csy111,jdbcType=VARCHAR},
+	       csy112 = #{csy112,jdbcType=VARCHAR},
+	       csy113 = #{csy113,jdbcType=VARCHAR},
+	       csy114 = #{csy114,jdbcType=TINYINT},
+	       csy115 = #{csy115,jdbcType=VARCHAR},
+	       csy116 = #{csy116,jdbcType=TINYINT}
+     where csy110 = #{csy110,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询实验室具体信息 -->
+  <select id="validateLab" resultType="com.bysj.cqjtu.manager.domain.Sy11" parameterType="java.util.HashMap" >
+    select csy110             
+      from sy11
+     where csy111 = #{csy111}
+       and csy112 = #{csy112}
+  </select>
+  
+  <!-- 实验室统计 -->
+  <select id="labStatistics" resultType="java.util.HashMap" >
+    select count(sy11.csy110) as value,
+           sy10.csy101 as name,
+           sy10.csy100 as id             
+      from sy11 sy11,
+           sy10 sy10
+     where sy11.csy100 = sy10.csy100
+       and sy11.csy116 = 0
+       and sy10.csy102 = 0
+       group by sy10.csy101
+  </select>
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy11
+    where CSY110 = #{csy110,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy11
+    where CSY110 = #{csy110,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Sy11" >
+    insert into sy11 (CSY110, CSY100, CSY111, 
+      CSY112, CSY113, CSY114, 
+      CSY115, CSY116)
+    values (#{csy110,jdbcType=INTEGER}, #{csy100,jdbcType=VARCHAR}, #{csy111,jdbcType=VARCHAR}, 
+      #{csy112,jdbcType=VARCHAR}, #{csy113,jdbcType=VARCHAR}, #{csy114,jdbcType=TINYINT}, 
+      #{csy115,jdbcType=VARCHAR}, #{csy116,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Sy11" >
+    insert into sy11
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy110 != null" >
+        CSY110,
+      </if>
+      <if test="csy100 != null" >
+        CSY100,
+      </if>
+      <if test="csy111 != null" >
+        CSY111,
+      </if>
+      <if test="csy112 != null" >
+        CSY112,
+      </if>
+      <if test="csy113 != null" >
+        CSY113,
+      </if>
+      <if test="csy114 != null" >
+        CSY114,
+      </if>
+      <if test="csy115 != null" >
+        CSY115,
+      </if>
+      <if test="csy116 != null" >
+        CSY116,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy110 != null" >
+        #{csy110,jdbcType=INTEGER},
+      </if>
+      <if test="csy100 != null" >
+        #{csy100,jdbcType=VARCHAR},
+      </if>
+      <if test="csy111 != null" >
+        #{csy111,jdbcType=VARCHAR},
+      </if>
+      <if test="csy112 != null" >
+        #{csy112,jdbcType=VARCHAR},
+      </if>
+      <if test="csy113 != null" >
+        #{csy113,jdbcType=VARCHAR},
+      </if>
+      <if test="csy114 != null" >
+        #{csy114,jdbcType=TINYINT},
+      </if>
+      <if test="csy115 != null" >
+        #{csy115,jdbcType=VARCHAR},
+      </if>
+      <if test="csy116 != null" >
+        #{csy116,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.Sy11" >
+    update sy11
+    <set >
+      <if test="csy100 != null" >
+        CSY100 = #{csy100,jdbcType=VARCHAR},
+      </if>
+      <if test="csy111 != null" >
+        CSY111 = #{csy111,jdbcType=VARCHAR},
+      </if>
+      <if test="csy112 != null" >
+        CSY112 = #{csy112,jdbcType=VARCHAR},
+      </if>
+      <if test="csy113 != null" >
+        CSY113 = #{csy113,jdbcType=VARCHAR},
+      </if>
+      <if test="csy114 != null" >
+        CSY114 = #{csy114,jdbcType=TINYINT},
+      </if>
+      <if test="csy115 != null" >
+        CSY115 = #{csy115,jdbcType=VARCHAR},
+      </if>
+      <if test="csy116 != null" >
+        CSY116 = #{csy116,jdbcType=TINYINT},
+      </if>
+    </set>
+    where CSY110 = #{csy110,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Sy11" >
+    update sy11
+    set CSY100 = #{csy100,jdbcType=VARCHAR},
+      CSY111 = #{csy111,jdbcType=VARCHAR},
+      CSY112 = #{csy112,jdbcType=VARCHAR},
+      CSY113 = #{csy113,jdbcType=VARCHAR},
+      CSY114 = #{csy114,jdbcType=TINYINT},
+      CSY115 = #{csy115,jdbcType=VARCHAR},
+      CSY116 = #{csy116,jdbcType=TINYINT}
+    where CSY110 = #{csy110,jdbcType=INTEGER}
+  </update>
+</mapper>

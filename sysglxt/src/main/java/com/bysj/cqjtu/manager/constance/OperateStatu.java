@@ -72,4 +72,40 @@ public interface OperateStatu {
     /***********************更新成功****************/
     public static final String UPDATE_USER_SUCCESS="25";//更新成功
     
+    /*************************添加实验室信息***************/
+    public static final String INSERT_SY11_SUCCESS="success";//成功
+    public static final String INSERT_SY11_FAIL="error";//成功
+    
+    /*************************删除实验室信息***************/
+    public static final String DELETE_SY11_SUCCESS="success";//成功
+    public static final String DELETE_SY11_FAIL="error";//成功
+    
+    /*************************修改实验室信息***************/
+    public static final String UPDATE_SY11_SUCCESS="success";//成功
+    public static final String UPDATE_SY11_FAIL="error";//失败
+    
+    /*************************验证实验室类型是否存在***************/
+    public static final String VALIDATE_SY10_SUCCESS="success";//成功
+    public static final String VALIDATE_SY10_FAIL="error";//失败
+    
+    /************************添加实验室类型***************/
+    public static final String INSERT_SY10_SUCCESS="success";//成功
+    public static final String INSERT_SY10_FAIL="error";//失败
+    
+    /************************删除实验室类型***************/
+    public static final String DELETE_SY10_SUCCESS="success";//成功
+    public static final String DELETE_SY10_FAIL="error";//失败
+    
+    /************************是否删除实验室类型***************/
+    public static final String VALIDATE_DELETE_SY10_SUCCESS="success";//可以删除
+    public static final String VALIDATE_DELETE_SY10_FAIL="error";//不能删除
+    
+    /************************修改实验室类型***************/
+    public static final String UPDATE_SY10_SUCCESS="success";//可以删除
+    public static final String UPDATE_SY10_FAIL="error";//不能删除
+    
+    
+    /************************验证实验室是否存在***************/
+    public static final String VALIDATE_SY11_SUCCESS="success";//不存在
+    public static final String VALIDATE_SY11_FAIL="error";//存在
 }

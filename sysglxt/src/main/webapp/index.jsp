@@ -179,10 +179,13 @@
                     type : "POST",
                     url : "${pageContext.request.contextPath}/anouncement/getNewAnouncement",
                     success : function(data) {
-                    	console.log(data);
-                    	$("#annoucement").append("<h3>"+data.csy141+"</h3>"
-                    			                 +data.csy143                   			                 
-                    	                         );
+                    	if(data){
+	                    	$("#annoucement").append("<h3>"+data.csy141+"</h3>"
+	                    			                 +data.csy143                   			                 
+	                    	                         );
+                    	}else{
+                    		$("#annoucement").append("暂无公告");
+                    	}
                     }
 	       });
 	});

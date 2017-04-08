@@ -213,7 +213,11 @@ $(function(){
         var id_array=new Array();  
         $("[type='checkbox']:checked").each(function(){  
             id_array.push($(this).attr('id'));//向数组中添加元素  
-        });  
+        });
+        if(id_array.length<=0){
+        	sweetAlert("还没有选择需要删除的信息");
+        	return;
+        }
         var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串  
         if(confirm("确认删除吗")){
             $.ajax({

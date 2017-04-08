@@ -54,7 +54,7 @@
                               下载
         </button>      
     </div>
-     <div id="button_querymenu" style="margin-top:30px;margin-left:5px">
+     <div id="list_querymenu" style="margin-top:30px;margin-left:5px">
         <table class="table table-hover" id="sy02" style="font-size:10px" >
             <tr style="width:800px;" id="menuhead">
                 <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox()"/></td>
@@ -177,7 +177,16 @@ $(function(){
 	}
 	/*删除用户*/
 	function deleteUser(userid){
-		if(confirm("确认删除吗?")){
+		swal({  
+            title:"",  
+            text:"确认删除这个菜单功能吗？",  
+            type:"warning",  
+            showCancelButton:"true",  
+            showConfirmButton:"true",  
+            confirmButtonText:"确定",  
+            cancelButtonText:"取消",  
+            animation:"slide-from-top"  
+       }, function() {
 			$.ajax({
 	            type:'POST',
 	            url:"${pageContext.request.contextPath}/userManager/deleteUser?csy020="+userid,
@@ -191,16 +200,29 @@ $(function(){
                     }
 	            }
 	        });
-		}
+		});
 	}
 	/*批量删除人员信息*/
     function deleteMenuBatch(){
         var id_array=new Array();  
         $("[type='checkbox']:checked").each(function(){  
             id_array.push($(this).attr('id'));//向数组中添加元素  
-        });  
+        });
+        if(id_array.length<=0){
+        	sweetAlert("还没有选择数据");
+        	return;
+        }
         var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串  
-        if(confirm("确认删除吗")){
+        swal({  
+            title:"",  
+            text:"确认删除这个菜单功能吗？",  
+            type:"warning",  
+            showCancelButton:"true",  
+            showConfirmButton:"true",  
+            confirmButtonText:"确定",  
+            cancelButtonText:"取消",  
+            animation:"slide-from-top"  
+       }, function() {
             $.ajax({
                 type:"POST",
                 url:"${pageContext.request.contextPath}/userManager/deleteUserBatch?ids="+idstr,
@@ -214,7 +236,7 @@ $(function(){
                     }
                 }
             });
-        }
+        });
     }
 	/*按条件查询用户*/
 	function queryUserByCondition(){

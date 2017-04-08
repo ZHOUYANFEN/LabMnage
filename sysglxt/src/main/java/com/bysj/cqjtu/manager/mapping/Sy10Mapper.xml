@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.manager.dao.Sy10Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.Sy10" >
+    <id column="CSY100" property="csy100" jdbcType="INTEGER" />
+    <result column="CSY101" property="csy101" jdbcType="VARCHAR" />
+    <result column="CSY102" property="csy102" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY100, CSY101, CSY102
+  </sql>
+  <!-- 查询实验室类型 -->
+  <select id="queryLabType" resultType="java.util.HashMap" >
+    select csy100,
+           csy101
+      from sy10
+    where csy102 = 0
+  </select>
+  
+  <!-- 查询实验室类型 -->
+  <select id="validateCsy101" resultType="java.lang.Integer" parameterType="String" >
+    select count(*)
+      from sy10
+    where csy101 = #{csy101}
+      and csy102 = 0
+  </select>
+  
+  <!-- 添加实验室类型 -->
+  <insert id="addCsy101" parameterType="com.bysj.cqjtu.manager.domain.Sy10" >
+    insert into sy10 (csy101,csy102)
+              values (#{csy101},#{csy102})
+  </insert>
+  <!-- 删除实验室类型 -->
+  <update id="deleteType" parameterType="String" >
+    update sy10
+       set csy102 = 1
+     where csy100 = #{csy100}
+  </update>
+  
+  <!-- 删除实验室类型 -->
+  <update id="updateType" parameterType="com.bysj.cqjtu.manager.domain.Sy10" >
+    update sy10
+       set csy101 = #{csy101}
+     where csy100 = #{csy100}
+  </update>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy10
+    where CSY100 = #{csy100,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy10
+    where CSY100 = #{csy100,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Sy10" >
+    insert into sy10 (CSY100, CSY101, CSY102
+      )
+    values (#{csy100,jdbcType=INTEGER}, #{csy101,jdbcType=VARCHAR}, #{csy102,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Sy10" >
+    insert into sy10
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy100 != null" >
+        CSY100,
+      </if>
+      <if test="csy101 != null" >
+        CSY101,
+      </if>
+      <if test="csy102 != null" >
+        CSY102,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy100 != null" >
+        #{csy100,jdbcType=INTEGER},
+      </if>
+      <if test="csy101 != null" >
+        #{csy101,jdbcType=VARCHAR},
+      </if>
+      <if test="csy102 != null" >
+        #{csy102,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.Sy10" >
+    update sy10
+    <set >
+      <if test="csy101 != null" >
+        CSY101 = #{csy101,jdbcType=VARCHAR},
+      </if>
+      <if test="csy102 != null" >
+        CSY102 = #{csy102,jdbcType=TINYINT},
+      </if>
+    </set>
+    where CSY100 = #{csy100,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Sy10" >
+    update sy10
+    set CSY101 = #{csy101,jdbcType=VARCHAR},
+      CSY102 = #{csy102,jdbcType=TINYINT}
+    where CSY100 = #{csy100,jdbcType=INTEGER}
+  </update>
+</mapper>
