@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.manager.dao.Sy12Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.Sy12" >
+    <id column="CSY120" property="csy120" jdbcType="INTEGER" />
+    <result column="CSY110" property="csy110" jdbcType="VARCHAR" />
+    <result column="CSY020" property="csy020" jdbcType="VARCHAR" />
+    <result column="CSY121" property="csy121" jdbcType="DATE" />
+    <result column="CSY122" property="csy122" jdbcType="VARCHAR" />
+    <result column="CSY124" property="csy124" jdbcType="DATE" />
+    <result column="CSY125" property="csy125" jdbcType="TINYINT" />
+    <result column="CSY126" property="csy126" jdbcType="VARCHAR" />
+    <result column="CSY127" property="csy127" jdbcType="TINYINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.bysj.cqjtu.manager.domain.Sy12" extends="BaseResultMap" >
+    <result column="CSY123" property="csy123" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY120, CSY110, CSY020, CSY121, CSY122, CSY124, CSY125, CSY126, CSY127
+  </sql>
+  <sql id="Blob_Column_List" >
+    CSY123
+  </sql>
+  
+  
+  <!-- 统计实验室安排 -->
+  <select id="labArrangeStatistics" resultType="java.util.HashMap" >
+    select count(sy12.csy120) as value,
+           sy01.csy011 as name,
+           sy01.csy010 as id
+      from sy01 sy01,
+           sy02 sy02,
+           sy12 sy12
+     where sy12.csy020 = sy02.csy020
+       and sy02.csy010 = sy01.csy010
+       and sy12.csy127 = 0
+       and sy02.csy023 = 0
+       and sy01.csy012 = 0
+       group by sy02.csy010
+  </select>
+  
+  <!-- 按照人员类型统计实验室的安排情况列表  -->
+   <select id="labArrangeListStatistics" resultType="java.util.HashMap" >
+    select sy11.csy111 as csy111,
+    <if test="csy010==2">
+           sy05.csy051 as csy051,
+           sy12.csy121 as csy121,
+           sy12.csy122 as csy122,
+           sy12.csy126 as csy126
+      from sy12 sy12,
+           sy11 sy11,
+           sy05 sy05,
+           sy02 sy02
+     where sy12.csy110 = sy11.csy110
+       and sy12.csy020 = sy02.csy020
+       and sy05.csy020 = sy02.csy020
+       and sy02.csy010 = #{csy010}
+    </if>
+     <if test="csy010==3">
+           sy03.csy031 as csy031,
+           sy12.csy121 as csy121,
+           sy12.csy122 as csy122,
+           sy12.csy126 as csy126
+      from sy12 sy12,
+           sy11 sy11,
+           sy03 sy03,
+           sy02 sy02
+     where sy12.csy110 = sy11.csy110
+       and sy12.csy020 = sy02.csy020
+       and sy03.csy020 = sy02.csy020
+       and sy02.csy010 = #{csy010}
+    </if>
+  </select>
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sy12
+    where CSY120 = #{csy120,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy12
+    where CSY120 = #{csy120,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Sy12" >
+    insert into sy12 (CSY120, CSY110, CSY020, 
+      CSY121, CSY122, CSY124, CSY125, 
+      CSY126, CSY127, CSY123
+      )
+    values (#{csy120,jdbcType=INTEGER}, #{csy110,jdbcType=VARCHAR}, #{csy020,jdbcType=VARCHAR}, 
+      #{csy121,jdbcType=DATE}, #{csy122,jdbcType=VARCHAR}, #{csy124,jdbcType=DATE}, #{csy125,jdbcType=TINYINT}, 
+      #{csy126,jdbcType=VARCHAR}, #{csy127,jdbcType=TINYINT}, #{csy123,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Sy12" >
+    insert into sy12
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy120 != null" >
+        CSY120,
+      </if>
+      <if test="csy110 != null" >
+        CSY110,
+      </if>
+      <if test="csy020 != null" >
+        CSY020,
+      </if>
+      <if test="csy121 != null" >
+        CSY121,
+      </if>
+      <if test="csy122 != null" >
+        CSY122,
+      </if>
+      <if test="csy124 != null" >
+        CSY124,
+      </if>
+      <if test="csy125 != null" >
+        CSY125,
+      </if>
+      <if test="csy126 != null" >
+        CSY126,
+      </if>
+      <if test="csy127 != null" >
+        CSY127,
+      </if>
+      <if test="csy123 != null" >
+        CSY123,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy120 != null" >
+        #{csy120,jdbcType=INTEGER},
+      </if>
+      <if test="csy110 != null" >
+        #{csy110,jdbcType=VARCHAR},
+      </if>
+      <if test="csy020 != null" >
+        #{csy020,jdbcType=VARCHAR},
+      </if>
+      <if test="csy121 != null" >
+        #{csy121,jdbcType=DATE},
+      </if>
+      <if test="csy122 != null" >
+        #{csy122,jdbcType=VARCHAR},
+      </if>
+      <if test="csy124 != null" >
+        #{csy124,jdbcType=DATE},
+      </if>
+      <if test="csy125 != null" >
+        #{csy125,jdbcType=TINYINT},
+      </if>
+      <if test="csy126 != null" >
+        #{csy126,jdbcType=VARCHAR},
+      </if>
+      <if test="csy127 != null" >
+        #{csy127,jdbcType=TINYINT},
+      </if>
+      <if test="csy123 != null" >
+        #{csy123,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.Sy12" >
+    update sy12
+    <set >
+      <if test="csy110 != null" >
+        CSY110 = #{csy110,jdbcType=VARCHAR},
+      </if>
+      <if test="csy020 != null" >
+        CSY020 = #{csy020,jdbcType=VARCHAR},
+      </if>
+      <if test="csy121 != null" >
+        CSY121 = #{csy121,jdbcType=DATE},
+      </if>
+      <if test="csy122 != null" >
+        CSY122 = #{csy122,jdbcType=VARCHAR},
+      </if>
+      <if test="csy124 != null" >
+        CSY124 = #{csy124,jdbcType=DATE},
+      </if>
+      <if test="csy125 != null" >
+        CSY125 = #{csy125,jdbcType=TINYINT},
+      </if>
+      <if test="csy126 != null" >
+        CSY126 = #{csy126,jdbcType=VARCHAR},
+      </if>
+      <if test="csy127 != null" >
+        CSY127 = #{csy127,jdbcType=TINYINT},
+      </if>
+      <if test="csy123 != null" >
+        CSY123 = #{csy123,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CSY120 = #{csy120,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bysj.cqjtu.manager.domain.Sy12" >
+    update sy12
+    set CSY110 = #{csy110,jdbcType=VARCHAR},
+      CSY020 = #{csy020,jdbcType=VARCHAR},
+      CSY121 = #{csy121,jdbcType=DATE},
+      CSY122 = #{csy122,jdbcType=VARCHAR},
+      CSY124 = #{csy124,jdbcType=DATE},
+      CSY125 = #{csy125,jdbcType=TINYINT},
+      CSY126 = #{csy126,jdbcType=VARCHAR},
+      CSY127 = #{csy127,jdbcType=TINYINT},
+      CSY123 = #{csy123,jdbcType=LONGVARCHAR}
+    where CSY120 = #{csy120,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Sy12" >
+    update sy12
+    set CSY110 = #{csy110,jdbcType=VARCHAR},
+      CSY020 = #{csy020,jdbcType=VARCHAR},
+      CSY121 = #{csy121,jdbcType=DATE},
+      CSY122 = #{csy122,jdbcType=VARCHAR},
+      CSY124 = #{csy124,jdbcType=DATE},
+      CSY125 = #{csy125,jdbcType=TINYINT},
+      CSY126 = #{csy126,jdbcType=VARCHAR},
+      CSY127 = #{csy127,jdbcType=TINYINT}
+    where CSY120 = #{csy120,jdbcType=INTEGER}
+  </update>
+</mapper>

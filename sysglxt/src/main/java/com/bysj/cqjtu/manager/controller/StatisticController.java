@@ -41,6 +41,7 @@ public class StatisticController {
      */
     @RequestMapping("/gradestatistics")
     @ResponseBody
+    //TODO:有bug 班级和学科同时分组查询 需要查两次
     public List<Map> gradestatistics() throws Exception{
         List<Map> list=statisticService.gradestatistics();
         return list;
@@ -120,6 +121,29 @@ public class StatisticController {
     @ResponseBody
     public List<Map> labList(String csy100) throws Exception{
         List<Map> list=statisticService.labList(csy100);
+        return list;
+    }
+    /**
+     * 实验室安排统计
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/labArrangeStatistics")
+    @ResponseBody
+    public List<Map> labArrangeStatistics() throws Exception{
+        List<Map> list=statisticService.labArrangeStatistics();
+        return list;
+    }
+    /**
+     * 按照人员类型统计实验室的安排情况列表
+     * @param csy010
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/labArrangeListStatistics")
+    @ResponseBody
+    public List<Map> labArrangeListStatistics(String csy010) throws Exception{
+        List<Map> list=statisticService.labArrangeListStatistics(csy010);
         return list;
     }
 }

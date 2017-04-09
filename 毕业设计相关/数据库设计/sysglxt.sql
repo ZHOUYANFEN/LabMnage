@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-09 00:13:21
+Date: 2017-04-09 21:08:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -309,8 +309,8 @@ CREATE TABLE `sy12` (
 -- ----------------------------
 -- Records of sy12
 -- ----------------------------
-INSERT INTO `sy12` VALUES ('1', '1', '2', '2017-04-09', '实验课', 0xE697A0, '2017-04-09', '1', '每周二9:00-11:00', '0');
-INSERT INTO `sy12` VALUES ('2', '2', '2', '2017-04-11', '实验课', 0xE697A0, '2017-04-18', '1', '每周三9:00-11:00', '0');
+INSERT INTO `sy12` VALUES ('1', '1', '33', '2017-04-09', '实验课', 0xE697A0, '2017-04-09', '1', '每周二9:00-11:00', '0');
+INSERT INTO `sy12` VALUES ('2', '2', '33', '2017-04-11', '实验课', 0xE697A0, '2017-04-18', '1', '每周三9:00-11:00', '0');
 
 -- ----------------------------
 -- Table structure for sy13
@@ -348,7 +348,7 @@ CREATE TABLE `sy14` (
   `CSY144` date DEFAULT NULL COMMENT '公告截止时间',
   `CSY145` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY140`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy14
@@ -356,6 +356,8 @@ CREATE TABLE `sy14` (
 INSERT INTO `sy14` VALUES ('1', '公告1', '2017-03-29', '公告2公告公告', '2017-04-07', '0');
 INSERT INTO `sy14` VALUES ('2', '公告2', '2017-03-30', '是的撒多撒大所大所多', '2017-04-07', '0');
 INSERT INTO `sy14` VALUES ('3', '公告3', '2017-03-29', '萨达撒大所大所大所大所大所大是', '2017-04-08', '0');
+INSERT INTO `sy14` VALUES ('4', '公告测试1', '2017-04-09', '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公告1<br/></p><p>&nbsp; 测试公告1</p>', '2017-05-01', '0');
+INSERT INTO `sy14` VALUES ('5', '测试公告2', '2017-04-09', '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;测试公告2<br/></p><p>测试测试时</p>', '2017-04-23', '0');
 
 -- ----------------------------
 -- Table structure for sy15

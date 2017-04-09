@@ -34,6 +34,47 @@
     limit 1
   </select>
   
+  <!-- 查询所有公告 -->
+  <select id="queryAllanouncement" resultType="com.bysj.cqjtu.common.domain.Sy14" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy14
+    where csy145 = 0
+    order by csy142
+  </select>
+  <!-- 逻辑删除公告 -->
+  <update id="deleteanouncement" parameterType="String" >
+    update sy14
+       set csy145 = 1
+     where csy140 = #{csy140}
+  </update>
+  
+  <!-- 添加公告 -->
+   <insert id="saveAnoucement" parameterType="com.bysj.cqjtu.common.domain.Sy14" >
+     insert into sy14 (CSY140, 
+                       CSY141, 
+                       CSY142, 
+                       CSY143, 
+                       CSY144, 
+                       CSY145
+                      )
+              values (#{csy140,jdbcType=INTEGER}, 
+                      #{csy141,jdbcType=VARCHAR}, 
+                      curdate(), 
+                      #{csy143,jdbcType=VARCHAR}, 
+                      #{csy144,jdbcType=DATE}, 
+                      #{csy145,jdbcType=TINYINT}
+      )
+  </insert>
+  <!-- 公告详情 -->
+  <select id="detailanouncement" resultType="com.bysj.cqjtu.common.domain.Sy14" parameterType="String" >
+    select *
+    from sy14
+    where CSY140 = #{csy140}
+  </select>
+  
+  
+  
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

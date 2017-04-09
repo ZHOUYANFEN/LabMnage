@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy03;
@@ -55,6 +56,7 @@ public class UserManagerController {
      */
     @RequestMapping("/getAllUser")
     @ResponseBody
+    @SystemControllerLog(description = "获取用户信息") 
     public List<Map> getAllUser()throws Exception{
         return userManagerService.getAllUser();
     }

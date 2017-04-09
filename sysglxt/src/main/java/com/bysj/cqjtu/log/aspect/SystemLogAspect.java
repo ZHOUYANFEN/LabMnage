@@ -2,46 +2,39 @@ package com.bysj.cqjtu.log.aspect;
 
 import java.lang.reflect.Method;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.junit.Before;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.bysj.cqjtu.log.controller.SystemControllerLog;
-import com.bysj.cqjtu.log.controller.SystemServiceLog;
-import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
     
-/**  
- * 切点类  
- * @author tiangai  
- * @since 2014-08-05 Pm 20:35  
- * @version 1.0  
- */    
+/**
+ * 切点类    
+ * @author fuzhengjun
+ *2017年4月9日下午3:27:52
+ *
+ */
 @Aspect   
 @Component    
 public  class SystemLogAspect {    
-    //注入Service用于把日志保存数据库    
     
     //本地异常日志记录对象    
-     private  static  final Logger logger = LoggerFactory.getLogger(SystemLogAspect. class);    
+    private static final Logger logger = LogManager.getLogger(SystemLogAspect. class);   
     
     //Service层切点    
-    @Pointcut("@annotation(com.annotation.SystemServiceLog)")    
-     public  void serviceAspect() {    
+    @Pointcut("@annotation(com.bysj.cqjtu.log.annotation.SystemServiceLog)")    
+    public  void serviceAspect() {    
     }    
     
     //Controller层切点    
-    @Pointcut("@annotation(com.annotation.SystemControllerLog)")    
-     public  void controllerAspect() {    
+    @Pointcut("@annotation(com.bysj.cqjtu.log.annotation.SystemControllerLog)")    
+    public  void controllerAspect() {    
     }    
     
     /**  
@@ -49,41 +42,16 @@ public  class SystemLogAspect {
      *  
      * @param joinPoint 切点  
      */    
-    @Before
-     public  void doBefore(JoinPoint joinPoint) {    
-    
+    @Before("controllerAspect()") 
+    public  void doBefore(JoinPoint joinPoint) throws Exception {    
+       /* String description=getControllerMethodDescription(joinPoint);
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();    
-        HttpSession session = request.getSession();    
-        //读取session中的用户    =
-        UserMessage user = (UserMessage) session.getAttribute("user");    
-        //请求的IP    
-        String ip = request.getRemoteAddr();    
-         try {    
-            //*========控制台输出=========*//    
-            System.out.println("=====前置通知开始=====");    
-            System.out.println("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));    
-            System.out.println("方法描述:" + getControllerMethodDescription(joinPoint));    
-            //System.out.println("请求人:" + user.getName());    
-            System.out.println("请求IP:" + ip);    
-            //*========数据库日志=========*//    
-           /* Log log = SpringContextHolder.getBean("logxx");    
-            log.setDescription(getControllerMethodDescription(joinPoint));    
-            log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));    
-            log.setType("0");    
-            log.setRequestIp(ip);    
-            log.setExceptionCode( null);    
-            log.setExceptionDetail( null);    
-            log.setParams( null);    
-            log.setCreateBy(user);    */
-            //log.setCreateDate(DateUtil.getCurrentDate());    
-            //保存数据库    
-           // logService.add(log);    
-            System.out.println("=====前置通知结束=====");    
-        }  catch (Exception e) {    
-            //记录本地异常日志    
-            logger.error("==前置通知异常==");    
-            logger.error("异常信息:{}", e.getMessage());    
-        }    
+        HttpSession session = request.getSession();
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        if(userMessage.getSy02().getCsy010()==(byte)4){
+            logger.info(userMessage.getSy02().getCsy020()+","
+                       +description);
+        }*/
     }    
     
     /**  
@@ -94,51 +62,7 @@ public  class SystemLogAspect {
      */    
     @AfterThrowing(pointcut = "serviceAspect()", throwing = "e")    
      public  void doAfterThrowing(JoinPoint joinPoint, Throwable e) {    
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();    
-        HttpSession session = request.getSession();    
-        //读取session中的用户    
-        UserMessage user = (UserMessage) session.getAttribute("user");    
-        //获取请求ip    
-        String ip = request.getRemoteAddr();    
-        //获取用户请求方法的参数并序列化为JSON格式字符串    
-        String params = "";    
-        /* if (joinPoint.getArgs() !=  null && joinPoint.getArgs().length > 0) {    
-             for ( int i = 0; i < joinPoint.getArgs().length; i++) {    
-                params += JSONUtil.toJsonString(joinPoint.getArgs()[i]) + ";";    
-            }    
-        }    */
-         try {    
-              /*========控制台输出=========*/    
-            System.out.println("=====异常通知开始=====");    
-            System.out.println("异常代码:" + e.getClass().getName());    
-            System.out.println("异常信息:" + e.getMessage());    
-            System.out.println("异常方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));    
-            System.out.println("方法描述:" + getServiceMthodDescription(joinPoint));    
-           // System.out.println("请求人:" + user.getName());    
-            System.out.println("请求IP:" + ip);    
-            System.out.println("请求参数:" + params);    
-               /*==========数据库日志=========*/    
-           /* Log log = SpringContextHolder.getBean("logxx");    
-            log.setDescription(getServiceMthodDescription(joinPoint));    
-            log.setExceptionCode(e.getClass().getName());    
-            log.setType("1");    
-            log.setExceptionDetail(e.getMessage());    
-            log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));    
-            log.setParams(params);    
-            log.setCreateBy(user);    
-            log.setCreateDate(DateUtil.getCurrentDate());    
-            log.setRequestIp(ip);    
-            //保存数据库    
-            logService.add(log);    */
-            System.out.println("=====异常通知结束=====");    
-        }  catch (Exception ex) {    
-            //记录本地异常日志    
-            logger.error("==异常通知异常==");    
-            logger.error("异常信息:{}", ex.getMessage());    
-        }    
-         /*==========记录本地异常日志==========*/    
-        logger.error("异常方法:{}异常代码:{}异常信息:{}参数:{}", joinPoint.getTarget().getClass().getName() + joinPoint.getSignature().getName(), e.getClass().getName(), e.getMessage(), params);    
-    
+        
     }    
     
     

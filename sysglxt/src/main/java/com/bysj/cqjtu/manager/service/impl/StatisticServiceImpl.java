@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bysj.cqjtu.manager.dao.Sy11Mapper;
+import com.bysj.cqjtu.manager.dao.Sy12Mapper;
 import com.bysj.cqjtu.manager.service.StatisticService;
 import com.bysj.cqjtu.student.dao.Sy06Mapper;
 import com.bysj.cqjtu.student.dao.Sy07Mapper;
@@ -24,6 +25,8 @@ public class StatisticServiceImpl implements StatisticService {
     private Sy08Mapper sy08Mapper;
     @Autowired
     private Sy11Mapper sy11Mapper;
+    @Autowired
+    private Sy12Mapper sy12Mapper;
     @Override
     public List<Map> coursestatistics() throws Exception {
         return sy06Mapper.coursestatistics();
@@ -64,6 +67,16 @@ public class StatisticServiceImpl implements StatisticService {
         Map map=new HashMap();
         map.put("csy100", csy100);
         return sy11Mapper.queryLabList(map); 
+    }
+    @Override
+    public List<Map> labArrangeStatistics() throws Exception {
+        return sy12Mapper.labArrangeStatistics();
+    }
+    @Override
+    public List<Map> labArrangeListStatistics(String csy010) throws Exception {
+        Map map=new HashMap();
+        map.put("csy010", csy010);
+        return sy12Mapper.labArrangeListStatistics(map);
     }
 
 }

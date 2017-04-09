@@ -1,6 +1,7 @@
 package com.bysj.cqjtu.common.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bysj.cqjtu.common.domain.Sy14;
 
@@ -24,4 +25,36 @@ public interface AnouncementService {
      * @throws Exception
      */
     public Sy14 getNewAnouncement() throws Exception;
+    /**
+     * 查询所有公告
+     * @return
+     * @throws Exception
+     */
+    public List<Sy14> queryAllanouncement() throws Exception;
+    /**
+     * 删除公告
+     * @param csy140
+     * @return
+     */
+    public Map deleteanouncement(String csy140) throws Exception;
+    /**
+     * 批量删除公告
+     * @param ids
+     * @return
+     */
+    public Map deleteBatch(String ids) throws Exception;
+    /**
+     * 添加公告
+     * @param sy14
+     * @return
+     * @throws Exception
+     */
+    public Map saveAnoucement(Sy14 sy14) throws Exception;
+    /**
+     * 公告详情
+     * @param csy140
+     * @return
+     * @throws Exception
+     */
+    public Sy14 detailanouncement(String csy140) throws Exception;
 }

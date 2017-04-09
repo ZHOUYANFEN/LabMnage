@@ -67,4 +67,17 @@ public interface StatisticService {
      * @throws Exception
      */
     public List<Map> labList(String csy100) throws Exception;
+    /**
+     * 实验室安排统计
+     * @return
+     * @throws Exception
+     */
+    public List<Map> labArrangeStatistics() throws Exception;
+    /**
+     * 按照人员类型统计实验室的安排情况列表
+     * @param csy010
+     * @return
+     * @throws Exception
+     */
+    public List<Map> labArrangeListStatistics(String csy010) throws Exception;
 }

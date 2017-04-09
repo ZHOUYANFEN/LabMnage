@@ -192,7 +192,16 @@ $(function(){
 	}
 	/*删除用户*/
 	function deleteUser(userid){
-		if(confirm("确认删除吗?")){
+		swal({  
+            title:"",  
+            text:"确认删除这个菜单功能吗？",  
+            type:"warning",  
+            showCancelButton:"true",  
+            showConfirmButton:"true",  
+            confirmButtonText:"确定",  
+            cancelButtonText:"取消",  
+            animation:"slide-from-top"  
+       }, function() {
 			$.ajax({
 	            type:'POST',
 	            url:"${pageContext.request.contextPath}/userManager/deleteUser?csy020="+userid,
@@ -206,7 +215,7 @@ $(function(){
                     }
 	            }
 	        });
-		}
+		});
 	}
 	/*批量删除人员信息*/
     function deleteMenuBatch(){
@@ -219,7 +228,16 @@ $(function(){
         	return;
         }
         var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串  
-        if(confirm("确认删除吗")){
+        swal({  
+            title:"",  
+            text:"确认删除这个菜单功能吗？",  
+            type:"warning",  
+            showCancelButton:"true",  
+            showConfirmButton:"true",  
+            confirmButtonText:"确定",  
+            cancelButtonText:"取消",  
+            animation:"slide-from-top"  
+       }, function() {
             $.ajax({
                 type:"POST",
                 url:"${pageContext.request.contextPath}/userManager/deleteUserBatch?ids="+idstr,
@@ -233,7 +251,7 @@ $(function(){
                     }
                 }
             });
-        }
+        });
     }
 	
 	/*单个增加用户*/

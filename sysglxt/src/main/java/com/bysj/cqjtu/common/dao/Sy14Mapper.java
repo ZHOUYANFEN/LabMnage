@@ -27,4 +27,28 @@ public interface Sy14Mapper {
      * @return
      */
     Sy14 getNewAnouncement();
+    /**
+     * 查询所有公告
+     * @return
+     * @throws Exception
+     */
+    List<Sy14> queryAllanouncement();
+    /**
+     * 删除公告
+     * @param csy140
+     * @return
+     */
+    int deleteanouncement(String csy140);
+    /**
+     * 添加公告
+     * @param sy14
+     * @return
+     */
+    int saveAnoucement(Sy14 sy14);
+    /**
+     * 公告详情
+     * @param csy140
+     * @return
+     */
+    Sy14 detailanouncement(String csy140);
 }
