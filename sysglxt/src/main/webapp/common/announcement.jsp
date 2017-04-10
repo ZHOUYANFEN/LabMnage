@@ -54,7 +54,7 @@
             	success:function(data){
             		$("#announcementlist").empty();
             		if(data.length==0){
-            			$("#announcementlist").append("<h2>暂无视频</h2>")
+            			$("#announcementlist").append("<h2>暂无公告</h2>")
             		}
             		for(var i=0;i<data.length;i++){
             			if(i%2==0){
@@ -63,10 +63,8 @@
 	            				                         +"<div class='time' style='width:200px'>"+ (new Date(data[i].csy142).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</div>"
 	            				                         +"<div class='events'>"
 	            				                         +"<div class='events-header'>"+data[i].csy141+"</div>"
-	            				                         +"<div class='events-body'>"
-	            				                         +"<div class='row'>"
-	            				                         +"<div class='events-desc' >"+data[i].csy143+"</div>"
-	            				                         +"</div>"                                   
+	            				                         +"<div class='events-body' >"
+	            				                         +"<div class='events-desc' >"+data[i].csy143+"</div>"                                 
 	            				                         +"</div>"
 	            				                         +"</div>"
 	            				                         +"</dd>");
@@ -77,13 +75,11 @@
                                     +"<div class='events'>"
                                     +"<div class='events-header'>"+data[i].csy141+"</div>"
                                     +"<div class='events-body'>"
-                                    +"<div class='row'>"
                                     +"<div class='col-md-6 pull-left'>"
                                     +"</div>"
                                     +"<div class='events-desc'>"
                                     +data[i].csy143
-                                    +"</div>"
-                                    +"</div>"                                   
+                                    +"</div>"                                 
                                     +"</div>"
                                     +"</div>"
                                     +"</dd>");
