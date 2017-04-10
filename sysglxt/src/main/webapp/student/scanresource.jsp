@@ -67,10 +67,10 @@
     
     <div style="float:right;margin-right:30px;margin-top:40px; width:600px;height:600px;padding:0;">
         
-        <button type="button" class="btn btn-default" aria-label="Left Align"  onclick="download()" style="margin-left:250px;margin-top:20px">
+        <!-- <button type="button" class="btn btn-default" aria-label="Left Align"  onclick="download()" style="margin-left:250px;margin-top:20px">
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                             下载
-        </button> -->
+        </button>  -->
         <h4 align="center">资源列表</h4>
          <table class="table table-hover" id="resourcelist" style="font-size:10px">
             <tr id="resorcehead">
@@ -94,7 +94,7 @@
             <h2 align="center" id="csy131"></h2>
 		        <input id="csy130" hidden="hidden">
 		        <span style="font-size:12px" id="csy133"></span>
-		        <div style="font-size:12px;margin-top:10px" id="csy134_div" hidden="hidden">
+		        <div style="font-size:12px;margin-top:10px;margin-left:140px" id="csy134_div" hidden="hidden">
 		            <video id="csy134_video" class="video-js" controls preload="auto" width="640" height="300" data-setup="{}">
 		               <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">		            
 		            </video>

@@ -23,7 +23,6 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
-<body>
 <body style="font-family:'黑体';width:1300px;margin:0 auto">
     <div style="height:120px;margin-top:15px;background-image:url(<c:url value="resources/img/header_bg.png" />)">
         <div style="float:right;text-align:center;line-height:30px;margin-top:60px;margin-right:500px">
@@ -108,7 +107,7 @@
             </div>
         </div>
         <div id="right" style="float:right;width:1000px;height:700px;background-color:white;margin-top:-700px">
-               <iframe id="iframe1" name="iframe1" width="1000px" height="700px" style="border:none"></iframe>                              
+               <iframe id="iframe1" name="iframe1" src="${pageContext.request.contextPath}/firstpage.jsp" width="1000px" height="700px" style="border:none"></iframe>                              
         </div>
     </div>
 </body>
