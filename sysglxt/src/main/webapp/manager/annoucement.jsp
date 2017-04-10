@@ -217,5 +217,13 @@
            });
        });
   }
+   /*设置全选及全不选*/
+   function setCheckbox(){
+       if($('#allcheck').is(':checked')){
+           $("[type='checkbox']").attr("checked",true);
+       }else{
+           $("[type='checkbox']").attr("checked",false);
+       }
+   }
 </script>
 </html>
