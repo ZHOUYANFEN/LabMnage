@@ -91,15 +91,18 @@
             <h4 class="modal-title" id="myModalLabel">资源详情</h4>
           </div>
           <div class="modal-body" style="height:500px">
+          
             <h2 align="center" id="csy131"></h2>
-		        <input id="csy130" hidden="hidden">
-		        <span style="font-size:12px" id="csy133"></span>
-		        <div style="font-size:12px;margin-top:10px;margin-left:140px" id="csy134_div" hidden="hidden">
-		            <video id="csy134_video" class="video-js" controls preload="auto" width="640" height="300" data-setup="{}">
-		               <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">		            
-		            </video>
-		        </div>
-        
+	        <input id="csy130" hidden="hidden">
+	        <span style="font-size:12px" id="csy133"></span>
+	        <div style="font-size:12px;margin-top:10px;margin-left:140px" id="csy134_div" hidden="hidden">
+	            <video id="csy134_video" class="video-js" controls preload="auto" width="640" height="300" data-setup="{}">
+	               <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">		            
+	            </video>
+	        </div>
+            <div>
+               
+            </div>
 	        <button type="button" class="btn btn-default" aria-label="Left Align" id="download"  style="margin-left:370px;margin-top:20px">
 	            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
 	                            下载
