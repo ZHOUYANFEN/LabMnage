@@ -27,7 +27,7 @@
 <body style="font-family:'黑体';width:1300px;margin:0 auto">
     <div style="height:120px;margin-top:15px;background-image:url(<c:url value="resources/img/header_bg.png" />)">
         <div style="float:right;text-align:center;line-height:30px;margin-top:60px;margin-right:500px">
-            <label style="font-size:30px;color:white">实验室资源管理平台</label>
+            <label style="font-family:'楷体';font-size:35px;color:white">实验室资源管理平台</label>
         </div>
         <div style="float:right;margin-right:-620px;margin-top:90px" >
             <label style="color:white">

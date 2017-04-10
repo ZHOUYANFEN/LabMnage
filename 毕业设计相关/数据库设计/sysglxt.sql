@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-09 21:08:43
+Date: 2017-04-10 14:12:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -321,7 +321,7 @@ CREATE TABLE `sy13` (
   `CSY130` int(11) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
   `CSY131` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '资源名称',
   `CSY160` tinyint(15) NOT NULL COMMENT '资源类型',
-  `CSY133` varchar(5000) COLLATE utf8_bin DEFAULT NULL COMMENT '资源类容',
+  `CSY133` varchar(5000) COLLATE utf8_bin DEFAULT '' COMMENT '资源类容',
   `CSY134` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '资源附件地址',
   `CSY135` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   `CSY136` date DEFAULT NULL COMMENT '上传时间',
