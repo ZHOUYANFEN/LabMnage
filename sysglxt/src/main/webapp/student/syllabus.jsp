@@ -47,9 +47,8 @@
 		  type:'POST',
 		  url:"${pageContext.request.contextPath}/student/syllabus",
           success:function(data){
-        	  console.log(data);
-        	  for(var i=0;i<data.length;i++){
-        		  $("#syllabushead").siblings().remove();
+        	  $("#syllabushead").siblings().remove();
+        	  for(var i=0;i<data.length;i++){        		  
         		  $("#syllabuslist").append("<tr style='width:800px;'>"
                   +"<td>"+data[i].CSY061+"</td>"
                   +"<td>"+data[i].CSY050+"</td>"

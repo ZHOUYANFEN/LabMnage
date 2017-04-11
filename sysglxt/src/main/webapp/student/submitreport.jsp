@@ -71,7 +71,7 @@
                 <div >
                     <h2 align="center" id="csy081"></h2>
 			        <input id="csy080" hidden="hidden">
-			        &nbsp;&nbsp;&nbsp;<span style="font-size:12px" id="csy061"></span>
+			        &nbsp;&nbsp;&nbsp;<span style="font-size:12px" id="csy061_model"></span>
 			        &nbsp;&nbsp;&nbsp;<span style="font-size:12px" id="csy083"></span>
 			        &nbsp;&nbsp;&nbsp;<span style="font-size:12px" id="csy084"></span>
 			        &nbsp;&nbsp;&nbsp;<span style="font-size:12px" id="csy051"></span>
@@ -168,7 +168,7 @@
             success:function(data){
             	 $("#csy081").text(data[0].CSY081);
                  $("#csy080").val(data[0].CSY080);
-                 $("#csy061").text("所属课程："+data[0].csy061);
+                 $("#csy061_model").text("所属课程："+data[0].csy061);
                  $("#csy051").text("指导教师："+data[0].csy051);
                  $("#csy083").text("布置时间："+data[0].CSY083);
                  $("#csy084").text("完成时间："+data[0].CSY084);

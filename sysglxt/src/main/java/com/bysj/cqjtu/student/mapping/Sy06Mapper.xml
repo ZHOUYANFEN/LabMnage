@@ -24,7 +24,7 @@
           sy05.csy051 
      from sy06 sy06,
           sy05 sy05
-    where sy06.csy061 = sy05.csy050
+    where sy06.csy050 = sy05.csy050
       and sy06.csy067 = '0'
       and csy069 = #{sy04.csy043}
            

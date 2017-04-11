@@ -32,7 +32,7 @@
            sy09 sy09
      where sy07.csy060 = sy06.csy060
        and sy07.csy060 = sy08.csy060
-       and sy08.csy080 = sy09.csy090
+       and sy08.csy080 = sy09.csy080
        and sy07.csy040 = #{csy040}
        and sy07.csy060 = #{csy060}
   </select>

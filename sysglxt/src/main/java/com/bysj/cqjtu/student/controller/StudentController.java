@@ -50,15 +50,7 @@ public class StudentController {
     @ResponseBody
     public List<Map> getSyllabus(HttpSession session) throws Exception{
         //取session的用户
-        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        //获取班级
-        
-        UserMessage userMessage=new UserMessage();
-        
-        String csy043="计软二班";
-        Sy04 sy04=new Sy04();
-        sy04.setCsy043(csy043);
-        userMessage.setSy04(sy04);
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
         
         
         List<Map> list=studentService.getSyllabus(userMessage);
@@ -74,14 +66,8 @@ public class StudentController {
     @ResponseBody
     public List<Map> queryExpArrange(HttpSession session) throws Exception{
         //取session的用户
-        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        
-       // UserMessage userMessage=new UserMessage();
-        
-        String csy040="123456";
-        Sy04 sy04=new Sy04();
-        sy04.setCsy040(csy040);
-
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        Sy04 sy04=userMessage.getSy04();
         
         List<Map> list =studentService.queryExpArrange(sy04);
         return list;
@@ -96,21 +82,9 @@ public class StudentController {
     @ResponseBody
     public List<Sy08> queryExpArrangeList(HttpSession session,String csy060) throws Exception{
       //取session的用户
-        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        
-        //UserMessage userMessage=new UserMessage();
-        
-        String csy040="123456";
-       /* Sy04 sy04=new Sy04();
-        sy04.setCsy040(csy040);
-        userMessage.setSy04(sy04);
-        
-        
-        Sy06 sy06=new Sy06();
-        sy06.setCsy060(csy060);
-        userMessage.setSy04(sy04);*/
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");        
         Sy08 sy08=new Sy08();
-        sy08.setCsy040(csy040);
+        sy08.setCsy040(userMessage.getSy04().getCsy040());
         sy08.setCsy060(csy060);
         List<Sy08> list =studentService.queryExpArrangeList(sy08);
         return list;
@@ -126,13 +100,9 @@ public class StudentController {
     @ResponseBody
     public List<Map> queryExpArrangeContent(HttpSession session,Integer csy080) throws Exception{
         //取session的用户
-        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        
-        //UserMessage userMessage=new UserMessage();
-        
-        String csy040="123456";
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
         Sy08 sy08=new Sy08();
-        sy08.setCsy040(csy040);
+        sy08.setCsy040(userMessage.getSy04().getCsy040());
         sy08.setCsy080(csy080);
         List<Map> list =studentService.queryExpArrangeContent(sy08);
         return list;
@@ -148,12 +118,8 @@ public class StudentController {
     @ResponseBody
     public Map saveExp(HttpSession session,@RequestBody Sy09 sy09) throws Exception{
         //取session的用户
-        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        
-        //UserMessage userMessage=new UserMessage();
-        
-        String csy040="123456";
-        sy09.setCsy040(csy040);
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        sy09.setCsy040(userMessage.getSy04().getCsy040());
         return studentService.saveExp(sy09);        
     }
     /**
@@ -164,14 +130,11 @@ public class StudentController {
      */
     @RequestMapping("/queryGrade")
     @ResponseBody
-    public List<Map> queryGrade() throws Exception{
+    public List<Map> queryGrade(HttpSession session) throws Exception{
       //取session的用户
-        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        
-        //UserMessage userMessage=new UserMessage();
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
         Sy07 sy07=new Sy07();
-        String csy040="123456";
-        sy07.setCsy040(csy040);
+        sy07.setCsy040(userMessage.getSy04().getCsy040());
         return studentService.queryGrade(sy07);
     }
     /**
@@ -182,14 +145,10 @@ public class StudentController {
      */
     @RequestMapping("/queryExpList")
     @ResponseBody
-    public List<Map> queryExpList() throws Exception{
+    public List<Map> queryExpList(HttpSession session) throws Exception{
         //取session的用户
-        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        
-        //UserMessage userMessage=new UserMessage();
-        String csy040="123456";
-        Sy04 sy04=new Sy04();
-        sy04.setCsy040(csy040);
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        Sy04 sy04=userMessage.getSy04();
         List<Map> list=studentService.queryExpList(sy04);
         return list;
     }
@@ -237,17 +196,13 @@ public class StudentController {
      */
     @RequestMapping("/saveReport")
     @ResponseBody
-    public Map saveReport(String csy080) throws Exception{
+    public Map saveReport(HttpSession session,String csy080) throws Exception{
         //取session的用户
-        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        
-        //UserMessage userMessage=new UserMessage();
-        String csy040="123456";
-        
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");        
         Sy09 sy09=new Sy09();
         sy09.setCsy080(csy080);
         sy09.setCsy093(filename);
-        sy09.setCsy040(csy040);
+        sy09.setCsy040(userMessage.getSy04().getCsy040());
         Map map=studentService.saveReport(sy09);       
         return map;
     }
@@ -259,14 +214,11 @@ public class StudentController {
      */
     @RequestMapping("/queryGradeDetai")
     @ResponseBody
-    public List<Map> queryGradeDetai(String csy060) throws Exception{
+    public List<Map> queryGradeDetai(HttpSession session,String csy060) throws Exception{
       //取session的用户
-        //UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        
-        //UserMessage userMessage=new UserMessage();
-        String csy040="123456";
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
         Sy07 sy07 =new Sy07();
-        sy07.setCsy040(csy040);
+        sy07.setCsy040(userMessage.getSy04().getCsy040());
         sy07.setCsy060(csy060);
         
         return studentService.queryGradeDetai(sy07);        
