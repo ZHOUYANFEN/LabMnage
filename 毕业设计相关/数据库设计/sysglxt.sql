@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-10 14:12:40
+Date: 2017-04-13 15:44:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -159,9 +159,9 @@ CREATE TABLE `sy06` (
 -- ----------------------------
 -- Records of sy06
 -- ----------------------------
-INSERT INTO `sy06` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '0', '1', '计软二班', '001');
-INSERT INTO `sy06` VALUES ('2', '2', '实验一', '2', '3', '周一', '1', 'B01214', '0', '无', '计软二班', '002');
-INSERT INTO `sy06` VALUES ('3', '1', '实验二', '3', '3', '周二', '1', 'BO1201', '0', '无', '计软一班', '003');
+INSERT INTO `sy06` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '0', '1', '计软1302班', '001');
+INSERT INTO `sy06` VALUES ('2', '2', '实验一', '2', '3', '周一', '1', 'B01214', '0', '无', '计软1302班', '002');
+INSERT INTO `sy06` VALUES ('3', '1', '实验二', '3', '3', '周二', '1', 'BO1201', '0', '无', '计软1302班', '003');
 
 -- ----------------------------
 -- Table structure for sy07
@@ -201,10 +201,10 @@ CREATE TABLE `sy08` (
 -- ----------------------------
 -- Records of sy08
 -- ----------------------------
-INSERT INTO `sy08` VALUES ('123456', '1', '1', '1', '数据结构', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验', '2017-03-28', '2017-03-31', '0');
-INSERT INTO `sy08` VALUES ('123456', '1', '2', '1', 'c++', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验', '2017-03-29', '2017-03-30', '0');
-INSERT INTO `sy08` VALUES ('123456', '1', '3', '1', 'helloword', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完', '2017-03-08', '2017-03-16', '0');
-INSERT INTO `sy08` VALUES ('123456', '1', '4', '1', '光学实验', '哇擦', '2017-03-16', '2017-03-31', '0');
+INSERT INTO `sy08` VALUES ('001', '1', '1', '1', '数据结构', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验', '2017-03-28', '2017-03-31', '0');
+INSERT INTO `sy08` VALUES ('001', '1', '2', '1', 'c++', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验', '2017-03-29', '2017-03-30', '0');
+INSERT INTO `sy08` VALUES ('001', '1', '3', '1', 'helloword', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完', '2017-03-08', '2017-03-16', '0');
+INSERT INTO `sy08` VALUES ('001', '1', '4', '1', '光学实验', '哇擦', '2017-03-16', '2017-03-31', '0');
 
 -- ----------------------------
 -- Table structure for sy09
@@ -329,12 +329,13 @@ CREATE TABLE `sy13` (
   PRIMARY KEY (`CSY130`),
   KEY `CSY160` (`CSY160`),
   CONSTRAINT `sy13_ibfk_1` FOREIGN KEY (`CSY160`) REFERENCES `sy16` (`csy160`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of sy13
 -- ----------------------------
 INSERT INTO `sy13` VALUES ('4', '2', '测试', '1', 'aaaa', 'D：//sss.mp4', '0', '2017-04-02', '1');
+INSERT INTO `sy13` VALUES ('4', '3', '测试1', '1', 'bbb', 'D：//sss.txt', '0', '2017-04-18', '1');
 
 -- ----------------------------
 -- Table structure for sy14
@@ -380,7 +381,7 @@ CREATE TABLE `sy15` (
 -- Records of sy15
 -- ----------------------------
 INSERT INTO `sy15` VALUES ('1', '1', '个人信息', 'selectMenu(\"slpt_personnal\",1)', null, '1', null, '0', 'slpt_personnal');
-INSERT INTO `sy15` VALUES ('2', '1', '查看信息', 'openPage(\"student/student_info.jsp\")', 'student/student_info.jsp', '2', '1', '0', 'studentinfo');
+INSERT INTO `sy15` VALUES ('2', '1', '查看信息', 'openPage(\"common/personalinfo.jsp\")', 'common/personalinfo.jsp', '2', '1', '0', 'studentinfo');
 INSERT INTO `sy15` VALUES ('3', '1', '修改密码', 'openPage(\"common/changepassword.jsp\")', 'common/changepassword.jsp', '2', '1', '0', 'changepassword');
 INSERT INTO `sy15` VALUES ('4', '1', '学习资源', 'selectMenu(\"slpt_resource\",4)', null, '1', null, '0', 'slpt_resource');
 INSERT INTO `sy15` VALUES ('5', '1', '资源查看', 'openPage(\"student/scanresource.jsp\")', 'student/scanresource.jsp', '2', '4', '0', '');
@@ -412,7 +413,7 @@ INSERT INTO `sy15` VALUES ('33', '4', '学生完成情况统计', null, null, '2
 INSERT INTO `sy15` VALUES ('34', '4', '教师实验安排统计', 'openPage(\"manager/exparrangestatistic.jsp\")', 'manager/exparrangestatistic.jsp', '2', '30', '0', '');
 INSERT INTO `sy15` VALUES ('35', '4', '实验室安排统计', 'openPage(\"manager/labexpstatistic.jsp\")', 'manager/labexpstatistic.jsp', '2', '30', '0', '');
 INSERT INTO `sy15` VALUES ('36', '3', '个人信息管理', 'selectMenu(\"slpt_personnal\",36)', null, '1', null, '0', 'slpt_personnal');
-INSERT INTO `sy15` VALUES ('37', '3', '个人信息查看', null, null, '2', '36', '0', '');
+INSERT INTO `sy15` VALUES ('37', '3', '个人信息查看', 'openPage(\"common/personalinfo.jsp\")', 'common/personalinfo.jsp', '2', '36', '0', '');
 INSERT INTO `sy15` VALUES ('38', '3', '密码修改', 'openPage(\"common/changepassword.jsp\")', 'common/changepassword.jsp', '2', '36', '0', '');
 INSERT INTO `sy15` VALUES ('39', '3', '实验室申请', '', null, '1', null, '0', 'slpt_labapply');
 INSERT INTO `sy15` VALUES ('40', '3', '资源管理', 'selectMenu(\"slpt_resourcemanage\",40)', null, '1', null, '0', 'slpt_resourcemanage');
@@ -421,7 +422,7 @@ INSERT INTO `sy15` VALUES ('42', '3', '代码管理', null, null, '2', '40', '0'
 INSERT INTO `sy15` VALUES ('43', '3', '通知公告', 'openPage(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', 'slpt_announcement');
 INSERT INTO `sy15` VALUES ('44', '3', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', 'slpt_help');
 INSERT INTO `sy15` VALUES ('45', '2', '个人信息管理', 'selectMenu(\"slpt_personnal\",45)', null, '1', null, '0', 'slpt_personnal');
-INSERT INTO `sy15` VALUES ('46', '2', '个人信息查看', null, null, '2', '45', '0', '');
+INSERT INTO `sy15` VALUES ('46', '2', '个人信息查看', 'openPage(\"common/personalinfo.jsp\")', 'common/personalinfo.jsp', '2', '45', '0', '');
 INSERT INTO `sy15` VALUES ('47', '2', '密码设置', 'openPage(\"common/changepassword.jsp\")', 'common/changepassword.jsp', '2', '45', '0', '');
 INSERT INTO `sy15` VALUES ('48', '2', '实验管理', 'selectMenu(\"slpt_expmanager\",48)', null, '1', null, '0', 'slpt_expmanager');
 INSERT INTO `sy15` VALUES ('49', '2', '实验室申请', null, null, '2', '48', '0', '');
