@@ -53,4 +53,16 @@ public class UserController {
         Map map=userService.changePassword(sy02_new);
         return map;
     }
+    /**
+     * 获取用户信息
+     * @param 
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getUserMessage")
+    @ResponseBody
+    public UserMessage getUserMessage(HttpSession session) throws Exception{
+        UserMessage userMessage = (UserMessage) session.getAttribute("user");
+        return userMessage;
+    }
 }

@@ -91,8 +91,13 @@
             <h4 class="modal-title" id="myModalLabel">资源详情</h4>
           </div>
           <div class="modal-body" style="height:500px">
-          
-
+            <h2 align='center' id='csy131'></h2>
+            <input id='csy130' hidden='hidden' >
+            <span style='font-size:12px' id='csy133'></span>
+            <div style='font-size:12px;margin-top:10px;margin-left:140px' id='csy134_div'>
+                  
+                  
+            </div>
 	        <button type="button" class="btn btn-default" aria-label="Left Align" id="download"  style="margin-left:370px;margin-top:20px">
 	            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
 	                            下载
@@ -189,31 +194,20 @@
                 url:"${pageContext.request.contextPath}/student/queryResourceDetail?csy130="+csy130,
                 success:function(data){
                 	var type=data.csy134.substr(data.csy134.lastIndexOf(".")+1);
-                	$("#csy134_video").remove();
-                	/*  $("#csy130").val(data.csy130);
+                	
+                	 $("#csy130").val(data.csy130);
                 	 $("#csy131").text(data.csy131);
-                     $("#csy133").text(data.csy133); */
-                    // $("#csy134").text(data.csy134);
-                     if((type=='mp4')||(type=='WebM')||(type='ogg')){
-                    	 $("#csy134_video").remove();
-                    	 /* $("#csy134_div").attr("hidden",false);
-                    	 $("#csy134_div").attr("src","${pageContext.request.contextPath}/student/ceshi.mp4"); */
-                    	 $(".modal-body").append("<h2 align='center' id='csy131'>"+data.csy131+"</h2>"
-                                 +"<input id='csy130' hidden='hidden' value='"+data.csy130+"'>"
-                                 +"<span style='font-size:12px' id='csy133'>"+data.csy133+"</span>"
-                                 +"<div style='font-size:12px;margin-top:10px;margin-left:140px' id='csy134_div'>"
-                                 +"<video id='csy134_video' class='video-js' controls preload='auto' width='640px' height='300px' data-setup='{}'>"
+                     $("#csy133").text(data.csy133);
+                     $("#csy134_div").empty();
+                     if((type=='mp4')||(type=='WebM')||(type=='ogg')){
+                    	 $("#csy134_div").append("<video id='csy134_video' class='video-js' controls preload='auto' width='640px' height='300px' data-setup='{}'>"
                                  +" <source src='"+data.csy134+"' type='video/mp4'>"                   
-                                 +"</video>"
-                                 +"</div>");
+                                 +"</video>");
                     }else{
-                    $("#csy134_video").remove();
-                	  $(".modal-body").append("<h2 align='center' id='csy131'>"+data.csy131+"</h2>"
-                              +"<input id='csy130' hidden='hidden' value='"+data.csy130+"'>"
-                              +"<span style='font-size:12px' id='csy133'>"+data.csy133+"</span>"
-                              +"<div style='font-size:12px;margin-top:10px;margin-left:140px' id='csy134_div'>"
-                              +"</div>");
-                   }
+                    	$("#csy134_div").append("<div style='width:180px;height:170px'>"
+                    			                +"<img src='${pageContext.request.contextPath}/resources/img/6.jpg' alt='' width='180px' height='170px' />"
+                    			                +"</div>");
+                    }
               }
          });
                      
