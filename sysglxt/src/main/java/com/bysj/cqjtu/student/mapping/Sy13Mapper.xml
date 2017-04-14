@@ -21,7 +21,8 @@
     select 
     <include refid="Base_Column_List" />
     from sy13
-    where CSY160 = #{csy160,jdbcType=INTEGER}
+    where csy137 = 1 
+      and CSY160 = #{csy160,jdbcType=INTEGER}
   </select>
   
   <!-- 查询资源详细信息 -->
@@ -30,10 +31,16 @@
     <include refid="Base_Column_List" />
     from sy13
     where CSY130 = #{csy130,jdbcType=INTEGER}
-      and csy135 = 0
-      and csy137 = 1
+      and csy135 = 0     
   </select>
   
+  <!--查询每个类型下的所有资源  -->
+   <select id="queryAllResourceList" resultMap="BaseResultMap" parameterType="com.bysj.cqjtu.student.domain.Sy13" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy13
+   where csy160 = #{csy160,jdbcType=INTEGER}
+  </select>
   
   
   

@@ -205,7 +205,7 @@
                                  +"</video>");
                     }else{
                     	$("#csy134_div").append("<div style='width:180px;height:170px'>"
-                    			                +"<img src='${pageContext.request.contextPath}/resources/img/6.jpg' alt='' width='180px' height='170px' />"
+                    			                +"<img src='${pageContext.request.contextPath}/resources/file/"+type.toLowerCase()+".png' alt='' width='180px' height='170px' />"
                     			                +"</div>");
                     }
               }
@@ -214,7 +214,14 @@
         }
         /*下载资源*/
         function download(csy130){
-        	
+        	$.ajax({
+                type:'post',
+                async: false,
+                url:"${pageContext.request.contextPath}/student/download?csy130="+csy130,
+                success:function(data){
+                    
+                }
+        	});
         }
     </script>
 

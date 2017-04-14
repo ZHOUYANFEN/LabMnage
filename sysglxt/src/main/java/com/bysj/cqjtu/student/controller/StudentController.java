@@ -12,7 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -191,6 +196,7 @@ public class StudentController {
     /**
      * 保存实验报告
      * @param csy080
+     * @param session
      * @return
      * @throws Exception
      */
@@ -209,6 +215,7 @@ public class StudentController {
     /**
      * 查询成绩详情
      * @param csy060
+     * @param session
      * @return
      * @throws Exception
      */
@@ -225,7 +232,7 @@ public class StudentController {
     }
     /**
      * 查看资源类型
-     * @param csy060
+     * 
      * @return
      * @throws Exception
      */
@@ -238,7 +245,7 @@ public class StudentController {
     }
     /**
      * 查看资源列表
-     * @param csy060
+     * @param csy160
      * @return
      * @throws Exception
      */
@@ -250,7 +257,7 @@ public class StudentController {
     }
     /**
      * 查看资源详细信息
-     * @param csy060
+     * @param csy130
      * @return
      * @throws Exception
      */
@@ -260,5 +267,24 @@ public class StudentController {
         Sy13 sy13=new Sy13();
         sy13.setCsy130(csy130);
         return studentService.queryResourceDetail(sy13);
+    }
+    /**
+     * 下载资源
+     * @param csy130
+     * @throws Exception
+     */
+    @RequestMapping("/download")
+    public ResponseEntity<byte[]>  download(Integer csy130) throws Exception{
+        Sy13 sy13=new Sy13();
+        sy13.setCsy130(csy130);
+        Sy13 resultSy13=studentService.queryResourceDetail(sy13);
+        //springmvc的方法
+        String file=resultSy13.getCsy134();
+        String fileName=file.substring(file.lastIndexOf("/"));
+       /* String dfileName = new String(fileName.getBytes("utf-8"), "utf-8"); */
+        HttpHeaders headers = new HttpHeaders(); 
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM); 
+        headers.setContentDispositionFormData("attachment", fileName); 
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(file)), headers, HttpStatus.CREATED);        
     }
 }

@@ -30,14 +30,13 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui-1.10.1.min.js"></script>   
     
-    <!--树型结构主要样式-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />
-        
+    <!--树型结构主要样式-->        
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css" /> 
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.7.2.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/video-js.css" rel="stylesheet">
     <!-- If you'd like to support IE8 -->
     <script src="${pageContext.request.contextPath}/resources/js/videojs-ie8.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/video.min.js"></script>
     <style>
         #csy134{ width: 640px; height: 264; margin-left: auto; margin-right: auto; margin-top: 100px; }
     </style>
@@ -62,45 +61,63 @@
     <div style="float:left;margin-left:30px;margin-top:40px; width:280px;height:600px;padding:0">
    
         <div class="tree" id="treelist">
-            <h3 align="center">资源列表</h3>
+            <h3 align="center">资源类型列表</h3>
         </div>          
     </div>
     
     <div style="float:right;margin-right:30px;margin-top:40px; width:600px;height:600px;padding:0;">
-        <h2 align="center" id="csy131"></h2>
-        <input id="csy130" hidden="hidden">
-        <span style="font-size:12px" id="csy133"></span>
-        <div style="font-size:12px" id="csy134">
-            <video id="my-video" class="video-js" controls preload="auto" width="640" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-            <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-            <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
-            <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
-            <p class="vjs-no-js">
-              To view this video please enable JavaScript, and consider upgrading to a web browser that
-              <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-            </p>
-          </video>
-          <script src="http://vjs.zencdn.net/5.18.4/video.min.js"></script> 
-          <script type="text/javascript">
-            var myPlayer = videojs('my-video');
-            videojs("my-video").ready(function(){
-                var myPlayer = this;
-                myPlayer.play();
-            });
-        </script>
-        </div>
         
-        <button type="button" class="btn btn-default" aria-label="Left Align"  onclick="download()" style="margin-left:250px;margin-top:20px">
+        <!-- <button type="button" class="btn btn-default" aria-label="Left Align"  onclick="download()" style="margin-left:250px;margin-top:20px">
             <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
                             下载
-        </button>
+        </button>  -->
+        <h4 align="center">资源列表</h4>
+         <table class="table table-hover" id="resourcelist" style="font-size:10px">
+            <tr id="resorcehead">
+                <td >资源名称</td>
+                <td >上传人</td>
+                <td >资源内容</td>
+                <td >上传时间</td>
+                <td >操作</td>
+            </tr>
+        </table>
     </div>
     
-
+    <div class="modal fade bs-example-modal-lg" id="rosourcedetail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">资源详情</h4>
+          </div>
+          <div class="modal-body" style="height:500px">
+            <h2 align='center' id='csy131'></h2>
+            <input id='csy130' hidden='hidden' >
+            <span style='font-size:12px' id='csy133'></span>
+            <div style='font-size:12px;margin-top:10px;margin-left:140px' id='csy134_div'>
+                  
+                  
+            </div>
+            <button type="button" class="btn btn-default" aria-label="Left Align" id="download"  style="margin-left:370px;margin-top:20px">
+                <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                下载
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     
 </body>
     <script type="text/javascript">
+   /*  var myPlayer = videojs('my-video');
+    videojs("my-video").ready(function(){
+        var myPlayer = this;
+        myPlayer.play();
+    }); */
         $(document).ready(function () {
            
            /*  $( "#csy136" ).datepicker({
@@ -111,7 +128,7 @@
             
             $.ajax({
                 type:'post',
-                url:"${pageContext.request.contextPath}/student/queryResourceType",
+                url:"${pageContext.request.contextPath}/resource/queryResourceType",
                 success:function(data){
                     for(var i=0;i<data.length;i++){
                         $("#treelist").append(" <ul>"
@@ -138,8 +155,9 @@
                     $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
                     $.ajax({
                         type:'post',
-                        url:"${pageContext.request.contextPath}/student/queryResourceList?csy160="+csy160,
+                        url:"${pageContext.request.contextPath}/resource/queryResourceList?csy160="+csy160,
                         success:function(data){
+                            $("#resorcehead").siblings().remove();
                             for(var i=0;i<data.length;i++){                          
                                 $("#"+csy160).after("<ul>"
                                                   +"<li>"
@@ -151,6 +169,15 @@
                                                   +"</ul>"
                                                   +"</li>"                                 
                                                   +"</ul>");
+                                
+                                $("#resourcelist").append("<tr onclick='queryResourceDetail("+data[i].csy130+")' data-toggle='modal' data-target='#rosourcedetail'>"
+                                                                +"<td >"+data[i].csy131+"</td>"
+                                                                +"<td >上传人</td>"
+                                                                +"<td >"+data[i].csy133+"</td>"
+                                                                +"<td >"+(new Date(data[i].csy136).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+                                                                +"<td><button type='button' class='btn btn-primary btn-xs'  onclick='queryResourceDetail("+data[i].csy130+")'>详情</button>"
+                                                                +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='download("+data[i].csy130+")'><span class='glyphicon glyphicon-download' aria-hidden='true'></span>下载</button></td>"
+                                                                +"</tr>");
                             }
                         }
                     });
@@ -161,25 +188,40 @@
  
         /*查询每个资源的详情*/
         function queryResourceDetail(csy130){
+            $("#download").attr("onclick","download("+csy130+")");
             $.ajax({
                 type:'post',
                 url:"${pageContext.request.contextPath}/student/queryResourceDetail?csy130="+csy130,
                 success:function(data){
                     var type=data.csy134.substr(data.csy134.lastIndexOf(".")+1);
+                    
                      $("#csy130").val(data.csy130);
                      $("#csy131").text(data.csy131);
                      $("#csy133").text(data.csy133);
-                    // $("#csy134").text(data.csy134);
-                     if(type=='mp4'){
-                         $("#csy134_video").attr("hidden",false);
-                         $("#csy134_video").attr("src","${pageContext.request.contextPath}/student/ceshi.mp4");
-                     }
+                     $("#csy134_div").empty();
+                     if((type=='mp4')||(type=='WebM')||(type=='ogg')){
+                         $("#csy134_div").append("<video id='csy134_video' class='video-js' controls preload='auto' width='640px' height='300px' data-setup='{}'>"
+                                 +" <source src='"+data.csy134+"' type='video/mp4'>"                   
+                                 +"</video>");
+                    }else{
+                        $("#csy134_div").append("<div style='width:180px;height:170px'>"
+                                                +"<img src='${pageContext.request.contextPath}/resources/file/"+type.toLowerCase()+".png' alt='' width='180px' height='170px' />"
+                                                +"</div>");
+                    }
+              }
+         });
+                     
+        }
+        /*下载资源*/
+        function download(csy130){
+            $.ajax({
+                type:'post',
+                async: false,
+                url:"${pageContext.request.contextPath}/student/download?csy130="+csy130,
+                success:function(data){
+                    
                 }
             });
-        }
-        
-        function download(){
-            
         }
     </script>
 
