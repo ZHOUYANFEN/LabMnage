@@ -27,4 +27,10 @@ public interface LoginService {
      * @throws Exception
      */
     public UserMessage getUserMessage(Sy02 sy02) throws Exception;
+    /**
+     * 根据账号查找用户
+     * @param username
+     * @return
+     */
+    public Sy02 findUserByUsername(String csy021) throws Exception;
 }

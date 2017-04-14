@@ -2,6 +2,9 @@ package com.bysj.cqjtu.log.aspect;
 
 import java.lang.reflect.Method;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -10,9 +13,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.log.annotation.SystemServiceLog;
+import com.bysj.cqjtu.manager.pojo.UserMessage;
     
 /**
  * 切点类    
@@ -44,14 +50,14 @@ public  class SystemLogAspect {
      */    
     @Before("controllerAspect()") 
     public  void doBefore(JoinPoint joinPoint) throws Exception {    
-       /* String description=getControllerMethodDescription(joinPoint);
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();    
+        String description=getControllerMethodDescription(joinPoint);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
         HttpSession session = request.getSession();
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         if(userMessage.getSy02().getCsy010()==(byte)4){
             logger.info(userMessage.getSy02().getCsy020()+","
                        +description);
-        }*/
+        }
     }    
     
     /**  

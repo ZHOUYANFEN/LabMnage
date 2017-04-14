@@ -80,4 +80,10 @@ public interface Sy02Mapper {
      * @return
      */
     int changePassword(Sy02 sy02_new);
+    /**
+     * 根据账号查询用户
+     * @param username
+     * @return
+     */
+    Sy02 findUserByUsername(String csy021);
   }

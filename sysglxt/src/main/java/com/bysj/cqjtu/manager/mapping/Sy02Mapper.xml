@@ -135,6 +135,19 @@
       and  csy010 = #{csy010}
   </update>
   
+   <!-- 登录查询 -->
+  <select id="findUserByUsername" resultType="com.bysj.cqjtu.manager.domain.Sy02" parameterType="String" >
+    select sy02.csy010,
+           sy02.csy021,
+           sy02.csy022
+      from sy02 sy02
+     where sy02.csy023 = 0
+       and sy02.csy021 = #{csy021}
+       
+  </select>
+  
+  
+  
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

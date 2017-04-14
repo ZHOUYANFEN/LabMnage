@@ -65,5 +65,9 @@ public class LoginServiceImpl implements LoginService {
         }
         return userMessage;
     }
+    @Override
+    public Sy02 findUserByUsername(String csy021) throws Exception {
+        return sy02Mapper.findUserByUsername(csy021);
+    }
 
 }
