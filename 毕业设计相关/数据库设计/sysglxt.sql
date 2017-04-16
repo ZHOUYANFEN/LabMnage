@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-13 15:44:26
+Date: 2017-04-16 19:54:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -334,8 +334,8 @@ CREATE TABLE `sy13` (
 -- ----------------------------
 -- Records of sy13
 -- ----------------------------
-INSERT INTO `sy13` VALUES ('4', '2', '测试', '1', 'aaaa', 'D：//sss.mp4', '0', '2017-04-02', '1');
-INSERT INTO `sy13` VALUES ('4', '3', '测试1', '1', 'bbb', 'D：//sss.txt', '0', '2017-04-18', '1');
+INSERT INTO `sy13` VALUES ('4', '2', '测试', '1', 'aaaa', 'D://sss.mp4', '0', '2017-04-02', '1');
+INSERT INTO `sy13` VALUES ('4', '3', '测试1', '1', 'bbb', 'D://sss.xls', '0', '2017-04-18', '1');
 
 -- ----------------------------
 -- Table structure for sy14
@@ -402,7 +402,7 @@ INSERT INTO `sy15` VALUES ('22', '4', '菜单添加', 'openPage(\"manager/menuop
 INSERT INTO `sy15` VALUES ('23', '4', '菜单修改', null, null, '2', '21', '1', '');
 INSERT INTO `sy15` VALUES ('24', '4', '菜单删除', null, null, '2', '21', '1', '');
 INSERT INTO `sy15` VALUES ('25', '4', '资源管理', 'selectMenu(\"slpt_resourcemanage\",25)', null, '1', null, '0', 'slpt_resourcemanage');
-INSERT INTO `sy15` VALUES ('26', '4', '实验室申请审核及分配', null, null, '2', '25', '0', '');
+INSERT INTO `sy15` VALUES ('26', '4', '实验室申请审核及分配', 'openPage(\"manager/labapply.jsp\")', 'manager/labapply.jsp', '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('27', '4', '公告管理', 'openPage(\"manager/annoucement.jsp\")', 'manager/annoucement.jsp', '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('28', '4', '实验课程检查', null, null, '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('29', '4', '资源查看', 'openPage(\"manager/resoucesmanager.jsp\")', 'manager/resoucesmanager.jsp', '2', '25', '0', '');
