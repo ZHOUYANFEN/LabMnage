@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.dao.Sy10Mapper;
 import com.bysj.cqjtu.manager.dao.Sy11Mapper;
+import com.bysj.cqjtu.manager.dao.Sy12Mapper;
 import com.bysj.cqjtu.manager.domain.Sy10;
 import com.bysj.cqjtu.manager.domain.Sy11;
 import com.bysj.cqjtu.manager.service.LabService;
@@ -19,6 +20,8 @@ public class LabServiceImpl implements LabService {
     private Sy10Mapper sy10Mapper;
     @Autowired 
     private Sy11Mapper sy11Mapper;
+    @Autowired 
+    private Sy12Mapper sy12Mapper;
     @Override
     public List<Map> queryLabType() throws Exception {
         return sy10Mapper.queryLabType();
@@ -152,6 +155,10 @@ public class LabServiceImpl implements LabService {
         }
         map.put("statu", OperateStatu.VALIDATE_SY11_SUCCESS);
         return map;
+    }
+    @Override
+    public List<Map> queryLabApply() throws Exception {
+        return sy12Mapper.queryLabApply();
     }
 
 }

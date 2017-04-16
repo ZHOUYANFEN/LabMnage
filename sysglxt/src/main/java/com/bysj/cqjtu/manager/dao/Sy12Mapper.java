@@ -32,4 +32,9 @@ public interface Sy12Mapper {
      * @throws Exception
      */
     List<Map> labArrangeListStatistics(Map map);
+    /**
+     * 查询所有实验室申请
+     * @return
+     */
+    List<Map> queryLabApply();
 }

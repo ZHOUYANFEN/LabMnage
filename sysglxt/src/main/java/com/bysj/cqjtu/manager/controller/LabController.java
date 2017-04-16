@@ -158,4 +158,15 @@ public class LabController {
         Map map=labService.validateLab(sy11);
         return map;
     }
+    /**
+     * 查询所有的实验室申请
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryLabApply")
+    @ResponseBody
+    public List<Map> queryLabApply() throws Exception{
+        List<Map> list= labService.queryLabApply();
+        return list;
+    }
 }

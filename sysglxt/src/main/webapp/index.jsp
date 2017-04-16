@@ -24,7 +24,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body style="font-family:'黑体';width:1300px;margin:0 auto">
-    <div id="head" style="height:120px;margin-top:15px;background-image:url(${pageContext.request.contextPath}/resources/img/header_bg.png)">
+    <div id="head" style="height:120px;margin-top:15px;background-image:url(http://localhost:8080/sysglxt/resources/img/header_bg.png)">
         <div style="float:right;text-align:center;line-height:30px;margin-top:60px;margin-right:500px">
             <label style="font-family:'楷体';font-size:35px;color:white">实验室资源管理平台</label>
         </div>
@@ -114,7 +114,6 @@
 <script>
 	
    $(function(){
-	  /* $("#head").css("background-image","url()") */
 	   	$.ajax({
             type:"POST",
             url:"${pageContext.request.contextPath}/menu/getUserInfo",
@@ -170,7 +169,7 @@
 	                    }
 	                });
                 }else{
-                	  window.location.href = "${pageContext.request.contextPath}/login.jsp"; 
+                	  window.location.href = "${pageContext.request.contextPath}/loginexp.jsp"; 
                 }
             }     
         });
@@ -231,8 +230,7 @@
 	    	type : "POST",
 	        url : "${pageContext.request.contextPath}/login/logout",
 	        success : function(data) {
-	        	console.log(data);
-	        	if(data.statu==1){
+	        	if(data.statu==1){	        		
 	        	    window.location.href = "${pageContext.request.contextPath}/loginexp.jsp";
 	        	}else{
 	        		sweetAlert("请直接关闭浏览器");

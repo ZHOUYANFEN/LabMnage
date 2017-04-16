@@ -90,4 +90,10 @@ public interface LabService {
      * @throws Exception
      */
     public Map validateLab(Sy11 sy11) throws Exception;
+    /**
+     * 查询实验室申请
+     * @return
+     * @throws Exception
+     */
+    public List<Map> queryLabApply() throws Exception;
 }

@@ -72,6 +72,28 @@
     </if>
   </select>
   
+  <!-- 查询所有的实验室申请 -->
+  <select id="queryLabApply" resultType="java.util.HashMap" >
+    select sy10.csy101 as csy101,
+           sy11.csy111 as csy111,
+           sy11.csy112 as csy112,
+           sy02.csy021 as csy021,
+           sy12.csy121 as csy121,
+           sy12.csy122 as csy122,
+           sy12.csy123 as csy123
+      from sy10 sy10,
+           sy11 sy11,
+           sy02 sy02,
+           sy12 sy12
+     where sy12.csy127 = 0
+       and sy10.csy102 = 0
+       and sy11.csy116 = 0
+       and sy02.csy023 = 0
+       and sy12.csy110 = sy11.csy110
+       and sy11.csy100 = sy10.csy100
+       and sy12.csy020 = sy02.csy020 
+  
+  </select>
   
   
   
