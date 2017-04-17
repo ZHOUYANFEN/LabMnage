@@ -21,6 +21,8 @@ import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 import com.bysj.cqjtu.student.domain.Sy13;
 import com.bysj.cqjtu.student.service.StudentService;
+import com.bysj.cqjtu.util.PageEntity;
+import com.github.pagehelper.PageHelper;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -37,8 +39,14 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private Sy16Mapper sy16Mapper;
     @Override
-    public List<Map> querySyllabus(UserMessage userMessage) throws Exception {
-        return sy06Mapper.getSyllabus(userMessage); 
+    public  PageEntity<Map> querySyllabus(UserMessage userMessage,Integer pageNum,Integer pageSize) throws Exception {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Map> allList =sy06Mapper.getSyllabus(userMessage);
+        PageEntity<Map> pageBean = new PageEntity<Map>();
+        pageBean.setList(allList);
+        int size =sy06Mapper.getSyllabus(userMessage).size();
+        pageBean.setCount(size);
+        return pageBean;
     }
 
     @Override
@@ -79,8 +87,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Map> queryGrade(Sy07 sy07) throws Exception {
-       return sy07Mapper.queryGrade(sy07);
+    public  PageEntity<Map> queryGrade(Sy07 sy07,Integer pageNum,Integer pageSize) throws Exception {
+       PageHelper.startPage(pageNum, pageSize);
+       List<Map> allList =sy07Mapper.queryGrade(sy07);
+       PageEntity<Map> pageBean = new PageEntity<Map>();
+       pageBean.setList(allList);
+       int size =sy07Mapper.queryGrade(sy07).size();
+       pageBean.setCount(size);
+       return pageBean;
     }
 
     @Override
@@ -129,6 +143,16 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Sy13 queryResourceDetail(Sy13 sy13) throws Exception {
         return sy13Mapper.queryResourceDetail(sy13);
+    }
+
+    @Override
+    public int getCount(Sy07 sy07) throws Exception {
+        return sy07Mapper.queryGrade(sy07).size();
+    }
+
+    @Override
+    public int querySyllabusCount(UserMessage userMessage) throws Exception {
+        return sy06Mapper.getSyllabus(userMessage).size();
     }
 
 

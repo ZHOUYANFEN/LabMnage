@@ -21,7 +21,17 @@
    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
+    <style>
+       a{ text-decoration:none;}
+       a:hover{ text-decoration:none;}
+       .tcdPageCode{padding: 15px 20px;text-align: left;color: #ccc;text-align:center;}
+       .tcdPageCode a{display: inline-block;color: #428bca;display: inline-block;height: 25px; line-height: 25px;  padding: 0 10px;border: 1px solid #ddd; margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode a:hover{text-decoration: none;border: 1px solid #428bca;}
+       .tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: #fff;background-color: #428bca; border: 1px solid #428bca;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode span.disabled{ display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px; color: #bfbfbf;background: #f2f2f2;border: 1px solid #bfbfbf;border-radius: 4px;vertical-align: middle;}
+    </style>
 </head>
 <body  style="font-family:'黑体';font-size:16px">
    <h2 align="center">课程成绩</h2>
@@ -39,6 +49,7 @@
                 <td>操作</td>
             </tr>
         </table>
+        <div class="tcdPageCode"></div>
   </div>
   
    <div class="modal fade bs-example-modal-lg" id="gradedetail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -67,29 +78,46 @@
 </body>
 <script type="text/javascript">
   $(function(){
+	   pageSize=10;
+	   queryGrade(1,pageSize);
+	    $.ajax({
+	        type:'POST',
+	        url:"${pageContext.request.contextPath}/student/getCount",
+	        success:function(data){
+	            $(".tcdPageCode").createPage({
+	                pageCount:Math.ceil((data.count/pageSize)),
+	                current:1,
+	                backFn:function(pageNum){
+	                	queryGrade(pageNum,pageSize);
+	                }
+	            }); 
+	        }
+	    });	  	 
+  });
+  function queryGrade(pageNum,pageSize){
 	  $.ajax({
-		  type:'POST',
-		  url:"${pageContext.request.contextPath}/student/queryGrade",
+          type:'POST',
+          url:"${pageContext.request.contextPath}/student/queryGrade?pageNum="+pageNum+"&pageSize="+pageSize,
           success:function(data){
-        	  for(var i=0;i<data.length;i++){
-        		  $("#syllabushead").siblings().remove();
-        		  $("#syllabuslist").append("<tr style='width:800px;'>"
-                  +"<td>"+data[i].CSY061+"</td>"
-                  +"<td>"+data[i].csy051+"</td>"
-                  +"<td>"+data[i].CSY062+"</td>"
-                  +"<td>"+data[i].CSY063+"</td>"
-                  +"<td>"+data[i].CSY069+"</td>"
-                  +"<td>"+data[i].csy071+"</td>"
-                  +"<td>"+data[i].CSY068+"</td>"
-                  +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#gradedetail'  onclick='queryGradeDetai("+data[i].CSY060+")'>"
+              for(var i=0;i<data.list.length;i++){
+                  $("#syllabushead").siblings().remove();
+                  $("#syllabuslist").append("<tr style='width:800px;'>"
+                  +"<td>"+data.list[i].CSY061+"</td>"
+                  +"<td>"+data.list[i].csy051+"</td>"
+                  +"<td>"+data.list[i].CSY062+"</td>"
+                  +"<td>"+data.list[i].CSY063+"</td>"
+                  +"<td>"+data.list[i].CSY069+"</td>"
+                  +"<td>"+data.list[i].csy071+"</td>"
+                  +"<td>"+data.list[i].CSY068+"</td>"
+                  +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#gradedetail'  onclick='queryGradeDetai("+data.list[i].CSY060+")'>"
                   +"<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
                   +"详情"
                   +"</button></td>"
                   +"</tr>");
-        	  }
+              }
           }
-	  });
-  });
+      });
+  }
   /**查看详情*/
   function queryGradeDetai(csy060){
 	  $.ajax({

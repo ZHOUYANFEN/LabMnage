@@ -1,8 +1,9 @@
 package com.bysj.cqjtu.student.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Sy09 {
+public class Sy09 implements Serializable{
     private Integer csy090;
 
     private String csy040;

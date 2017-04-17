@@ -1,6 +1,8 @@
 package com.bysj.cqjtu.student.domain;
 
-public class Sy07 {
+import java.io.Serializable;
+
+public class Sy07 implements Serializable{
     private String csy040;
 
     private String csy060;

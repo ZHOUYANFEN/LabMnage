@@ -1,8 +1,9 @@
 package com.bysj.cqjtu.manager.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Sy12 {
+public class Sy12 implements Serializable{
     private Integer csy120;
 
     private String csy110;

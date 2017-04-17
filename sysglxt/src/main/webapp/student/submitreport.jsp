@@ -31,6 +31,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-ui-1.10.1.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
 </head>
 <body  style="font-family:'黑体';font-size:16px">
   
@@ -57,7 +58,7 @@
                 <td >截止时间</td>
                 <td >操作</td>
             </tr>
-        </table>        
+        </table>      
     </div>
 
   <div class="modal fade bs-example-modal-lg" id="uploadPage" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -94,12 +95,7 @@
 
 
 </body>
-<script>
-   
-    
-
-    
-    
+<script>  
     $(function(){
     	$( "#csy084" ).datepicker({
             inline:true,

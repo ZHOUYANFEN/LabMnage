@@ -1,6 +1,8 @@
 package com.bysj.cqjtu.manager.domain;
 
-public class Sy10 {
+import java.io.Serializable;
+
+public class Sy10 implements Serializable{
     private Integer csy100;
 
     private String csy101;

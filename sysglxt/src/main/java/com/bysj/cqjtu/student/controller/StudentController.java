@@ -32,6 +32,7 @@ import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 import com.bysj.cqjtu.student.domain.Sy13;
 import com.bysj.cqjtu.student.service.StudentService;
+import com.bysj.cqjtu.util.PageEntity;
 
 /**
  * 学生controller
@@ -53,13 +54,13 @@ public class StudentController {
      */
     @RequestMapping("/syllabus")
     @ResponseBody
-    public List<Map> getSyllabus(HttpSession session) throws Exception{
+    public  PageEntity<Map> getSyllabus(HttpSession session,Integer pageNum,Integer pageSize) throws Exception{
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         
         
-        List<Map> list=studentService.querySyllabus(userMessage);
-        return list;
+        PageEntity<Map> pageBean=studentService.querySyllabus(userMessage,pageNum,pageSize);
+        return pageBean;
     }
     /**
      * 获取实验安排的科目
@@ -135,12 +136,12 @@ public class StudentController {
      */
     @RequestMapping("/queryGrade")
     @ResponseBody
-    public List<Map> queryGrade(HttpSession session) throws Exception{
+    public  PageEntity<Map> queryGrade(HttpSession session,Integer pageNum,Integer pageSize) throws Exception{
       //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         Sy07 sy07=new Sy07();
         sy07.setCsy040(userMessage.getSy04().getCsy040());
-        return studentService.queryGrade(sy07);
+        return studentService.queryGrade(sy07,pageNum,pageSize);
     }
     /**
      * 查询具体实验安排
@@ -286,5 +287,38 @@ public class StudentController {
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM); 
         headers.setContentDispositionFormData("attachment", fileName); 
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(file)), headers, HttpStatus.CREATED);        
+    }
+    /**
+     * 查询成绩的数量
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getCount")
+    @ResponseBody
+    public Map getCount(HttpSession session) throws Exception{
+       //取session的用户
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");
+        Sy07 sy07=new Sy07();
+        sy07.setCsy040(userMessage.getSy04().getCsy040());
+        int i=studentService.getCount(sy07);
+        Map map= new HashMap();
+        map.put("count",i);
+        return map;
+    }
+    /**
+     * 查询课程表的数量
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/querySyllabusCount")
+    @ResponseBody
+    public Map querySyllabusCount(HttpSession session) throws Exception{
+      //取session的用户
+        UserMessage userMessage=(UserMessage) session.getAttribute("user");              
+        int i=studentService.querySyllabusCount(userMessage);
+        Map map= new HashMap();
+        map.put("count",i);
+        return map;
     }
 }

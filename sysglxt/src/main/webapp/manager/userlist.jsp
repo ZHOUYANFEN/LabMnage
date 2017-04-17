@@ -21,7 +21,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
-     <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <style>
@@ -75,7 +75,7 @@
                 <td >操作</td>
             </tr>
         </table>
-         <div class="tcdPageCode"></div>
+        <div class="tcdPageCode"></div>
      </div>
     
     

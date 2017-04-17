@@ -9,6 +9,7 @@ import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 import com.bysj.cqjtu.student.domain.Sy13;
+import com.bysj.cqjtu.util.PageEntity;
 
 /**
  * 学生Service
@@ -24,7 +25,7 @@ public interface StudentService {
      * @return
      * @throws Exception
      */
-    public List<Map> querySyllabus(UserMessage userMessage) throws Exception;
+    public  PageEntity<Map> querySyllabus(UserMessage userMessage,Integer pageNum,Integer pageSize) throws Exception;
     /**
      * 获取实验安排
      * @param userMessage
@@ -58,7 +59,7 @@ public interface StudentService {
      * @return
      * @throws Exception
      */
-    public List<Map> queryGrade(Sy07 sy07)throws Exception;
+    public  PageEntity<Map> queryGrade(Sy07 sy07,Integer pageNum,Integer pageSize)throws Exception;
     /**
      * 查询实验安排
      * @param sy04
@@ -98,5 +99,18 @@ public interface StudentService {
      * @throws Exception
      */
     public Sy13 queryResourceDetail(Sy13 sy13) throws Exception;
+    /**
+     * 查询成绩的数量
+     * @return
+     * @throws Exception
+     */
+    public int getCount(Sy07 sy07) throws Exception;
+    /**
+     * 查询课程表的数量
+     * @param userMessage
+     * @return
+     * @throws Exception
+     */
+    public int querySyllabusCount(UserMessage userMessage) throws Exception;
 
 }
