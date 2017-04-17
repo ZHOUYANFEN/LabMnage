@@ -10,10 +10,38 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-16 19:54:57
+Date: 2017-04-17 12:40:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for aa10
+-- ----------------------------
+DROP TABLE IF EXISTS `aa10`;
+CREATE TABLE `aa10` (
+  `AAA100` varchar(30) NOT NULL DEFAULT '' COMMENT '参数类别',
+  `AAA101` varchar(30) NOT NULL DEFAULT '' COMMENT '代码总称',
+  `AAA102` varchar(30) NOT NULL DEFAULT '' COMMENT '代码码值',
+  `AAA103` varchar(30) NOT NULL DEFAULT '' COMMENT '代码名',
+  `AAA104` tinyint(2) DEFAULT '0' COMMENT '删除标记',
+  `AAA105` varchar(30) DEFAULT '' COMMENT '预留字段',
+  PRIMARY KEY (`AAA100`,`AAA102`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of aa10
+-- ----------------------------
+INSERT INTO `aa10` VALUES ('CSY042', '学院', '0', '信息科学与工程学院', '0', '');
+INSERT INTO `aa10` VALUES ('CSY042', '学院', '1', '土木学院', '0', '');
+INSERT INTO `aa10` VALUES ('CSY043', '班级', '0', '计软1301班', '0', '');
+INSERT INTO `aa10` VALUES ('CSY043', '班级', '1', '计软1302班', '0', '');
+INSERT INTO `aa10` VALUES ('TIME', '时间', '0', '所有时间', '0', '');
+INSERT INTO `aa10` VALUES ('TIME', '时间', '1', '周一 8:00-10:00', '0', '');
+INSERT INTO `aa10` VALUES ('TIME', '时间', '2', '周一 10:00-12:00', '0', '');
+INSERT INTO `aa10` VALUES ('TIME', '时间', '3', '周一 14:00-16:00', '0', '');
+INSERT INTO `aa10` VALUES ('TIME', '时间', '4', '周一 16:00-18:00', '0', '');
+INSERT INTO `aa10` VALUES ('TIME', '时间', '5', '周一 20:00-22:00', '0', '');
 
 -- ----------------------------
 -- Table structure for sy01
@@ -105,12 +133,12 @@ CREATE TABLE `sy04` (
 -- ----------------------------
 -- Records of sy04
 -- ----------------------------
-INSERT INTO `sy04` VALUES ('32', '001', '测试学生', '信息学院', '计软1302班');
-INSERT INTO `sy04` VALUES ('36', '005', '学生005', '信息学院', '计软1303班');
-INSERT INTO `sy04` VALUES ('1', '1111', '1111', '1111', '1111');
-INSERT INTO `sy04` VALUES ('17', '11111', '张三', '张三', '其味无穷');
-INSERT INTO `sy04` VALUES ('31', '631306050210', '付政俊44', '信息学院', '软件1302班');
-INSERT INTO `sy04` VALUES ('2', '631306050218', '付政俊', '信息学院', '计软1302班');
+INSERT INTO `sy04` VALUES ('32', '001', '测试学生', '0', '0');
+INSERT INTO `sy04` VALUES ('36', '005', '学生005', '0', '1');
+INSERT INTO `sy04` VALUES ('1', '1111', '1111', '1', '0');
+INSERT INTO `sy04` VALUES ('17', '11111', '张三', '1', '1');
+INSERT INTO `sy04` VALUES ('31', '631306050210', '付政俊44', '0', '1');
+INSERT INTO `sy04` VALUES ('2', '631306050218', '付政俊', '0', '1');
 
 -- ----------------------------
 -- Table structure for sy05
