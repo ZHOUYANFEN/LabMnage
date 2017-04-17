@@ -11,6 +11,8 @@ import com.bysj.cqjtu.common.constance.UserConstance;
 import com.bysj.cqjtu.common.dao.Sy14Mapper;
 import com.bysj.cqjtu.common.domain.Sy14;
 import com.bysj.cqjtu.common.service.AnouncementService;
+import com.bysj.cqjtu.util.PageEntity;
+import com.github.pagehelper.PageHelper;
 @Service
 public class AnouncementServiceImpl implements AnouncementService {
     
@@ -28,8 +30,14 @@ public class AnouncementServiceImpl implements AnouncementService {
     }
 
     @Override
-    public List<Sy14> queryAllanouncement() throws Exception {
-        return sy14Mapper.queryAllanouncement();
+    public PageEntity<Sy14> queryAllanouncement(Integer pageNum,Integer pageSize) throws Exception {    
+        PageHelper.startPage(pageNum, pageSize);
+        List<Sy14> allList = sy14Mapper.queryAllanouncement();
+        PageEntity<Sy14> pageBean = new PageEntity<Sy14>();
+        pageBean.setList(allList);
+        int size = sy14Mapper.queryAllanouncement().size();
+        pageBean.setCount(size);
+        return pageBean;
     }
 
     @Override
@@ -79,6 +87,12 @@ public class AnouncementServiceImpl implements AnouncementService {
     @Override
     public Sy14 detailanouncement(String csy140) throws Exception {
         return sy14Mapper.detailanouncement(csy140);
+    }
+
+    @Override
+    public int getAnouncementCount() throws Exception {
+        int i =sy14Mapper.queryAllanouncement().size();
+        return i;
     }
 
 }

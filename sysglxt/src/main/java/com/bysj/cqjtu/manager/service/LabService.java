@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy10;
 import com.bysj.cqjtu.manager.domain.Sy11;
+import com.bysj.cqjtu.util.PageEntity;
 
 /**
  * 实验室管理service
@@ -95,5 +96,11 @@ public interface LabService {
      * @return
      * @throws Exception
      */
-    public List<Map> queryLabApply() throws Exception;
+    public PageEntity<Map> queryLabApply(Integer pageNum,Integer pageSize) throws Exception;
+    /**
+     * 获取实验申请数量
+     * @return
+     * @throws Exception
+     */
+    public int queryLabApplyCount() throws Exception;
 }

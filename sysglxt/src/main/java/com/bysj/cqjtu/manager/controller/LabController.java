@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.manager.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bysj.cqjtu.manager.domain.Sy10;
 import com.bysj.cqjtu.manager.domain.Sy11;
 import com.bysj.cqjtu.manager.service.LabService;
+import com.bysj.cqjtu.util.PageEntity;
 /**
  * 实验室管理controller
  * @author fuzhengjun
@@ -165,8 +167,21 @@ public class LabController {
      */
     @RequestMapping("/queryLabApply")
     @ResponseBody
-    public List<Map> queryLabApply() throws Exception{
-        List<Map> list= labService.queryLabApply();
-        return list;
+    public PageEntity<Map> queryLabApply(Integer pageNum,Integer pageSize) throws Exception{
+        return labService.queryLabApply(pageNum,pageSize);
     }
+    /**
+     * 获取实验申请数量
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryLabApplyCount")
+    @ResponseBody
+    public Map queryLabApplyCount() throws Exception{
+        int i=labService.queryLabApplyCount();
+        Map map=new HashMap();
+        map.put("count", i);
+        return map;
+    }
+    
 }

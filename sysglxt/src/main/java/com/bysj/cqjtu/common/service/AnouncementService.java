@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bysj.cqjtu.common.domain.Sy14;
+import com.bysj.cqjtu.util.PageEntity;
 
 /**
  * 公告管理service
@@ -30,7 +31,7 @@ public interface AnouncementService {
      * @return
      * @throws Exception
      */
-    public List<Sy14> queryAllanouncement() throws Exception;
+    public PageEntity<Sy14> queryAllanouncement(Integer pageNum,Integer pageSize) throws Exception;
     /**
      * 删除公告
      * @param csy140
@@ -57,4 +58,9 @@ public interface AnouncementService {
      * @throws Exception
      */
     public Sy14 detailanouncement(String csy140) throws Exception;
+    /**
+     * 查询数量
+     * @return
+     */
+    public int getAnouncementCount() throws Exception;
 }

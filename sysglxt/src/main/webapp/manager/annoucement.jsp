@@ -20,7 +20,17 @@
    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
+     <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <style>
+       a{ text-decoration:none;}
+       a:hover{ text-decoration:none;}
+       .tcdPageCode{padding: 15px 20px;text-align: left;color: #ccc;text-align:center;}
+       .tcdPageCode a{display: inline-block;color: #428bca;display: inline-block;height: 25px; line-height: 25px;  padding: 0 10px;border: 1px solid #ddd; margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode a:hover{text-decoration: none;border: 1px solid #428bca;}
+       .tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: #fff;background-color: #428bca; border: 1px solid #428bca;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode span.disabled{ display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px; color: #bfbfbf;background: #f2f2f2;border: 1px solid #bfbfbf;border-radius: 4px;vertical-align: middle;}
+    </style>
 </head>
 <body>
 <body style="font-family:'黑体';width:950px;margin:0 auto">
@@ -44,7 +54,7 @@
                 <td >操作</td>
             </tr>
         </table>
-         
+        <div class="tcdPageCode"></div>
     </div>
 
     
@@ -88,23 +98,38 @@
 <script>
   $(function(){
 	  //查询所有公告
-	 query();
+	 
+	 pageSize=10;
+	 query(1,pageSize);
+	    $.ajax({
+	        type:'POST',
+	        url:"${pageContext.request.contextPath}/anouncement/getAnouncementCount",
+	        success:function(data){
+	            $(".tcdPageCode").createPage({
+	                pageCount:Math.ceil((data.count/pageSize)),
+	                current:1,
+	                backFn:function(pageNum){
+	                    getAllUser(pageNum,pageSize);
+	                }
+	            }); 
+	        }
+	    });
   })
   /*查询所有公告*/
-  function query(){
+  function query(pageNum,pageSize){
 	  $.ajax({
           type:'POST',
-          url:"${pageContext.request.contextPath}/anouncement/queryAllanouncement",
+          url:"${pageContext.request.contextPath}/anouncement/queryAllanouncement?pageNum="+pageNum+"&pageSize="+pageSize,
           success:function(data){
               $("#anouncementhead").siblings().remove();
-              for(var i=0;i<data.length;i++){  
+              for(var i=0;i<data.list.length;i++){  
                   $("#sy14").append("<tr style='width:600px;'>"
-                                      +"<td style='width:20px'><input  type='checkbox' id='"+data[i].csy140+"'/></td>"
-                                      +"<td >"+data[i].csy141+"</td>"
-                                      +"<td >"+(new Date(data[i].csy142).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-                                      +"<td >"+(new Date(data[i].csy144).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-                                      +"<td>&nbsp<button type='button' class='btn btn-primary btn-xs ' onclick='deleteanouncement("+data[i].csy140+")'>删除</button>"
-                                      +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#openPage' onclick='detailanouncement("+data[i].csy140+")'>详情</button></td>"
+                                      +"<td style='width:20px'><input  type='checkbox' id='"+data.list[i].csy140+"'/></td>"
+                                      +"<td >"+data.list[i].csy141+"</td>"
+                                      +"<td >"+(new Date(data.list[i].csy142).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+                                      +"<td >"+(new Date(data.list[i].csy144).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+                                      +"<td>&nbsp<button type='button' class='btn btn-primary btn-xs ' onclick='deleteanouncement("+data.list[i].csy140+")'>删除</button>"
+                                      +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#openPage' onclick='detailanouncement("+data.list[i].csy140+")'>详情</button></td>"
                                       +"</tr>");
               }
           }

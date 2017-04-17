@@ -20,7 +20,8 @@
     <!-- 引入配置文件 -->  
     <bean id="propertyConfigurer"  
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
-        <property name="location" value="classpath:jdbc.properties" />  
+        <property name="location" value="classpath:jdbc.properties" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />   
     </bean>  
   
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  
@@ -45,7 +46,9 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
         <property name="dataSource" ref="dataSource" />  
         <!-- 自动扫描mapping.xml文件 -->  
-        <property name="mapperLocations" value="classpath:com/bysj/cqjtu/*/mapping/*.xml"></property>  
+        <property name="mapperLocations" value="classpath:com/bysj/cqjtu/*/mapping/*.xml"></property> 
+        <!--加入PageHelper-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/> 
     </bean>  
   
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->  
@@ -61,6 +64,55 @@
     </bean>  
     
     
+     <!-- jedis 配置 -->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxWaitMillis" value="${redis.maxWait}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
+    <!-- redis服务器中心 -->
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="poolConfig" ref="poolConfig"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="hostName" value="${redis.host}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="timeout" value="${redis.timeout}"></property>
+    </bean>
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+    </bean>
+
+    <!-- cache配置 -->
+    <bean id="methodCacheInterceptor" class="com.bysj.cqjtu.util.intercepter.MethodCacheInterceptor">
+        <property name="redisUtil" ref="redisUtil"/>
+    </bean>
+    <bean id="redisUtil" class="com.bysj.cqjtu.util.RedisUtil">
+        <property name="redisTemplate" ref="redisTemplate"/>
+    </bean>
+
+
+    <!--配置切面拦截方法 -->
+    <aop:config proxy-target-class="false">
+        <!--将com.crossoverJie.service包下的所有select开头的方法加入拦截
+        去掉select则加入所有方法
+        -->
+        <aop:pointcut id="controllerMethodPointcut" expression="
+        execution(* com.bysj.cqjtu.*.service.*.query*(..))"/>
+
+        <aop:pointcut id="selectMethodPointcut" expression="
+        execution(* com.bysj.cqjtu.*.dao.*Mapper.query*(..))"/>
+
+        <aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="controllerMethodPointcut"/>
+
+     </aop:config>
+     
+     
     
     <!-- 配置自定义Realm -->
     <bean id="myRealm" class="com.bysj.cqjtu.login.util.MyRealm"/>
@@ -107,4 +159,6 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
+    
+    
 </beans>  

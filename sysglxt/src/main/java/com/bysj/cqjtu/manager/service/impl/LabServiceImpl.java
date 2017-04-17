@@ -14,6 +14,8 @@ import com.bysj.cqjtu.manager.dao.Sy12Mapper;
 import com.bysj.cqjtu.manager.domain.Sy10;
 import com.bysj.cqjtu.manager.domain.Sy11;
 import com.bysj.cqjtu.manager.service.LabService;
+import com.bysj.cqjtu.util.PageEntity;
+import com.github.pagehelper.PageHelper;
 @Service
 public class LabServiceImpl implements LabService {
     @Autowired 
@@ -157,8 +159,18 @@ public class LabServiceImpl implements LabService {
         return map;
     }
     @Override
-    public List<Map> queryLabApply() throws Exception {
-        return sy12Mapper.queryLabApply();
+    public PageEntity<Map> queryLabApply(Integer pageNum,Integer pageSize) throws Exception {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Map> allList =sy12Mapper.queryLabApply();
+        PageEntity<Map> pageBean = new PageEntity<Map>();
+        pageBean.setList(allList);
+        int size =sy12Mapper.queryLabApply().size();
+        pageBean.setCount(size);
+        return pageBean;
+    }
+    @Override
+    public int queryLabApplyCount() throws Exception {
+        return sy12Mapper.queryLabApply().size();
     }
 
 }

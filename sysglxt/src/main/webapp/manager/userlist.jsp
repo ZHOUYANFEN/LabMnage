@@ -128,7 +128,6 @@
 </body>
 <script type="text/javascript">
 $(function(){
-	getCsy010();
 	pageSize=10;
     getAllUser(1,pageSize);
     getCsy010();
@@ -145,7 +144,7 @@ $(function(){
             }); 
         }
     });
-	});
+});
 	/*获取所有用户的信息 */
 	function getAllUser(pageNum,pageSize){
         $("#menuhead").siblings().remove();

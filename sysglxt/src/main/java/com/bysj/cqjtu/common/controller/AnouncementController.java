@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.common.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bysj.cqjtu.common.domain.Sy14;
 import com.bysj.cqjtu.common.service.AnouncementService;
+import com.bysj.cqjtu.util.PageEntity;
 
 @RequestMapping("/anouncement")
 @Controller
@@ -48,9 +50,8 @@ public class AnouncementController {
      */
     @RequestMapping("/queryAllanouncement")
     @ResponseBody
-    public List<Sy14> queryAllanouncement() throws Exception{
-        List<Sy14> list=anouncementService.queryAllanouncement();
-        return list;
+    public PageEntity<Sy14> queryAllanouncement(Integer pageNum,Integer pageSize) throws Exception{
+        return anouncementService.queryAllanouncement(pageNum,pageSize);
     }
     /**
      * 删除公告
@@ -95,5 +96,18 @@ public class AnouncementController {
     public Sy14 detailanouncement(String csy140) throws Exception{
         Sy14 sy14=anouncementService.detailanouncement(csy140);
         return sy14;
+    }
+    /**
+     * 查询公告数量
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getAnouncementCount")
+    @ResponseBody
+    public Map getAnouncementCount() throws Exception{
+        int i= anouncementService.getAnouncementCount();
+        Map map=new HashMap();
+        map.put("count", 1);
+        return map;
     }
 }
