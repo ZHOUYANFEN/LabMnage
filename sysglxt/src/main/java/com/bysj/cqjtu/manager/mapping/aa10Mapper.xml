@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.manager.dao.aa10Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.aa10">
+    <id column="AAA100" jdbcType="VARCHAR" property="aaa100" />
+    <id column="AAA102" jdbcType="VARCHAR" property="aaa102" />
+    <result column="AAA101" jdbcType="VARCHAR" property="aaa101" />
+    <result column="AAA103" jdbcType="VARCHAR" property="aaa103" />
+    <result column="AAA104" jdbcType="TINYINT" property="aaa104" />
+    <result column="AAA105" jdbcType="VARCHAR" property="aaa105" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AAA100, AAA102, AAA101, AAA103
+  </sql>
+  <!-- 验证是否有学院名称 -->
+  <select id="validateCsy042" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+     select *
+      from aa10
+     where aaa104 = 0
+       and aaa100 = 'CSY042'
+       and aaa103 = #{csy042}
+  </select>
+  
+   <!-- 验证是否有学院名称 -->
+  <select id="validateCsy043" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+     select *
+      from aa10
+     where aaa104 = 0
+       and aaa100 = 'CSY043'
+       and aaa103 = #{csy043}
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.bysj.cqjtu.manager.domain.aa10Key" >
+    select 
+    <include refid="Base_Column_List" />
+    from aa10
+    where AAA100 = #{aaa100,jdbcType=VARCHAR}
+      and AAA102 = #{aaa102,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.aa10Key" >
+    delete from aa10
+    where AAA100 = #{aaa100,jdbcType=VARCHAR}
+      and AAA102 = #{aaa102,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.aa10" >
+    insert into aa10 (AAA100, AAA102, AAA101, 
+      AAA103)
+    values (#{aaa100,jdbcType=VARCHAR}, #{aaa102,jdbcType=VARCHAR}, #{aaa101,jdbcType=VARCHAR}, 
+      #{aaa103,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.aa10" >
+    insert into aa10
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aaa100 != null" >
+        AAA100,
+      </if>
+      <if test="aaa102 != null" >
+        AAA102,
+      </if>
+      <if test="aaa101 != null" >
+        AAA101,
+      </if>
+      <if test="aaa103 != null" >
+        AAA103,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aaa100 != null" >
+        #{aaa100,jdbcType=VARCHAR},
+      </if>
+      <if test="aaa102 != null" >
+        #{aaa102,jdbcType=VARCHAR},
+      </if>
+      <if test="aaa101 != null" >
+        #{aaa101,jdbcType=VARCHAR},
+      </if>
+      <if test="aaa103 != null" >
+        #{aaa103,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.aa10" >
+    update aa10
+    <set >
+      <if test="aaa101 != null" >
+        AAA101 = #{aaa101,jdbcType=VARCHAR},
+      </if>
+      <if test="aaa103 != null" >
+        AAA103 = #{aaa103,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AAA100 = #{aaa100,jdbcType=VARCHAR}
+      and AAA102 = #{aaa102,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.aa10" >
+    update aa10
+    set AAA101 = #{aaa101,jdbcType=VARCHAR},
+      AAA103 = #{aaa103,jdbcType=VARCHAR}
+    where AAA100 = #{aaa100,jdbcType=VARCHAR}
+      and AAA102 = #{aaa102,jdbcType=VARCHAR}
+  </update>
+</mapper>
