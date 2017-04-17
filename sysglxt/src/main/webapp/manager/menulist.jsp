@@ -21,7 +21,19 @@
    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <style>
+       a{ text-decoration:none;}
+       a:hover{ text-decoration:none;}
+       .tcdPageCode{padding: 15px 20px;text-align: left;color: #ccc;text-align:center;}
+       .tcdPageCode a{display: inline-block;color: #428bca;display: inline-block;height: 25px; line-height: 25px;  padding: 0 10px;border: 1px solid #ddd; margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode a:hover{text-decoration: none;border: 1px solid #428bca;}
+       .tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: #fff;background-color: #428bca; border: 1px solid #428bca;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode span.disabled{ display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px; color: #bfbfbf;background: #f2f2f2;border: 1px solid #bfbfbf;border-radius: 4px;vertical-align: middle;}
+    </style>
+    
 </head>
 <body style="font-family:'黑体';font-size:16px">
     <div id="button_operatemenu" style="margin-top:50px;margin-left:340px">
@@ -66,51 +78,66 @@
                 <td style="width:50px">操作</td>
             </tr>
         </table>
+        <div class="tcdPageCode"></div>
      </div>
     
 </body>
 <script type="text/javascript">
 $(function(){
-	queryAllmenu();
-	getCsy010()
-	});
-	function queryAllmenu(){
+	pageSize=10;
+	queryAllmenu(1,pageSize);
+    getCsy010();
+    $.ajax({
+        type:'POST',
+        url:"${pageContext.request.contextPath}/menu/getMenuCount",
+        success:function(data){
+            $(".tcdPageCode").createPage({
+                pageCount:Math.ceil((data.count/pageSize)),
+                current:1,
+                backFn:function(pageNum){
+                	queryAllmenu(pageNum,pageSize);
+                }
+            }); 
+        }
+    });
+});
+	function queryAllmenu(pageNum,pageSize){
 		$.ajax({
 	        type:'POST',
-	        url:"${pageContext.request.contextPath}/menu/queryAllMenu",
+	        url:"${pageContext.request.contextPath}/menu/queryAllMenu?pageNum="+pageNum+"&pageSize="+pageSize,
 	        success:function(data){
-	            
-	              for (var i = 0; i < data.length; i++) {
-	            	  if(data[i].csy010==0){
-	                        data[i].csy010='管理员';
+	        	  $("#menuhead").siblings().remove();
+	              for (var i = 0; i < data.list.length; i++) {
+	            	  if(data.list[i].csy010==4){
+	                        data.list[i].csy010='管理员';
 	                    }
-	                    if(data[i].csy010==1){
-	                        data[i].csy010='学生';
+	                    if(data.list[i].csy010==1){
+	                        data.list[i].csy010='学生';
 	                    }
-	                    if(data[i].csy010==2){
-	                        data[i].csy010='科研人员';
+	                    if(data.list[i].csy010==2){
+	                        data.list[i].csy010='科研人员';
 	                    }
-	                    if(data[i].csy010==3){
-	                        data[i].csy010='教师';
+	                    if(data.list[i].csy010==3){
+	                        data.list[i].csy010='教师';
 	                    }
 	                     $("#menulist").append(
-	                                            "<tr><td style='width:20px'><input type='checkbox' id='"+data[i].csy150+"'/></td><td style='display:none'>"
-	                                                    + data[i].csy150
+	                                            "<tr><td style='width:20px'><input type='checkbox' id='"+data.list[i].csy150+"'/></td><td style='display:none'>"
+	                                                    + data.list[i].csy150
 	                                                    + "</td><td style='display:none'>"
-	                                                    + data[i].csy157
+	                                                    + data.list[i].csy157
 	                                                    + "</td><td style='width:50px'>"
-	                                                    + data[i].csy010
+	                                                    + data.list[i].csy010
 	                                                    + "</td><td style='width:50px'>"
-	                                                    + data[i].csy151
+	                                                    + data.list[i].csy151
 	                                                    + "</td><td style='width:50px'>"
-	                                                    + data[i].csy152
+	                                                    + data.list[i].csy152
 	                                                    + "</td><td style='width:50px'>"
-	                                                    + data[i].csy153
+	                                                    + data.list[i].csy153
 	                                                    + "</td><td style='display:none'>"
-	                                                    + data[i].csy154
+	                                                    + data.list[i].csy154
 	                                                    + "</td><td style='display:none'>"
-	                                                    + data[i].csy155
-	                                                    + "</td><td><button type='button' class='btn btn-primary btn-xs' onclick='deleteMenu("+data[i].csy150+")'>删除</button>&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data[i].csy150+")'>修改</button></td></tr>");
+	                                                    + data.list[i].csy155
+	                                                    + "</td><td><button type='button' class='btn btn-primary btn-xs' onclick='deleteMenu("+data.list[i].csy150+")'>删除</button>&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='changeMenu("+data.list[i].csy150+")'>修改</button></td></tr>");
 	                    }
 	                }
 	          });

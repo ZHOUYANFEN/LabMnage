@@ -58,7 +58,7 @@ public class StudentController {
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         
         
-        List<Map> list=studentService.getSyllabus(userMessage);
+        List<Map> list=studentService.querySyllabus(userMessage);
         return list;
     }
     /**
@@ -167,7 +167,7 @@ public class StudentController {
         this.filename = filename;
     }
     /**
-     * 查询具体实验安排
+     * 上传实验报告
      * @param session
      * @return
      * @throws Exception

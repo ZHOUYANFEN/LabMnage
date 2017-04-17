@@ -18,12 +18,22 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/jui/plupload/upload.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/ajaxfileupload.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
+    
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+	   a{ text-decoration:none;}
+	   a:hover{ text-decoration:none;}
+	   .tcdPageCode{padding: 15px 20px;text-align: left;color: #ccc;text-align:center;}
+	   .tcdPageCode a{display: inline-block;color: #428bca;display: inline-block;height: 25px; line-height: 25px;  padding: 0 10px;border: 1px solid #ddd; margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+	   .tcdPageCode a:hover{text-decoration: none;border: 1px solid #428bca;}
+	   .tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: #fff;background-color: #428bca; border: 1px solid #428bca;border-radius: 4px;vertical-align: middle;}
+	   .tcdPageCode span.disabled{ display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px; color: #bfbfbf;background: #f2f2f2;border: 1px solid #bfbfbf;border-radius: 4px;vertical-align: middle;}
+	</style>
 </head>
 <body style="font-family:'黑体';font-size:16px">
     <input id="basePath" value="${pageContext.request.contextPath}" style="display:none">
@@ -42,8 +52,8 @@
          <div style="float:left; margin-top:10px" id="sy04_message">
 	          <lable>学号:</lable><input type="text" name="csy040" width="80px" id="csy040" maxlength="20" onchange="setSaveBtn()">
 	          <lable style="margin-left:37px"> 姓名:</lable><input type="text" name="csy041" width="80px" id="csy041" maxlength="20" onchange="setSaveBtn()">
-	          <lable> 学院:</lable><input type="text" name="csy042" width="80px" id="csy042" maxlength="30" onchange="setSaveBtn()">
-	          <lable>班级:</lable><input type="text" name="csy043" width="80px" id="csy043" maxlength="30" onchange="setSaveBtn()">
+	          <lable> 学院:</lable><input type="text" name="csy042" width="80px" id="csy042" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy042(this)">
+	          <lable>班级:</lable><input type="text" name="csy043" width="80px" id="csy043" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy043(this)">
          </div>
          <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message">
               <lable style="margin-left:15px">姓名:</lable><input type="text" name="csy031" width="80px" id="csy031" maxlength="20" onchange="setSaveBtn()">
@@ -51,7 +61,7 @@
          </div> 
          <div style="float:left; margin-top:10px" hidden="hidden"  id="sy05_message">        
               <lable> 姓名:</lable><input type="text" name="csy051" width="80px" id="csy051" maxlength="20" onchange="setSaveBtn()">
-              <lable style="margin-left:37px"> 学院:</lable><input type="text" name="csy052" width="80px" id="csy052" maxlength="30" onchange="setSaveBtn()">
+              <lable style="margin-left:37px"> 学院:</lable><input type="text" name="csy052" width="80px" id="csy052" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy042(this)">
               <lable> 职称:</lable><input type="text" name="csy053" width="80px" id="csy053" maxlength="30" onchange="setSaveBtn()">
          </div>     
     </div>
@@ -90,6 +100,8 @@
                 <td style="width:300px">操作</td>
             </tr>
         </table>
+        <div class="tcdPageCode"></div>
+
      </div>
     
     
@@ -117,8 +129,8 @@
 		                  <lable> 姓名:</lable><input type="text" name="csy041_model" width="80px" id="csy041_model" maxlength="20" >
 		              </div>
 		              <div style="margin-left:100px;margin-top:10px">
-		                  <lable> 学院:</lable><input type="text" name="csy042_model" width="80px" id="csy042_model" maxlength="30">
-		                  <lable>班级:</lable><input type="text" name="csy043_model" width="80px" id="csy043_model" maxlength="30">
+		                  <lable> 学院:</lable><input type="text" name="csy042_model" width="80px" id="csy042_model" maxlength="30" onblur="validateCsy042(this)">
+		                  <lable>班级:</lable><input type="text" name="csy043_model" width="80px" id="csy043_model" maxlength="30" onblur="validateCsy043(this)">
 		              </div>
 		         </div>
 		         <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message_model">
@@ -127,7 +139,7 @@
 		         </div> 
 		         <div style="float:left; margin-top:10px" hidden="hidden"  id="sy05_message_model">        
 		              <lable> 姓名:</lable><input type="text" name="csy051_model" width="80px" id="csy051_model" maxlength="20" >
-		              <lable > 学院:</lable><input type="text" name="csy052_model" width="80px" id="csy052_model" maxlength="30">
+		              <lable > 学院:</lable><input type="text" name="csy052_model" width="80px" id="csy052_model" maxlength="30" onblur="validateCsy042(this)">
 		              <lable> 职称:</lable><input type="text" name="csy053_model" width="80px" id="csy053_model" maxlength="30">
 		         </div>     
             </div>
@@ -141,26 +153,42 @@
 	</div>
 </body>
 <script type="text/javascript">
+ 
 $(function(){
-	getAllUser();
+	pageSize=10;
+	getAllUser(1,pageSize);
 	getCsy010();
+	$.ajax({
+        type:'POST',
+        url:"${pageContext.request.contextPath}/userManager/getUserCount",
+        success:function(data){
+        	$(".tcdPageCode").createPage({
+                pageCount:Math.ceil((data.count/pageSize)),
+                current:1,
+                backFn:function(pageNum){
+                    getAllUser(pageNum,pageSize);
+                }
+            }); 
+        }
 	});
+	 
+});
 	/*获取所有用户的信息 */
-	function getAllUser(){
+	function getAllUser(pageNum,pageSize){
 		$("#menuhead").siblings().remove();
 		$.ajax({
             type:'POST',
-            url:"${pageContext.request.contextPath}/userManager/getAllUser",
+            url:"${pageContext.request.contextPath}/userManager/getAllUser?pageNum="+pageNum+"&pageSize="+pageSize,
             success:function(data){
-                for(var i=0;i<data.length;i++){
+                for(var i=0;i<data.list.length;i++){
                     $("#sy02").append("<tr style='width:800px;'>"
-                    		          +"<td style='width:20px'><input input type='checkbox' id='"+data[i].CSY020+"'/></td>"
-                    		          +"<td >"+data[i].CSY020+"</td>"
-                    		          +"<td >"+data[i].CSY021+"</td>"
-                    		          +"<td >"+data[i].csy011+"</td>"                    		  
-                    		          +"<td style='width:300px'><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data[i].CSY020+")'>删除</button>"
-                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].CSY020+","+data[i].CSY010+",true)'>修改</button>"
-                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data[i].CSY020+","+data[i].CSY010+",false)'>详情</button></td>"
+                    		          +"<td style='width:20px'><input input type='checkbox' id='"+data.list[i].CSY020+"'/></td>"
+                    		          +"<td >"+data.list[i].CSY020+"</td>"
+                    		          +"<td >"+data.list[i].CSY021+"</td>"
+                    		          +"<td >"+data.list[i].csy011+"</td>"                    		  
+                    		          +"<td style='width:300px'><button type='button' class='btn btn-primary btn-xs' onclick='deleteUser("+data.list[i].CSY020+")'>删除</button>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data.list[i].CSY020+","+data.list[i].CSY010+",true)'>修改</button>"
+                    		          +"&nbsp<button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#changerUserModel' onclick='changeUser("+data.list[i].CSY020+","+data.list[i].CSY010+",false)'>详情</button></td>"
                     		          +"</tr>");
                 }
             }
@@ -531,6 +559,17 @@ $(function(){
              $("#csy053_model").attr("readonly","readonly");
              $("#csy031_model").attr("readonly","readonly");
              $("#csy032_model").attr("readonly","readonly");
+		}else{
+			$("#csy022_model").removeAttr("readonly");
+			$("#csy040_model").removeAttr("readonly");
+			$("#csy041_model").removeAttr("readonly");
+			$("#csy042_model").removeAttr("readonly");
+			$("#csy043_model").removeAttr("readonly");
+			$("#csy051_model").removeAttr("readonly");
+			$("#csy052_model").removeAttr("readonly");
+			$("#csy053_model").removeAttr("readonly");
+			$("#csy031_model").removeAttr("readonly");
+			$("#csy032_model").removeAttr("readonly");
 		}
 		var sy02={
 				"csy010":csy010,
@@ -758,6 +797,36 @@ $(function(){
 	/*设置保存按钮*/
 	function setSaveBtn(){
 		$("#btnSave").attr("disabled",false);
+	}
+	/*验证填写学院是否正确*/
+	function validateCsy042(data){
+		if(data.value!=''){
+			 $.ajax({
+		            type:"POST",
+		            url:"${pageContext.request.contextPath}/userManager/validateCsy042?csy042="+data.value,
+		            success:function(validata){
+		            	if(validata.statu=='error'){
+		            		sweetAlert('该学院名称有误');
+		            		$("#"+data.id).val('');
+		            	}
+		            }
+			 });
+		}
+	}
+	/*验证填写的班级是否正确*/
+	function validateCsy043(data){
+		if(data.value!=''){
+            $.ajax({
+                   type:"POST",
+                   url:"${pageContext.request.contextPath}/userManager/validateCsy043?csy043="+data.value,
+                   success:function(validata){
+                       if(validata.statu=='error'){
+                           sweetAlert('该班级名称有误');
+                           $("#"+data.id).val('');
+                       }
+                   }
+            });
+       }
 	}
 </script>
 </html>

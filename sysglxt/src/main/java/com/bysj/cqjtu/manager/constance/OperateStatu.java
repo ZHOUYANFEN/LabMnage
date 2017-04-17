@@ -108,4 +108,8 @@ public interface OperateStatu {
     /************************验证实验室是否存在***************/
     public static final String VALIDATE_SY11_SUCCESS="success";//不存在
     public static final String VALIDATE_SY11_FAIL="error";//存在
+    
+    /************************验证输入的信息***************/
+    public static final String VALIDATE_INPUT_SUCCESS="success";//不存在
+    public static final String VALIDATE_INPUT_FAIL="error";//存在
 }

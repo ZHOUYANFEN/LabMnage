@@ -36,6 +36,7 @@ import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.manager.service.UserManagerService;
 import com.bysj.cqjtu.util.ExceltoList;
+import com.bysj.cqjtu.util.PageEntity;
 
 /**
  * 管理员用户管理
@@ -57,8 +58,8 @@ public class UserManagerController {
     @RequestMapping("/getAllUser")
     @ResponseBody
     @SystemControllerLog(description = "获取用户信息") 
-    public List<Map> getAllUser()throws Exception{
-        return userManagerService.getAllUser();
+    public PageEntity<Map> getAllUser(Integer pageNum, Integer pageSize)throws Exception{
+        return userManagerService.queryAllUser(pageNum,pageSize);
     }
     /**
      * 删除用户信息
@@ -293,11 +294,54 @@ public class UserManagerController {
         }       
         return map;
     }
+    /**
+     * 更新用户信息
+     * @param userMessage
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/updateUser")
     @ResponseBody
     public Map updateUser(@RequestBody UserMessage userMessage) throws Exception{
         Map map=userManagerService.updateUser(userMessage);
         return map;
     }
+    /**
+     * 验证输入的学院信息
+     * @param csy042
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/validateCsy042")
+    @ResponseBody
+    public Map validateCsy042(String csy042) throws Exception{
+        Map map=userManagerService.validateCsy042(csy042);
+        return map;
+    }
     
+    /**
+     * 验证输入的班级信息
+     * @param csy043
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/validateCsy043")
+    @ResponseBody
+    public Map validateCsy043(String csy043) throws Exception{
+        Map map=userManagerService.validateCsy043(csy043);
+        return map;
+    }
+    /**
+     * 获取用户的数量
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getUserCount")
+    @ResponseBody
+    public Map getUserCount() throws Exception{
+        int i=userManagerService.getUserCount();
+        Map map =new HashMap();
+        map.put("count", i);
+        return map;
+    }
  }

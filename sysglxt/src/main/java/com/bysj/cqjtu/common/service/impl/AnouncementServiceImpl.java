@@ -23,7 +23,7 @@ public class AnouncementServiceImpl implements AnouncementService {
     }
 
     @Override
-    public Sy14 getNewAnouncement() throws Exception {
+    public Sy14 queryNewAnouncement() throws Exception {
         return sy14Mapper.getNewAnouncement();
     }
 

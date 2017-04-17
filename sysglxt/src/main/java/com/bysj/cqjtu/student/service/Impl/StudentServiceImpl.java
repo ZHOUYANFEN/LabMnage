@@ -37,7 +37,7 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private Sy16Mapper sy16Mapper;
     @Override
-    public List<Map> getSyllabus(UserMessage userMessage) throws Exception {
+    public List<Map> querySyllabus(UserMessage userMessage) throws Exception {
         return sy06Mapper.getSyllabus(userMessage); 
     }
 

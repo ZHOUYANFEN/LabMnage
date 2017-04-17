@@ -19,7 +19,7 @@
     from sy14
     where csy145 = 0
   <![CDATA[      and csy144>CURDATE()   ]]>
-    order by csy142
+    order by csy142 desc
   </select>
   
   
@@ -30,7 +30,7 @@
     from sy14
     where csy145 = 0
   <![CDATA[      and csy144>CURDATE()   ]]>
-    order by csy142
+    order by csy142 desc
     limit 1
   </select>
   

@@ -16,6 +16,7 @@ import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.index.domain.Sy15;
 import com.bysj.cqjtu.index.service.MenuService;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.util.PageEntity;
 /**
  * 菜单控制controller
  * @author fuzhengjun
@@ -49,7 +50,7 @@ public class MenuController {
     @RequestMapping("/selectMenu")
     @ResponseBody
     public List<Sy15> selectMenu(int csy155) throws Exception{
-        List list=menuService.selectMenu(csy155);
+        List list=menuService.queryMenuChilde(csy155);
         return list;
     }
     /**
@@ -59,9 +60,9 @@ public class MenuController {
      */
     @RequestMapping("/queryAllMenu")
     @ResponseBody
-    public List<Sy15> queryAllMenu() throws Exception{
-        List list=menuService.queryAllMenu();
-        return list;
+    public PageEntity<Sy15> queryAllMenu(Integer pageNum,Integer pageSize) throws Exception{
+        PageEntity<Sy15> pageBean=menuService.queryAllMenu(pageNum,pageSize);
+        return pageBean;
     }
     /**
      * 按照id删除菜单功能
@@ -115,7 +116,7 @@ public class MenuController {
     @RequestMapping("/getCsy010")
     @ResponseBody
     public List<Sy01> getCsy010() throws Exception{        
-        return menuService.getCsy010();
+        return menuService.queryCsy010();
         
     }
     /**
@@ -127,7 +128,6 @@ public class MenuController {
     @RequestMapping("/queryMenuByCondition")    
     @ResponseBody
     public List<Sy15> queryMenuByCondition(@RequestBody Sy15 sy15) throws Exception{
-        System.out.println(sy15);
         List<Sy15> list=menuService.queryMenuByCondition(sy15);
         return list;
     }
@@ -139,7 +139,7 @@ public class MenuController {
     @RequestMapping("/getParentMenu")    
     @ResponseBody
     public List<Sy15> getParentMenu(Integer csy010) throws Exception{
-        return menuService.getParentMenu(csy010);
+        return menuService.queryParentMenu(csy010);
     }
     /**
      * 保存菜单信息
@@ -181,5 +181,18 @@ public class MenuController {
     public UserMessage getUserInfo(HttpSession session) throws Exception{
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         return userMessage;
+    }
+    /**
+     * 获取菜单数量
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getMenuCount")    
+    @ResponseBody
+    public Map getMenuCount() throws Exception{
+        int i=menuService.getMenuCount();
+        Map map=new HashMap();
+        map.put("count", i);
+        return map;
     }
 }

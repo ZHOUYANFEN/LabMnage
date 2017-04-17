@@ -24,7 +24,7 @@ public interface AnouncementService {
      * @return
      * @throws Exception
      */
-    public Sy14 getNewAnouncement() throws Exception;
+    public Sy14 queryNewAnouncement() throws Exception;
     /**
      * 查询所有公告
      * @return

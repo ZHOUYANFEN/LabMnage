@@ -12,6 +12,7 @@ import com.bysj.cqjtu.manager.dao.Sy02Mapper;
 import com.bysj.cqjtu.manager.dao.Sy03Mapper;
 import com.bysj.cqjtu.manager.dao.Sy04Mapper;
 import com.bysj.cqjtu.manager.dao.Sy05Mapper;
+import com.bysj.cqjtu.manager.dao.aa10Mapper;
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy03;
 import com.bysj.cqjtu.manager.domain.Sy04;
@@ -19,6 +20,8 @@ import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.manager.service.UserManagerService;
 import com.bysj.cqjtu.util.Md5Encoder;
+import com.bysj.cqjtu.util.PageEntity;
+import com.github.pagehelper.PageHelper;
 @Service
 public class UserManagerServiceImpl implements UserManagerService {
     
@@ -30,6 +33,8 @@ public class UserManagerServiceImpl implements UserManagerService {
     private Sy04Mapper sy04Mapper;
     @Autowired
     private Sy05Mapper sy05Mapper;
+    @Autowired
+    private aa10Mapper aa10Mapper;
     
     @Override
     public List<Map> getAllUser() throws Exception {
@@ -174,6 +179,51 @@ public class UserManagerServiceImpl implements UserManagerService {
             map.put("statu", OperateStatu.UPDATE_USER_SUCCESS);
         }
         return map;
+    }
+
+    @Override
+    public Map validateCsy042(String csy042) throws Exception {
+        Map map= new HashMap();
+        map.put("csy042", csy042);
+        List list=aa10Mapper.validateCsy042(map);
+        Map resultmap= new HashMap();
+        if(list.size()==1){
+            resultmap.put("statu",  OperateStatu.VALIDATE_INPUT_SUCCESS);
+            return resultmap;
+        }
+        resultmap.put("statu",  OperateStatu.VALIDATE_INPUT_FAIL);
+        return resultmap;
+    }
+
+    @Override
+    public Map validateCsy043(String csy043) throws Exception {
+        Map map= new HashMap();
+        map.put("csy043", csy043);
+        List list=aa10Mapper.validateCsy043(map);
+        Map resultmap= new HashMap();
+        if(list.size()==1){
+            resultmap.put("statu", OperateStatu.VALIDATE_INPUT_SUCCESS);
+            return resultmap;
+        }
+        resultmap.put("statu", OperateStatu.VALIDATE_INPUT_FAIL);
+        return resultmap;
+    }
+
+    @Override
+    public PageEntity<Map> queryAllUser(Integer pageNum, Integer pageSize) throws Exception {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Map> allList =sy02Mapper.getAllUser();
+        PageEntity<Map> pageBean = new PageEntity<Map>();
+        pageBean.setList(allList);
+        int size =sy02Mapper.getAllUser().size();
+        pageBean.setCount(size);
+        return pageBean;
+    }
+
+    @Override
+    public int getUserCount() throws Exception {
+        List<Map> list =sy02Mapper.getAllUser();
+        return list.size();
     }
 
 

@@ -24,7 +24,7 @@ public interface StudentService {
      * @return
      * @throws Exception
      */
-    public List<Map> getSyllabus(UserMessage userMessage) throws Exception;
+    public List<Map> querySyllabus(UserMessage userMessage) throws Exception;
     /**
      * 获取实验安排
      * @param userMessage

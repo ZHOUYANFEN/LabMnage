@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.util.PageEntity;
 
 /**
  * 用户管理service
@@ -60,5 +61,32 @@ public interface UserManagerService {
      * @throws Exception
      */
     public Map updateUser(UserMessage userMessage) throws Exception;
+    /**
+     * 验证输入的学院信息
+     * @param csy042
+     * @return
+     * @throws Exception
+     */
+    public Map validateCsy042(String csy042) throws Exception;
+    /**
+     * 验证输入的班级信息
+     * @param csy042
+     * @return
+     * @throws Exception
+     */
+    public Map validateCsy043(String csy043)  throws Exception;
+    
+    /**
+     * 查询所有的用户
+     * @return
+     * @throws Exception
+     */
+    public PageEntity<Map> queryAllUser(Integer pageNum, Integer pageSize) throws Exception;
+    /**
+     * 获取用户数量
+     * @return
+     * @throws Exception
+     */
+    public int getUserCount() throws Exception;
     
 }

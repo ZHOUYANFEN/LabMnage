@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.index.domain.Sy15;
+import com.bysj.cqjtu.util.PageEntity;
 
 /**
  * 菜单获取service
@@ -25,13 +26,13 @@ public interface MenuService {
      * @return
      * @throws Exception
      */
-    public List<Sy15> selectMenu(int csy155) throws Exception;
+    public List<Sy15> queryMenuChilde(int csy155) throws Exception;
     /**
      * 查询所有菜单
      * @return
      * @throws Exception
      */
-    public List<Sy15> queryAllMenu() throws Exception;
+    public PageEntity<Sy15> queryAllMenu(Integer pageNum,Integer pageSize) throws Exception;
     /**
      * 按照id删除菜单功能
      * @param csy150
@@ -44,13 +45,13 @@ public interface MenuService {
      * @return
      * @throws Exception
      */
-    public List<Sy01> getCsy010() throws Exception;
+    public List<Sy01> queryCsy010() throws Exception;
     /**
      * 获取父级菜单
      * @return
      * @throws Exception
      */
-    public List<Sy15> getParentMenu(Integer csy010) throws Exception;
+    public List<Sy15> queryParentMenu(Integer csy010) throws Exception;
     /**
      * 保存菜单
      * @param sy15
@@ -64,4 +65,10 @@ public interface MenuService {
      * @throws Exception
      */
     public List<Sy15> queryMenuByCondition(Sy15 sy15) throws Exception;
+    /**
+     * 查询菜单的数量
+     * @return
+     * @throws Exception
+     */
+    public int getMenuCount() throws Exception;
 }

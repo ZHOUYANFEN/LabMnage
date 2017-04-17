@@ -86,4 +86,9 @@ public interface Sy02Mapper {
      * @return
      */
     Sy02 findUserByUsername(String csy021);
+    /**
+     * 获取用户数量
+     * @return
+     */
+    Map getUserCount();
   }

@@ -37,7 +37,7 @@ public class AnouncementController {
     @RequestMapping("/getNewAnouncement")
     @ResponseBody
     public Sy14 getNewAnouncement() throws Exception{
-        Sy14 sy14=anouncementService.getNewAnouncement();
+        Sy14 sy14=anouncementService.queryNewAnouncement();
         return sy14;
     }
     
