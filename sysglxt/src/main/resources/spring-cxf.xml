@@ -20,9 +20,6 @@
         <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
         <!-- &lt;!&ndash; 自动扫描webService &ndash;&gt; -->
         <context:component-scan base-package="com.crossoverJie.cxf" />
-       <!--  &lt;!&ndash; 定义webservice的发布接口  &ndash;&gt; -->
-        <jaxws:endpoint
-                implementor="#helloWorld"
-                address="/HelloWorld"
-        ></jaxws:endpoint>
+        <!--  &lt;!&ndash; 定义webservice的发布接口  &ndash;&gt; -->
+        <jaxws:endpoint implementor="#addUser" address="/addUser"></jaxws:endpoint>
 </beans>
