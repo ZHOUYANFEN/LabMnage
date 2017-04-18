@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.login.controller;
 
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -51,7 +52,11 @@ public class userLoginController {
     }
     
     @RequestMapping("/loginexp")
-    public String login() throws Exception{
+    public String loginexp(HttpSession session) throws Exception{
+        Enumeration em = session.getAttributeNames();
+        while(em.hasMoreElements()){
+            session.removeAttribute(em.nextElement().toString());
+        }
         return "loginexp";
     }
 }

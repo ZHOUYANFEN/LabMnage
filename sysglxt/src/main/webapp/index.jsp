@@ -33,7 +33,7 @@
                 <span class="glyphicon glyphicon-user" aria-hidden="true" style="top:2px"></span>
                 <label id="welcomeuser"></label>
             </label>
-            <a href="#" style="margin-left:20px;color:white" onclick="logout()">
+            <a href="${pageContext.request.contextPath}/userlogin/loginexp" style="margin-left:20px;color:white" >
                 <span class="glyphicon glyphicon-off" aria-hidden="true" style="top:2px" ></span>
                                       退出
             </a>
@@ -223,20 +223,6 @@
 	function openPage(pagename) {
 		$("#iframe1").attr("src",
 				"${pageContext.request.contextPath}/" + pagename);
-	}
-	/*退出*/
-    function logout(){
-    	$.ajax({
-	    	type : "POST",
-	        url : "${pageContext.request.contextPath}/login/logout",
-	        success : function(data) {
-	        	if(data.statu==1){	        		
-	        	    window.location.href = "${pageContext.request.contextPath}/loginexp.jsp";
-	        	}else{
-	        		sweetAlert("请直接关闭浏览器");
-	        	}
-	        }
-    	});
 	}
 </script>
 </html>
