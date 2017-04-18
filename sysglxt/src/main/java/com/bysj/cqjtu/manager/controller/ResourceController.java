@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.service.ResourceService;
 
 /**
@@ -30,6 +31,7 @@ public class ResourceController {
      */
     @RequestMapping("/queryResourceType")
     @ResponseBody
+    @SystemControllerLog(description ="查看资源类型")
     public List<Map> queryResourceType() throws Exception{
         
         List<Map> list=resourceService.queryResourceType();
@@ -43,6 +45,7 @@ public class ResourceController {
      */
     @RequestMapping("/queryResourceList")
     @ResponseBody
+    @SystemControllerLog(description ="查看资源列表")
     public List<Map>  queryResourceList(String csy160) throws Exception{
         List<Map> list=resourceService.queryResourceList(csy160);
         return list;

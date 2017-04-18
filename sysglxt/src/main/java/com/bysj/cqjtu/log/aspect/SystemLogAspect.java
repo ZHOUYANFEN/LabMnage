@@ -12,13 +12,18 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.log.annotation.SystemServiceLog;
+import com.bysj.cqjtu.log.dao.Sy17Mapper;
+import com.bysj.cqjtu.log.domain.Sy17;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.util.DateFormatUtil;
+import com.bysj.cqjtu.util.GetSystemUtil;
     
 /**
  * 切点类    
@@ -30,6 +35,8 @@ import com.bysj.cqjtu.manager.pojo.UserMessage;
 @Component    
 public  class SystemLogAspect {    
     
+    @Autowired
+    private Sy17Mapper sy17Mapper;
     //本地异常日志记录对象    
     private static final Logger logger = LogManager.getLogger(SystemLogAspect. class);   
     
@@ -47,17 +54,26 @@ public  class SystemLogAspect {
      * 前置通知 用于拦截Controller层记录用户的操作  
      *  
      * @param joinPoint 切点  
-     */    
-    @Before("controllerAspect()") 
+     */
+    @Before("controllerAspect(),serviceAspect()") 
     public  void doBefore(JoinPoint joinPoint) throws Exception {    
         String description=getControllerMethodDescription(joinPoint);
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
         HttpSession session = request.getSession();
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        if(userMessage.getSy02().getCsy010()==(byte)4){
-            logger.info(userMessage.getSy02().getCsy020()+","
-                       +description);
+
+        Sy17 sy17 = new Sy17();
+        if(userMessage!=null){
+            sy17.setCsy171(userMessage.getSy02().getCsy021());
         }
+        sy17.setCsy172(description);
+        sy17.setCsy173(GetSystemUtil.getIpAddr(request));
+        sy17.setCsy174(DateFormatUtil.getNewTime(1));
+        sy17.setCsy175(GetSystemUtil.getRequestBrowserInfo(request));
+        sy17.setCsy176(GetSystemUtil.getRequestSystemInfo(request));
+        sy17.setCsy177(GetSystemUtil.getHostName(GetSystemUtil.getIpAddr(request)));
+        sy17.setCsy178(GetSystemUtil.getMacAddress(GetSystemUtil.getIpAddr(request)));
+        sy17Mapper.addSy17(sy17);
     }    
     
     /**  

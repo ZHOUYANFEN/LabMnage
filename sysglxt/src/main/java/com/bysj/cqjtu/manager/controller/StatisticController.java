@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.service.StatisticService;
 
 /**
@@ -29,6 +30,7 @@ public class StatisticController {
      */
     @RequestMapping("/coursestatistics")
     @ResponseBody
+    @SystemControllerLog(description ="实验课程统计")
     public List<Map> coursestatistics() throws Exception{
         List<Map> list=statisticService.coursestatistics();
         return list;
@@ -41,6 +43,7 @@ public class StatisticController {
      */
     @RequestMapping("/gradestatistics")
     @ResponseBody
+    @SystemControllerLog(description ="实验成绩统计")
     //TODO:有bug 班级和学科同时分组查询 需要查两次
     public List<Map> gradestatistics() throws Exception{
         List<Map> list=statisticService.gradestatistics();
@@ -53,6 +56,7 @@ public class StatisticController {
      */
     @RequestMapping("/courselist")
     @ResponseBody
+    @SystemControllerLog(description ="查询呵呵学院的课程安排")
     public List<Map> courselist(String csy052) throws Exception{
         List<Map> list=statisticService.courselist(csy052);
         return list;
@@ -64,6 +68,7 @@ public class StatisticController {
      */
     @RequestMapping("/classGradestatistics")
     @ResponseBody
+    @SystemControllerLog(description ="查询各个班级每个课程的平均成绩")
     public List<Map> classGradestatistics() throws Exception{
         List<Map> list=statisticService.classGradestatistics();
         return list;
@@ -75,6 +80,7 @@ public class StatisticController {
      */
     @RequestMapping("/classpeopleGradestatistics")
     @ResponseBody
+    @SystemControllerLog(description ="查询各个班级每个人的平均成绩")
     public List<Map> classpeopleGradestatistics(String csy043,String csy060) throws Exception{
         List<Map> list=statisticService.classpeopleGradestatistics(csy043,csy060);
         return list;
@@ -86,6 +92,7 @@ public class StatisticController {
      */
     @RequestMapping("/expArrangeStatistics")
     @ResponseBody
+    @SystemControllerLog(description ="学院实验安排统计")
     public List<Map> expArrangeStatistics() throws Exception{
         List<Map> list=statisticService.expArrangeStatistics();
         return list;
@@ -97,6 +104,7 @@ public class StatisticController {
      */
     @RequestMapping("/expListStatistics")
     @ResponseBody
+    @SystemControllerLog(description ="教师实验安排统计")
     public List<Map> expListStatistics(String csy052) throws Exception{
         List<Map> list=statisticService.expListStatistics(csy052);
         return list;
@@ -108,6 +116,7 @@ public class StatisticController {
      */
     @RequestMapping("/labStatistics")
     @ResponseBody
+    @SystemControllerLog(description ="实验室统计")
     public List<Map> labStatistics() throws Exception{
         List<Map> list=statisticService.labStatistics();
         return list;
@@ -119,6 +128,7 @@ public class StatisticController {
      */
     @RequestMapping("/labList")
     @ResponseBody
+    @SystemControllerLog(description ="实验室列表统计")
     public List<Map> labList(String csy100) throws Exception{
         List<Map> list=statisticService.labList(csy100);
         return list;
@@ -130,6 +140,7 @@ public class StatisticController {
      */
     @RequestMapping("/labArrangeStatistics")
     @ResponseBody
+    @SystemControllerLog(description ="实验室安排统计")
     public List<Map> labArrangeStatistics() throws Exception{
         List<Map> list=statisticService.labArrangeStatistics();
         return list;
@@ -142,6 +153,7 @@ public class StatisticController {
      */
     @RequestMapping("/labArrangeListStatistics")
     @ResponseBody
+    @SystemControllerLog(description ="按照人员类型统计实验室的安排情况列表")
     public List<Map> labArrangeListStatistics(String csy010) throws Exception{
         List<Map> list=statisticService.labArrangeListStatistics(csy010);
         return list;

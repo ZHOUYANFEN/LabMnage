@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bysj.cqjtu.common.service.UserService;
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 
@@ -33,6 +34,7 @@ public class UserController {
      */
     @RequestMapping("/validateUser")
     @ResponseBody
+    @SystemControllerLog(description ="验证用户账号密码")
     public Map validateUser(@RequestBody Sy02 sy02,HttpSession session) throws Exception{
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         sy02.setCsy010(userMessage.getSy02().getCsy010());
@@ -47,6 +49,7 @@ public class UserController {
      */
     @RequestMapping("/changePassword")
     @ResponseBody
+    @SystemControllerLog(description ="修改密码")
     public Map changePassword(@RequestBody Sy02 sy02_new,HttpSession session) throws Exception{
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         sy02_new.setCsy010(userMessage.getSy02().getCsy010());
@@ -61,6 +64,7 @@ public class UserController {
      */
     @RequestMapping("/getUserMessage")
     @ResponseBody
+    @SystemControllerLog(description ="获取用户信息")
     public UserMessage getUserMessage(HttpSession session) throws Exception{
         UserMessage userMessage = (UserMessage) session.getAttribute("user");
         return userMessage;

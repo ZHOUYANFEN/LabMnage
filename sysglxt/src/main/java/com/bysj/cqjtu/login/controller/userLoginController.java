@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.login.constance.LoginConstance;
 import com.bysj.cqjtu.login.service.LoginService;
 import com.bysj.cqjtu.manager.domain.Sy02;
@@ -25,6 +26,7 @@ public class userLoginController {
     @Autowired
     private LoginService loginService;
     @RequestMapping("/tologin")
+    @SystemControllerLog(description ="登陆")
     public String login(Sy02 sy02, Model model,HttpSession session) {
         Subject subject = SecurityUtils.getSubject() ;
         UsernamePasswordToken token = new UsernamePasswordToken(sy02.getCsy021(),Md5Encoder.getMD5(sy02.getCsy022())) ;
@@ -47,11 +49,13 @@ public class userLoginController {
         }
     }
     @RequestMapping("/index")
+    @SystemControllerLog(description ="登陆成功")
     public String index() throws Exception{
         return "index";
     }
     
     @RequestMapping("/loginexp")
+    @SystemControllerLog(description ="退出")
     public String loginexp(HttpSession session) throws Exception{
         Enumeration em = session.getAttributeNames();
         while(em.hasMoreElements()){

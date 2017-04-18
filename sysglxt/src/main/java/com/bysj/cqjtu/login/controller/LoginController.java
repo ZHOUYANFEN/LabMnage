@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.login.constance.LoginConstance;
 import com.bysj.cqjtu.login.service.LoginService;
 import com.bysj.cqjtu.manager.domain.Sy02;
@@ -41,6 +42,7 @@ public class LoginController {
      */
     @RequestMapping("/toLogin")
     @ResponseBody
+    @SystemControllerLog(description ="登陆")
     public Map login(@Validated @RequestBody Sy02 sy02,HttpSession session) throws Exception{
        List<Sy02> loginList=loginService.login(sy02);
        Map map=new HashMap();
@@ -69,6 +71,7 @@ public class LoginController {
      */
     @RequestMapping("/logout")
     @ResponseBody
+    @SystemControllerLog(description ="退出")
     public Map logout(HttpSession session)throws Exception{
        Enumeration em = session.getAttributeNames();
        while(em.hasMoreElements()){

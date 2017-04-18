@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.domain.Sy10;
 import com.bysj.cqjtu.manager.domain.Sy11;
 import com.bysj.cqjtu.manager.service.LabService;
@@ -34,6 +35,7 @@ public class LabController {
      */
     @RequestMapping("/queryLabType")
     @ResponseBody
+    @SystemControllerLog(description ="查询实验室类型")
     public List<Map> queryLabType() throws Exception{
         List<Map> list=labService.queryLabType();
         return list;
@@ -45,6 +47,7 @@ public class LabController {
      */
     @RequestMapping("/queryLabList")
     @ResponseBody
+    @SystemControllerLog(description ="查询对应类型下的实验室列表")
     public List<Map> queryLabList(String csy100) throws Exception{
         List<Map> list=labService.queryLabList(csy100);
         return list;
@@ -56,6 +59,7 @@ public class LabController {
      */
     @RequestMapping("/addLab")
     @ResponseBody
+    @SystemControllerLog(description ="添加实验室信息")
     public Map addLab(@RequestBody Sy11 sy11) throws Exception{
         Map map=labService.addLab(sy11);
         return map;
@@ -67,6 +71,7 @@ public class LabController {
      */
     @RequestMapping("/deleteBatch")
     @ResponseBody
+    @SystemControllerLog(description ="删除实验室信息")
     public Map deleteBatch(String ids) throws Exception{
         Map map=labService.deleteBatch(ids);
         return map;
@@ -78,6 +83,7 @@ public class LabController {
      */
     @RequestMapping("/queryLab")
     @ResponseBody
+    @SystemControllerLog(description ="查询实验室具体信息")
     public Map queryLab(String csy110) throws Exception{
         Map map=labService.queryLab(csy110);
         return map;
@@ -89,6 +95,7 @@ public class LabController {
      */
     @RequestMapping("/updateLab")
     @ResponseBody
+    @SystemControllerLog(description ="修改实验室具体信息")
     public Map updateLab(@RequestBody Sy11 sy11) throws Exception{
         Map map=labService.updateLab(sy11);
         return map;
@@ -100,6 +107,7 @@ public class LabController {
      */
     @RequestMapping("/validateCsy101")
     @ResponseBody
+    @SystemControllerLog(description ="验证实验室类型是否存在")
     public Map validateCsy101(String csy101) throws Exception{
         Map map=labService.validateCsy101(csy101);
         return map;
@@ -109,6 +117,7 @@ public class LabController {
      * @return
      * @throws Exception
      */
+    @SystemControllerLog(description ="添加实验室类型")
     @RequestMapping("/addCsy101")
     @ResponseBody
     public Map addCsy101(@RequestBody Sy10 sy10) throws Exception{
@@ -122,6 +131,7 @@ public class LabController {
      */
     @RequestMapping("/deleteType")
     @ResponseBody
+    @SystemControllerLog(description ="删除实验室类型")
     public Map deleteType(String csy100) throws Exception{
         Map map=labService.deleteType(csy100);
         return map;
@@ -133,6 +143,7 @@ public class LabController {
      */
     @RequestMapping("/validateIsOkDelete")
     @ResponseBody
+    @SystemControllerLog(description ="判断实验室类型是否可以删除")
     public Map validateIsOkDelete(String csy100) throws Exception{
         Map map=labService.validateIsOkDelete(csy100);
         return map;
@@ -144,6 +155,7 @@ public class LabController {
      */
     @RequestMapping("/updateType")
     @ResponseBody
+    @SystemControllerLog(description ="修改实验室类型")
     public Map updateType(@RequestBody Sy10 sy10) throws Exception{
         Map map=labService.updateType(sy10);
         return map;
@@ -156,6 +168,7 @@ public class LabController {
      */
     @RequestMapping("/validateLab")
     @ResponseBody
+    @SystemControllerLog(description ="验证实验室是否存在")
     public Map validateLab(@RequestBody Sy11 sy11) throws Exception{
         Map map=labService.validateLab(sy11);
         return map;
@@ -167,6 +180,7 @@ public class LabController {
      */
     @RequestMapping("/queryLabApply")
     @ResponseBody
+    @SystemControllerLog(description ="查询所有的实验室申请")
     public PageEntity<Map> queryLabApply(Integer pageNum,Integer pageSize) throws Exception{
         return labService.queryLabApply(pageNum,pageSize);
     }
@@ -177,6 +191,7 @@ public class LabController {
      */
     @RequestMapping("/queryLabApplyCount")
     @ResponseBody
+    @SystemControllerLog(description ="获取实验申请数量")
     public Map queryLabApplyCount() throws Exception{
         int i=labService.queryLabApplyCount();
         Map map=new HashMap();

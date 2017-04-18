@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.index.domain.Sy15;
 import com.bysj.cqjtu.index.service.MenuService;
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.util.PageEntity;
 /**
@@ -37,6 +38,7 @@ public class MenuController {
      */
     @RequestMapping("/queryMenu")
     @ResponseBody
+    @SystemControllerLog(description ="查询父级菜单")
     public List<Sy15> queryMenu(int csy010) throws Exception{
         List list=menuService.queryMenu(csy010);
         return list;
@@ -49,6 +51,7 @@ public class MenuController {
      */
     @RequestMapping("/selectMenu")
     @ResponseBody
+    @SystemControllerLog(description ="查询子级菜单")
     public List<Sy15> selectMenu(int csy155) throws Exception{
         List list=menuService.queryMenuChilde(csy155);
         return list;
@@ -60,6 +63,7 @@ public class MenuController {
      */
     @RequestMapping("/queryAllMenu")
     @ResponseBody
+    @SystemControllerLog(description ="查询所有菜单")
     public PageEntity<Sy15> queryAllMenu(Integer pageNum,Integer pageSize) throws Exception{
         PageEntity<Sy15> pageBean=menuService.queryAllMenu(pageNum,pageSize);
         return pageBean;
@@ -72,6 +76,7 @@ public class MenuController {
      */
     @RequestMapping("/deleteMenuByCsy150")
     @ResponseBody
+    @SystemControllerLog(description ="按照id删除菜单功能")
     public Map deleteMenuByCsy150(int csy150) throws Exception{
         boolean deleteFlag=menuService.deleteMenuByCsy150(csy150);
         Map map=new HashMap();
@@ -90,6 +95,7 @@ public class MenuController {
      */
     @RequestMapping("/deleteMenuBatch")
     @ResponseBody
+    @SystemControllerLog(description ="批量删除菜单")
     public Map deleteMenuBatch(String ids) throws Exception{
         String []arr=ids.split(",");
         boolean deleteFlag;
@@ -115,6 +121,7 @@ public class MenuController {
      */
     @RequestMapping("/getCsy010")
     @ResponseBody
+    @SystemControllerLog(description ="获取人员类型")
     public List<Sy01> getCsy010() throws Exception{        
         return menuService.queryCsy010();
         
@@ -127,6 +134,7 @@ public class MenuController {
      */
     @RequestMapping("/queryMenuByCondition")    
     @ResponseBody
+    @SystemControllerLog(description ="按照条件查询功能菜单")
     public List<Sy15> queryMenuByCondition(@RequestBody Sy15 sy15) throws Exception{
         List<Sy15> list=menuService.queryMenuByCondition(sy15);
         return list;
@@ -138,6 +146,7 @@ public class MenuController {
      */
     @RequestMapping("/getParentMenu")    
     @ResponseBody
+    @SystemControllerLog(description ="获取父级菜单")
     public List<Sy15> getParentMenu(Integer csy010) throws Exception{
         return menuService.queryParentMenu(csy010);
     }
@@ -149,6 +158,7 @@ public class MenuController {
      */
     @RequestMapping("/savaMenu")    
     @ResponseBody
+    @SystemControllerLog(description ="保存菜单信息")
     public Map savaMenu(@RequestBody Sy15 sy15) throws Exception{
         boolean saveFlage= menuService.saveMenu(sy15);
         Map map= new HashMap<>();
@@ -167,17 +177,19 @@ public class MenuController {
      */
     @RequestMapping("/changeMenu")    
     @ResponseBody
+    @SystemControllerLog(description ="修改菜单信息")
     public String changeMenu(int csy150) throws Exception{
         return "menuoperate";
     }
     /**
-     * 修改菜单信息
+     * 获取用户信息
      * @param csy150
      * @return
      * @throws Exception
      */
     @RequestMapping("/getUserInfo")    
     @ResponseBody
+    @SystemControllerLog(description ="获取用户信息")
     public UserMessage getUserInfo(HttpSession session) throws Exception{
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         return userMessage;
@@ -189,6 +201,7 @@ public class MenuController {
      */
     @RequestMapping("/getMenuCount")    
     @ResponseBody
+    @SystemControllerLog(description ="获取菜单数量")
     public Map getMenuCount() throws Exception{
         int i=menuService.getMenuCount();
         Map map=new HashMap();

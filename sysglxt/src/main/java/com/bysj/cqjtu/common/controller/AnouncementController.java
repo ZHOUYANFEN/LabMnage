@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bysj.cqjtu.common.domain.Sy14;
 import com.bysj.cqjtu.common.service.AnouncementService;
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.util.PageEntity;
 
 @RequestMapping("/anouncement")
@@ -27,6 +28,7 @@ public class AnouncementController {
      */
     @RequestMapping("/queryanouncement")
     @ResponseBody
+    @SystemControllerLog(description ="获取公告|queryanouncement")
     public List<Sy14> queryanouncement() throws Exception{
         List<Sy14> list=anouncementService.queryanouncement();
         return list;
@@ -38,6 +40,7 @@ public class AnouncementController {
      */
     @RequestMapping("/getNewAnouncement")
     @ResponseBody
+    @SystemControllerLog(description ="获取最新公告")
     public Sy14 getNewAnouncement() throws Exception{
         Sy14 sy14=anouncementService.queryNewAnouncement();
         return sy14;
@@ -50,6 +53,7 @@ public class AnouncementController {
      */
     @RequestMapping("/queryAllanouncement")
     @ResponseBody
+    @SystemControllerLog(description ="查询所有公告")
     public PageEntity<Sy14> queryAllanouncement(Integer pageNum,Integer pageSize) throws Exception{
         return anouncementService.queryAllanouncement(pageNum,pageSize);
     }
@@ -60,6 +64,7 @@ public class AnouncementController {
      */
     @RequestMapping("/deleteanouncement")
     @ResponseBody
+    @SystemControllerLog(description ="删除公告")
     public Map deleteanouncement(String csy140) throws Exception{
         Map map =anouncementService.deleteanouncement(csy140);
         return map;
@@ -71,6 +76,7 @@ public class AnouncementController {
      */
     @RequestMapping("/deleteBatch")
     @ResponseBody
+    @SystemControllerLog(description ="批量删除公告")
     public Map deleteBatch(String ids) throws Exception{
         Map map =anouncementService.deleteBatch(ids);
         return map;
@@ -82,6 +88,7 @@ public class AnouncementController {
      */
     @RequestMapping("/saveAnoucement")
     @ResponseBody
+    @SystemControllerLog(description ="添加公告")
     public Map saveAnoucement(@RequestBody Sy14 sy14) throws Exception{
         Map map =anouncementService.saveAnoucement(sy14);
         return map;
@@ -93,6 +100,7 @@ public class AnouncementController {
      */
     @RequestMapping("/detailanouncement")
     @ResponseBody
+    @SystemControllerLog(description ="公告详情")
     public Sy14 detailanouncement(String csy140) throws Exception{
         Sy14 sy14=anouncementService.detailanouncement(csy140);
         return sy14;
@@ -104,6 +112,7 @@ public class AnouncementController {
      */
     @RequestMapping("/getAnouncementCount")
     @ResponseBody
+    @SystemControllerLog(description ="查询公告数量")
     public Map getAnouncementCount() throws Exception{
         int i= anouncementService.getAnouncementCount();
         Map map=new HashMap();

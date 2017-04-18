@@ -54,7 +54,7 @@ public class UserManagerController {
      */
     @RequestMapping("/getAllUser")
     @ResponseBody
-    @SystemControllerLog(description = "获取用户信息") 
+    @SystemControllerLog(description = "获取用户信息|getAllUser") 
     public PageEntity<Map> getAllUser(Integer pageNum, Integer pageSize)throws Exception{
         return userManagerService.queryAllUser(pageNum,pageSize);
     }
@@ -66,6 +66,7 @@ public class UserManagerController {
      */
     @RequestMapping("/deleteUser") 
     @ResponseBody 
+    @SystemControllerLog(description = " 删除用户信息|deleteUser")
     public Map deleteUser(int csy020)throws Exception{
        boolean deleteFlag=userManagerService.deleteUser(csy020);
        Map map=new HashMap();
@@ -83,7 +84,8 @@ public class UserManagerController {
      * @throws Exception
      */
     @RequestMapping("/deleteUserBatch")
-    @ResponseBody
+    @ResponseBody    
+    @SystemControllerLog(description = " 批量删除用户信息|deleteUserBatch")
     public Map deleteUserBatch(String ids) throws Exception{
         String []arr=ids.split(",");
         boolean deleteFlag;
@@ -110,6 +112,7 @@ public class UserManagerController {
      */
     @RequestMapping("/queryMenuByCondition")
     @ResponseBody
+    @SystemControllerLog(description = "按条件查询用户|queryMenuByCondition")
     public List<Sy02> queryMenuByCondition(@RequestBody Sy02 sy02) throws Exception{
         List<Sy02> list=userManagerService.queryMenuByCondition(sy02);
         return list;
@@ -122,6 +125,7 @@ public class UserManagerController {
      */
     @RequestMapping("/addUser")
     @ResponseBody
+    @SystemControllerLog(description = "添加用户|addUser")
     public Map addUser(@RequestBody UserMessage userMessage) throws Exception{
         Map map=userManagerService.addUser(userMessage);
         return map;
@@ -134,6 +138,7 @@ public class UserManagerController {
      */
     @RequestMapping("/readExcel")
     @ResponseBody
+    @SystemControllerLog(description = " 读取文件|readExcel")
     public List readExcel(@RequestParam MultipartFile[] btnFile, HttpServletRequest request, HttpServletResponse response,Integer csy010)throws Exception{
         //文件类型:btnFile[0].getContentType()  
         //文件名称:btnFile[0].getName()
@@ -238,6 +243,7 @@ public class UserManagerController {
      * @throws Exception
      */
     @RequestMapping("/downloadExampl")
+    @SystemControllerLog(description = " 下载文件|downloadExampl")
     public void  downloadExampl(HttpServletResponse response,HttpServletRequest request)throws Exception{
         String realPath = getClass().getResource("/").getFile().toString().substring(1);//获取当前项目的路径
         String fileName = "/exaplefile/上传用户信息模板.xls";
@@ -271,6 +277,7 @@ public class UserManagerController {
      */
     @RequestMapping("/userDetail")
     @ResponseBody
+    @SystemControllerLog(description = " 查询用户详细信息|userDetail")
     public Map userDetail(@RequestBody Sy02 sy02) throws Exception{
         Map map=userManagerService.getUserMessage(sy02);
         return map;
@@ -284,6 +291,7 @@ public class UserManagerController {
      */
     @RequestMapping("/addUserBacth")
     @ResponseBody
+    @SystemControllerLog(description = " 批量保存用户信息|addUserBacth")
     public Map addUserBacth(Integer csy010,@RequestBody UserMessage[] userMessage)throws Exception{
         Map map=new HashMap();
         for (UserMessage userMessage2 : userMessage) {
@@ -299,6 +307,7 @@ public class UserManagerController {
      */
     @RequestMapping("/updateUser")
     @ResponseBody
+    @SystemControllerLog(description = " 更新用户信息|updateUser")
     public Map updateUser(@RequestBody UserMessage userMessage) throws Exception{
         Map map=userManagerService.updateUser(userMessage);
         return map;
@@ -311,6 +320,7 @@ public class UserManagerController {
      */
     @RequestMapping("/validateCsy042")
     @ResponseBody
+    @SystemControllerLog(description = " 验证输入的学院信息|validateCsy042")
     public Map validateCsy042(String csy042) throws Exception{
         Map map=userManagerService.validateCsy042(csy042);
         return map;
@@ -324,6 +334,7 @@ public class UserManagerController {
      */
     @RequestMapping("/validateCsy043")
     @ResponseBody
+    @SystemControllerLog(description = " 验证输入的班级信息|validateCsy043")
     public Map validateCsy043(String csy043) throws Exception{
         Map map=userManagerService.validateCsy043(csy043);
         return map;
@@ -335,6 +346,7 @@ public class UserManagerController {
      */
     @RequestMapping("/getUserCount")
     @ResponseBody
+    @SystemControllerLog(description = " 获取用户的数量|getUserCount")
     public Map getUserCount() throws Exception{
         int i=userManagerService.getUserCount();
         Map map =new HashMap();

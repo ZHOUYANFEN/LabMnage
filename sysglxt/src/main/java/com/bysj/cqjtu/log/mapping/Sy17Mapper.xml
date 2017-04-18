@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bysj.cqjtu.log.dao.Sy17Mapper">
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.log.domain.Sy17">
+    <id column="CSY170" jdbcType="INTEGER" property="csy170" />
+    <result column="CSY171" jdbcType="VARCHAR" property="csy171" />
+    <result column="CSY172" jdbcType="VARCHAR" property="csy172" />
+    <result column="CSY173" jdbcType="VARCHAR" property="csy173" />
+    <result column="CSY174" jdbcType="VARCHAR" property="csy174" />
+    <result column="CSY175" jdbcType="VARCHAR" property="csy175" />
+    <result column="CSY176" jdbcType="VARCHAR" property="csy176" />
+    <result column="CSY177" jdbcType="VARCHAR" property="csy177" />
+    <result column="CSY178" jdbcType="VARCHAR" property="csy178" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CSY170, CSY171, CSY172, CSY173, CSY174, CSY175, CSY176, CSY177, CSY178
+  </sql>
+  
+  <!-- 插入日志表 -->
+  <insert id="addSy17" parameterType="com.bysj.cqjtu.log.domain.Sy17">
+    insert into sy17 (CSY171, 
+                      CSY172, 
+                      CSY173, 
+                      CSY174, 
+                      CSY175, 
+                      CSY176, 
+                      CSY177,
+                      CSY178
+                    )
+             values (#{csy171,jdbcType=VARCHAR}, 
+                     #{csy172,jdbcType=VARCHAR}, 
+                     #{csy173,jdbcType=VARCHAR}, 
+                     #{csy174,jdbcType=VARCHAR},
+                     #{csy175,jdbcType=VARCHAR}, 
+                     #{csy176,jdbcType=VARCHAR}, 
+                     #{csy177,jdbcType=VARCHAR}, 
+                     #{csy178,jdbcType=VARCHAR}
+                    )
+  </insert>
+  <!-- 查询日志 -->
+  <select id="querySy17"  resultType="com.bysj.cqjtu.log.domain.Sy17">
+    select *
+      from sy17
+  order by csy174
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sy17
+    where CSY170 = #{csy170,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sy17
+    where CSY170 = #{csy170,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.log.domain.Sy17">
+    insert into sy17 (CSY170, CSY171, CSY172, 
+      CSY173, CSY174, CSY175, 
+      CSY176, CSY177, CSY178
+      )
+    values (#{csy170,jdbcType=INTEGER}, #{csy171,jdbcType=VARCHAR}, #{csy172,jdbcType=VARCHAR}, 
+      #{csy173,jdbcType=VARCHAR}, #{csy174,jdbcType=VARCHAR}, #{csy175,jdbcType=VARCHAR}, 
+      #{csy176,jdbcType=VARCHAR}, #{csy177,jdbcType=VARCHAR}, #{csy178,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.log.domain.Sy17">
+    insert into sy17
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="csy170 != null">
+        CSY170,
+      </if>
+      <if test="csy171 != null">
+        CSY171,
+      </if>
+      <if test="csy172 != null">
+        CSY172,
+      </if>
+      <if test="csy173 != null">
+        CSY173,
+      </if>
+      <if test="csy174 != null">
+        CSY174,
+      </if>
+      <if test="csy175 != null">
+        CSY175,
+      </if>
+      <if test="csy176 != null">
+        CSY176,
+      </if>
+      <if test="csy177 != null">
+        CSY177,
+      </if>
+      <if test="csy178 != null">
+        CSY178,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="csy170 != null">
+        #{csy170,jdbcType=INTEGER},
+      </if>
+      <if test="csy171 != null">
+        #{csy171,jdbcType=VARCHAR},
+      </if>
+      <if test="csy172 != null">
+        #{csy172,jdbcType=VARCHAR},
+      </if>
+      <if test="csy173 != null">
+        #{csy173,jdbcType=VARCHAR},
+      </if>
+      <if test="csy174 != null">
+        #{csy174,jdbcType=VARCHAR},
+      </if>
+      <if test="csy175 != null">
+        #{csy175,jdbcType=VARCHAR},
+      </if>
+      <if test="csy176 != null">
+        #{csy176,jdbcType=VARCHAR},
+      </if>
+      <if test="csy177 != null">
+        #{csy177,jdbcType=VARCHAR},
+      </if>
+      <if test="csy178 != null">
+        #{csy178,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.log.domain.Sy17">
+    update sy17
+    <set>
+      <if test="csy171 != null">
+        CSY171 = #{csy171,jdbcType=VARCHAR},
+      </if>
+      <if test="csy172 != null">
+        CSY172 = #{csy172,jdbcType=VARCHAR},
+      </if>
+      <if test="csy173 != null">
+        CSY173 = #{csy173,jdbcType=VARCHAR},
+      </if>
+      <if test="csy174 != null">
+        CSY174 = #{csy174,jdbcType=VARCHAR},
+      </if>
+      <if test="csy175 != null">
+        CSY175 = #{csy175,jdbcType=VARCHAR},
+      </if>
+      <if test="csy176 != null">
+        CSY176 = #{csy176,jdbcType=VARCHAR},
+      </if>
+      <if test="csy177 != null">
+        CSY177 = #{csy177,jdbcType=VARCHAR},
+      </if>
+      <if test="csy178 != null">
+        CSY178 = #{csy178,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CSY170 = #{csy170,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.log.domain.Sy17">
+    update sy17
+    set CSY171 = #{csy171,jdbcType=VARCHAR},
+      CSY172 = #{csy172,jdbcType=VARCHAR},
+      CSY173 = #{csy173,jdbcType=VARCHAR},
+      CSY174 = #{csy174,jdbcType=VARCHAR},
+      CSY175 = #{csy175,jdbcType=VARCHAR},
+      CSY176 = #{csy176,jdbcType=VARCHAR},
+      CSY177 = #{csy177,jdbcType=VARCHAR},
+      CSY178 = #{csy178,jdbcType=VARCHAR}
+    where CSY170 = #{csy170,jdbcType=INTEGER}
+  </update>
+ 
+</mapper>

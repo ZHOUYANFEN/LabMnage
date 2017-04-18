@@ -1,9 +1,11 @@
 package com.bysj.cqjtu.student.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.domain.Sy07;
@@ -54,6 +52,7 @@ public class StudentController {
      */
     @RequestMapping("/syllabus")
     @ResponseBody
+    @SystemControllerLog(description ="获取课程表")
     public  PageEntity<Map> getSyllabus(HttpSession session,Integer pageNum,Integer pageSize) throws Exception{
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
@@ -70,6 +69,7 @@ public class StudentController {
      */
     @RequestMapping("/queryExpArrange")
     @ResponseBody
+    @SystemControllerLog(description ="获取实验安排的科目")
     public List<Map> queryExpArrange(HttpSession session) throws Exception{
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
@@ -86,6 +86,7 @@ public class StudentController {
      */
     @RequestMapping("/queryExpArrangeList")
     @ResponseBody
+    @SystemControllerLog(description ="获取具体实验安排")
     public List<Sy08> queryExpArrangeList(HttpSession session,String csy060) throws Exception{
       //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");        
@@ -104,6 +105,7 @@ public class StudentController {
      */
     @RequestMapping("/queryExpArrangeContent")
     @ResponseBody
+    @SystemControllerLog(description =" 获取实验内容")
     public List<Map> queryExpArrangeContent(HttpSession session,Integer csy080) throws Exception{
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
@@ -122,6 +124,7 @@ public class StudentController {
      */
     @RequestMapping("/saveExp")
     @ResponseBody
+    @SystemControllerLog(description =" 保存实验完成内容")
     public Map saveExp(HttpSession session,@RequestBody Sy09 sy09) throws Exception{
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
@@ -175,6 +178,7 @@ public class StudentController {
      */
     @RequestMapping("/uploadReport")
     @ResponseBody
+    @SystemControllerLog(description =" 上传实验报告")
     public Map uploadReport(@RequestParam MultipartFile btnFile, HttpServletRequest request, HttpServletResponse response) throws Exception{
         InputStream is = btnFile.getInputStream();//多文件也适用,我这里就一个文件  
         byte[] b = new byte[(int)btnFile.getSize()];  
@@ -203,6 +207,7 @@ public class StudentController {
      */
     @RequestMapping("/saveReport")
     @ResponseBody
+    @SystemControllerLog(description =" 保存实验报告")
     public Map saveReport(HttpSession session,String csy080) throws Exception{
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");        
@@ -252,6 +257,7 @@ public class StudentController {
      */
     @RequestMapping("/queryResourceList")
     @ResponseBody
+    @SystemControllerLog(description =" 查看资源列表")
     public List<Map>  queryResourceList(String csy160) throws Exception{
         List<Map> list=studentService.queryResourceList(csy160);
         return list;
@@ -264,6 +270,7 @@ public class StudentController {
      */
     @RequestMapping("/queryResourceDetail")
     @ResponseBody
+    @SystemControllerLog(description =" 查看资源详细信息")
     public Sy13 queryResourceDetail(Integer csy130) throws Exception{
         Sy13 sy13=new Sy13();
         sy13.setCsy130(csy130);
@@ -275,18 +282,36 @@ public class StudentController {
      * @throws Exception
      */
     @RequestMapping("/download")
-    public ResponseEntity<byte[]>  download(Integer csy130) throws Exception{
-        Sy13 sy13=new Sy13();
+    @SystemControllerLog(description =" 下载资源")
+    public void  download(HttpServletResponse response,HttpServletRequest request,Integer csy130) throws Exception{
+       /* Sy13 sy13=new Sy13();
         sy13.setCsy130(csy130);
         Sy13 resultSy13=studentService.queryResourceDetail(sy13);
         //springmvc的方法
         String file=resultSy13.getCsy134();
         String fileName=file.substring(file.lastIndexOf("/"));
-       /* String dfileName = new String(fileName.getBytes("utf-8"), "utf-8"); */
+        String dfileName = new String(fileName.getBytes("utf-8"), "utf-8"); 
         HttpHeaders headers = new HttpHeaders(); 
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM); 
         headers.setContentDispositionFormData("attachment", fileName); 
-        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(file)), headers, HttpStatus.CREATED);        
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(file)), headers, HttpStatus.CREATED); */
+        
+        Sy13 sy13=new Sy13();
+        sy13.setCsy130(csy130);
+        Sy13 resultSy13=studentService.queryResourceDetail(sy13);
+        String file=resultSy13.getCsy134();
+        String fileName=file.substring(file.lastIndexOf("/"));
+        //设置content-disposition响应头控制浏览器以下载的形式打开文件，中文文件名要使用URLEncoder.encode方法进行编码，否则会出现文件名乱码  
+        response.setContentType("application/octet-stream; charset=utf-8");
+        response.setHeader("content-disposition", "attachment;filename="+URLEncoder.encode("模板.xls", "UTF-8"));  
+        InputStream in = new FileInputStream(file);//获取文件输入流  
+        int len = 0;  
+        byte[] buffer = new byte[1024];  
+        OutputStream out = response.getOutputStream();  
+        while ((len = in.read(buffer)) > 0) {  
+            out.write(buffer,0,len);//将缓冲区的数据输出到客户端浏览器  
+        }  
+        in.close();  
     }
     /**
      * 查询成绩的数量
@@ -295,6 +320,7 @@ public class StudentController {
      */
     @RequestMapping("/getCount")
     @ResponseBody
+    @SystemControllerLog(description =" 查询成绩的数量")
     public Map getCount(HttpSession session) throws Exception{
        //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
@@ -313,6 +339,7 @@ public class StudentController {
      */
     @RequestMapping("/querySyllabusCount")
     @ResponseBody
+    @SystemControllerLog(description =" 查询课程表的数量")
     public Map querySyllabusCount(HttpSession session) throws Exception{
       //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");              
