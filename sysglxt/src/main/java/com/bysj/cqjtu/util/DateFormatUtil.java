@@ -7,7 +7,10 @@ import java.util.Date;
 
 /**
  * 日期格式化工具类
- * */
+ * @author fuzhengjun
+ *2017年4月18日下午1:58:15
+ *
+ */
 public class DateFormatUtil {
 	static final String COMMON_TIME_PATTERN = "HH:mm";
 	static final String COMMON_DATE_PATTERN = "yyyy-MM-dd";

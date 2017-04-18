@@ -74,9 +74,9 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     批量增加
         </button>
-         <button type="button" class="btn btn-default" aria-label="Left Align"  onclick="downloadExampl()">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-                    模板下载
+         <button type="button" class="btn btn-default" aria-label="Left Align"  >
+            <a href="${pageContext.request.contextPath}/userManager/downloadExampl"><span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                    模板下载</a>
         </button>
         <!--  <button type="button" class="btn btn-default" aria-label="Left Align" onclick="uploadFile()">
             <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
@@ -505,18 +505,6 @@ $(function(){
 		 }else{
 			 sweetAlert("暂时不支持ie浏览器");
 		 }
-	}
-	/*下载 批量上传用户信息的模板*/
-	function downloadExampl(){
-		 $.ajax({
-	            type:"POST",
-	            url:"${pageContext.request.contextPath}/userManager/downloadExampl",
-	            async: false,
-	            success:function(data){
-	            	console.log(data);
-	            	sweetAlert("下载成功");
-	            }
-		 });
 	}
 	/*设置添加信息的div*/
 	function setdiv(){
