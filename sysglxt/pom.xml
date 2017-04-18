@@ -319,6 +319,13 @@
                 <artifactId>pagehelper</artifactId>
                 <version>4.1.6</version>
             </dependency>
+            
+            <dependency>
+			    <groupId>com.thoughtworks.xstream</groupId>
+			    <artifactId>xstream</artifactId>
+			    <version>1.4.7</version>
+			</dependency>
+            
 </dependencies>       
   
 </project>
