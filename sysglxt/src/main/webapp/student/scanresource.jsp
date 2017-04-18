@@ -93,8 +93,8 @@
           <div class="modal-body" style="height:500px">
             <h2 align='center' id='csy131'></h2>
             <input id='csy130' hidden='hidden' >
-            <span style='font-size:12px' id='csy133'></span>
-            <div style='font-size:12px;margin-top:10px;margin-left:140px' id='csy134_div'>
+            <span style='font-size:12px;margin-left:50px' id='csy133'></span>
+            <div style='font-size:12px;margin-top:10px;margin-left:300px' id='csy134_div'>
                   
                   
             </div>
@@ -200,11 +200,11 @@
                      $("#csy133").text(data.csy133);
                      $("#csy134_div").empty();
                      if((type=='mp4')||(type=='WebM')||(type=='ogg')){
-                    	 $("#csy134_div").append("<video id='csy134_video' class='video-js' controls preload='auto' width='640px' height='300px' data-setup='{}'>"
+                    	 $("#csy134_div").append("<video id='csy134_video' class='video-js' controls preload='auto' width='640' height='300' data-setup='{}'>"
                                  +" <source src='"+data.csy134+"' type='video/mp4'>"                   
                                  +"</video>");
                     }else{
-                    	$("#csy134_div").append("<div style='width:180px;height:170px'>"
+                    	$("#csy134_div").append("<div style='width:180px;height:170px;margin-left:50px'>"
                     			                +"<img src='${pageContext.request.contextPath}/resources/file/"+type.toLowerCase()+".png' alt='' width='180px' height='170px' />"
                     			                +"</div>");
                     }
