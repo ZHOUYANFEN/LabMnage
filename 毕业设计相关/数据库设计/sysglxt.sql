@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-17 22:13:35
+Date: 2017-04-18 22:53:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `aa10` (
   `AAA104` tinyint(2) DEFAULT '0' COMMENT '删除标记',
   `AAA105` varchar(30) DEFAULT '' COMMENT '预留字段',
   PRIMARY KEY (`AAA100`,`AAA102`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典表';
 
 -- ----------------------------
 -- Records of aa10
@@ -52,7 +52,7 @@ CREATE TABLE `sy01` (
   `CSY011` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '人员类型名称',
   `CSY012` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标志',
   PRIMARY KEY (`CSY010`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='人员类型表';
 
 -- ----------------------------
 -- Records of sy01
@@ -75,7 +75,7 @@ CREATE TABLE `sy02` (
   PRIMARY KEY (`CSY020`),
   KEY `FK_Relationship_1` (`CSY010`),
   CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`CSY010`) REFERENCES `sy01` (`CSY010`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
 
 -- ----------------------------
 -- Records of sy02
@@ -95,6 +95,7 @@ INSERT INTO `sy02` VALUES ('36', '1', '005', 'ce08becc73195df12d99d761bfbba68d',
 INSERT INTO `sy02` VALUES ('37', '4', '7788', '866c7ee013c58f01fa153a8d32c9ed57', '0');
 INSERT INTO `sy02` VALUES ('38', '3', '2111', '1a0a283bfe7c549dee6c638a05200e32', '0');
 INSERT INTO `sy02` VALUES ('39', '2', 'teacher001', '6b6b219e992318c632c912f7f175792f', '0');
+INSERT INTO `sy02` VALUES ('40', '1', 'fuzj1', '683d8f8723b173859b5a96714c9a222e', '0');
 
 -- ----------------------------
 -- Table structure for sy03
@@ -106,7 +107,7 @@ CREATE TABLE `sy03` (
   `CSY031` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '姓名',
   `CSY032` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '职称',
   PRIMARY KEY (`CSY030`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='科研人员表';
 
 -- ----------------------------
 -- Records of sy03
@@ -128,17 +129,18 @@ CREATE TABLE `sy04` (
   `CSY042` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '学院',
   `CSY043` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '班级',
   PRIMARY KEY (`CSY040`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='学生表';
 
 -- ----------------------------
 -- Records of sy04
 -- ----------------------------
-INSERT INTO `sy04` VALUES ('32', '001', '测试学生', '0', '0');
-INSERT INTO `sy04` VALUES ('36', '005', '学生005', '0', '1');
-INSERT INTO `sy04` VALUES ('1', '1111', '1111', '1', '0');
-INSERT INTO `sy04` VALUES ('17', '11111', '张三', '1', '1');
-INSERT INTO `sy04` VALUES ('31', '631306050210', '付政俊44', '0', '1');
-INSERT INTO `sy04` VALUES ('2', '631306050218', '付政俊', '0', '1');
+INSERT INTO `sy04` VALUES ('32', '001', '测试学生', '信息科学与工程学院', '计软1302班');
+INSERT INTO `sy04` VALUES ('36', '005', '学生005', '信息科学与工程学院', '计软1302班');
+INSERT INTO `sy04` VALUES ('1', '1111', '1111', '信息科学与工程学院', '计软1302班');
+INSERT INTO `sy04` VALUES ('17', '11111', '张三', '信息科学与工程学院', '计软1302班');
+INSERT INTO `sy04` VALUES ('40', '22222', 'fuzj1', '信息科学与工程学院', '计软1302班');
+INSERT INTO `sy04` VALUES ('31', '631306050210', '付政俊44', '信息科学与工程学院', '计软1302班');
+INSERT INTO `sy04` VALUES ('2', '631306050218', '付政俊', '信息科学与工程学院', '计软1302班');
 
 -- ----------------------------
 -- Table structure for sy05
@@ -151,7 +153,7 @@ CREATE TABLE `sy05` (
   `CSY052` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '学院',
   `CSY053` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '职称',
   PRIMARY KEY (`CSY050`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='教师表';
 
 -- ----------------------------
 -- Records of sy05
@@ -182,7 +184,7 @@ CREATE TABLE `sy06` (
   `CSY069` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '班级',
   `CSY06A` varchar(30) CHARACTER SET utf8 DEFAULT NULL COMMENT '课程代码',
   PRIMARY KEY (`CSY060`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='课程表';
 
 -- ----------------------------
 -- Records of sy06
@@ -199,7 +201,7 @@ CREATE TABLE `sy07` (
   `CSY040` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '学号',
   `CSY060` varchar(15) COLLATE utf8_bin DEFAULT NULL COMMENT '课程ID',
   `CSY071` int(11) DEFAULT '0' COMMENT '成绩'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='成绩表';
 
 -- ----------------------------
 -- Records of sy07
@@ -224,7 +226,7 @@ CREATE TABLE `sy08` (
   `CSY084` date DEFAULT NULL COMMENT '完成时间',
   `CSY085` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY080`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验安排表';
 
 -- ----------------------------
 -- Records of sy08
@@ -248,7 +250,7 @@ CREATE TABLE `sy09` (
   `CSY090` int(11) NOT NULL AUTO_INCREMENT COMMENT '实验提交ID',
   `CSY095` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY090`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验完成表';
 
 -- ----------------------------
 -- Records of sy09
@@ -266,7 +268,7 @@ CREATE TABLE `sy10` (
   `CSY101` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '实验室类别名称',
   `CSY102` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY100`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验室类别表';
 
 -- ----------------------------
 -- Records of sy10
@@ -296,7 +298,7 @@ CREATE TABLE `sy11` (
   `CSY115` varchar(300) COLLATE utf8_bin DEFAULT '' COMMENT '实验室描述',
   `CSY116` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY110`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验室表';
 
 -- ----------------------------
 -- Records of sy11
@@ -332,7 +334,7 @@ CREATE TABLE `sy12` (
   `CSY126` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '安排时间',
   `CSY127` tinyint(4) DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY120`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验室安排表';
 
 -- ----------------------------
 -- Records of sy12
@@ -357,7 +359,7 @@ CREATE TABLE `sy13` (
   PRIMARY KEY (`CSY130`),
   KEY `CSY160` (`CSY160`),
   CONSTRAINT `sy13_ibfk_1` FOREIGN KEY (`CSY160`) REFERENCES `sy16` (`csy160`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='资源表';
 
 -- ----------------------------
 -- Records of sy13
@@ -377,7 +379,7 @@ CREATE TABLE `sy14` (
   `CSY144` date DEFAULT NULL COMMENT '公告截止时间',
   `CSY145` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY140`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='公告表';
 
 -- ----------------------------
 -- Records of sy14
@@ -403,7 +405,7 @@ CREATE TABLE `sy15` (
   `CSY156` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   `CSY157` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '页面元素ID',
   PRIMARY KEY (`CSY150`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of sy15
@@ -465,6 +467,7 @@ INSERT INTO `sy15` VALUES ('57', '2', '通知公告', 'openPage(\"common/announc
 INSERT INTO `sy15` VALUES ('58', '2', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', '');
 INSERT INTO `sy15` VALUES ('59', '0', '实验室管理', 'openPage(\"manager/labmanage.jsp\")', 'manager/labmanage.jsp', '2', '25', '0', '');
 INSERT INTO `sy15` VALUES ('60', '0', '菜单列表', 'openPage(\"manager/menulist.jsp\")', 'manager/menulist.jsp', '2', '21', '0', '');
+INSERT INTO `sy15` VALUES ('61', '4', '系统日志信息', 'openPage(\"manager/recorde.jsp\")', 'manager/recorde.jsp', '2', '25', '0', '');
 
 -- ----------------------------
 -- Table structure for sy16
@@ -475,7 +478,7 @@ CREATE TABLE `sy16` (
   `csy161` varchar(50) DEFAULT NULL COMMENT '资源类型名称',
   `csy162` tinyint(4) DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`csy160`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='资源类型表';
 
 -- ----------------------------
 -- Records of sy16
@@ -483,4 +486,26 @@ CREATE TABLE `sy16` (
 INSERT INTO `sy16` VALUES ('1', '工具类', '0');
 INSERT INTO `sy16` VALUES ('2', '学习视频', '0');
 INSERT INTO `sy16` VALUES ('3', '数据库', '0');
+
+-- ----------------------------
+-- Table structure for sy17
+-- ----------------------------
+DROP TABLE IF EXISTS `sy17`;
+CREATE TABLE `sy17` (
+  `CSY170` int(11) NOT NULL AUTO_INCREMENT COMMENT '日志id',
+  `CSY171` varchar(30) DEFAULT '' COMMENT '登陆用户',
+  `CSY172` varchar(30) DEFAULT '' COMMENT '访问方法',
+  `CSY173` varchar(30) DEFAULT '' COMMENT 'ip地址',
+  `CSY174` varchar(30) DEFAULT '' COMMENT '时间',
+  `CSY175` varchar(30) DEFAULT '' COMMENT '浏览器类型',
+  `CSY176` varchar(30) DEFAULT '' COMMENT '访问系统',
+  `CSY177` varchar(50) DEFAULT '' COMMENT '主机名称',
+  `CSY178` varchar(80) DEFAULT '' COMMENT 'mac地址',
+  PRIMARY KEY (`CSY170`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='日志信息';
+
+-- ----------------------------
+-- Records of sy17
+-- ----------------------------
+INSERT INTO `sy17` VALUES ('1', 'developer', '获取用户信息 getAllUser', '127.0.0.1', '2017-04-18 22:29:49', 'Chrome', null, '127.0.0.1', 'c4-36-55-6a-93-b1');
 SET FOREIGN_KEY_CHECKS=1;
