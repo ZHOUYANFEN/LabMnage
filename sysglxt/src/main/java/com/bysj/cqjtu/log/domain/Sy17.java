@@ -1,6 +1,8 @@
 package com.bysj.cqjtu.log.domain;
 
-public class Sy17 {
+import java.io.Serializable;
+
+public class Sy17 implements Serializable {
     private Integer csy170;
 
     private String csy171;

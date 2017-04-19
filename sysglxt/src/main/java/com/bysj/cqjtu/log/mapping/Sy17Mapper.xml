@@ -41,7 +41,7 @@
   <select id="querySy17"  resultType="com.bysj.cqjtu.log.domain.Sy17">
     select *
       from sy17
-  order by csy174
+  order by csy174 desc
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

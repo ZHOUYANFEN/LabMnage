@@ -61,7 +61,6 @@ public  class SystemLogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
         HttpSession session = request.getSession();
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
-
         Sy17 sy17 = new Sy17();
         if(userMessage!=null){
             sy17.setCsy171(userMessage.getSy02().getCsy021());
@@ -70,7 +69,7 @@ public  class SystemLogAspect {
         sy17.setCsy173(GetSystemUtil.getIpAddr(request));
         sy17.setCsy174(DateFormatUtil.getNewTime(1));
         sy17.setCsy175(GetSystemUtil.getRequestBrowserInfo(request));
-        sy17.setCsy176(GetSystemUtil.getRequestSystemInfo(request));
+        sy17.setCsy176(request.getHeader("user-agent"));
         sy17.setCsy177(GetSystemUtil.getHostName(GetSystemUtil.getIpAddr(request)));
         sy17.setCsy178(GetSystemUtil.getMacAddress(GetSystemUtil.getIpAddr(request)));
         sy17Mapper.addSy17(sy17);
