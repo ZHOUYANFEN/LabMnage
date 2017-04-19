@@ -8,9 +8,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -55,7 +55,7 @@ public  class SystemLogAspect {
      *  
      * @param joinPoint 切点  
      */
-    @Before("controllerAspect(),serviceAspect()") 
+    @After("controllerAspect()") 
     public  void doBefore(JoinPoint joinPoint) throws Exception {    
         String description=getControllerMethodDescription(joinPoint);
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
@@ -82,8 +82,7 @@ public  class SystemLogAspect {
      * @param e  
      */    
     @AfterThrowing(pointcut = "serviceAspect()", throwing = "e")    
-     public  void doAfterThrowing(JoinPoint joinPoint, Throwable e) {    
-        
+    public  void doAfterThrowing(JoinPoint joinPoint, Throwable e) {    
     }    
     
     

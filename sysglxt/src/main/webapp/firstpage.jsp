@@ -53,7 +53,7 @@
 <!--轮播图结束-->
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/carousel.js" type="text/javascript"></script>
- <div style="margin-top:50px;margin-left:200px">
+ <div style="margin-top:50px;">
 	<address>
 	  <h4 align='center'><strong>高校实验教学管理平台</strong><br></h4>
 	    <h5 align='center'>付政俊 软件二班 631306050218 <br></h5>

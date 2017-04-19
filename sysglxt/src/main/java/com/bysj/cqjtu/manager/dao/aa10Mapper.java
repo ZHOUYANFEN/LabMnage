@@ -22,4 +22,14 @@ public interface aa10Mapper {
     List<Map> validateCsy042(Map map);
 
     List validateCsy043(Map map);
+    /**
+     * 获取csy042
+     * @return
+     */
+    List<Map> queryCsy042();
+    /**
+     * 获取对应的csy043
+     * @return
+     */
+    List<Map> queryCsy043(String aaa105);
 }

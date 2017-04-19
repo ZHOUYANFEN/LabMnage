@@ -29,10 +29,23 @@
        and aaa100 = 'CSY043'
        and aaa103 = #{csy043}
   </select>
-  
-  
-  
-  
+  <!-- 获取学院 -->
+  <select id="queryCsy042"  resultType="java.util.HashMap">
+     select aaa102,
+            aaa103
+       from aa10
+     where aaa104 = 0
+       and aaa100 = 'CSY042'
+  </select>
+  <!--获取对应的班级  -->
+  <select id="queryCsy043" parameterType="String" resultType="java.util.HashMap">
+     select aaa102,
+            aaa103
+       from aa10
+     where aaa104 = 0
+       and aaa100 = 'CSY043'
+       and aaa105 = #{aaa105}
+  </select>
   
   
   

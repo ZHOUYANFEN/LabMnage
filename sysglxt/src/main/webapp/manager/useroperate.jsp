@@ -40,7 +40,7 @@
     <div id="button_querymenu" style="margin-top:30px;margin-left:60px">
         <div style="float:left;margin-right:30px">
             <label style="font-family:'黑体';font-size:16px">用户类型：</label>
-            <select style="width:122px;height:30px" id="csy010" onchange="setdiv()">              
+            <select style="width:122px;height:30px" id="csy010" onchange="setdiv(this)">              
             </select>     
         </div>                    
          <lable>用户名:</lable><input type="text" name="csy021" width="100px" id="csy021" maxlength="21">
@@ -52,8 +52,8 @@
          <div style="float:left; margin-top:10px" id="sy04_message">
 	          <lable>学号:</lable><input type="text" name="csy040" width="80px" id="csy040" maxlength="20" onchange="setSaveBtn()">
 	          <lable style="margin-left:37px"> 姓名:</lable><input type="text" name="csy041" width="80px" id="csy041" maxlength="20" onchange="setSaveBtn()">
-	          <lable> 学院:</lable><select type="text" name="csy042" width="80px" id="csy042" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy042(this)"></select> 
-	          <lable>班级:</lable><select type="text" name="csy043" width="80px" id="csy043" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy043(this)"></select> 
+	          <lable> 学院:</lable><select type="text" name="csy042" width="80px" id="csy042" maxlength="30" onchange="setCsy043(this)" ></select> 
+	          <lable>班级:</lable><select type="text" name="csy043" width="80px" id="csy043" maxlength="30" onchange="setSaveBtn()" style="width:120px" ></select> 
          </div>
          <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message">
               <lable style="margin-left:15px">姓名:</lable><input type="text" name="csy031" width="80px" id="csy031" maxlength="20" onchange="setSaveBtn()">
@@ -61,7 +61,7 @@
          </div> 
          <div style="float:left; margin-top:10px" hidden="hidden"  id="sy05_message">        
               <lable> 姓名:</lable><input type="text" name="csy051" width="80px" id="csy051" maxlength="20" onchange="setSaveBtn()">
-              <lable style="margin-left:37px"> 学院:</lable><select type="text" name="csy052" width="80px" id="csy052" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy042(this)"></select> 
+              <lable style="margin-left:37px"> 学院:</lable><select type="text" name="csy052" width="80px" id="csy052" maxlength="30" onchange="setSaveBtn()"></select> 
               <lable> 职称:</lable><input type="text" name="csy053" width="80px" id="csy053" maxlength="30" onchange="setSaveBtn()">
          </div>     
     </div>
@@ -117,7 +117,7 @@
 	        <div id="button_querymenu" style="margin-top:30px;margin-left:60px">
                 <div style="float:left;margin-right:30px">
                     <label style="font-family:'黑体';font-size:16px">用户类型：</label>
-                    <select style="width:122px;height:30px" id="csy010_model" onchange="setdiv()">              
+                    <select style="width:122px;height:30px" id="csy010_model" onchange="setdiv(this)">              
                     </select>     
                 </div>                    
 		         <lable>用户名:</lable><input type="text" name="csy021_model" width="100px" id="csy021_model" maxlength="21">
@@ -129,8 +129,8 @@
 		                  <lable> 姓名:</lable><input type="text" name="csy041_model" width="80px" id="csy041_model" maxlength="20" >
 		              </div>
 		              <div style="margin-left:100px;margin-top:10px">
-		                  <lable> 学院:</lable><input type="text" name="csy042_model" width="80px" id="csy042_model" maxlength="30" onblur="validateCsy042(this)">
-		                  <lable>班级:</lable><input type="text" name="csy043_model" width="80px" id="csy043_model" maxlength="30" onblur="validateCsy043(this)">
+		                  <lable> 学院:</lable><select type="text" name="csy042_model" width="80px" id="csy042_model" maxlength="30"></select>
+		                  <lable>班级:</lable><select type="text" name="csy043_model" width="80px" id="csy043_model" maxlength="30" ></select>
 		              </div>
 		         </div>
 		         <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message_model">
@@ -139,7 +139,7 @@
 		         </div> 
 		         <div style="float:left; margin-top:10px" hidden="hidden"  id="sy05_message_model">        
 		              <lable> 姓名:</lable><input type="text" name="csy051_model" width="80px" id="csy051_model" maxlength="20" >
-		              <lable > 学院:</lable><input type="text" name="csy052_model" width="80px" id="csy052_model" maxlength="30" onblur="validateCsy042(this)">
+		              <lable > 学院:</lable><select type="text" name="csy052_model" width="80px" id="csy052_model" maxlength="30" ></select>
 		              <lable> 职称:</lable><input type="text" name="csy053_model" width="80px" id="csy053_model" maxlength="30">
 		         </div>     
             </div>
@@ -158,6 +158,7 @@ $(function(){
 	pageSize=10;
 	getAllUser(1,pageSize);
 	getCsy010();
+	queryCsy042();
 	$.ajax({
         type:'POST',
         url:"${pageContext.request.contextPath}/userManager/getUserCount",
@@ -202,14 +203,51 @@ $(function(){
             url:"${pageContext.request.contextPath}/menu/getCsy010",
             success:function(data){
                 for(var i=0;i<data.length;i++){
-                	$("#csy010").append("<option value ='"+data[i].csy010+"'>"+data[i].csy011+" </option>");
-                	$("#csy010_model").append("<option value ='"+data[i].csy010+"'>"+data[i].csy011+" </option>");
+                	$("#csy010").append("<option value ='"+data[i].csy010+"' >"+data[i].csy011+" </option>");
+                	$("#csy010_model").append("<option value ='"+data[i].csy010+"' >"+data[i].csy011+" </option>");
                 	
                 }
             }
 		});
 	}
 	
+	/*获取学院*/
+    function queryCsy042(){
+        $("#csy042").empty();
+        $("#csy052").empty();
+        $("#csy042_model").empty();
+        $("#csy052_model").empty();
+        $.ajax({
+            type:'POST',
+            url:"${pageContext.request.contextPath}/aa10/queryCsy042",
+            success:function(data){
+            	 $("#csy042").append("<option>学院 </option>");
+                for(var i=0;i<data.length;i++){
+                    $("#csy042").append("<option value ='"+data[i].aaa102+"'>"+data[i].aaa103+" </option>");
+                    $("#csy052").append("<option value ='"+data[i].aaa102+"'>"+data[i].aaa103+" </option>");
+                    $("#csy042_model").append("<option value ='"+data[i].aaa102+"'>"+data[i].aaa103+" </option>");
+                    $("#csy052_model").append("<option value ='"+data[i].aaa102+"'>"+data[i].aaa103+" </option>");
+                    
+                }
+            }
+        });
+    }
+	function setCsy043(data){
+		setSaveBtn();
+		if(data.value){
+			var csy042_val = 'CSY042_'+data.value;
+			$.ajax({
+	            type:'POST',
+	            url:"${pageContext.request.contextPath}/aa10/queryCsy043?aaa105="+csy042_val,
+	            success:function(data){
+	            	 $("#csy043").empty();
+	            	 for(var i=0;i<data.length;i++){
+	            		   $("#csy043").append("<option value ='"+data[i].aaa103+"'>"+data[i].aaa103+" </option>");
+	            	 }
+	            }
+			});
+		}
+	}
 	/*设置全选及全不选*/
 	function setCheckbox(){
 		if($('#allcheck').is(':checked')){
@@ -294,8 +332,8 @@ $(function(){
             };
         var csy040=$("#csy040").val();
         var csy041=$("#csy041").val();
-        var csy042=$("#csy042").val();
-        var csy043=$("#csy043").val();
+        var csy042=$("#csy042").find("option:selected").text();
+        var csy043=$("#csy043").find("option:selected").text();
         var sy04={
         		"csy040":csy040,
                 "csy041":csy041,
@@ -309,8 +347,8 @@ $(function(){
                 "csy032":csy032
         };
         var csy051=$("#csy051").val();
-        var csy052=$("#csy052").val();
-        var csy053=$("#csy052").val();
+        var csy052=$("#csy052").find("option:selected").text();
+        var csy053=$("#csy053").val();
         var sy05={
                 "csy051":csy051,
                 "csy052":csy052,
@@ -398,19 +436,6 @@ $(function(){
             }
         });
 	}
-	/*上传文件*/
-	function uploadFile(){
-		var file=$("#file").val();
-		makerUpload(false,spAttach,1,file);
-	}
-	function spAttach(returnVal){
-        if (returnVal.files && returnVal.files.length > 0) {
-            $("#fk_files").empty();
-            $.each(returnVal.files,function(i, n) {               
-               
-            });
-        }
-    }
 	/*读取文件*/
 	function readExcel(){
 		var csy010=$("#csy010").val();
@@ -423,7 +448,6 @@ $(function(){
 		            type:"post",
 		            async : false,
 		            success:function(data){
-		            	console.log(data);
 		            	if(data=="filefail"){
 		            		sweetAlert("文件不符合要求，请重新上传");
 		            		return;
@@ -507,27 +531,31 @@ $(function(){
 		 }
 	}
 	/*设置添加信息的div*/
-	function setdiv(){
-		var csy010=$("#csy010").val();
-		setHidden(csy010);
+	function setdiv(data){
+		var csy010=data.value;
+	    if(data.id=='csy010'){
+	    	setHidden(csy010,'');
+	    }else if(data.id=='csy010_model'){
+	    	  setHidden(csy010,'_model');
+	    }
 	}
-	function setHidden(csy010){
+	function setHidden(csy010,flag){
 		if(csy010=="1"){
-            $("#sy04_message").attr("hidden",false);
-            $("#sy03_message").attr("hidden","hidden");
-            $("#sy05_message").attr("hidden","hidden");
+            $("#sy04_message"+flag).attr("hidden",false);
+            $("#sy03_message"+flag).attr("hidden","hidden");
+            $("#sy05_message"+flag).attr("hidden","hidden");
         } else if(csy010=="2"){
-            $("#sy04_message").attr("hidden","hidden");
-            $("#sy03_message").attr("hidden","hidden");
-            $("#sy05_message").attr("hidden",false);
+            $("#sy04_message"+flag).attr("hidden","hidden");
+            $("#sy03_message"+flag).attr("hidden","hidden");
+            $("#sy05_message"+flag).attr("hidden",false);
         }else if(csy010=="3"){
-            $("#sy04_message").attr("hidden","hidden");
-            $("#sy03_message").attr("hidden",false);
-            $("#sy05_message").attr("hidden","hidden");
+            $("#sy04_message"+flag).attr("hidden","hidden");
+            $("#sy03_message"+flag).attr("hidden",false);
+            $("#sy05_message"+flag).attr("hidden","hidden");
         }else{
-            $("#sy04_message").attr("hidden","hidden");
-            $("#sy03_message").attr("hidden","hidden");
-            $("#sy05_message").attr("hidden","hidden");
+            $("#sy04_message"+flag).attr("hidden","hidden");
+            $("#sy03_message"+flag).attr("hidden","hidden");
+            $("#sy05_message"+flag).attr("hidden","hidden");
         }
 	}
 	/*用户详细信息及修改信息*/
@@ -548,6 +576,7 @@ $(function(){
              $("#csy031_model").attr("readonly","readonly");
              $("#csy032_model").attr("readonly","readonly");
 		}else{
+			$("#btnSave_model").removeAttr("disabled"); 
 			$("#csy022_model").removeAttr("readonly");
 			$("#csy040_model").removeAttr("readonly");
 			$("#csy041_model").removeAttr("readonly");
@@ -577,14 +606,23 @@ $(function(){
 	                 $("#csy040_model").val(data.CSY040);
 	                 $("#csy041_model").val(data.CSY041);
 	                 $("#csy042_model").val(data.CSY042);
-	                 $("#csy043_model").val(data.CSY043);	                 	                 
+	                 $("#csy043_model").val(data.CSY043);
+	                 $("#sy04_message_model").attr("hidden",false);
+	                 $("#sy03_message_model").attr("hidden","hidden");
+	                 $("#sy05_message_model").attr("hidden","hidden");
             	 }else if(csy010==2){
             		 $("#csy051_model").val(data.CSY051);
                      $("#csy052_model").val(data.CSY052);
                      $("#csy053_model").val(data.CSY053);
+                     $("#sy04_message_model").attr("hidden","hidden");
+                     $("#sy03_message_model").attr("hidden","hidden");
+                     $("#sy05_message_model").attr("hidden",false);
             	 }else if(csy010==3){
             		 $("#csy031_model").val(data.CSY031);
                      $("#csy032_model").val(data.CSY032);
+                     $("#sy04_message_model").attr("hidden","hidden");
+                     $("#sy03_message_model").attr("hidden",false);
+                     $("#sy05_message_model").attr("hidden","hidden");
             	 }
                  
              }
@@ -724,8 +762,8 @@ $(function(){
             };
         var csy040=$("#csy040_model").val();
         var csy041=$("#csy041_model").val();
-        var csy042=$("#csy042_model").val();
-        var csy043=$("#csy043_model").val();
+        var csy042=$("#csy042_model").find("option:selected").text();
+        var csy043=$("#csy043_model").find("option:selected").text();
         var sy04={
                 "csy040":csy040,
                 "csy041":csy041,
@@ -739,8 +777,8 @@ $(function(){
                 "csy032":csy032
         };
         var csy051=$("#csy051_model").val();
-        var csy052=$("#csy052_model").val();
-        var csy053=$("#csy052_model").val();
+        var csy052=$("#csy052_model").find("option:selected").text();
+        var csy053=$("#csy053_model").val();
         var sy05={
                 "csy051":csy051,
                 "csy052":csy052,
