@@ -52,8 +52,8 @@
          <div style="float:left; margin-top:10px" id="sy04_message">
 	          <lable>学号:</lable><input type="text" name="csy040" width="80px" id="csy040" maxlength="20" onchange="setSaveBtn()">
 	          <lable style="margin-left:37px"> 姓名:</lable><input type="text" name="csy041" width="80px" id="csy041" maxlength="20" onchange="setSaveBtn()">
-	          <lable> 学院:</lable><input type="text" name="csy042" width="80px" id="csy042" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy042(this)">
-	          <lable>班级:</lable><input type="text" name="csy043" width="80px" id="csy043" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy043(this)">
+	          <lable> 学院:</lable><select type="text" name="csy042" width="80px" id="csy042" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy042(this)"></select> 
+	          <lable>班级:</lable><select type="text" name="csy043" width="80px" id="csy043" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy043(this)"></select> 
          </div>
          <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message">
               <lable style="margin-left:15px">姓名:</lable><input type="text" name="csy031" width="80px" id="csy031" maxlength="20" onchange="setSaveBtn()">
@@ -61,7 +61,7 @@
          </div> 
          <div style="float:left; margin-top:10px" hidden="hidden"  id="sy05_message">        
               <lable> 姓名:</lable><input type="text" name="csy051" width="80px" id="csy051" maxlength="20" onchange="setSaveBtn()">
-              <lable style="margin-left:37px"> 学院:</lable><input type="text" name="csy052" width="80px" id="csy052" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy042(this)">
+              <lable style="margin-left:37px"> 学院:</lable><select type="text" name="csy052" width="80px" id="csy052" maxlength="30" onchange="setSaveBtn()" onblur="validateCsy042(this)"></select> 
               <lable> 职称:</lable><input type="text" name="csy053" width="80px" id="csy053" maxlength="30" onchange="setSaveBtn()">
          </div>     
     </div>

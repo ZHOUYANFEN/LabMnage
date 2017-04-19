@@ -15,7 +15,24 @@ public class DateFormatUtil {
 	static final String COMMON_TIME_PATTERN = "HH:mm";
 	static final String COMMON_DATE_PATTERN = "yyyy-MM-dd";
 	static final String COMMON_DATETIME_PATTERN = "yyyy-MM-dd HH:mm";
-
+	
+	private static ThreadLocal<SimpleDateFormat> simpleDateFormatThreadLocal = new ThreadLocal<>();
+	public static SimpleDateFormat getSimpleDateFormat(String datePattern) {
+	    SimpleDateFormat sdf;
+	    sdf = simpleDateFormatThreadLocal.get();
+	    if (sdf == null) {
+	        sdf = new SimpleDateFormat(datePattern);
+	        simpleDateFormatThreadLocal.set(sdf);
+	    }
+	    return sdf;
+	}
+	
+	
+	
+	
+	
+	
+	
 	public static String formatDate(Date paramDate) {
 		return format(paramDate, "yyyy-MM-dd");
 	}

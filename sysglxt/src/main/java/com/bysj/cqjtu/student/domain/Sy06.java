@@ -3,6 +3,11 @@ package com.bysj.cqjtu.student.domain;
 import java.io.Serializable;
 
 public class Sy06 implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     private Integer csy060;
 
     private String csy050;

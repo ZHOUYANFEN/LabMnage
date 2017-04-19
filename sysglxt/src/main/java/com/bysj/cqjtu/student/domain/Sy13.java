@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Sy13 implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     private Integer csy130;
 
     private Integer csy020;

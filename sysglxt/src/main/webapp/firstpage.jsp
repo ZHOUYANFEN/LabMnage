@@ -55,10 +55,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/carousel.js" type="text/javascript"></script>
  <div style="margin-top:50px;margin-left:200px">
 	<address>
-	  <h4><strong>高校实验教学管理平台</strong><br></h4>
-	    <h5>付政俊 软件二班 631306050218 <br></h5>
-	    <h5>熊庆淋  计信<br></h5>
-	  <abbr title="Phone">P:</abbr> (123) 456-7890
+	  <h4 align='center'><strong>高校实验教学管理平台</strong><br></h4>
+	    <h5 align='center'>付政俊 软件二班 631306050218 <br></h5>
+	    <h5 align='center'>熊庆淋  计信<br></h5>
 	</address>
     
  </div>
