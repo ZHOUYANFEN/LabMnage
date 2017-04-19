@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-18 22:53:57
+Date: 2017-04-19 09:59:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -498,14 +498,46 @@ CREATE TABLE `sy17` (
   `CSY173` varchar(30) DEFAULT '' COMMENT 'ip地址',
   `CSY174` varchar(30) DEFAULT '' COMMENT '时间',
   `CSY175` varchar(30) DEFAULT '' COMMENT '浏览器类型',
-  `CSY176` varchar(30) DEFAULT '' COMMENT '访问系统',
+  `CSY176` varchar(300) DEFAULT '' COMMENT '访问系统',
   `CSY177` varchar(50) DEFAULT '' COMMENT '主机名称',
   `CSY178` varchar(80) DEFAULT '' COMMENT 'mac地址',
   PRIMARY KEY (`CSY170`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='日志信息';
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8 COMMENT='日志信息';
 
 -- ----------------------------
 -- Records of sy17
 -- ----------------------------
-INSERT INTO `sy17` VALUES ('1', 'developer', '获取用户信息 getAllUser', '127.0.0.1', '2017-04-18 22:29:49', 'Chrome', null, '127.0.0.1', 'c4-36-55-6a-93-b1');
+
+-- ----------------------------
+-- Procedure structure for delete_sy17
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `delete_sy17`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_sy17`()
+BEGIN 
+TRUNCATE sy17; 
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for test
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `test`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `test`()
+BEGIN 
+update examinfo SET endtime = now() WHERE id = 14; 
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Event structure for delete_sy17
+-- ----------------------------
+DROP EVENT IF EXISTS `delete_sy17`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` EVENT `delete_sy17` ON SCHEDULE EVERY 1 MONTH STARTS '2017-04-19 09:56:52' ON COMPLETION NOT PRESERVE ENABLE COMMENT '每个月定时删除日志表信息' DO delete  from sy17
+;;
+DELIMITER ;
 SET FOREIGN_KEY_CHECKS=1;
