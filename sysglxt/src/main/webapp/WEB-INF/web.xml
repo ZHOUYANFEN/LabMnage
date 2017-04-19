@@ -141,7 +141,26 @@
           <url-pattern>*.swf</url-pattern>
     </servlet-mapping>
     
-    
+    <error-page>
+	   <error-code>417</error-code>
+	   <location>/error/417.jsp</location>
+    </error-page>
+    <error-page>
+      <error-code>418</error-code>
+      <location>/error/418.jsp</location>
+    </error-page>
+    <error-page>
+      <error-code>401</error-code>
+      <location>/error/401.jsp</location>
+    </error-page>
+    <error-page>
+      <error-code>500</error-code>
+      <location>/error/500.jsp</location>
+    </error-page>
+    <error-page>
+      <error-code>404</error-code>
+      <location>/error/404.jsp</location>
+    </error-page>
 	   
     <welcome-file-list>  
         <welcome-file>/loginexp.jsp</welcome-file>  

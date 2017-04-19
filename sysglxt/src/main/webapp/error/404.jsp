@@ -7,6 +7,6 @@
 <title>404</title>
 </head>
 <body>
-   shibai 
+   <img alt="" src="${pageContext.request.contextPath}/error/img/404.jpg">
 </body>
 </html>
