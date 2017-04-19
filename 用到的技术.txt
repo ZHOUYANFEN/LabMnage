@@ -1,0 +1,10 @@
+安全：shiro登录 日志存库管理  md5加密密码
+技术： spring+springmvc+mybatis 框架基础（AOP --日志管理上）
+	     redis 数据库缓存
+	     pagehelper分页技术
+	     bootstrap+jquery+easyui
+	     jquery插件库（树，文件上传，视频预览，图片轮播）
+	     echarts统计
+	     ueditor
+	     webservice接口
+	     sweetAlert弹窗
