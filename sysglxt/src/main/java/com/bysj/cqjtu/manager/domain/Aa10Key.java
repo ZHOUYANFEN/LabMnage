@@ -1,6 +1,8 @@
 package com.bysj.cqjtu.manager.domain;
 
-public class aa10Key {
+import java.io.Serializable;
+
+public class Aa10Key implements Serializable{
     private String aaa100;
 
     private String aaa102;

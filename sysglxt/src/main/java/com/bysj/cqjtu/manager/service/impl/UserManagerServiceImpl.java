@@ -12,7 +12,7 @@ import com.bysj.cqjtu.manager.dao.Sy02Mapper;
 import com.bysj.cqjtu.manager.dao.Sy03Mapper;
 import com.bysj.cqjtu.manager.dao.Sy04Mapper;
 import com.bysj.cqjtu.manager.dao.Sy05Mapper;
-import com.bysj.cqjtu.manager.dao.aa10Mapper;
+import com.bysj.cqjtu.manager.dao.Aa10Mapper;
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy03;
 import com.bysj.cqjtu.manager.domain.Sy04;
@@ -34,7 +34,7 @@ public class UserManagerServiceImpl implements UserManagerService {
     @Autowired
     private Sy05Mapper sy05Mapper;
     @Autowired
-    private aa10Mapper aa10Mapper;
+    private Aa10Mapper aa10Mapper;
     
     @Override
     public List<Map> getAllUser() throws Exception {

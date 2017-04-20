@@ -128,6 +128,9 @@
 </body>
 <script type="text/javascript">
 $(function(){
+	init();
+});
+function init(){
 	pageSize=10;
     getAllUser(1,pageSize);
     getCsy010();
@@ -144,7 +147,7 @@ $(function(){
             }); 
         }
     });
-});
+}
 	/*获取所有用户的信息 */
 	function getAllUser(pageNum,pageSize){
         $("#menuhead").siblings().remove();
@@ -208,7 +211,7 @@ $(function(){
 	            success:function(data){
 	            	if(data.statu==1){
                         $("#menuhead").siblings().remove();
-                        getAllUser();
+                        init();
                         sweetAlert("删除成功");
                     }else{
                         sweetAlert("删除失败");
@@ -244,7 +247,7 @@ $(function(){
                 success:function(data){
                     if(data.statu==1){
                         $("#menuhead").siblings().remove();
-                        getAllUser();
+                        init();
                         sweetAlert("删除成功");
                     }else{
                         sweetAlert("删除失败");
@@ -534,7 +537,7 @@ $(function(){
                     sweetAlert("更新成功");
                     $("#menuhead").siblings().remove();
                     $("#btnSave_model").attr("disabled","disabled");
-                    getAllUser(); 
+                    init(); 
                     break;
                 case "24":
                 case "34":

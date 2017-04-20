@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bysj.cqjtu.manager.dao.aa10Mapper" >
-  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.aa10">
+<mapper namespace="com.bysj.cqjtu.manager.dao.Aa10Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.Aa10">
     <id column="AAA100" jdbcType="VARCHAR" property="aaa100" />
     <id column="AAA102" jdbcType="VARCHAR" property="aaa102" />
     <result column="AAA101" jdbcType="VARCHAR" property="aaa101" />
@@ -47,29 +47,39 @@
        and aaa105 = #{aaa105}
   </select>
   
+  <!--获取对应所有码表  -->
+  <select id="queryAa10"  resultType="com.bysj.cqjtu.manager.domain.Aa10">
+     select *
+       from aa10
+     where aaa104 = 0
+  </select>
+  <!-- 删除码表 -->
+  <update id="deleteAa10" parameterType="com.bysj.cqjtu.manager.domain.Aa10Key" >
+    update aa10
+       set aaa104 = 1
+     where aaa100 = #{aaa100}
+       and aaa102 = #{aaa102}
+  </update>
   
-  
-  
-  
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.bysj.cqjtu.manager.domain.aa10Key" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.bysj.cqjtu.manager.domain.Aa10Key" >
     select 
     <include refid="Base_Column_List" />
     from aa10
     where AAA100 = #{aaa100,jdbcType=VARCHAR}
       and AAA102 = #{aaa102,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.aa10Key" >
+  <delete id="deleteByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Aa10Key" >
     delete from aa10
     where AAA100 = #{aaa100,jdbcType=VARCHAR}
       and AAA102 = #{aaa102,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.aa10" >
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Aa10" >
     insert into aa10 (AAA100, AAA102, AAA101, 
       AAA103)
     values (#{aaa100,jdbcType=VARCHAR}, #{aaa102,jdbcType=VARCHAR}, #{aaa101,jdbcType=VARCHAR}, 
       #{aaa103,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.aa10" >
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Aa10" >
     insert into aa10
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="aaa100 != null" >
@@ -100,7 +110,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.aa10" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.Aa10" >
     update aa10
     <set >
       <if test="aaa101 != null" >
@@ -113,7 +123,7 @@
     where AAA100 = #{aaa100,jdbcType=VARCHAR}
       and AAA102 = #{aaa102,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.aa10" >
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Aa10" >
     update aa10
     set AAA101 = #{aaa101,jdbcType=VARCHAR},
       AAA103 = #{aaa103,jdbcType=VARCHAR}

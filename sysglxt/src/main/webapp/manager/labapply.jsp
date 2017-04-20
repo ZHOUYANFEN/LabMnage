@@ -83,8 +83,11 @@
 </body>
  <script type="text/javascript">
     $(function(){
+    	init();	   	
+    });
+    function init(){
     	pageSize=10;
-    	queryLabApply(1,pageSize);
+        queryLabApply(1,pageSize);
         $.ajax({
             type:'POST',
             url:"${pageContext.request.contextPath}/lab/queryLabApplyCount",
@@ -93,12 +96,12 @@
                     pageCount:Math.ceil((data.count/pageSize)),
                     current:1,
                     backFn:function(pageNum){
-                    	queryLabApply(pageNum,pageSize);
+                        queryLabApply(pageNum,pageSize);
                     }
                 }); 
             }
-        });    	   	   	
-    });
+        });        
+    }
     function queryLabApply(pageNum,pageSize){
     	$.ajax({
             type:'post',

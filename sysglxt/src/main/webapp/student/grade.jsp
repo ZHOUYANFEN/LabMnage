@@ -78,22 +78,25 @@
 </body>
 <script type="text/javascript">
   $(function(){
-	   pageSize=10;
-	   queryGrade(1,pageSize);
-	    $.ajax({
-	        type:'POST',
-	        url:"${pageContext.request.contextPath}/student/getCount",
-	        success:function(data){
-	            $(".tcdPageCode").createPage({
-	                pageCount:Math.ceil((data.count/pageSize)),
-	                current:1,
-	                backFn:function(pageNum){
-	                	queryGrade(pageNum,pageSize);
-	                }
-	            }); 
-	        }
-	    });	  	 
+	   init(); 	 
   });
+  function init(){
+	  pageSize=10;
+      queryGrade(1,pageSize);
+       $.ajax({
+           type:'POST',
+           url:"${pageContext.request.contextPath}/student/getCount",
+           success:function(data){
+               $(".tcdPageCode").createPage({
+                   pageCount:Math.ceil((data.count/pageSize)),
+                   current:1,
+                   backFn:function(pageNum){
+                       queryGrade(pageNum,pageSize);
+                   }
+               }); 
+           }
+       });  
+  }
   function queryGrade(pageNum,pageSize){
 	  $.ajax({
           type:'POST',

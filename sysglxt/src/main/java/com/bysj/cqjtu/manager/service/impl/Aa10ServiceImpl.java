@@ -1,18 +1,24 @@
 package com.bysj.cqjtu.manager.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bysj.cqjtu.manager.dao.aa10Mapper;
+import com.bysj.cqjtu.manager.constance.OperateStatu;
+import com.bysj.cqjtu.manager.dao.Aa10Mapper;
+import com.bysj.cqjtu.manager.domain.Aa10;
+import com.bysj.cqjtu.manager.domain.Aa10Key;
 import com.bysj.cqjtu.manager.service.Aa10Service;
+import com.bysj.cqjtu.util.PageEntity;
+import com.github.pagehelper.PageHelper;
 @Service
 public class Aa10ServiceImpl implements Aa10Service {
     
     @Autowired
-    private aa10Mapper aa10Mapper;
+    private Aa10Mapper aa10Mapper;
     @Override
     public List<Map> queryCsy042() throws Exception {
         return aa10Mapper.queryCsy042();
@@ -20,6 +26,36 @@ public class Aa10ServiceImpl implements Aa10Service {
     @Override
     public List<Map> queryCsy043(String aaa105) throws Exception {
         return aa10Mapper.queryCsy043(aaa105);
+    }
+    @Override
+    public int getAa10Count() throws Exception {
+        int i = aa10Mapper.queryAa10().size();
+        return i;
+    }
+    @Override
+    public PageEntity<Aa10> queryAa10(Integer pageNum, Integer pageSize)
+            throws Exception {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Aa10> allList =aa10Mapper.queryAa10();
+        PageEntity<Aa10> pageBean = new PageEntity<Aa10>();
+        pageBean.setList(allList);
+        int size =aa10Mapper.queryAa10().size();
+        pageBean.setCount(size);
+        return pageBean;
+    }
+    @Override
+    public Map deleteAa10(String aaa100, String aaa102) throws Exception {
+        Aa10Key aa10Key= new Aa10Key();
+        aa10Key.setAaa100(aaa100);
+        aa10Key.setAaa102(aaa102);
+        int i = aa10Mapper.deleteAa10(aa10Key);
+        Map map= new HashMap();
+        if(i!=1){
+            map.put("statu", OperateStatu.DELETE_AA10_FAIL);
+            return map;
+        }
+        map.put("statu", OperateStatu.DELETE_AA10_SUCCESS);
+        return map;
     }
 
 }

@@ -54,8 +54,11 @@
 </body>
 <script type="text/javascript">
   $(function(){
+	 init();
+  });
+  function init(){
 	  pageSize=10;
-	  syllabus(1,pageSize);
+      syllabus(1,pageSize);
        $.ajax({
            type:'POST',
            url:"${pageContext.request.contextPath}/student/querySyllabusCount",
@@ -64,12 +67,12 @@
                    pageCount:Math.ceil((data.count/pageSize)),
                    current:1,
                    backFn:function(pageNum){
-                	   syllabus(pageNum,pageSize);
+                       syllabus(pageNum,pageSize);
                    }
                }); 
            }
        });     
-  });
+  }
   function syllabus(pageNum,pageSize){
 	  $.ajax({
           type:'POST',

@@ -155,15 +155,18 @@
 <script type="text/javascript">
  
 $(function(){
+	 init();
+});
+function init(){
 	pageSize=10;
-	getAllUser(1,pageSize);
-	getCsy010();
-	queryCsy042();
-	$.ajax({
+    getAllUser(1,pageSize);
+    getCsy010();
+    queryCsy042();
+    $.ajax({
         type:'POST',
         url:"${pageContext.request.contextPath}/userManager/getUserCount",
         success:function(data){
-        	$(".tcdPageCode").createPage({
+            $(".tcdPageCode").createPage({
                 pageCount:Math.ceil((data.count/pageSize)),
                 current:1,
                 backFn:function(pageNum){
@@ -171,9 +174,8 @@ $(function(){
                 }
             }); 
         }
-	});
-	 
-});
+    });
+}
 	/*获取所有用户的信息 */
 	function getAllUser(pageNum,pageSize){
 		$("#menuhead").siblings().remove();
@@ -274,7 +276,7 @@ $(function(){
 	            success:function(data){
 	            	if(data.statu==1){
                         $("#menuhead").siblings().remove();
-                        getAllUser();
+                        init();
                         sweetAlert("删除成功");
                     }else{
                         sweetAlert("删除失败");
@@ -310,7 +312,7 @@ $(function(){
                 success:function(data){
                     if(data.statu==1){
                         $("#menuhead").siblings().remove();
-                        getAllUser();
+                        init();
                         sweetAlert("删除成功");
                     }else{
                         sweetAlert("删除失败");
@@ -396,7 +398,7 @@ $(function(){
             		/* sweetAlert("添加用户成功");
                     $("#btnSave").attr("disabled",true);
                     $("#menuhead").siblings().remove();
-                    getAllUser(); */
+                    init(); */
             		break;
             	case "22":
             		sweetAlert("已经存在该用户");
@@ -408,7 +410,7 @@ $(function(){
                 	sweetAlert("添加科研人员成功");
                     $("#btnSave").attr("disabled",true);
                     $("#menuhead").siblings().remove();
-                    getAllUser();
+                    init();
                 	break; 
                 case "40":
                 	sweetAlert("添加学生失败");
@@ -417,7 +419,7 @@ $(function(){
                 	sweetAlert("添加学生成功");
                     $("#btnSave").attr("disabled",true);
                     $("#menuhead").siblings().remove();
-                    getAllUser();
+                    init();
                     break;
                 case "42":
 	                sweetAlert("已经存在该学生");
@@ -429,7 +431,7 @@ $(function(){
                 	sweetAlert("添加教师成功");
                     $("#btnSave").attr("disabled",true);
                     $("#menuhead").siblings().remove();
-                    getAllUser();
+                    init();
                     break;     
                 default:break;
             	}            
@@ -749,7 +751,7 @@ $(function(){
 				          +"<td >用户类型</td>"
 				          +"<td style='width:300px'>操作</td>"
 				          +"</tr>");
-         getAllUser();
+		 init();
 	}
 	/*保存修改后的用户信息*/
 	function saveChangeUser(){
@@ -808,7 +810,7 @@ $(function(){
                 	sweetAlert("更新成功");
                 	$("#menuhead").siblings().remove();
                 	$("#btnSave_model").attr("disabled","disabled");
-                    getAllUser(); 
+                	init(); 
                     break;
                 case "24":
                 case "34":

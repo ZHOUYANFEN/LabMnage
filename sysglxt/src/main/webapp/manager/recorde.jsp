@@ -54,8 +54,11 @@
 </body>
 <script type="text/javascript">
   $(function(){
+	  init();
+  });
+  function init(){
 	  pageSize=20;
-	  querySy17(1,pageSize);
+      querySy17(1,pageSize);
        $.ajax({
            type:'POST',
            url:"${pageContext.request.contextPath}/log/querySy17Count",
@@ -64,12 +67,12 @@
                    pageCount:Math.ceil((data.count/pageSize)),
                    current:1,
                    backFn:function(pageNum){
-                	   querySy17(pageNum,pageSize);
+                       querySy17(pageNum,pageSize);
                    }
                }); 
            }
        });     
-  });
+  }
   function querySy17(pageNum,pageSize){
 	  $.ajax({
           type:'POST',

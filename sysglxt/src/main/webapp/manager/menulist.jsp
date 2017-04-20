@@ -84,8 +84,11 @@
 </body>
 <script type="text/javascript">
 $(function(){
+	init();
+});
+function init(){
 	pageSize=10;
-	queryAllmenu(1,pageSize);
+    queryAllmenu(1,pageSize);
     getCsy010();
     $.ajax({
         type:'POST',
@@ -95,12 +98,12 @@ $(function(){
                 pageCount:Math.ceil((data.count/pageSize)),
                 current:1,
                 backFn:function(pageNum){
-                	queryAllmenu(pageNum,pageSize);
+                    queryAllmenu(pageNum,pageSize);
                 }
             }); 
         }
     });
-});
+}
 	function queryAllmenu(pageNum,pageSize){
 		$.ajax({
 	        type:'POST',
@@ -181,7 +184,7 @@ $(function(){
 				success:function(data){
 					if(data.statu==1){
 						$("#menuhead").siblings().remove();
-						queryAllmenu();
+						init();
 						sweetAlert("删除成功");
 					}else{
 						sweetAlert("删除失败");
@@ -217,7 +220,7 @@ $(function(){
                 success:function(data){
                     if(data.statu==1){
                         $("#menuhead").siblings().remove();
-                        queryAllmenu();
+                        init();
                         sweetAlert("删除成功");
                     }else{
                         sweetAlert("删除失败");

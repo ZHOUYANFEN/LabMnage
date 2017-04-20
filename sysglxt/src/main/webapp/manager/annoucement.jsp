@@ -97,24 +97,27 @@
 </body>
 <script>
   $(function(){
-	  //查询所有公告
-	 
-	 pageSize=10;
-	 query(1,pageSize);
-	    $.ajax({
-	        type:'POST',
-	        url:"${pageContext.request.contextPath}/anouncement/getAnouncementCount",
-	        success:function(data){
-	            $(".tcdPageCode").createPage({
-	                pageCount:Math.ceil((data.count/pageSize)),
-	                current:1,
-	                backFn:function(pageNum){
-	                    getAllUser(pageNum,pageSize);
-	                }
-	            }); 
-	        }
-	    });
+	  init();
   })
+  function init(){
+	//查询所有公告
+	     
+	     pageSize=10;
+	     query(1,pageSize);
+	        $.ajax({
+	            type:'POST',
+	            url:"${pageContext.request.contextPath}/anouncement/getAnouncementCount",
+	            success:function(data){
+	                $(".tcdPageCode").createPage({
+	                    pageCount:Math.ceil((data.count/pageSize)),
+	                    current:1,
+	                    backFn:function(pageNum){
+	                        getAllUser(pageNum,pageSize);
+	                    }
+	                }); 
+	            }
+	        });
+  }
   /*查询所有公告*/
   function query(pageNum,pageSize){
 	  $.ajax({
@@ -157,7 +160,7 @@
           dataType:"json",
           success:function(data){
         	  if(data.statu='success'){
-        		  query();
+        		  init();
         		  $('#openPage').modal('toggle');
                   sweetAlert("添加成功");
               }else{
@@ -183,7 +186,7 @@
              url:"${pageContext.request.contextPath}/anouncement/deleteanouncement?csy140="+csy140,
              success:function(data){
                if(data.statu='success'){
-            	   query();
+            	   init();
             	   sweetAlert("删除成功");
                }else{
             	   sweetAlert("删除失败 ");
@@ -233,7 +236,7 @@
                success:function(data){
                    if(data.statu=='success'){
                        $("#anouncementhead").siblings().remove();
-                       query();
+                       init();
                        sweetAlert("删除成功");
                    }else{
                        sweetAlert("删除失败");
