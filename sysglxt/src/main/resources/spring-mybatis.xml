@@ -99,16 +99,15 @@
 
     <!--配置切面拦截方法 -->
     <aop:config proxy-target-class="false">
-        <!--将com.crossoverJie.service包下的所有select开头的方法加入拦截
-        去掉select则加入所有方法
+        <!--将com.bysj.cqjtu包下的所有query开头的方法加入拦截
         -->
-        <aop:pointcut id="controllerMethodPointcut" expression="
+        <aop:pointcut id="serviceMethodPointcut" expression="
         execution(* com.bysj.cqjtu.*.service.*.query*(..))"/>
-
+<!-- 
         <aop:pointcut id="selectMethodPointcut" expression="
-        execution(* com.bysj.cqjtu.*.dao.*Mapper.query*(..))"/>
+        execution(* com.bysj.cqjtu.*.dao.*Mapper.query*(..))"/> -->
 
-        <aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="controllerMethodPointcut"/>
+        <aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="serviceMethodPointcut"/>
 
      </aop:config>
      

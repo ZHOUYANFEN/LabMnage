@@ -605,14 +605,17 @@ $(function(){
             	 if(csy010==1){
 	                 $("#csy040_model").val(data.CSY040);
 	                 $("#csy041_model").val(data.CSY041);
-	                 $("#csy042_model").val(data.CSY042);
-	                 $("#csy043_model").val(data.CSY043);
+	                 $("#csy042_model").find("option[text='"+data.CSY042+"']").attr("selected",true);
+	                 $("#csy043_model").find("option[text='"+data.CSY043+"']").attr("selected",true);
+	                // $("#csy042_model").val(data.CSY042);
+	                // $("#csy043_model").val(data.CSY043);
 	                 $("#sy04_message_model").attr("hidden",false);
 	                 $("#sy03_message_model").attr("hidden","hidden");
 	                 $("#sy05_message_model").attr("hidden","hidden");
             	 }else if(csy010==2){
             		 $("#csy051_model").val(data.CSY051);
-                     $("#csy052_model").val(data.CSY052);
+                     //$("#csy052_model").val(data.CSY052);
+                     $("#csy052_model").find("option[text='"+data.CSY052+"']").attr("selected",true);
                      $("#csy053_model").val(data.CSY053);
                      $("#sy04_message_model").attr("hidden","hidden");
                      $("#sy03_message_model").attr("hidden","hidden");

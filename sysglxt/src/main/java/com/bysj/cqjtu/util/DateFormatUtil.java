@@ -16,41 +16,39 @@ public class DateFormatUtil {
 	static final String COMMON_DATE_PATTERN = "yyyy-MM-dd";
 	static final String COMMON_DATETIME_PATTERN = "yyyy-MM-dd HH:mm";
 	
+	/**
+	 * 线程池
+	 */
 	private static ThreadLocal<SimpleDateFormat> simpleDateFormatThreadLocal = new ThreadLocal<>();
-	public static SimpleDateFormat getSimpleDateFormat(String datePattern) {
+	
+	public static SimpleDateFormat getSimpleDateFormat(String paramString) {
 	    SimpleDateFormat sdf;
 	    sdf = simpleDateFormatThreadLocal.get();
 	    if (sdf == null) {
-	        sdf = new SimpleDateFormat(datePattern);
+	        sdf = new SimpleDateFormat(paramString);
 	        simpleDateFormatThreadLocal.set(sdf);
 	    }
 	    return sdf;
 	}
-	
-	
-	
-	
-	
-	
-	
+			
 	public static String formatDate(Date paramDate) {
-		return format(paramDate, "yyyy-MM-dd");
+		return DateFormatUtil.getSimpleDateFormat("yyyy-MM-dd").format(paramDate);
 	}
 	
 	public static String formatDateSimple(Date paramDate) {
-		return format(paramDate, "yyyyMMdd");
+		return DateFormatUtil.getSimpleDateFormat("yyyyMMdd").format(paramDate);
 	}
 
 	public static String formatDateTime(Date paramDate) {
-		return format(paramDate, "yyyy-MM-dd HH:mm");
+		return DateFormatUtil.getSimpleDateFormat("yyyy-MM-dd HH:mm").format(paramDate);
 	}
 
-	public static String format(Date paramDate, String paramString) {
+	/*public static String format(Date paramDate, String paramString) {
 		SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
 				paramString);
 		return localSimpleDateFormat.format(paramDate);
 	}
-
+*/
 	public static final Date parse(String paramString1, String paramString2)
 			throws ParseException {
 		SimpleDateFormat localSimpleDateFormat = null;

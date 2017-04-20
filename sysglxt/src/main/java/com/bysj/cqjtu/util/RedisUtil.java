@@ -16,8 +16,20 @@ import org.springframework.data.redis.core.ValueOperations;
  */
 public class RedisUtil {
     private Logger logger = Logger.getLogger(RedisUtil.class);
-    private RedisTemplate<Serializable, Object> redisTemplate;
-
+    
+    
+    private static ThreadLocal<RedisTemplate<Serializable, Object>> redisTemplateThreadLocal = new ThreadLocal<>();
+    public static RedisTemplate<Serializable, Object> getRedisTemplate() {
+        RedisTemplate<Serializable, Object> sdf;
+        sdf = redisTemplateThreadLocal.get();
+        if (sdf == null) {
+            sdf = new RedisTemplate<Serializable, Object>();
+            redisTemplateThreadLocal.set(sdf);
+        }
+        return sdf;
+    }
+    
+    private RedisTemplate<Serializable, Object> redisTemplate=RedisUtil.getRedisTemplate();
     /**
      * 批量删除对应的value
      *

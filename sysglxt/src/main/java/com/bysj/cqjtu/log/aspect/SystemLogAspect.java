@@ -73,6 +73,7 @@ public  class SystemLogAspect {
         sy17.setCsy177(GetSystemUtil.getHostName(GetSystemUtil.getIpAddr(request)));
         sy17.setCsy178(GetSystemUtil.getMacAddress(GetSystemUtil.getIpAddr(request)));
         sy17Mapper.addSy17(sy17);
+        logger.info(description);
     }    
     
     /**  
@@ -82,7 +83,9 @@ public  class SystemLogAspect {
      * @param e  
      */    
     @AfterThrowing(pointcut = "serviceAspect()", throwing = "e")    
-    public  void doAfterThrowing(JoinPoint joinPoint, Throwable e) {    
+    public  void doAfterThrowing(JoinPoint joinPoint, Throwable e) throws Exception{
+        String description=getControllerMethodDescription(joinPoint);
+        logger.info(description+e);
     }    
     
     
