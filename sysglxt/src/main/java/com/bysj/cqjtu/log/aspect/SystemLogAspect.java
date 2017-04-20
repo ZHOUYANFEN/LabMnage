@@ -39,7 +39,6 @@ public  class SystemLogAspect {
     private Sy17Mapper sy17Mapper;
     //本地异常日志记录对象    
     private static final Logger logger = LogManager.getLogger(SystemLogAspect. class);   
-    
     //Service层切点    
     @Pointcut("@annotation(com.bysj.cqjtu.log.annotation.SystemServiceLog)")    
     public  void serviceAspect() {    
