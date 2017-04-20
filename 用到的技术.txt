@@ -8,3 +8,8 @@
 	     ueditor
 	     webservice接口
 	     sweetAlert弹窗
+	     mysql定时器（事件）
+	     log4j打印日志
+		
+注意： 工具类线性安全
+	     事务传播
