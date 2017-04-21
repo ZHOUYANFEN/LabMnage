@@ -1,6 +1,7 @@
 package com.bysj.cqjtu.index.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.index.domain.Sy15;
@@ -39,7 +40,7 @@ public interface MenuService {
      * @return
      * @throws Exception
      */
-    public boolean deleteMenuByCsy150(int csy150) throws Exception;
+    public Map deleteMenuByCsy150(int csy150) throws Exception;
     /**
      * 获取人员类型
      * @return
@@ -57,7 +58,7 @@ public interface MenuService {
      * @param sy15
      * @throws Exception
      */
-    public boolean saveMenu(Sy15 sy15) throws Exception;
+    public Map saveMenu(Sy15 sy15) throws Exception;
     /**
      * 按条件查询菜单
      * @param sy15
@@ -71,4 +72,11 @@ public interface MenuService {
      * @throws Exception
      */
     public int getMenuCount() throws Exception;
+    /**
+     *批量删除菜单
+     * @param ids
+     * @return
+     * @throws Exception
+     */
+    public Map deleteMenuBatch(String ids) throws Exception;
 }

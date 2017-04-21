@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bysj.cqjtu.manager.constance.OperateStatu;
+import com.bysj.cqjtu.manager.dao.Aa10Mapper;
 import com.bysj.cqjtu.manager.dao.Sy02Mapper;
 import com.bysj.cqjtu.manager.dao.Sy03Mapper;
 import com.bysj.cqjtu.manager.dao.Sy04Mapper;
 import com.bysj.cqjtu.manager.dao.Sy05Mapper;
-import com.bysj.cqjtu.manager.dao.Aa10Mapper;
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy03;
 import com.bysj.cqjtu.manager.domain.Sy04;
@@ -44,12 +44,14 @@ public class UserManagerServiceImpl implements UserManagerService {
     }
 
     @Override
-    public boolean deleteUser(int csy020) throws Exception {
+    public Map  deleteUser(int csy020) throws Exception {
         int i=sy02Mapper.deleteUser(csy020);
         if(i!=1){
-            throw new Exception("删除用户信息失败");
+            throw new RuntimeException( OperateStatu.DELETE_FAIL);
         }
-        return true;
+        Map map=new HashMap();
+        map.put("statu", OperateStatu.DELETE_SUCCESS);
+        return map;
     }
 
     @Override
@@ -71,7 +73,7 @@ public class UserManagerServiceImpl implements UserManagerService {
             //插入用户表
             int i=sy02Mapper.addUser(sy02);
             if(i!=1){
-                map.put("statu", OperateStatu.ADD_SY02_FAIL);//插入用户表错误
+                throw new RuntimeException(OperateStatu.ADD_SY02_FAIL);
             }else{
                 if(sy02.getCsy010()==OperateStatu.TYPE_STUDENT){
                     String csy040=userMessage.getSy04().getCsy040();
@@ -83,7 +85,7 @@ public class UserManagerServiceImpl implements UserManagerService {
                         sy04.setCsy020(sy02.getCsy020());       
                         int j=sy04Mapper.addSy04(sy04);
                         if(j!=1){
-                           map.put("statu", OperateStatu.ADD_SY04_FAIL);//插入学生表错误
+                            throw new RuntimeException(OperateStatu.ADD_SY04_FAIL);                          
                         }else{                 
                             map.put("statu", OperateStatu.ADD_SY04_SUCCESS);//添加成功
                         }
@@ -100,7 +102,7 @@ public class UserManagerServiceImpl implements UserManagerService {
                     sy05.setCsy020(sy02.getCsy020().toString());       
                     int j=sy05Mapper.addSy05(sy05);
                     if(j!=1){
-                        map.put("statu", OperateStatu.ADD_SY05_FAIL);//插入教师错误
+                        throw new RuntimeException(OperateStatu.ADD_SY05_FAIL);                        
                     }else{                
                         map.put("statu", OperateStatu.ADD_SY05_SUCCESS);//添加成功
                     }
@@ -117,7 +119,7 @@ public class UserManagerServiceImpl implements UserManagerService {
                     sy03.setCsy020(sy02.getCsy020().toString());       
                     int j=sy03Mapper.addSy03(sy03);
                     if(j!=1){
-                        map.put("statu", OperateStatu.ADD_SY03_FAIL);//插入科研错误
+                        throw new RuntimeException(OperateStatu.ADD_SY03_FAIL);   
                     }else{                
                         map.put("statu", OperateStatu.ADD_SY03_SUCCESS);//添加成功
                     }
@@ -150,31 +152,31 @@ public class UserManagerServiceImpl implements UserManagerService {
         Sy02 sy02=userMessage.getSy02();
         int updatesy02=sy02Mapper.updateSy02(sy02);
         if(updatesy02!=1){
-            map.put("statu", OperateStatu.UPDATE_SY02_FAILE);
+            throw new RuntimeException(OperateStatu.UPDATE_SY02_FAILE);           
         }else{
             if(OperateStatu.TYPE_STUDENT==sy02.getCsy010()){
                 Sy04 sy04=userMessage.getSy04();
                 sy04.setCsy020(sy02.getCsy020());
                 int updatesy04=sy04Mapper.updateSy04(sy04);
                 if(updatesy04!=1){
-                    map.put("statu", OperateStatu.UPDATE_SY04_FAILE);
+                    throw new RuntimeException(OperateStatu.UPDATE_SY04_FAILE); 
                 }
             }else if(OperateStatu.TYPE_TEACHER==sy02.getCsy010()){
                 Sy05 sy05=userMessage.getSy05();
                 sy05.setCsy020(sy02.getCsy020().toString());
                 int updatesy05=sy05Mapper.updateSy05(sy05);
                 if(updatesy05!=1){
-                    map.put("statu", OperateStatu.UPDATE_SY05_FAILE);
+                    throw new RuntimeException(OperateStatu.UPDATE_SY05_FAILE); 
                 }
             }else if(OperateStatu.TYPE_TECHO==sy02.getCsy010()){
                 Sy03 sy03=userMessage.getSy03();
                 sy03.setCsy020(sy02.getCsy020().toString());
                 int updatesy03=sy03Mapper.updateSy03(sy03);
                 if(updatesy03!=1){
-                    map.put("statu", OperateStatu.UPDATE_SY03_FAILE);
+                    throw new RuntimeException(OperateStatu.UPDATE_SY03_FAILE); 
                 }
             }else {
-                map.put("statu", OperateStatu.UPDATE_FAIL);
+                throw new RuntimeException(OperateStatu.UPDATE_FAIL); 
             }
             map.put("statu", OperateStatu.UPDATE_USER_SUCCESS);
         }
@@ -225,6 +227,27 @@ public class UserManagerServiceImpl implements UserManagerService {
         List<Map> list =sy02Mapper.getAllUser();
         return list.size();
     }
+
+    @Override
+    public Map deleteUserBatch(String ids) throws Exception {
+        String []arr=ids.split(",");
+        int count=0;
+        for(int i=0;i<arr.length;i++){
+            int j = sy02Mapper.deleteUser(Integer.parseInt(arr[i]));
+            if(j==1){
+                count++;
+            }
+        }
+        Map map=new HashMap();
+        if(count==arr.length){           
+            map.put("statu", OperateStatu.DELETE_SUCCESS);
+            return map;
+        }else {
+            throw new RuntimeException(OperateStatu.DELETE_FAIL);
+        }                
+    }
+
+
 
 
 }

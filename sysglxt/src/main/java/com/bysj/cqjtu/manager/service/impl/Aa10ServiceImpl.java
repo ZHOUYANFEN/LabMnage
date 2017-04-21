@@ -50,9 +50,33 @@ public class Aa10ServiceImpl implements Aa10Service {
         aa10Key.setAaa102(aaa102);
         int i = aa10Mapper.deleteAa10(aa10Key);
         Map map= new HashMap();
-        if(i!=1){
-            map.put("statu", OperateStatu.DELETE_AA10_FAIL);
-            return map;
+        if(i!=1){            
+            throw new RuntimeException(OperateStatu.DELETE_AA10_FAIL);
+        }
+        map.put("statu", OperateStatu.DELETE_AA10_SUCCESS);
+        return map;
+    }
+    @Override
+    public Map deleteAa10Batch(String ids) throws Exception {
+        String []idArr= ids.split(",");
+        String aaa100;
+        String aaa102;
+        Aa10Key aa10Key;
+        int count=0;
+        for (String string : idArr) {
+            aaa100=string.substring(0, string.indexOf("_")+1);
+            aaa102=string.substring(string.indexOf("_")+1);
+            aa10Key=new Aa10Key();
+            aa10Key.setAaa100(aaa100);
+            aa10Key.setAaa102(aaa102);
+            int i = aa10Mapper.deleteAa10(aa10Key);
+            if(i==1){
+                count++;
+            }
+        }
+        Map map= new HashMap();
+        if(count!=idArr.length){
+            throw new RuntimeException( OperateStatu.DELETE_AA10_FAIL);
         }
         map.put("statu", OperateStatu.DELETE_AA10_SUCCESS);
         return map;

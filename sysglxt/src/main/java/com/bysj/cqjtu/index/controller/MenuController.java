@@ -77,15 +77,16 @@ public class MenuController {
     @RequestMapping("/deleteMenuByCsy150")
     @ResponseBody
     @SystemControllerLog(description ="按照id删除菜单功能")
-    public Map deleteMenuByCsy150(int csy150) throws Exception{
-        boolean deleteFlag=menuService.deleteMenuByCsy150(csy150);
-        Map map=new HashMap();
-        if(deleteFlag==true){
-            map.put("statu", 1);
-        }else {
-            map.put("statu", 2);
+    public Map deleteMenuByCsy150(int csy150) {
+
+        try {
+            return menuService.deleteMenuByCsy150(csy150);
+        } catch (Exception e) {
+            Map map=new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
         }
-        return map;
+        
     }
     /**
      * 批量删除菜单
@@ -96,23 +97,15 @@ public class MenuController {
     @RequestMapping("/deleteMenuBatch")
     @ResponseBody
     @SystemControllerLog(description ="批量删除菜单")
-    public Map deleteMenuBatch(String ids) throws Exception{
-        String []arr=ids.split(",");
-        boolean deleteFlag;
-        int j=0;
-        for(int i=0;i<arr.length;i++){
-            deleteFlag=menuService.deleteMenuByCsy150(Integer.parseInt(arr[i]));
-            if(deleteFlag==true){
-                j++;
-            }
+    public Map deleteMenuBatch(String ids){       
+        try {
+            return menuService.deleteMenuBatch(ids);
+        } catch (Exception e) {
+            Map map=new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
         }
-        Map map=new HashMap();
-        if(j==arr.length){           
-            map.put("statu", 1);
-        }else {
-            map.put("statu", 2);
-        }
-        return map;
+       
     }
     /**
      * 获取人员类型
@@ -159,15 +152,15 @@ public class MenuController {
     @RequestMapping("/savaMenu")    
     @ResponseBody
     @SystemControllerLog(description ="保存菜单信息")
-    public Map savaMenu(@RequestBody Sy15 sy15) throws Exception{
-        boolean saveFlage= menuService.saveMenu(sy15);
-        Map map= new HashMap<>();
-        if(saveFlage==true){
-            map.put("statu", "1");
-        }else{
-            map.put("statu", "2");
+    public Map savaMenu(@RequestBody Sy15 sy15){
+        try {
+            return menuService.saveMenu(sy15);
+        } catch (Exception e) {
+            Map map=new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
         }
-        return map;
+       
     }
     /**
      * 修改菜单信息

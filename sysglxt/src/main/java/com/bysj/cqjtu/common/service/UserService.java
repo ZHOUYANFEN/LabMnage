@@ -23,5 +23,5 @@ public interface UserService {
      * @param sy02_new
      * @return
      */
-    public Map changePassword(Sy02 sy02_new);
+    public Map changePassword(Sy02 sy02_new) throws Exception;
 }

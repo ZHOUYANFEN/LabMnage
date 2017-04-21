@@ -125,11 +125,17 @@ public class StudentController {
     @RequestMapping("/saveExp")
     @ResponseBody
     @SystemControllerLog(description =" 保存实验完成内容")
-    public Map saveExp(HttpSession session,@RequestBody Sy09 sy09) throws Exception{
+    public Map saveExp(HttpSession session,@RequestBody Sy09 sy09){
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         sy09.setCsy040(userMessage.getSy04().getCsy040());
-        return studentService.saveExp(sy09);        
+        try {
+            return studentService.saveExp(sy09);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }        
     }
     /**
      * 保存实验完成内容
@@ -208,15 +214,20 @@ public class StudentController {
     @RequestMapping("/saveReport")
     @ResponseBody
     @SystemControllerLog(description =" 保存实验报告")
-    public Map saveReport(HttpSession session,String csy080) throws Exception{
+    public Map saveReport(HttpSession session,String csy080){
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");        
         Sy09 sy09=new Sy09();
         sy09.setCsy080(csy080);
         sy09.setCsy093(filename);
         sy09.setCsy040(userMessage.getSy04().getCsy040());
-        Map map=studentService.saveReport(sy09);       
-        return map;
+        try {
+            return studentService.saveReport(sy09);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        } 
     }
     /**
      * 查询成绩详情

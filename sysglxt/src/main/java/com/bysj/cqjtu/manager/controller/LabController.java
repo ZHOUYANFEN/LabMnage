@@ -60,9 +60,15 @@ public class LabController {
     @RequestMapping("/addLab")
     @ResponseBody
     @SystemControllerLog(description ="添加实验室信息")
-    public Map addLab(@RequestBody Sy11 sy11) throws Exception{
-        Map map=labService.addLab(sy11);
-        return map;
+    public Map addLab(@RequestBody Sy11 sy11){        
+        try {
+            return labService.addLab(sy11);
+        } catch (Exception e) {
+            Map map =new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
+        
     }
     /**
      * 删除实验室信息
@@ -72,9 +78,14 @@ public class LabController {
     @RequestMapping("/deleteBatch")
     @ResponseBody
     @SystemControllerLog(description ="删除实验室信息")
-    public Map deleteBatch(String ids) throws Exception{
-        Map map=labService.deleteBatch(ids);
-        return map;
+    public Map deleteBatch(String ids){
+        try {
+            return labService.deleteBatch(ids);
+        } catch (Exception e) {
+            Map map =new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     }
     /**
      * 查询实验室具体信息
@@ -96,9 +107,15 @@ public class LabController {
     @RequestMapping("/updateLab")
     @ResponseBody
     @SystemControllerLog(description ="修改实验室具体信息")
-    public Map updateLab(@RequestBody Sy11 sy11) throws Exception{
-        Map map=labService.updateLab(sy11);
-        return map;
+    public Map updateLab(@RequestBody Sy11 sy11) {
+        try {
+            return labService.updateLab(sy11);
+        } catch (Exception e) {
+            Map map =new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+
+        }
     }
     /**
      * 验证实验室类型是否存在
@@ -120,9 +137,14 @@ public class LabController {
     @SystemControllerLog(description ="添加实验室类型")
     @RequestMapping("/addCsy101")
     @ResponseBody
-    public Map addCsy101(@RequestBody Sy10 sy10) throws Exception{
-        Map map=labService.addCsy101(sy10);
-        return map;
+    public Map addCsy101(@RequestBody Sy10 sy10){
+        try {
+            return labService.addCsy101(sy10);
+        } catch (Exception e) {
+            Map map =new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     }
     /**
      * 刪除实验室类型
@@ -144,9 +166,15 @@ public class LabController {
     @RequestMapping("/validateIsOkDelete")
     @ResponseBody
     @SystemControllerLog(description ="判断实验室类型是否可以删除")
-    public Map validateIsOkDelete(String csy100) throws Exception{
-        Map map=labService.validateIsOkDelete(csy100);
+    public Map validateIsOkDelete(String csy100){
+       try {
+        return labService.validateIsOkDelete(csy100);
+    } catch (Exception e) {
+        Map map =new HashMap();
+        map.put("statu", e.getMessage());
         return map;
+    }
+       
     }
     /**
      * 修改实验室类型
@@ -156,9 +184,14 @@ public class LabController {
     @RequestMapping("/updateType")
     @ResponseBody
     @SystemControllerLog(description ="修改实验室类型")
-    public Map updateType(@RequestBody Sy10 sy10) throws Exception{
-        Map map=labService.updateType(sy10);
-        return map;
+    public Map updateType(@RequestBody Sy10 sy10){
+        try {
+            return labService.updateType(sy10);
+        } catch (Exception e) {
+            Map map =new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     }
     /**
      * 验证实验室是否存在

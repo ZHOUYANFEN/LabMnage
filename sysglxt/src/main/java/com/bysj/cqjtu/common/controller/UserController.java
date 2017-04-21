@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.common.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -50,11 +51,16 @@ public class UserController {
     @RequestMapping("/changePassword")
     @ResponseBody
     @SystemControllerLog(description ="修改密码")
-    public Map changePassword(@RequestBody Sy02 sy02_new,HttpSession session) throws Exception{
+    public Map changePassword(@RequestBody Sy02 sy02_new,HttpSession session){
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         sy02_new.setCsy010(userMessage.getSy02().getCsy010());
-        Map map=userService.changePassword(sy02_new);
-        return map;
+        try {
+            return userService.changePassword(sy02_new);
+        } catch (Exception e) {
+            Map map=new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     }
     /**
      * 获取用户信息

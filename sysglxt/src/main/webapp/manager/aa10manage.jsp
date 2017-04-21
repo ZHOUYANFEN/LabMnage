@@ -148,7 +148,7 @@ function init(){
 			$("[type='checkbox']").attr("checked",false);
 		}
 	}
-	/*删除菜单*/
+	/*删除码表*/
 	function deleteAa10(aaa100,aaa102){
 		 swal({  
              title:"",  
@@ -198,11 +198,11 @@ function init(){
        }, function() {
 			$.ajax({
                 type:"POST",
-               // url:"${pageContext.request.contextPath}/menu/deleteMenuBatch?ids="+idstr,
+                url:"${pageContext.request.contextPath}/aa10/deleteAa10Batch?ids="+idstr,
                 success:function(data){
-                    if(data.statu==1){
+                    if(data.statu=='success'){
                         $("#aa10head").siblings().remove();
-                        //queryAllmenu();
+                        init();
                         sweetAlert("删除成功");
                     }else{
                         sweetAlert("删除失败");

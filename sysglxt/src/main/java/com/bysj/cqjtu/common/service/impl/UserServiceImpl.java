@@ -29,14 +29,14 @@ public class UserServiceImpl implements UserService {
         return map;
     }
     @Override
-    public Map changePassword(Sy02 sy02_new) {
+    public Map changePassword(Sy02 sy02_new) throws Exception{
         sy02_new.setCsy022(Md5Encoder.getMD5(sy02_new.getCsy022()));
         int i=sy02Mapper.changePassword(sy02_new);
         Map map=new HashMap();
         if(i==1){
             map.put("statu", UserConstance.CHANGEPASSWORD_USER_SUCCESS);
         }else{
-            map.put("statu", UserConstance.CHANGEPASSWORD_USER_ERROR);
+            throw new RuntimeException(UserConstance.CHANGEPASSWORD_USER_ERROR);
         }
         return map;
     }

@@ -73,12 +73,12 @@ public class StudentServiceImpl implements StudentService {
       //查询是否已经提交过报告
         List<Sy09> sy09List=sy09Mapper.isExist(sy09);
         if(sy09List.size()>0){
-         int i=sy09Mapper.updateExp(sy09);
-         if(i!=1){
-             map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
-         } else{
-             map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
-         }
+             int i=sy09Mapper.updateExp(sy09);
+             if(i!=1){
+                 throw new RuntimeException(StudentOperateConstance.SAVE_SY09_FAIL);
+             } else{
+                 map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
+             }
         }else{
             int i=sy09Mapper.saveExp(sy09);
             map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
@@ -111,7 +111,7 @@ public class StudentServiceImpl implements StudentService {
          if(sy09List.size()>0){
              int i=sy09Mapper.updateReport(sy09);
              if(i!=1){
-                 map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
+                 throw new RuntimeException(StudentOperateConstance.SAVE_SY09_FAIL);
              }else{
                  map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
              }

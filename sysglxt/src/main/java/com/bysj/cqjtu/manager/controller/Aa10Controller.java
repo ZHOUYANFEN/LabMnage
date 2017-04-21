@@ -76,7 +76,32 @@ public class Aa10Controller {
     @RequestMapping("/deleteAa10")
     @ResponseBody
     @SystemControllerLog(description =" 删除码表")
-    public Map deleteAa10(String aaa100,String aaa102) throws Exception{
-        return aa10Service.deleteAa10(aaa100,aaa102);
+    public Map deleteAa10(String aaa100,String aaa102) {
+        try {
+            return aa10Service.deleteAa10(aaa100,aaa102);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
+    }
+    /**
+     * 批量删除码表
+     * @param ids
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/deleteAa10Batch")
+    @ResponseBody
+    @SystemControllerLog(description ="批量删除码表")
+    public Map deleteAa10Batch(String ids) {
+        try {
+            return aa10Service.deleteAa10Batch(ids);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
+       
     }
 }

@@ -25,7 +25,7 @@ public interface UserManagerService {
      * @param csy020
      * @throws Exception
      */
-    public boolean deleteUser(int csy020) throws Exception;
+    public Map deleteUser(int csy020) throws Exception;
     /**
      * 按条件查询用户
      * @param sy02
@@ -88,5 +88,12 @@ public interface UserManagerService {
      * @throws Exception
      */
     public int getUserCount() throws Exception;
+    /**
+     * 批量删除用户
+     * @param ids
+     * @throws Exception
+     */
+    public Map deleteUserBatch(String ids) throws Exception;
+
     
 }

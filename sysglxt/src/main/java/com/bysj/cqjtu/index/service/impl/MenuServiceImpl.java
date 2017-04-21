@@ -1,6 +1,8 @@
 package com.bysj.cqjtu.index.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,10 +47,12 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
-    public boolean deleteMenuByCsy150(int csy150) throws Exception {
+    public Map deleteMenuByCsy150(int csy150) throws Exception {
         int i=sy15Mapper.deleteMenuByCsy150(csy150);
+        Map map=new HashMap();
         if(i==1){
-            return true;
+            map.put("statu", 1);
+            return map;
         }else {
             throw new Exception("删除表失败");
         }
@@ -65,13 +69,16 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
-    public boolean saveMenu(Sy15 sy15) throws Exception {       
+    public Map  saveMenu(Sy15 sy15) throws Exception {       
         sy15.setCsy156(Byte.parseByte("0"));
         int i=sy15Mapper.saveMenu(sy15);
         if(i!=1){
             throw new Exception("添加菜单失败");
         }
-        return true;
+        Map map= new HashMap<>();
+        map.put("statu", "1");   
+        return map;
+
         
     }
 
@@ -84,6 +91,27 @@ public class MenuServiceImpl implements MenuService{
     public int getMenuCount() throws Exception {
        List<Sy15> list= sy15Mapper.queryAllMenu();    
        return list.size();
+    }
+
+    @Override
+    public Map deleteMenuBatch(String ids) throws Exception {
+        String []arr=ids.split(",");
+        boolean deleteFlag;
+        int count=0;
+        for(int i=0;i<arr.length;i++){
+            int j=sy15Mapper.deleteMenuByCsy150(Integer.parseInt(arr[i]));
+            if(j==1){
+                count++;
+            }
+        }
+        Map map=new HashMap();
+        if(count==arr.length){           
+            map.put("statu", 1);
+            return map;
+        }else {
+          throw new RuntimeException("批量删除菜单出错");
+        }
+        
     }
 
 }

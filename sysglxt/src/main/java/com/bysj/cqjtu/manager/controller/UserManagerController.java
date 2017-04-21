@@ -67,15 +67,15 @@ public class UserManagerController {
     @RequestMapping("/deleteUser") 
     @ResponseBody 
     @SystemControllerLog(description = " 删除用户信息|deleteUser")
-    public Map deleteUser(int csy020)throws Exception{
-       boolean deleteFlag=userManagerService.deleteUser(csy020);
-       Map map=new HashMap();
-       if(deleteFlag==true){
-           map.put("statu", OperateStatu.DELETE_SUCCESS);
-       }else{
-           map.put("statu", OperateStatu.DELETE_FAIL);
-       }
-       return map;
+    public Map deleteUser(int csy020){
+       try {
+            return userManagerService.deleteUser(csy020);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
+
     }
     /**
      * 批量删除用户信息
@@ -86,23 +86,17 @@ public class UserManagerController {
     @RequestMapping("/deleteUserBatch")
     @ResponseBody    
     @SystemControllerLog(description = " 批量删除用户信息|deleteUserBatch")
-    public Map deleteUserBatch(String ids) throws Exception{
-        String []arr=ids.split(",");
-        boolean deleteFlag;
-        int j=0;
-        for(int i=0;i<arr.length;i++){
-            deleteFlag=userManagerService.deleteUser(Integer.parseInt(arr[i]));
-            if(deleteFlag==true){
-                j++;
-            }
+    public Map deleteUserBatch(String ids){
+        
+        try {
+            return userManagerService.deleteUserBatch(ids);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
         }
-        Map map=new HashMap();
-        if(j==arr.length){           
-            map.put("statu", OperateStatu.DELETE_SUCCESS);
-        }else {
-            map.put("statu", OperateStatu.DELETE_FAIL);
-        }
-        return map;
+        
+        
     }
     /**
      * 按条件查询用户
@@ -126,9 +120,14 @@ public class UserManagerController {
     @RequestMapping("/addUser")
     @ResponseBody
     @SystemControllerLog(description = "添加用户|addUser")
-    public Map addUser(@RequestBody UserMessage userMessage) throws Exception{
-        Map map=userManagerService.addUser(userMessage);
-        return map;
+    public Map addUser(@RequestBody UserMessage userMessage){
+        try {
+            return userManagerService.addUser(userMessage);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     }
     /**
      * 读取文件
@@ -292,12 +291,13 @@ public class UserManagerController {
     @RequestMapping("/addUserBacth")
     @ResponseBody
     @SystemControllerLog(description = " 批量保存用户信息|addUserBacth")
-    public Map addUserBacth(Integer csy010,@RequestBody UserMessage[] userMessage)throws Exception{
+    public Map addUserBacth(Integer csy010,@RequestBody UserMessage[] userMessage) throws Exception {
         Map map=new HashMap();
         for (UserMessage userMessage2 : userMessage) {
            map=userManagerService.addUser(userMessage2);
         }       
         return map;
+        
     }
     /**
      * 更新用户信息
@@ -308,9 +308,14 @@ public class UserManagerController {
     @RequestMapping("/updateUser")
     @ResponseBody
     @SystemControllerLog(description = " 更新用户信息|updateUser")
-    public Map updateUser(@RequestBody UserMessage userMessage) throws Exception{
-        Map map=userManagerService.updateUser(userMessage);
-        return map;
+    public Map updateUser(@RequestBody UserMessage userMessage){
+        try {
+            return userManagerService.updateUser(userMessage);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     }
     /**
      * 验证输入的学院信息

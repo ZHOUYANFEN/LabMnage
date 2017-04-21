@@ -47,5 +47,12 @@ public interface Aa10Service {
      * @throws Exception
      */
     public Map deleteAa10(String aaa100, String aaa102) throws Exception;
+    /**
+     * 批量删除码表
+     * @param ids
+     * @return
+     * @throws Exception
+     */
+    public Map deleteAa10Batch(String ids) throws Exception;
 
 }

@@ -45,8 +45,7 @@ public class AnouncementServiceImpl implements AnouncementService {
         int i=sy14Mapper.deleteanouncement(csy140);
         Map map=new HashMap();
         if(i!=1){
-            map.put("statu",UserConstance.DELETE_SY14_ERROR );
-            return map;
+           throw new RuntimeException(UserConstance.DELETE_SY14_ERROR);
         }
         map.put("statu", UserConstance.DELETE_SY14_SUCCESS);
         return map;
@@ -64,8 +63,7 @@ public class AnouncementServiceImpl implements AnouncementService {
         }
         Map map=new HashMap();
         if(count!=csy140s.length){
-            map.put("statu",UserConstance.DELETE_SY14_ERROR );
-            return map;
+            throw new RuntimeException(UserConstance.DELETE_SY14_ERROR);
         }
         map.put("statu", UserConstance.DELETE_SY14_SUCCESS);
         return map;
@@ -77,8 +75,7 @@ public class AnouncementServiceImpl implements AnouncementService {
         int i=sy14Mapper.saveAnoucement(sy14);
         Map map=new HashMap();
         if(i!=1){
-            map.put("statu",UserConstance.INSERT_SY14_ERROR );
-            return map;
+            throw new RuntimeException(UserConstance.INSERT_SY14_ERROR);
         }
         map.put("statu", UserConstance.INSERT_SY14_SUCCESS);
         return map;

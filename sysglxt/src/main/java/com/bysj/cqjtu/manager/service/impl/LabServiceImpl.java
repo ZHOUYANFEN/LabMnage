@@ -40,8 +40,7 @@ public class LabServiceImpl implements LabService {
         int i=sy11Mapper.addLab(sy11);
         Map map=new HashMap();
         if(i!=1){
-            map.put("statu",OperateStatu.INSERT_SY11_FAIL);
-            return map;
+            throw new RuntimeException(OperateStatu.INSERT_SY11_FAIL);
         }
         map.put("statu", OperateStatu.INSERT_SY11_SUCCESS);
         return map;
@@ -60,8 +59,7 @@ public class LabServiceImpl implements LabService {
             }
         }
         if(success_num!=csy110_list.length){
-            resultmap.put("statu", OperateStatu.DELETE_SY11_FAIL);
-            return map;
+            throw new RuntimeException(OperateStatu.DELETE_SY11_FAIL);
         }
         resultmap.put("statu", OperateStatu.DELETE_SY11_SUCCESS);
         return resultmap;
@@ -78,8 +76,7 @@ public class LabServiceImpl implements LabService {
         int i=sy11Mapper.updateLab(sy11);
         Map map=new HashMap();
         if(i!=1){
-            map.put("statu",OperateStatu.UPDATE_SY11_FAIL);
-            return map;
+            throw new RuntimeException(OperateStatu.UPDATE_SY11_FAIL);
         }
         map.put("statu", OperateStatu.INSERT_SY11_SUCCESS);
         return map;
@@ -106,8 +103,7 @@ public class LabServiceImpl implements LabService {
         
         Map map=new HashMap();
         if(i!=1){
-            map.put("statu", OperateStatu.INSERT_SY10_FAIL);
-            return map;
+            throw new RuntimeException(OperateStatu.INSERT_SY10_FAIL);
         }
         map.put("statu", OperateStatu.INSERT_SY10_SUCCESS);
         return map;
@@ -117,8 +113,7 @@ public class LabServiceImpl implements LabService {
         int i=sy10Mapper.deleteType(csy100);
         Map map=new HashMap();
         if(i!=1){
-            map.put("statu", OperateStatu.DELETE_SY10_FAIL);
-            return map;
+            throw new RuntimeException(OperateStatu.DELETE_SY10_FAIL);
         }
         map.put("statu", OperateStatu.DELETE_SY10_SUCCESS);
         return map;
@@ -141,8 +136,7 @@ public class LabServiceImpl implements LabService {
         int i=sy10Mapper.updateType(sy10);
         Map map=new HashMap();
         if(i!=1){
-            map.put("statu", OperateStatu.UPDATE_SY10_FAIL);
-            return map;
+            throw new RuntimeException(OperateStatu.UPDATE_SY10_FAIL);
         }
         map.put("statu", OperateStatu.UPDATE_SY10_SUCCESS);
         return map;

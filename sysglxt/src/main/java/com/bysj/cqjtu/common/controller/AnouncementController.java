@@ -65,9 +65,14 @@ public class AnouncementController {
     @RequestMapping("/deleteanouncement")
     @ResponseBody
     @SystemControllerLog(description ="删除公告")
-    public Map deleteanouncement(String csy140) throws Exception{
-        Map map =anouncementService.deleteanouncement(csy140);
-        return map;
+    public Map deleteanouncement(String csy140) {
+        try {
+            return anouncementService.deleteanouncement(csy140);
+        } catch (Exception e) {
+            Map map=new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     } 
     /**
      * 批量删除公告
@@ -77,9 +82,14 @@ public class AnouncementController {
     @RequestMapping("/deleteBatch")
     @ResponseBody
     @SystemControllerLog(description ="批量删除公告")
-    public Map deleteBatch(String ids) throws Exception{
-        Map map =anouncementService.deleteBatch(ids);
-        return map;
+    public Map deleteBatch(String ids) {
+        try {
+            return anouncementService.deleteBatch(ids);
+        } catch (Exception e) {
+            Map map=new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     }
     /**
      * 添加公告
@@ -89,9 +99,14 @@ public class AnouncementController {
     @RequestMapping("/saveAnoucement")
     @ResponseBody
     @SystemControllerLog(description ="添加公告")
-    public Map saveAnoucement(@RequestBody Sy14 sy14) throws Exception{
-        Map map =anouncementService.saveAnoucement(sy14);
-        return map;
+    public Map saveAnoucement(@RequestBody Sy14 sy14){
+        try {
+            return anouncementService.saveAnoucement(sy14);
+        } catch (Exception e) {
+            Map map=new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     }
     /**
      * 公告详情
