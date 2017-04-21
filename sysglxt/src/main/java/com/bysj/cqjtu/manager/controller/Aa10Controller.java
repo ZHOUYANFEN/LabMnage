@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -104,4 +105,57 @@ public class Aa10Controller {
         }
        
     }
+    /**
+     * 添加码值
+     * @param aa10
+     * @return
+     */
+    @RequestMapping("/saveAa10")
+    @ResponseBody
+    @SystemControllerLog(description ="添加码值")
+    public Map saveAa10(@RequestBody Aa10 aa10){
+        try {
+            return aa10Service.saveAa10(aa10);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
+    }
+    /**
+     * 设置码值名称
+     * @param aaa100
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/setAaa101")
+    @ResponseBody
+    @SystemControllerLog(description ="设置码值名称")
+   public Map setAaa101(String aaa100) throws Exception{
+        return aa10Service.setAaa101(aaa100);
+   }
+    /**
+     * 验证码值
+     * @param aa10
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/validateAa10")
+    @ResponseBody
+    @SystemControllerLog(description ="验证码值")
+   public Map validateAa10(@RequestBody Aa10 aa10) throws Exception{
+       return aa10Service.setvalidateAa10Aaa101(aa10);
+   }
+   /**
+    * 按条件查询
+    * @param aa10
+    * @return
+    * @throws Exception
+    */
+    @RequestMapping("/getAa10ByCondtion")
+    @ResponseBody
+    @SystemControllerLog(description ="按条件查询")
+   public List<Aa10> getAa10ByCondtion(@RequestBody Aa10 aa10) throws Exception{     
+       return aa10Service.getAa10ByCondtion(aa10);
+   }
 }

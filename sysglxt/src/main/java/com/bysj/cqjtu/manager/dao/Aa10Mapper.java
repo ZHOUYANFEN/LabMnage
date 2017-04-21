@@ -46,4 +46,28 @@ public interface Aa10Mapper {
      * @return
      */
     int deleteAa10(Aa10Key aa10Key);
+    /**
+     * 添加码表
+     * @param aa10
+     * @return
+     */
+    int saveAa10(Aa10 aa10);
+    /**
+     * 设置码值
+     * @param aaa100
+     * @return
+     */
+    Map setAaa101(String aaa100);
+    /**
+     * 验证码值
+     * @param aa10
+     * @return
+     */
+    List<Aa10> setvalidateAa10Aaa101(Aa10 aa10);
+    /**
+     * 按条件查询
+     * @param aa10
+     * @return
+     */
+    List<Aa10> getAa10ByCondtion(Aa10 aa10);
 }

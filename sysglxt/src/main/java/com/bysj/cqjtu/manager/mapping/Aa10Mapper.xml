@@ -60,74 +60,150 @@
      where aaa100 = #{aaa100}
        and aaa102 = #{aaa102}
   </update>
+  <!-- 保存码表 -->
+  <insert id="saveAa10" parameterType="com.bysj.cqjtu.manager.domain.Aa10" >
+    insert into aa10 (
+                      AAA100, 
+                      AAA102, 
+                      AAA101, 
+                      AAA103,
+                      AAA104,
+                      AAA105)
+             values (#{aaa100,jdbcType=VARCHAR}, 
+                     #{aaa102,jdbcType=VARCHAR}, 
+                     #{aaa101,jdbcType=VARCHAR}, 
+                     #{aaa103,jdbcType=VARCHAR},
+                     #{aaa104,jdbcType=TINYINT}, 
+                     #{aaa105,jdbcType=VARCHAR})
+  </insert>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.bysj.cqjtu.manager.domain.Aa10Key" >
+   <!--获取对应所有码值名称  -->
+  <select id="setAaa101"  resultType="java.util.HashMap" parameterType="String">
+     select distinct aaa101
+                from aa10
+               where aaa104 = 0
+                 and aaa100 =#{aaa100}
+  </select>
+  
+  <!-- 验证码值  -->
+  <select id="setvalidateAa10Aaa101"  resultType="com.bysj.cqjtu.manager.domain.Aa10" parameterType="com.bysj.cqjtu.manager.domain.Aa10">
+     select *
+       from aa10
+      where aaa104 = 0
+        and aaa100 =#{aaa100}
+        and aaa101 =#{aaa101}
+        and aaa102 =#{aaa102}
+        and aaa103 =#{aaa103}
+  </select>
+  
+  <!-- 按条件查询 -->
+  <select id="getAa10ByCondtion"  resultType="com.bysj.cqjtu.manager.domain.Aa10" parameterType="com.bysj.cqjtu.manager.domain.Aa10">
+     select *
+       from aa10
+      where aaa104 = 0
+      <if test="aaa100!=null">
+        and aaa100 =#{aaa100}
+      </if>
+      <if test="aaa101!=null">
+       and aaa101 =#{aaa101}
+      </if>
+      <if test="aaa102!=null">
+       and aaa102 =#{aaa102}
+      </if>
+  </select>
+  
+  
+<select id="selectByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Aa10Key" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from aa10
     where AAA100 = #{aaa100,jdbcType=VARCHAR}
       and AAA102 = #{aaa102,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Aa10Key" >
+  <delete id="deleteByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Aa10Key">
     delete from aa10
     where AAA100 = #{aaa100,jdbcType=VARCHAR}
       and AAA102 = #{aaa102,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Aa10" >
+  <insert id="insert" parameterType="com.bysj.cqjtu.manager.domain.Aa10">
     insert into aa10 (AAA100, AAA102, AAA101, 
-      AAA103)
+      AAA103, AAA104, AAA105
+      )
     values (#{aaa100,jdbcType=VARCHAR}, #{aaa102,jdbcType=VARCHAR}, #{aaa101,jdbcType=VARCHAR}, 
-      #{aaa103,jdbcType=VARCHAR})
+      #{aaa103,jdbcType=VARCHAR}, #{aaa104,jdbcType=TINYINT}, #{aaa105,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Aa10" >
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Aa10">
     insert into aa10
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="aaa100 != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aaa100 != null">
         AAA100,
       </if>
-      <if test="aaa102 != null" >
+      <if test="aaa102 != null">
         AAA102,
       </if>
-      <if test="aaa101 != null" >
+      <if test="aaa101 != null">
         AAA101,
       </if>
-      <if test="aaa103 != null" >
+      <if test="aaa103 != null">
         AAA103,
       </if>
+      <if test="aaa104 != null">
+        AAA104,
+      </if>
+      <if test="aaa105 != null">
+        AAA105,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="aaa100 != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aaa100 != null">
         #{aaa100,jdbcType=VARCHAR},
       </if>
-      <if test="aaa102 != null" >
+      <if test="aaa102 != null">
         #{aaa102,jdbcType=VARCHAR},
       </if>
-      <if test="aaa101 != null" >
+      <if test="aaa101 != null">
         #{aaa101,jdbcType=VARCHAR},
       </if>
-      <if test="aaa103 != null" >
+      <if test="aaa103 != null">
         #{aaa103,jdbcType=VARCHAR},
+      </if>
+      <if test="aaa104 != null">
+        #{aaa104,jdbcType=TINYINT},
+      </if>
+      <if test="aaa105 != null">
+        #{aaa105,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.Aa10" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.manager.domain.Aa10">
     update aa10
-    <set >
-      <if test="aaa101 != null" >
+    <set>
+      <if test="aaa101 != null">
         AAA101 = #{aaa101,jdbcType=VARCHAR},
       </if>
-      <if test="aaa103 != null" >
+      <if test="aaa103 != null">
         AAA103 = #{aaa103,jdbcType=VARCHAR},
+      </if>
+      <if test="aaa104 != null">
+        AAA104 = #{aaa104,jdbcType=TINYINT},
+      </if>
+      <if test="aaa105 != null">
+        AAA105 = #{aaa105,jdbcType=VARCHAR},
       </if>
     </set>
     where AAA100 = #{aaa100,jdbcType=VARCHAR}
       and AAA102 = #{aaa102,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Aa10" >
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Aa10">
     update aa10
     set AAA101 = #{aaa101,jdbcType=VARCHAR},
-      AAA103 = #{aaa103,jdbcType=VARCHAR}
+      AAA103 = #{aaa103,jdbcType=VARCHAR},
+      AAA104 = #{aaa104,jdbcType=TINYINT},
+      AAA105 = #{aaa105,jdbcType=VARCHAR}
     where AAA100 = #{aaa100,jdbcType=VARCHAR}
       and AAA102 = #{aaa102,jdbcType=VARCHAR}
   </update>
+
+  
 </mapper>

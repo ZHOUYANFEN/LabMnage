@@ -64,7 +64,7 @@ public class Aa10ServiceImpl implements Aa10Service {
         Aa10Key aa10Key;
         int count=0;
         for (String string : idArr) {
-            aaa100=string.substring(0, string.indexOf("_")+1);
+            aaa100=string.substring(0, string.indexOf("_"));
             aaa102=string.substring(string.indexOf("_")+1);
             aa10Key=new Aa10Key();
             aa10Key.setAaa100(aaa100);
@@ -80,6 +80,43 @@ public class Aa10ServiceImpl implements Aa10Service {
         }
         map.put("statu", OperateStatu.DELETE_AA10_SUCCESS);
         return map;
+    }
+    @Override
+    public Map saveAa10(Aa10 aa10) throws Exception {
+        aa10.setAaa104(Byte.parseByte(OperateStatu.AAA104_0));
+        int i =aa10Mapper.saveAa10(aa10);
+        if(i!=1){
+            throw new RuntimeException( OperateStatu.SAVE_AA10_FAIL);
+        }
+        Map map= new HashMap();
+        map.put("statu", OperateStatu.SAVE_AA10_SUCCESS);
+        return map;
+    }
+    @Override
+    public Map setAaa101(String aaa100) throws Exception {
+        return aa10Mapper.setAaa101(aaa100);
+    }
+    @Override
+    public Map setvalidateAa10Aaa101(Aa10 aa10) throws Exception {
+        List<Aa10> list=aa10Mapper.setvalidateAa10Aaa101(aa10);
+        Map map= new HashMap();
+        if(list.size()>0){
+            map.put("statu", OperateStatu.VALIDATE_AA10_SUCCESS);
+        }else {
+            map.put("statu", OperateStatu.VALIDATE_AA10_FAIL);
+        }
+        return map;
+    }
+    @Override
+    public List<Aa10> getAa10ByCondtion(Aa10 aa10) throws Exception {
+        /*PageHelper.startPage(pageNum, pageSize);
+        List<Aa10> allList =aa10Mapper.getAa10ByCondtion(aa10);
+        PageEntity<Aa10> pageBean = new PageEntity<Aa10>();
+        pageBean.setList(allList);
+        int size =aa10Mapper.getAa10ByCondtion(aa10).size();
+        pageBean.setCount(size);
+        return pageBean;*/
+       return  aa10Mapper.getAa10ByCondtion(aa10);
     }
 
 }

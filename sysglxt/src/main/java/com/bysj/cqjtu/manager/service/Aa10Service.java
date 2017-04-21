@@ -54,5 +54,33 @@ public interface Aa10Service {
      * @throws Exception
      */
     public Map deleteAa10Batch(String ids) throws Exception;
+    /**
+     * 添加码值
+     * @param aa10
+     * @return
+     * @throws Exception
+     */
+    public Map saveAa10(Aa10 aa10) throws Exception;
+    /**
+     * 设置码值
+     * @param aaa100
+     * @return
+     * @throws Exception
+     */
+    public Map setAaa101(String aaa100) throws Exception;
+    /**
+     * 验证码值
+     * @param aa10
+     * @return
+     * @throws Exception
+     */
+    public Map setvalidateAa10Aaa101(Aa10 aa10) throws Exception;
+    /**
+     * 按条件查询码值
+     * @param aa10
+     * @return
+     * @throws Exception
+     */
+    public List<Aa10> getAa10ByCondtion(Aa10 aa10) throws Exception;
 
 }

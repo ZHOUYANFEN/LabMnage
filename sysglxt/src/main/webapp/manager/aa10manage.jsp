@@ -36,7 +36,7 @@
     
 </head>
 <body style="font-family:'黑体';font-size:16px">
-    <div id="button_operatemenu" style="margin-top:50px;margin-left:340px">
+    <div id="button_operatemenu" style="margin-top:50px;margin-left:440px">
         <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle='modal' data-target='#aa10_model'>
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     增加码值
@@ -45,16 +45,12 @@
             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                     删除码值
         </button>
-        <button type="button" class="btn btn-default" aria-label="Left Align">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    批量导入
-        </button>
     </div>
     <div id="button_querymenu" style="margin-top:20px;margin-left:60px">
         <label style="margin-left:5px;width:100px;text-align:right">代码类别:</label><input type="text" name="aaa100" width="100px" id="aaa100" >
         <label style="margin-left:5px;width:100px;text-align:right"> 代码总称:</label><input type="text" name="aaa101" width="100px" id="aaa101" >
         <label style="margin-left:5px;width:100px;text-align:right">代码名:</label><input type="text" name="aaa102" width="100px" id="aaa102" >   
-         <button type="button" class="btn btn-default" aria-label="Left Align" style="margin-top:10px;margin-left:400px" >
+         <button type="button" class="btn btn-default" aria-label="Left Align" style="margin-top:10px;margin-left:400px" onclick="getAa10ByCondtion()" >
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                       查询
         </button> 
@@ -80,20 +76,20 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">码表管理</h4>
           </div>
-          <div class="modal-body" style="height:200px">
-             <div>
-	             <label style="margin-left:5px;width:100px;text-align:right">代码类别:</label><input type="text" name="aaa100" width="100px" id="aaa100" >
-	             <label style="margin-left:5px;width:100px;text-align:right"> 代码总称:</label><input type="text" name="aaa101" width="100px" id="aaa101" >
-	             <label style="margin-left:5px;width:100px;text-align:right">代码码值:</label><input type="text" name="aaa102" width="100px" id="aaa102" >
+          <div class="modal-body" style="height:200px;">
+             <div style="margin:40px auto 0">
+	             <label style="margin-left:5px;width:100px;text-align:right">代码类别:</label><input onchange="setAaa101(this)" required="required" type="text" name="aaa100_model" width="100px" id="aaa100_model" >
+	             <label style="margin-left:5px;width:100px;text-align:right"> 代码总称:</label><input required="required" type="text" name="aaa101_model" width="100px" id="aaa101_model" >
+	             <label style="margin-left:5px;width:100px;text-align:right">代码码值:</label><input required="required" type="text" name="aaa102_model" width="100px" id="aaa102_model" >
             </div>
-        <div style="margin-top:5px">
-             <label style="margin-left:5px;width:100px;text-align:right">代码名:</label><input type="text" name="aaa103" width="100px" id="aaa103" >
-             <label style="margin-left:5px;width:100px;text-align:right">备注(备用):</label><input type="text" name="aaa105" width="100px" id="aaa105" >                     
+        <div style="margin-top:20px">
+             <label style="margin-left:5px;width:100px;text-align:right">代码名:</label><input required="required" type="text" name="aaa103_model" width="100px" id="aaa103_model" >
+             <label style="margin-left:5px;width:100px;text-align:right">备注(备用):</label><input type="text" name="aaa105_model" width="100px" id="aaa105_model" >                     
         </div>      
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary" id="btnSave_model" >保存</button>
+            <button type="button" class="btn btn-primary" onclick="saveAa10()"  >保存</button>
           </div>
         </div>
       </div>
@@ -135,7 +131,7 @@ function init(){
                                       +"<td >"+ data.list[i].aaa103+"</td>"
                                       +"<td >"+ data.list[i].aaa105+"</td>"
                                       +"<td><button type='button' class='btn btn-primary btn-xs' onclick=\"deleteAa10('"+data.list[i].aaa100+"','"+data.list[i].aaa102+"')\">删除</button>"
-                                      +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick=\"changeAa10('"+data.list[i].aaa100+"','"+data.list[i].aaa102+"')\">修改</button></td></tr>");
+                                     /*  +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick=\"changeAa10('"+data.list[i].aaa100+"','"+data.list[i].aaa102+"')\">修改</button> */+"</td></tr>");
 	            	    }
 	        }
 	    });
@@ -210,6 +206,103 @@ function init(){
                 }
             });
         });
-	}	
+	}
+	/*添加码值*/
+	function saveAa10(){
+		var aaa100 = $("#aaa100_model").val();
+		var aaa101 = $("#aaa101_model").val();
+		var aaa102 = $("#aaa102_model").val();
+		var aaa103 = $("#aaa103_model").val();
+		var aaa105 = $("#aaa105_model").val();
+		if(!(aaa100&&aaa101&&aaa102&&aaa103)){
+			sweetAlert("必填项还没有填完");
+			return;
+		}
+		var aa10={
+			'aaa100':aaa100,
+			'aaa101':aaa101,
+			'aaa102':aaa102,
+			'aaa103':aaa103,
+			'aaa105':aaa105
+		}	
+		$.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath}/aa10/validateAa10",
+            contentType:"application/json;charset=utf-8",
+            data:JSON.stringify(aa10),
+            dataType: "json",
+            success:function(data){
+                if(data.statu=='success'){
+                	$.ajax({
+                        type:"POST",
+                        url:"${pageContext.request.contextPath}/aa10/saveAa10",
+                        contentType:"application/json;charset=utf-8",
+                        data:JSON.stringify(aa10),
+                        dataType: "json",
+                        success:function(data){
+                            if(data.statu=='success'){
+                                $('#aa10_model').modal('toggle');
+                                sweetAlert("添加成功");
+                                init();
+                            }   
+                        }
+                    });
+                }else{
+                	sweetAlert("代码值已经存在");
+                }
+            }
+		});
+		
+	}
+	/*根据代码类别来获取代码名称*/
+	function setAaa101(data){
+		var aaa100 = $("#"+data.id).val();
+		$.ajax({
+			type:"POST",
+	        url:"${pageContext.request.contextPath}/aa10/setAaa101?aaa100="+aaa100,
+	        success:function(resultdata){
+	        	if(resultdata.aaa101){
+	        		$("#aaa101_model").val(resultdata.aaa101);
+	        		$("#aaa101_model").attr("readOnly","readOnly");
+	        	}else{
+	        		  $("#aaa101_model").val("");
+	        	}
+	        }
+		});
+	}
+	/*根据条件查询*/
+	function getAa10ByCondtion(){
+		var aaa100 = $("#aaa100").val();
+        var aaa101 = $("#aaa101").val();
+        var aaa102 = $("#aaa102").val();
+        var aa10={
+              'aaa100':aaa100,
+              'aaa101':aaa101,
+              'aaa102':aaa102
+              };
+        console.log(aa10);
+        $.ajax({
+            type:"POST",
+            url:"${pageContext.request.contextPath}/aa10/getAa10ByCondtion",
+            contentType:"application/json;charset=utf-8",
+            data:JSON.stringify(aa10),
+            dataType: "json",
+            success:function(data){
+            	 $("#aa10head").siblings().remove();
+                 for (var i = 0; i < data.length; i++) {
+                	 $(".tcdPageCode").attr("hidden","hidden");
+                     $("#aa10list").append(
+                                     "<tr><td style='width:20px'><input type='checkbox' id='"+data[i].aaa100+"_"+data[i].aaa102+"'/></td>"
+                                     +"<td >"+ data[i].aaa100+"</td>"
+                                     +"<td >"+ data[i].aaa101+"</td>"
+                                     +"<td >"+ data[i].aaa102+"</td>"
+                                     +"<td >"+ data[i].aaa103+"</td>"
+                                     +"<td >"+ data[i].aaa105+"</td>"
+                                     +"<td><button type='button' class='btn btn-primary btn-xs' onclick=\"deleteAa10('"+data[i].aaa100+"','"+data[i].aaa102+"')\">删除</button>"
+                                     +"</td></tr>");
+                 }
+            }
+        });
+	}
 </script>
 </html>

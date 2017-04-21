@@ -116,4 +116,13 @@ public interface OperateStatu {
     /************************删除码表***************/
     public static final String DELETE_AA10_SUCCESS="success";//成功
     public static final String DELETE_AA10_FAIL="error";//失败
+    /************************添加码表***************/
+    public static final String SAVE_AA10_SUCCESS="success";//成功
+    public static final String SAVE_AA10_FAIL="error";//失败
+    
+    /************************添加码表***************/
+    public static final String AAA104_0="0";//有效
+    /********验证码表********/
+    public static final Object VALIDATE_AA10_SUCCESS = "success";
+    public static final Object VALIDATE_AA10_FAIL = "error";
 }
