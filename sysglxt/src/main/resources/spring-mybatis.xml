@@ -101,10 +101,11 @@
     <aop:config proxy-target-class="false">
         <!--将com.bysj.cqjtu包下的所有query开头的方法加入拦截
         -->
-        <aop:pointcut id="serviceMethodPointcut" expression="
-        execution(* com.bysj.cqjtu.*.service.*.query*(..))"/>
-<!-- 
-        <aop:pointcut id="selectMethodPointcut" expression="
+        <!-- <aop:pointcut id="serviceMethodPointcut" expression="
+        execution(* com.bysj.cqjtu.*.service.*.query*(..))"/> -->
+         <aop:pointcut id="serviceMethodPointcut" expression="
+        execution(* com.bysj.cqjtu.login.service.LoginService.getUserMessage(..))"/>
+       <!--  <aop:pointcut id="selectMethodPointcut" expression="
         execution(* com.bysj.cqjtu.*.dao.*Mapper.query*(..))"/> -->
 
         <aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="serviceMethodPointcut"/>
@@ -152,8 +153,6 @@
                 /menu/*=authc
                 /anouncement/*=authc
                 /user/*=authc                               
-               <!--  /student*=roles[teacher]
-                /teacher*=perms["user:create"] -->
             </value>
         </property>
     </bean>

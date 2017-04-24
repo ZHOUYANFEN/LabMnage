@@ -23,8 +23,6 @@ public class MethodCacheInterceptor implements MethodInterceptor {
     private List<String> targetNamesList; // 不加入缓存的service名称
     private List<String> methodNamesList; // 不加入缓存的方法名称
     private Long defaultCacheExpireTime; // 缓存默认的过期时间
-    private Long xxxRecordManagerTime; //
-    private Long xxxSetRecordManagerTime; //
 
     /**
      * 初始化读取不需要加入缓存的类名和方法名称
@@ -36,9 +34,7 @@ public class MethodCacheInterceptor implements MethodInterceptor {
             String[] methodNames = {};
 
             // 加载过期时间设置
-            defaultCacheExpireTime = 3600L;
-            xxxRecordManagerTime = 60L;
-            xxxSetRecordManagerTime = 60L;
+            defaultCacheExpireTime = 60L;
             // 创建list
             targetNamesList = new ArrayList<String>(targetNames.length);
             methodNamesList = new ArrayList<String>(methodNames.length);
@@ -85,14 +81,8 @@ public class MethodCacheInterceptor implements MethodInterceptor {
                 final Object tvalue = value;
                 new Thread(new Runnable() {
                     @Override
-                    public void run() {
-                        if (tkey.startsWith(" com.bysj.cqjtu.service.impl.xxxRecordManager")) {
-                            redisUtil.set(tkey, tvalue, xxxRecordManagerTime);
-                        } else if (tkey.startsWith(" com.bysj.cqjtu.service.impl.xxxSetRecordManager")) {
-                            redisUtil.set(tkey, tvalue, xxxSetRecordManagerTime);
-                        } else {
-                            redisUtil.set(tkey, tvalue, defaultCacheExpireTime);
-                        }
+                    public void run() {                       
+                        redisUtil.set(tkey, tvalue, defaultCacheExpireTime);
                     }
                 }).start();
             }

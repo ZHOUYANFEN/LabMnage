@@ -1,6 +1,7 @@
 package com.bysj.cqjtu.login.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
@@ -33,4 +34,11 @@ public interface LoginService {
      * @return
      */
     public Sy02 findUserByUsername(String csy021) throws Exception;
+    /**
+     * 查找角色
+     * @param csy021
+     * @return
+     * @throws Exception
+     */
+    public Set<String> findRoles(String csy021) ;
 }

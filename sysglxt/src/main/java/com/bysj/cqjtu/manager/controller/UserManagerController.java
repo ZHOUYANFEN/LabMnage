@@ -56,7 +56,8 @@ public class UserManagerController {
     @ResponseBody
     @SystemControllerLog(description = "获取用户信息|getAllUser") 
     public PageEntity<Map> getAllUser(Integer pageNum, Integer pageSize)throws Exception{
-        return userManagerService.queryAllUser(pageNum,pageSize);
+        PageEntity<Map> pageEntity=userManagerService.queryAllUser(pageNum,pageSize);
+        return pageEntity;
     }
     /**
      * 删除用户信息

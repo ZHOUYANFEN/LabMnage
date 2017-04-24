@@ -22,4 +22,5 @@
         <context:component-scan base-package="com.crossoverJie.cxf" />
         <!--  &lt;!&ndash; 定义webservice的发布接口  &ndash;&gt; -->
         <jaxws:endpoint implementor="#addUser" address="/addUser"></jaxws:endpoint>
+        <jaxws:endpoint implementor="#aa10" address="/aa10"></jaxws:endpoint>
 </beans>

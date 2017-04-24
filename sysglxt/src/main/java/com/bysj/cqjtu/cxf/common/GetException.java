@@ -1,5 +1,8 @@
 package com.bysj.cqjtu.cxf.common;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 
 
 
@@ -25,9 +28,12 @@ public class GetException {
         //xmlHead.setInteface(webServiceName);
         //String xmlhead = XmlTools.simpleObjToXml(xmlHead);
        // sbBuffer.append(xmlhead);
+        StringWriter sw = new StringWriter(); 
+        PrintWriter pw = new PrintWriter(sw); 
+        e.printStackTrace(pw); 
         sbBuffer.append(XmlAssembly.UN_HEAD);
         sbBuffer.append(XmlAssembly.DATA + XmlAssembly.MAP);
-        sbBuffer.append(XmlAssembly.EXCEPTION+e+XmlAssembly.UN_EXCEPTION);
+        sbBuffer.append(XmlAssembly.EXCEPTION+sw.toString()+XmlAssembly.UN_EXCEPTION);
         sbBuffer.append(XmlAssembly.UN_MAP+XmlAssembly.UN_DATA);
         return sbBuffer.toString();
     }

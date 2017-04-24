@@ -1,7 +1,9 @@
 package com.bysj.cqjtu.login.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,13 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Sy02 findUserByUsername(String csy021) throws Exception {
         return sy02Mapper.findUserByUsername(csy021);
+    }
+    @Override
+    public Set<String> findRoles(String csy021)  {
+        byte csy010=sy02Mapper.findUserByUsername(csy021).getCsy010();
+        Set<String> set=new HashSet();
+        set.add(csy021);
+        return set;
     }
 
 }
