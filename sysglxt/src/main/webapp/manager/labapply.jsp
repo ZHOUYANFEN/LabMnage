@@ -109,8 +109,8 @@
             success:function(data){
                 $("#applyhead").siblings().remove();
                 for(var i=0;i<data.list.length;i++){
-                    $("#applylist").append("<tr style='width:800px;'>"
-                                                +"<tr><td style='width:20px'><input type='checkbox' /></td>"
+                    $("#applylist").append("<tr style='width:800px;' >"
+                                                +"<td style='width:20px'><input type='checkbox' /></td>"
                                                 +"<td>"+data.list[i].csy111+"</td>"
                                                 +"<td>"+data.list[i].csy112+"</td>"
                                                 +"<td>"+data.list[i].csy101+"</td>"

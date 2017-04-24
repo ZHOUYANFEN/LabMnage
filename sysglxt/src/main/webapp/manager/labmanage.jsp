@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/jui/plupload/upload.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/ajaxfileupload.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
@@ -95,7 +94,7 @@
                          <lable style="margin-left:20px">实验室位置:</lable><input type="text"  width="100px" id="csy112_model" maxlength="30">
                      </div>
                      <div style="margin-top:20px">
-                     <lable>&nbsp;&nbsp;开放时间:</lable><input type="text"  width="100px" id="csy113_model" maxlength="30">
+                     <lable>&nbsp;&nbsp;开放时间:</lable><select type="text" id="csy113_model" maxlength="30" style=" width:150px;height:30px"></select>
                      <lable style="margin-left:20px">&nbsp;是否开放:</lable>
                      <select style="width:122px;height:30px" id="csy114_model" >
                        <option selected="selected" value='0'>开放</option>
@@ -144,9 +143,10 @@
 <script type="text/javascript">
 $(function(){    
     queryType();
+    queryCsy113();
 });
 function queryType(){
-	 /*查询实验室类型*/
+	/*查询实验室类型*/
     $.ajax({
         type:'post',
         url:"${pageContext.request.contextPath}/lab/queryLabType",
@@ -163,6 +163,17 @@ function queryType(){
             }
         }
     })
+}
+function queryCsy113(){
+	 $.ajax({
+	        type:'post',
+	        url:"${pageContext.request.contextPath}/lab/queryCsy113",
+	        success:function(data){
+	            for(var i=0;i<data.length;i++){
+	                $("#csy113_model").append("<option value ='"+data[i].csy113+"'>"+data[i].csy113+"</option>");
+	            }
+	        }
+	    })
 }
 /*查询各实验室类型下的实验室*/
 function queryLabList(csy100){

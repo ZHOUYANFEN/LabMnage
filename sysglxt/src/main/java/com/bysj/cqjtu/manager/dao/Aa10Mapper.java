@@ -70,4 +70,9 @@ public interface Aa10Mapper {
      * @return
      */
     List<Aa10> getAa10ByCondtion(Aa10 aa10);
+    /**
+     * 查询码值中的时间
+     * @return
+     */
+    List<Map> queryCsy113();
 }

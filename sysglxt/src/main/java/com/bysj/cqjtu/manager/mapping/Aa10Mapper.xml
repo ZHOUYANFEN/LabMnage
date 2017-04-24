@@ -111,9 +111,16 @@
        and aaa102 =#{aaa102}
       </if>
   </select>
+  <!-- 查询时间码值 -->
+   <select id="queryCsy113" resultType="java.util.HashMap">
+    select aaa103 as csy113
+      from aa10
+     where aaa104 = 0
+       and aaa100 = 'TIME'
+  </select>
   
   
-<select id="selectByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Aa10Key" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="com.bysj.cqjtu.manager.domain.Aa10Key" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from aa10

@@ -59,11 +59,11 @@
             </select>
         </div>
 	</div>
-	<div id="input_value" style="margin-top:40px;margin-left:50px;padding:0">
-		<label>功能id:</label><input type="text" id="csy157_txt" required="required" style="width:160px" maxlength="50">
-		<label>功能名称:</label><input type="text" id="csy151_txt" required="required" style="width:160px" maxlength="50">
-		<label>事件:</label><input type="text" id="csy152_txt" style="width:160px" style="float:right;margin-right:176px" maxlength="50">
-		<label>页面:</label><input type="text" id="csy153_txt" style="width:160px" style="float:right;margin-right:176px" maxlength="50">
+	<div id="input_value" style="margin-top:30px;margin-left:50px;padding:0">
+		<label style="width:80px;text-align:right;margin-right:10px">功能id：</label><input type="text" id="csy157_txt" required="required" style="width:150px" maxlength="50">
+		<label>功能名称：</label><input type="text" id="csy151_txt" required="required" style="width:160px" maxlength="50">
+		<label>事件：</label><input type="text" id="csy152_txt" style="width:160px" style="float:right;margin-right:176px" maxlength="50">
+		<label>页面：</label><input type="text" id="csy153_txt" style="width:160px" style="float:right;margin-right:176px" maxlength="50">
 	</div>
 </body>
 <script type="text/javascript">

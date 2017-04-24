@@ -231,5 +231,15 @@ public class LabController {
         map.put("count", i);
         return map;
     }
-    
+    /**
+     * 查询码表中的时间
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryCsy113")
+    @ResponseBody
+    @SystemControllerLog(description ="查询码表中的时间")
+    public List<Map> queryCsy113() throws Exception{
+        return labService.queryCsy113();
+    }
 }

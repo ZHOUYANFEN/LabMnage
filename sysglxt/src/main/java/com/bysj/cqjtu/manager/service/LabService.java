@@ -103,4 +103,10 @@ public interface LabService {
      * @throws Exception
      */
     public int queryLabApplyCount() throws Exception;
+    /**
+     * 获取码表中的时间
+     * @return
+     * @throws Exception
+     */
+    public List<Map> queryCsy113() throws Exception;
 }

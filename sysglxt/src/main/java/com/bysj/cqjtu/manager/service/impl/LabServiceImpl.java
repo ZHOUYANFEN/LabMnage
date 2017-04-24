@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bysj.cqjtu.manager.constance.OperateStatu;
+import com.bysj.cqjtu.manager.dao.Aa10Mapper;
 import com.bysj.cqjtu.manager.dao.Sy10Mapper;
 import com.bysj.cqjtu.manager.dao.Sy11Mapper;
 import com.bysj.cqjtu.manager.dao.Sy12Mapper;
@@ -24,6 +25,8 @@ public class LabServiceImpl implements LabService {
     private Sy11Mapper sy11Mapper;
     @Autowired 
     private Sy12Mapper sy12Mapper;
+    @Autowired 
+    private Aa10Mapper aa10Mapper;
     @Override
     public List<Map> queryLabType() throws Exception {
         return sy10Mapper.queryLabType();
@@ -165,6 +168,10 @@ public class LabServiceImpl implements LabService {
     @Override
     public int queryLabApplyCount() throws Exception {
         return sy12Mapper.queryLabApply().size();
+    }
+    @Override
+    public List<Map> queryCsy113() throws Exception {
+        return aa10Mapper.queryCsy113();
     }
 
 }
