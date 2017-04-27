@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-04-19 09:59:42
+Date: 2017-04-27 21:53:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,9 +34,11 @@ CREATE TABLE `aa10` (
 -- ----------------------------
 INSERT INTO `aa10` VALUES ('CSY042', '学院', '0', '信息科学与工程学院', '0', '');
 INSERT INTO `aa10` VALUES ('CSY042', '学院', '1', '土木学院', '0', '');
-INSERT INTO `aa10` VALUES ('CSY043', '班级', '0', '计软1301班', '0', '');
-INSERT INTO `aa10` VALUES ('CSY043', '班级', '1', '计软1302班', '0', '');
-INSERT INTO `aa10` VALUES ('TIME', '时间', '0', '所有时间', '0', '');
+INSERT INTO `aa10` VALUES ('CSY043', '班级', '0', '计软1301班', '0', 'CSY042_0');
+INSERT INTO `aa10` VALUES ('CSY043', '班级', '1', '计软1302班', '0', 'CSY042_0');
+INSERT INTO `aa10` VALUES ('CSY043', '班级', '2', '通信1301班', '0', 'CSY042_0');
+INSERT INTO `aa10` VALUES ('CSY043', '班级', '3', '通信1302班', '0', 'CSY042_0');
+INSERT INTO `aa10` VALUES ('TIME', '时间', '0', '所有时间', '1', '');
 INSERT INTO `aa10` VALUES ('TIME', '时间', '1', '周一 8:00-10:00', '0', '');
 INSERT INTO `aa10` VALUES ('TIME', '时间', '2', '周一 10:00-12:00', '0', '');
 INSERT INTO `aa10` VALUES ('TIME', '时间', '3', '周一 14:00-16:00', '0', '');
@@ -75,7 +77,7 @@ CREATE TABLE `sy02` (
   PRIMARY KEY (`CSY020`),
   KEY `FK_Relationship_1` (`CSY010`),
   CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`CSY010`) REFERENCES `sy01` (`CSY010`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
 
 -- ----------------------------
 -- Records of sy02
@@ -83,7 +85,7 @@ CREATE TABLE `sy02` (
 INSERT INTO `sy02` VALUES ('1', '4', 'admin', 'admin', '0');
 INSERT INTO `sy02` VALUES ('2', '1', '631306050218', '050218', '0');
 INSERT INTO `sy02` VALUES ('3', '1', '631306050219', '050219', '0');
-INSERT INTO `sy02` VALUES ('4', '2', '20170313', '170313', '0');
+INSERT INTO `sy02` VALUES ('4', '2', '20170313', '170313', '1');
 INSERT INTO `sy02` VALUES ('5', '2', '20170314', '170314', '0');
 INSERT INTO `sy02` VALUES ('6', '3', '20170201', '170201', '0');
 INSERT INTO `sy02` VALUES ('31', '1', 'fuzj', 'fuzj', '0');
@@ -96,6 +98,7 @@ INSERT INTO `sy02` VALUES ('37', '4', '7788', '866c7ee013c58f01fa153a8d32c9ed57'
 INSERT INTO `sy02` VALUES ('38', '3', '2111', '1a0a283bfe7c549dee6c638a05200e32', '0');
 INSERT INTO `sy02` VALUES ('39', '2', 'teacher001', '6b6b219e992318c632c912f7f175792f', '0');
 INSERT INTO `sy02` VALUES ('40', '1', 'fuzj1', '683d8f8723b173859b5a96714c9a222e', '0');
+INSERT INTO `sy02` VALUES ('41', '2', 'teacher01', 'dc5c7986daef50c1e02ab09b442ee34f', '0');
 
 -- ----------------------------
 -- Table structure for sy03
@@ -153,7 +156,7 @@ CREATE TABLE `sy05` (
   `CSY052` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '学院',
   `CSY053` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '职称',
   PRIMARY KEY (`CSY050`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='教师表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='教师表';
 
 -- ----------------------------
 -- Records of sy05
@@ -165,6 +168,7 @@ INSERT INTO `sy05` VALUES ('29', '4', '2222111', '22112', 'ww');
 INSERT INTO `sy05` VALUES ('30', '5', '33311', '33113', 'ww');
 INSERT INTO `sy05` VALUES ('33', '6', '教师1', '信息学院', '信息学院');
 INSERT INTO `sy05` VALUES ('39', '7', '测试教师001', '信息学院', '信息学院');
+INSERT INTO `sy05` VALUES ('41', '8', '示例教师', '信息科学与工程学院', '0');
 
 -- ----------------------------
 -- Table structure for sy06
@@ -216,7 +220,6 @@ INSERT INTO `sy07` VALUES ('005', '2', '90');
 -- ----------------------------
 DROP TABLE IF EXISTS `sy08`;
 CREATE TABLE `sy08` (
-  `CSY040` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '学号',
   `CSY060` varchar(15) COLLATE utf8_bin DEFAULT NULL COMMENT '课程ID',
   `CSY080` int(11) NOT NULL AUTO_INCREMENT COMMENT '实验ID',
   `CSY050` varchar(15) COLLATE utf8_bin DEFAULT NULL COMMENT '教师ID',
@@ -231,10 +234,10 @@ CREATE TABLE `sy08` (
 -- ----------------------------
 -- Records of sy08
 -- ----------------------------
-INSERT INTO `sy08` VALUES ('001', '1', '1', '1', '数据结构', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验', '2017-03-28', '2017-03-31', '0');
-INSERT INTO `sy08` VALUES ('001', '1', '2', '1', 'c++', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验', '2017-03-29', '2017-03-30', '0');
-INSERT INTO `sy08` VALUES ('001', '1', '3', '1', 'helloword', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完', '2017-03-08', '2017-03-16', '0');
-INSERT INTO `sy08` VALUES ('001', '1', '4', '1', '光学实验', '哇擦', '2017-03-16', '2017-03-31', '0');
+INSERT INTO `sy08` VALUES ('1', '1', '1', '数据结构', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验', '2017-03-28', '2017-03-31', '0');
+INSERT INTO `sy08` VALUES ('1', '2', '1', 'c++', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验', '2017-03-29', '2017-03-30', '0');
+INSERT INTO `sy08` VALUES ('1', '3', '1', 'helloword', '完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完成实验完', '2017-03-08', '2017-03-16', '0');
+INSERT INTO `sy08` VALUES ('1', '4', '1', '光学实验', '哇擦', '2017-03-16', '2017-03-31', '0');
 
 -- ----------------------------
 -- Table structure for sy09
@@ -249,15 +252,16 @@ CREATE TABLE `sy09` (
   `CSY094` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '完成情况',
   `CSY090` int(11) NOT NULL AUTO_INCREMENT COMMENT '实验提交ID',
   `CSY095` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
+  `CSY096` tinyint(4) DEFAULT '0' COMMENT '完成标记',
   PRIMARY KEY (`CSY090`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验完成表';
 
 -- ----------------------------
 -- Records of sy09
 -- ----------------------------
-INSERT INTO `sy09` VALUES ('123456', '4', '<p>说的</p>', null, 'D://sss.xls', null, '1', '0');
-INSERT INTO `sy09` VALUES ('123456', '4', '', null, 'D://sss.xls', null, '2', '0');
-INSERT INTO `sy09` VALUES ('123456', '1', null, '2017-04-01', 'D://sss.xls', null, '3', '0');
+INSERT INTO `sy09` VALUES ('123456', '4', '<p>说的</p>', null, 'D://sss.xls', null, '1', '0', '0');
+INSERT INTO `sy09` VALUES ('123456', '4', '', null, 'D://sss.xls', null, '2', '0', '0');
+INSERT INTO `sy09` VALUES ('123456', '1', null, '2017-04-01', 'D://sss.xls', null, '3', '0', '0');
 
 -- ----------------------------
 -- Table structure for sy10
@@ -405,7 +409,7 @@ CREATE TABLE `sy15` (
   `CSY156` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   `CSY157` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '页面元素ID',
   PRIMARY KEY (`CSY150`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of sy15
@@ -465,9 +469,11 @@ INSERT INTO `sy15` VALUES ('55', '2', '其他资源', null, null, '2', '53', '0'
 INSERT INTO `sy15` VALUES ('56', '2', '学生管理', null, null, '1', null, '0', 'slpt_stumanage');
 INSERT INTO `sy15` VALUES ('57', '2', '通知公告', 'openPage(\"common/announcement.jsp\")', 'common/announcement.jsp', '1', null, '0', '');
 INSERT INTO `sy15` VALUES ('58', '2', '帮助中心', 'openPage(\"common/help.jsp\")', 'common/help.jsp', '1', null, '0', '');
-INSERT INTO `sy15` VALUES ('59', '0', '实验室管理', 'openPage(\"manager/labmanage.jsp\")', 'manager/labmanage.jsp', '2', '25', '0', '');
-INSERT INTO `sy15` VALUES ('60', '0', '菜单列表', 'openPage(\"manager/menulist.jsp\")', 'manager/menulist.jsp', '2', '21', '0', '');
-INSERT INTO `sy15` VALUES ('61', '4', '系统日志信息', 'openPage(\"manager/recorde.jsp\")', 'manager/recorde.jsp', '2', '25', '0', '');
+INSERT INTO `sy15` VALUES ('59', '4', '实验室管理', 'openPage(\"manager/labmanage.jsp\")', 'manager/labmanage.jsp', '2', '25', '0', '');
+INSERT INTO `sy15` VALUES ('60', '4', '菜单列表', 'openPage(\"manager/menulist.jsp\")', 'manager/menulist.jsp', '2', '21', '0', '');
+INSERT INTO `sy15` VALUES ('61', '4', '系统日志信息', 'openPage(\"manager/recorde.jsp\")', 'manager/recorde.jsp', '2', '62', '0', '');
+INSERT INTO `sy15` VALUES ('62', '4', '开发者管理', 'selectMenu(\"slpt_develop\",62)', null, '1', null, '0', 'slpt_develop');
+INSERT INTO `sy15` VALUES ('63', '4', '码表管理', 'openPage(\"manager/aa10manage.jsp\")', 'manage/aa10manage.jsp', '2', '62', '0', '');
 
 -- ----------------------------
 -- Table structure for sy16
@@ -502,11 +508,26 @@ CREATE TABLE `sy17` (
   `CSY177` varchar(50) DEFAULT '' COMMENT '主机名称',
   `CSY178` varchar(80) DEFAULT '' COMMENT 'mac地址',
   PRIMARY KEY (`CSY170`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8 COMMENT='日志信息';
+) ENGINE=InnoDB AUTO_INCREMENT=1622 DEFAULT CHARSET=utf8 COMMENT='日志信息';
 
 -- ----------------------------
 -- Records of sy17
 -- ----------------------------
+INSERT INTO `sy17` VALUES ('1607', null, '登陆', '192.168.0.6', '2017-04-27 21:04:07', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.36 SE 2.X MetaSr 1.0', 'HP', 'bc-85-56-78-12-2d');
+INSERT INTO `sy17` VALUES ('1608', '001', '登陆', '192.168.0.6', '2017-04-27 21:04:08', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.36 SE 2.X MetaSr 1.0', 'HP', 'bc-85-56-78-12-2d');
+INSERT INTO `sy17` VALUES ('1609', '001', '获取用户信息', '192.168.0.6', '2017-04-27 21:04:12', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.36 SE 2.X MetaSr 1.0', 'HP', 'bc-85-56-78-12-2d');
+INSERT INTO `sy17` VALUES ('1610', '001', '获取最新公告', '192.168.0.6', '2017-04-27 21:04:12', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.36 SE 2.X MetaSr 1.0', 'HP', 'bc-85-56-78-12-2d');
+INSERT INTO `sy17` VALUES ('1611', '001', '查询父级菜单', '192.168.0.6', '2017-04-27 21:04:16', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.36 SE 2.X MetaSr 1.0', 'HP', 'bc-85-56-78-12-2d');
+INSERT INTO `sy17` VALUES ('1612', '001', '登陆', '127.0.0.1', '2017-04-27 21:29:59', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
+INSERT INTO `sy17` VALUES ('1613', '001', '获取用户信息', '127.0.0.1', '2017-04-27 21:30:05', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
+INSERT INTO `sy17` VALUES ('1614', '001', '获取最新公告', '127.0.0.1', '2017-04-27 21:30:05', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
+INSERT INTO `sy17` VALUES ('1615', '001', '查询父级菜单', '127.0.0.1', '2017-04-27 21:30:08', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
+INSERT INTO `sy17` VALUES ('1616', '001', '获取实验安排的科目', '127.0.0.1', '2017-04-27 21:30:15', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
+INSERT INTO `sy17` VALUES ('1617', '001', '登陆', '127.0.0.1', '2017-04-27 21:51:55', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
+INSERT INTO `sy17` VALUES ('1618', '001', '获取最新公告', '127.0.0.1', '2017-04-27 21:51:59', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
+INSERT INTO `sy17` VALUES ('1619', '001', '获取用户信息', '127.0.0.1', '2017-04-27 21:51:59', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
+INSERT INTO `sy17` VALUES ('1620', '001', '查询父级菜单', '127.0.0.1', '2017-04-27 21:52:03', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
+INSERT INTO `sy17` VALUES ('1621', '001', '获取实验安排的科目', '127.0.0.1', '2017-04-27 21:52:41', 'Chrome', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36', '127.0.0.1', 'c4-36-55-6a-93-b1');
 
 -- ----------------------------
 -- Procedure structure for delete_sy17
