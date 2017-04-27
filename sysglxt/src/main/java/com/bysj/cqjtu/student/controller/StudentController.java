@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.NetworkInterface;
 import java.net.URLEncoder;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,10 +92,13 @@ public class StudentController {
     public List<Sy08> queryExpArrangeList(HttpSession session,String csy060) throws Exception{
       //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");        
-        Sy08 sy08=new Sy08();
-        sy08.setCsy040(userMessage.getSy04().getCsy040());
-        sy08.setCsy060(csy060);
-        List<Sy08> list =studentService.queryExpArrangeList(sy08);
+       /* Sy09 sy09=new Sy09();
+        sy09.setCsy040(userMessage.getSy04().getCsy040());
+        sy09.setCsy060(csy060);*/
+        Map map=new HashMap();
+        map.put("csy040", userMessage.getSy04().getCsy040());
+        map.put("csy060", csy060);
+        List<Sy08> list =studentService.queryExpArrangeList(map);
         return list;
         
     }
@@ -109,10 +114,13 @@ public class StudentController {
     public List<Map> queryExpArrangeContent(HttpSession session,Integer csy080) throws Exception{
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
-        Sy08 sy08=new Sy08();
+        /*Sy08 sy08=new Sy08();
         sy08.setCsy040(userMessage.getSy04().getCsy040());
-        sy08.setCsy080(csy080);
-        List<Map> list =studentService.queryExpArrangeContent(sy08);
+        sy08.setCsy080(csy080);*/
+        Map map=new HashMap();
+        map.put("csy040", userMessage.getSy04().getCsy040());
+        map.put("csy080", csy080);
+        List<Map> list =studentService.queryExpArrangeContent(map);
         return list;
         
     }
@@ -138,7 +146,7 @@ public class StudentController {
         }        
     }
     /**
-     * 保存实验完成内容
+     * 查询成绩
      * @param session
      * @return
      * @throws Exception
@@ -214,14 +222,17 @@ public class StudentController {
     @RequestMapping("/saveReport")
     @ResponseBody
     @SystemControllerLog(description =" 保存实验报告")
-    public Map saveReport(HttpSession session,String csy080){
+    public Map saveReport(HttpSession session,String csy080,HttpServletRequest request){
         //取session的用户
         UserMessage userMessage=(UserMessage) session.getAttribute("user");        
         Sy09 sy09=new Sy09();
         sy09.setCsy080(csy080);
-        sy09.setCsy093(filename);
-        sy09.setCsy040(userMessage.getSy04().getCsy040());
-        try {
+       
+        Enumeration<NetworkInterface> netInterfaces = null;   
+        try {   
+            String localip = request.getRemoteAddr();            
+            sy09.setCsy093(localip+"/"+filename);
+            sy09.setCsy040(userMessage.getSy04().getCsy040());
             return studentService.saveReport(sy09);
         } catch (Exception e) {
             Map map= new HashMap();

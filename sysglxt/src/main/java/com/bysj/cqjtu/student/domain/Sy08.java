@@ -11,7 +11,6 @@ public class Sy08 implements Serializable{
 
     private Integer csy080;
 
-    private String csy040;
 
     private String csy060;
 
@@ -35,13 +34,6 @@ public class Sy08 implements Serializable{
         this.csy080 = csy080;
     }
 
-    public String getCsy040() {
-        return csy040;
-    }
-
-    public void setCsy040(String csy040) {
-        this.csy040 = csy040 == null ? null : csy040.trim();
-    }
 
     public String getCsy060() {
         return csy060;

@@ -38,14 +38,14 @@ public interface StudentService {
      * @return
      * @throws Exception
      */
-    public List<Sy08> queryExpArrangeList(Sy08 sy08)throws Exception;
+    public List<Sy08> queryExpArrangeList(Map map)throws Exception;
     /**
      * 获取实验内容
      * @param sy08
      * @return
      * @throws Exception
      */
-    public List<Map> queryExpArrangeContent(Sy08 sy08) throws Exception;
+    public List<Map> queryExpArrangeContent(Map map) throws Exception;
     /**
      * 保存实验完成内容
      * @param sy09

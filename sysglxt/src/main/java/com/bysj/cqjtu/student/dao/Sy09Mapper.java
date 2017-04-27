@@ -1,7 +1,10 @@
 package com.bysj.cqjtu.student.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import com.bysj.cqjtu.manager.domain.Sy04;
+import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 
 /**
@@ -53,5 +56,29 @@ public interface Sy09Mapper {
      * @return
      */
     int updateExp(Sy09 sy09);
+    /**
+     * 查询实验安排
+     * @param sy04
+     * @return
+     */
+    List<Map> queryExpList(Sy04 sy04);
+    /**
+     * 查询有实验的课程
+     * @param sy04
+     * @return
+     */
+    List<Map> queryExpArrange(Sy04 sy04);
+    /**
+     * 查询课程下的实验安排
+     * @param map
+     * @return
+     */
+    List<Sy08> queryExpArrangeList(Map map);
+    /**
+     * 获取实验内容
+     * @param map
+     * @return
+     */
+    List<Map> queryExpArrangeContent(Map map);
     
 }

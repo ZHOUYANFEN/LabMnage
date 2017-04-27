@@ -1,5 +1,7 @@
 package com.bysj.cqjtu.manager.pojo;
 
+import java.io.Serializable;
+
 import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy03;
@@ -14,7 +16,7 @@ import com.bysj.cqjtu.manager.domain.Sy05;
  *2017年3月24日上午9:58:54
  *
  */
-public class UserMessage {
+public class UserMessage implements Serializable{
     private Sy02 sy02;
     private Sy04 sy04;
     private Sy03 sy03;

@@ -56,6 +56,7 @@
                 <td >实验名称</td>
                 <td >布置时间</td>
                 <td >截止时间</td>
+                <td >完成状态</td>
                 <td >操作</td>
             </tr>
         </table>      
@@ -97,10 +98,10 @@
 </body>
 <script>  
     $(function(){
-    	$( "#csy084" ).datepicker({
+    	/* $( "#csy084" ).datepicker({
             inline:true,
             showOtherMonths:true
-        }).datepicker('widget').wrap('<div class="ll-skin-nigran"/>');
+        }).datepicker('widget').wrap('<div class="ll-skin-nigran"/>'); */
     	/*实验列表*/
     	$.ajax({
     		type:'post',
@@ -108,11 +109,17 @@
     		success:function(data){
     			$("#menuhead").siblings().remove();
     			for(var i=0;i<data.length;i++){
+    			if(data[i].csy096==1){
+    				data[i].csy096='已完成';
+    			}else{
+    				data[i].csy096='未完成';
+    			}
     			 $("#sy08").append("<tr style='width:600px;margin-left:20px'>"
 	    				                +"<td >"+data[i].csy061+"</td>"
 	    				                +"<td >"+data[i].CSY081+"</td>"
 	    				                +"<td >"+data[i].CSY083+"</td>"
 	    				                +"<td >"+data[i].CSY084+"</td>"
+	    				                +"<td >"+data[i].csy096+"</td>"
 	    				                +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#uploadPage' onclick='openUpload("+data[i].CSY080+")' >"
 	    				                +"<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
 	    				                +"提交报告"
@@ -188,6 +195,7 @@
             url:"${pageContext.request.contextPath}/student/saveReport?csy080="+csy080,
             success:function(data){
             	if(data.statu==1){
+            		 /* $('#uploadPage').modal('toggle'); */
             		 sweetAlert("上传成功");
             	}else{
             		sweetAlert("上传失败");

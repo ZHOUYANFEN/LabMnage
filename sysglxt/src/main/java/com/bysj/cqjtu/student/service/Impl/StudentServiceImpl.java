@@ -51,19 +51,19 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Map> queryExpArrange(Sy04 sy04) {
-        return sy08Mapper.queryExpArrange(sy04);
+        return sy09Mapper.queryExpArrange(sy04);
     }
 
     @Override
-    public List<Sy08> queryExpArrangeList(Sy08 sy08)
+    public List<Sy08> queryExpArrangeList(Map map)
             throws Exception {
-        return sy08Mapper.queryExpArrangeList(sy08);
+        return sy09Mapper.queryExpArrangeList(map);
     }
 
     @Override
-    public List<Map> queryExpArrangeContent(Sy08 sy08) throws Exception {
+    public List<Map> queryExpArrangeContent(Map map) throws Exception {
         
-        return sy08Mapper.queryExpArrangeContent(sy08);
+        return sy09Mapper.queryExpArrangeContent(map);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
         sy09.setCsy095(Byte.parseByte("0"));
       //查询是否已经提交过报告
         List<Sy09> sy09List=sy09Mapper.isExist(sy09);
-        if(sy09List.size()>0){
+        if(sy09List.size()==1){
              int i=sy09Mapper.updateExp(sy09);
              if(i!=1){
                  throw new RuntimeException(StudentOperateConstance.SAVE_SY09_FAIL);
@@ -80,8 +80,8 @@ public class StudentServiceImpl implements StudentService {
                  map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
              }
         }else{
-            int i=sy09Mapper.saveExp(sy09);
-            map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
+            //int i=sy09Mapper.saveExp(sy09);
+            map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
         }
         return map;
     }
@@ -99,16 +99,18 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Map> queryExpList(Sy04 sy04) throws Exception {
-        return sy08Mapper.queryExpList(sy04);
+        //return sy08Mapper.queryExpList(sy04);
+        return sy09Mapper.queryExpList(sy04);
     }
+    
 
     @Override
     public Map saveReport(Sy09 sy09) {
         Map map=new HashMap();
         sy09.setCsy095(new Byte((byte) 0));
-        //查询是否已经提交过报告
+        //查询是否有实验安排
          List<Sy09> sy09List=sy09Mapper.isExist(sy09);
-         if(sy09List.size()>0){
+         if(sy09List.size()==1){
              int i=sy09Mapper.updateReport(sy09);
              if(i!=1){
                  throw new RuntimeException(StudentOperateConstance.SAVE_SY09_FAIL);
@@ -116,8 +118,8 @@ public class StudentServiceImpl implements StudentService {
                  map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
              }
          }else{
-             sy09Mapper.saveReport(sy09);            
-             map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
+             //sy09Mapper.saveReport(sy09);            
+             map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
          }
          return map;
     }
