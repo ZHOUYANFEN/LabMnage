@@ -37,4 +37,5 @@ public interface Sy12Mapper {
      * @return
      */
     List<Map> queryLabApply();
+    Sy12 selectByKey(Integer csy120,Integer csy020);
 }

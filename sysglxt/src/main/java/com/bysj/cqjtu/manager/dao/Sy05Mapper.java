@@ -34,5 +34,7 @@ public interface Sy05Mapper {
      * @return
      */
     int updateSy05(Sy05 sy05);
+    
+    List<Sy05> queryTeacher();
 
 }

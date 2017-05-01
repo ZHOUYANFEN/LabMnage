@@ -80,5 +80,10 @@ public interface Sy09Mapper {
      * @return
      */
     List<Map> queryExpArrangeContent(Map map);
+    /**
+     * 查询所有所有的实验报告完成情况
+     * @return
+     */
+    List<Sy09> queryReport();
     
 }

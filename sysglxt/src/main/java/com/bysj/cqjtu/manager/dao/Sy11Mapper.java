@@ -12,7 +12,7 @@ public interface Sy11Mapper {
 
     int insertSelective(Sy11 record);
 
-    Sy11 selectByPrimaryKey(Integer csy110);
+    Map selectByPrimaryKey(Integer csy110);
 
     int updateByPrimaryKeySelective(Sy11 record);
 
@@ -60,4 +60,9 @@ public interface Sy11Mapper {
      * @throws Exception
      */
     List<Map> labStatistics();
+     /**
+     * 查询试验室信息
+     * @return
+     */
+    public List<Map> queryLabMsg();
 }

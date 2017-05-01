@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.manager.dao.Sy08MapperExp" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.manager.domain.Sy08Exp" >
+    <id column="CSY080" property="csy080" jdbcType="INTEGER" />
+    <result column="CSY040" property="csy040" jdbcType="INTEGER" />
+    <result column="CSY060" property="csy060" jdbcType="INTEGER" />   
+     <result column="CSY050" property="csy050" jdbcType="VARCHAR" />
+    <result column="CSY081" property="csy081" jdbcType="VARCHAR" />
+     <result column="CSY082" property="csy082" jdbcType="VARCHAR" />
+    <result column="CSY083" property="csy083" jdbcType="VARCHAR" />
+     <result column="CSY084" property="csy084" jdbcType="VARCHAR" />
+    <result column="CSY085" property="csy085" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY080, CSY040, CSY060,CSY050, CSY081, CSY082,CSY083,CSY084,CSY085
+  </sql>
+  <!-- 查询实验信息 -->
+  <select id="selectExp" resultType="com.bysj.cqjtu.manager.domain.Sy08Exp" parameterType="java.util.HashMap" >
+	SELECT sy05.CSY051,
+	       sy06.CSY061,
+	       sy05.CSY052,
+	       sy08.*
+	FROM sy08 sy08,
+	     sy06 sy06,
+	     sy05 sy05
+   WHERE sy08.CSY060=sy06.CSY060 
+     AND sy05.CSY050=sy08.CSY050 
+     AND sy06.csy067=0 
+     AND sy08.CSY085=0
+     AND sy08.csy050 = #{csy050}
+  </select>
+  
+  
+  
+</mapper>

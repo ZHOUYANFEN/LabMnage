@@ -133,7 +133,7 @@
                 	for(var i=0;i<data.length;i++){
                         $("#treelist").append(" <ul>"
                                                 +"<li>"
-                                                +"<span onclick='queryResourceList("+data[i].csy160+",event)' id='"+data[i].csy160+"' style='width:200px;margin-left:-30px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].csy161+"</span>"                      
+                                                +"<span onclick='queryResourceList("+data[i].csy160+")' id='"+data[i].csy160+"' style='width:200px;margin-left:-30px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].csy161+"</span>"                      
                                                 +"</li>"
                                                 +"</ul>");
                     }
@@ -142,7 +142,7 @@
         });
         
         /*查询每个类型的资源*/
-        function queryResourceList(csy160,e){
+        function queryResourceList(csy160){
         	$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
             var children = $("#"+csy160).parent('li.parent_li').find(' > ul');
             if (children.is(":visible")) {
@@ -176,7 +176,7 @@
 								                                +"<td >"+data[i].csy133+"</td>"
 								                                +"<td >"+(new Date(data[i].csy136).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
 								                                +"<td><button type='button' class='btn btn-primary btn-xs'  onclick='queryResourceDetail("+data[i].csy130+")'>详情</button>"
-								                                +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='download("+data[i].csy130+")'><span class='glyphicon glyphicon-download' aria-hidden='true'></span>下载</button></td>"
+								                                +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='${pageContext.request.contextPath}/student/download?csy130="+data[i].csy130+"'><span class='glyphicon glyphicon-download' aria-hidden='true'></span>下载</button></td>"
 								                                +"</tr>");
                             }
                         }
@@ -188,7 +188,7 @@
  
         /*查询每个资源的详情*/
         function queryResourceDetail(csy130){
-        	$("#download").attr("onclick","download("+csy130+")");
+        	$("#download").attr("onclick","onclick='${pageContext.request.contextPath}/student/download?csy130="+csy130);
         	$.ajax({
                 type:'post',
                 url:"${pageContext.request.contextPath}/student/queryResourceDetail?csy130="+csy130,

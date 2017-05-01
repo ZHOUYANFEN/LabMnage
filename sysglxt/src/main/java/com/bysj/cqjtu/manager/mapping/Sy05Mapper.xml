@@ -40,6 +40,10 @@
      where CSY020 = #{csy020,jdbcType=VARCHAR}
   </update>
   
+  <select id="queryTeacher" resultType="com.bysj.cqjtu.manager.domain.Sy05">
+    select *
+    from sy05
+  </select>
   
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

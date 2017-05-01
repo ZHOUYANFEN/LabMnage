@@ -102,43 +102,49 @@
             inline:true,
             showOtherMonths:true
         }).datepicker('widget').wrap('<div class="ll-skin-nigran"/>'); */
+        queryExpList();
+    	queryExpArrange();
+    });
+    function queryExpList(){
     	/*实验列表*/
-    	$.ajax({
-    		type:'post',
-    		url:"${pageContext.request.contextPath}/student/queryExpList",
-    		success:function(data){
-    			$("#menuhead").siblings().remove();
-    			for(var i=0;i<data.length;i++){
-    			if(data[i].csy096==1){
-    				data[i].csy096='已完成';
-    			}else{
-    				data[i].csy096='未完成';
-    			}
-    			 $("#sy08").append("<tr style='width:600px;margin-left:20px'>"
-	    				                +"<td >"+data[i].csy061+"</td>"
-	    				                +"<td >"+data[i].CSY081+"</td>"
-	    				                +"<td >"+data[i].CSY083+"</td>"
-	    				                +"<td >"+data[i].CSY084+"</td>"
-	    				                +"<td >"+data[i].csy096+"</td>"
-	    				                +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#uploadPage' onclick='openUpload("+data[i].CSY080+")' >"
-	    				                +"<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
-	    				                +"提交报告"
-	    				                +"</button></td>"
-	    				                +" </tr>");
-    			}
-    		}
-    	});
+        $.ajax({
+            type:'post',
+            url:"${pageContext.request.contextPath}/student/queryExpList",
+            success:function(data){
+                $("#menuhead").siblings().remove();
+                for(var i=0;i<data.length;i++){
+                if(data[i].csy096==1){
+                    data[i].csy096='已完成';
+                }else{
+                    data[i].csy096='未完成';
+                }
+                 $("#sy08").append("<tr style='width:600px;margin-left:20px'>"
+                                        +"<td >"+data[i].csy061+"</td>"
+                                        +"<td >"+data[i].CSY081+"</td>"
+                                        +"<td >"+data[i].CSY083+"</td>"
+                                        +"<td >"+data[i].CSY084+"</td>"
+                                        +"<td >"+data[i].csy096+"</td>"
+                                        +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#uploadPage' onclick='openUpload("+data[i].CSY080+")' >"
+                                        +"<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
+                                        +"提交报告"
+                                        +"</button></td>"
+                                        +" </tr>");
+                }
+            }
+        });
+    }
+    function queryExpArrange(){
     	/*实验课程列表*/
-    	$.ajax({
+        $.ajax({
             type:'post',
             url:"${pageContext.request.contextPath}/student/queryExpArrange",
             success:function(data){
-            	for(var i=0;i<data.length;i++){
+                for(var i=0;i<data.length;i++){
                     $("#csy061").append("<option value ='"+data[i].csy060+"'>"+data[i].csy061+" </option>");                  
                 }
             }
         });
-    });
+    }
     /*查询课程所属的实验*/
     function queryExp(){
     	var csy060=$("#csy061").val();
@@ -195,8 +201,10 @@
             url:"${pageContext.request.contextPath}/student/saveReport?csy080="+csy080,
             success:function(data){
             	if(data.statu==1){
-            		 /* $('#uploadPage').modal('toggle'); */
+            		 //$('#uploadPage').modal('toggle'); 
             		 sweetAlert("上传成功");
+            		 $("#menuhead").siblings().remove();
+            		 queryExpList();
             	}else{
             		sweetAlert("上传失败");
             	}

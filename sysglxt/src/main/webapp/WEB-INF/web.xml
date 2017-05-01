@@ -146,14 +146,6 @@
 	   <location>/error/417.jsp</location>
     </error-page>
     <error-page>
-      <error-code>418</error-code>
-      <location>/error/418.jsp</location>
-    </error-page>
-    <error-page>
-      <error-code>401</error-code>
-      <location>/error/401.jsp</location>
-    </error-page>
-    <error-page>
       <error-code>500</error-code>
       <location>/error/500.jsp</location>
     </error-page>

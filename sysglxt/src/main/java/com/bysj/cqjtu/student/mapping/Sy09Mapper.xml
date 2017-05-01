@@ -144,7 +144,9 @@
             
   </select>
   
-  
+  <select id="queryReport" resultType="com.bysj.cqjtu.student.domain.Sy09">
+    select * from sy09 where CSY095=0;
+  </select>
   
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

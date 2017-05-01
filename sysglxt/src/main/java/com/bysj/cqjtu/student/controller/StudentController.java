@@ -5,9 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.NetworkInterface;
 import java.net.URLEncoder;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -203,7 +201,7 @@ public class StudentController {
             i++;  
         }  
         is.close(); 
-        filename="D://"+btnFile.getOriginalFilename();
+        filename="D://sysglptdir/"+btnFile.getOriginalFilename();       
         OutputStream os = new FileOutputStream(new File(filename));
         os.write(b);  
         os.flush();  
@@ -227,11 +225,10 @@ public class StudentController {
         UserMessage userMessage=(UserMessage) session.getAttribute("user");        
         Sy09 sy09=new Sy09();
         sy09.setCsy080(csy080);
-       
-        Enumeration<NetworkInterface> netInterfaces = null;   
-        try {   
-            String localip = request.getRemoteAddr();            
-            sy09.setCsy093(localip+"/"+filename);
+        try { 
+           /* InetAddress ia = InetAddress.getLocalHost();  
+            String localip =ia.getHostAddress(); */           
+            sy09.setCsy093(filename);
             sy09.setCsy040(userMessage.getSy04().getCsy040());
             return studentService.saveReport(sy09);
         } catch (Exception e) {
@@ -322,10 +319,10 @@ public class StudentController {
         sy13.setCsy130(csy130);
         Sy13 resultSy13=studentService.queryResourceDetail(sy13);
         String file=resultSy13.getCsy134();
-        String fileName=file.substring(file.lastIndexOf("/"));
+        String fileName=file.substring(file.lastIndexOf("/")+1);
         //设置content-disposition响应头控制浏览器以下载的形式打开文件，中文文件名要使用URLEncoder.encode方法进行编码，否则会出现文件名乱码  
         response.setContentType("application/octet-stream; charset=utf-8");
-        response.setHeader("content-disposition", "attachment;filename="+URLEncoder.encode("模板.xls", "UTF-8"));  
+        response.setHeader("content-disposition", "attachment;filename="+URLEncoder.encode(fileName, "UTF-8"));  
         InputStream in = new FileInputStream(file);//获取文件输入流  
         int len = 0;  
         byte[] buffer = new byte[1024];  

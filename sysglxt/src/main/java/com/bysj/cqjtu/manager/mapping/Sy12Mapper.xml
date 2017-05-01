@@ -95,7 +95,14 @@
   
   </select>
   
-  
+   <select id="selectByKey" resultMap="ResultMapWithBLOBs" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sy12
+    where CSY120 = #{0,jdbcType=INTEGER} and CSY020 = #{1,jdbcType=INTEGER}
+  </select>
   
   
   

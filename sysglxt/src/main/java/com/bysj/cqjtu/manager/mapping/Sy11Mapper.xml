@@ -101,15 +101,36 @@
        group by sy10.csy101
   </select>
   
+  <!-- 多表查询 查询实验室，显示实验室名称 -->
+  <select id="queryLabMsg" resultType="java.util.HashMap">
+    SELECT sy10.CSY101,
+           sy11.CSY110,
+           sy11.CSY111,
+           sy11.CSY112,
+           sy11.CSY113,
+           sy11.CSY114,
+           sy11.CSY115
+      FROM sy10 sy10,
+           sy11 sy11
+    where sy10.CSY100=sy11.CSY100 
+      and sy10.CSY102=0 
+      AND sy11.CSY116=0
+  </select>
   
   
   
-  
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from sy11
-    where CSY110 = #{csy110,jdbcType=INTEGER}
+  <select id="selectByPrimaryKey" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
+	  SELECT sy10.CSY101,
+             sy11.CSY110,
+             sy11.CSY111,
+             sy11.CSY112,
+             sy11.CSY113,
+             sy11.CSY114,
+             sy11.CSY115
+	      FROM sy10 sy10,
+	           sy11 sy11
+	    where sy10.CSY100=sy11.CSY100 
+          and sy11.CSY110 = #{csy110}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sy11
