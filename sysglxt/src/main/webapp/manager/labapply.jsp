@@ -34,7 +34,7 @@
     </style>
 </head>
 <body style="font-family:'黑体';width:950px;margin:0 auto">
- <div id="button_operatemenu" style="margin-top:50px;margin-left:340px">
+    <div id="button_operatemenu" style="margin-top:50px;margin-left:340px">
         <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle='modal' data-target='#labapply'>
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             审核通过
@@ -70,8 +70,26 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">实验室申请信息</h4>
           </div>
-          <div class="modal-body" style="height:200px">
-             
+          <div class="modal-body" style="height:350px;width:600px;margin-left:80px">
+            <div style="margin-left:250px">
+	           <p><label style="width:100px;text-align:right">实验室序号:</label><label>111111</label></p>
+	           <p><label style="width:100px;text-align:right">实验室名称:</label><label>111111</label></p>
+	           <p><label style="width:100px;text-align:right">实验室类型:</label><label>111111</label></p>
+	           <p><label style="width:100px;text-align:right">实验室目的:</label><label>111111</label></p>
+	           <p><label style="width:100px;text-align:right" >申请目的:</label><label>111111</label></p>
+	           <p><label style="width:100px;text-align:right">实验室位置:</label ><select style="width:150px;height:27px"></select></p>
+	           <p><label style="width:100px;text-align:right">实验室时间:</label><select style="width:150px;height:27px"></select></p>
+	        </div>
+	        <div id="button_operatemenu" style="margin-top:20px;margin-left:250px">
+                <button type="button" class="btn btn-default" aria-label="Left Align" >
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                             审核通过
+                </button>
+                <button type="button" class="btn btn-default" aria-label="Left Align" >
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                             审核不通过
+                </button>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -118,7 +136,7 @@
                                                 +" <td>"+data.list[i].csy121+"</td>"
                                                 +"<td>"+data.list[i].csy122+"</td>"
                                                 +"<td>"+data.list[i].csy123+"</td>"
-                                                +"<td><button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#labapply' >审核</button></td>"
+                                                +"<td><button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#labapply' onclick='shenhe("+data.list[i].csy120+")' >审核</button></td>"
                                                 +" </tr>");
                 }
             }
@@ -131,6 +149,13 @@
         }else{
             $("[type='checkbox']").attr("checked",false);
         }
+    }
+    /*审核*/
+    function shenhe(data){
+    	$.ajax({
+            type:'post',
+            url:'${pageContext.request.contextPath}/lab/shenhe?csy120='+data,
+            success:function(resultdata){
     }
  </script>
 </html>

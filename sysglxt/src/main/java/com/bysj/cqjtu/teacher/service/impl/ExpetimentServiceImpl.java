@@ -3,8 +3,7 @@ package com.bysj.cqjtu.teacher.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bysj.cqjtu.manager.dao.Sy04Mapper;
@@ -19,16 +18,17 @@ import com.bysj.cqjtu.teacher.service.ExperimentService;
 public class ExpetimentServiceImpl implements ExperimentService {
 
 	//实验课程操作对象
-	@Resource
+    @Autowired
 	private Sy08MapperExp sy08;
 	/**
 	 * 实验报告对象
 	 */
-	@Resource
+    @Autowired
 	private Sy09Mapper sy09;
 	/**
 	 * 学生对象
 	 */
+    @Autowired
 	private Sy04Mapper sy04;
 	
 	/**

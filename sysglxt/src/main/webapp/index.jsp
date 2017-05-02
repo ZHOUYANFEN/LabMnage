@@ -26,7 +26,7 @@
 <body style="font-family:'黑体';width:1300px;margin:0 auto">
     <div id="head" style="height:120px;margin-top:15px;background-image:url(http://localhost:8080/sysglxt/resources/img/header_bg.png)">
         <div style="float:right;text-align:center;line-height:30px;margin-top:60px;margin-right:500px">
-            <label style="font-family:'楷体';font-size:35px;color:white">实验室资源管理平台</label>
+            <label style="font-family:'楷体';font-size:35px;color:white">高校实验课程教学管理平台</label>
         </div>
         <div style="float:right;margin-right:-620px;margin-top:90px" >
             <label style="color:white">
@@ -45,7 +45,7 @@
 
     <div id="content" style="background-color:#F5F5F5;padding:30px">
         <div id="left" style=" width:220px;height:700px;">
-            <div style="height:200px;background-color:white;overflow:auto" >
+            <div style="height:200px;background-color:white;overflow:hiddn" >
                 <div style="height:40px;text-align:center;line-height:40px;font-size:16px">
                     <p class="bg-primary">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -56,7 +56,7 @@
                     
                 </div>
             </div>
-            <div style="height:150px;margin-top:30px;background-color:white;overflow:auto" >
+            <div style="height:150px;margin-top:30px;background-color:white;overflow:hidden" >
                 <div style="height:40px;text-align:center;line-height:40px;font-size:16px">
                     <p class="bg-primary" >
                         <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
@@ -97,7 +97,7 @@
                     <p>无</p>                    
                 </div>
             </div>
-            <div id="left" style="height:200px;background-color:white;margin-top:30px;overflow:auto" >
+            <div id="left" style="height:200px;background-color:white;margin-top:30px;overflow:hidden" >
                 <div style="height:40px;text-align:center;line-height:40px;font-size:16px" id="annoucement">
                     <p class="bg-primary">
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>

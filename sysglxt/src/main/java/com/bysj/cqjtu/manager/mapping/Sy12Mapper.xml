@@ -78,6 +78,7 @@
            sy11.csy111 as csy111,
            sy11.csy112 as csy112,
            sy02.csy021 as csy021,
+           sy12.csy120 as csy120,
            sy12.csy121 as csy121,
            sy12.csy122 as csy122,
            sy12.csy123 as csy123
@@ -92,7 +93,7 @@
        and sy12.csy110 = sy11.csy110
        and sy11.csy100 = sy10.csy100
        and sy12.csy020 = sy02.csy020 
-  
+       order by sy12.csy121 desc
   </select>
   
    <select id="selectByKey" resultMap="ResultMapWithBLOBs" >
@@ -131,9 +132,6 @@
   <insert id="insertSelective" parameterType="com.bysj.cqjtu.manager.domain.Sy12" >
     insert into sy12
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="csy120 != null" >
-        CSY120,
-      </if>
       <if test="csy110 != null" >
         CSY110,
       </if>
@@ -163,9 +161,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="csy120 != null" >
-        #{csy120,jdbcType=INTEGER},
-      </if>
       <if test="csy110 != null" >
         #{csy110,jdbcType=VARCHAR},
       </if>

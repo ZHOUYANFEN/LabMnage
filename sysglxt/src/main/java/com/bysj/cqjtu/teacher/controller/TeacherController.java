@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
 import com.bysj.cqjtu.manager.domain.Sy12;
@@ -87,15 +88,10 @@ public class TeacherController {
 	 */
 	@RequestMapping("/addLabArrange")
 	@ResponseBody
-	public void addLabArrange(@RequestBody LabManager labManager,HttpSession session) throws IOException{
+	public void addLabArrange(@RequestBody Sy12 sy12,HttpSession session) throws IOException{
 		UserMessage userMassage = (UserMessage)session.getAttribute("user");
 		int userId =userMassage.getSy02().getCsy020();
-		Sy12 sy12 = new Sy12();
 		sy12.setCsy020(String.valueOf(userId));
-		sy12.setCsy121(labManager.getSy12().getCsy121());
-		sy12.setCsy122(labManager.getSy12().getCsy122());
-		sy12.setCsy123(labManager.getSy12().getCsy123());
-		sy12.setCsy110(String.valueOf(labManager.getSy11().getCsy110()));
 		lab.addLabArrange(sy12);
 	}
 	/**
@@ -189,6 +185,20 @@ public class TeacherController {
 		expService.updateReposrt(sy09);
 		
 	}
-	
+	/**
+	 * 验证申请
+	 * @param sy12
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/validateArrage")
+    @ResponseBody
+    @SystemControllerLog(description="验证申请")
+	public Map validateArrage(@RequestBody Sy12 sy12,HttpSession session) throws Exception{
+	    UserMessage userMassage = (UserMessage)session.getAttribute("user");
+        int userId =userMassage.getSy02().getCsy020();
+        sy12.setCsy020(String.valueOf(userId));
+        return lab.validateArrage(sy12);
+	}
 	
 }

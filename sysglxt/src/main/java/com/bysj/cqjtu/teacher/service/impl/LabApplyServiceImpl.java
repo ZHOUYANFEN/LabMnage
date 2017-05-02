@@ -1,11 +1,11 @@
 package com.bysj.cqjtu.teacher.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bysj.cqjtu.manager.dao.Sy10Mapper;
@@ -19,11 +19,11 @@ import com.bysj.cqjtu.teacher.service.LabApplyService;
 @Service
 public  class LabApplyServiceImpl implements LabApplyService {
 
-	@Resource
+    @Autowired
 	private Sy11Mapper sy11;
-	@Resource
+    @Autowired
 	private Sy12Mapper sy12;
-	@Resource
+    @Autowired
 	private Sy10Mapper sy10;
 	
 	@Override
@@ -59,9 +59,16 @@ public  class LabApplyServiceImpl implements LabApplyService {
 	 */
 	@Override
 	public void addLabArrange(Sy12 record) {
-
+	    record.setCsy121(new Date());
+	    record.setCsy127((byte)(0));
 		sy12.insertSelective(record);		
 	}
+
+    @Override
+    public Map validateArrage(Sy12 sy12Domain) throws Exception {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 
 

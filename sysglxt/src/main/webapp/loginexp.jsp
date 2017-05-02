@@ -39,7 +39,7 @@
 
 <div class="page-container">
     <input type="hidden" id="error" value="${error}"/>
-    <h1 style="color:black">高校实验管理平台</h1>
+    <h1 style="color:black">高校实验课程教学管理平台</h1>
 <!--     <h1 style="color:black">登录</h1> -->
     <form action="${pageContext.request.contextPath }/userlogin/tologin" method="post">
         <div>

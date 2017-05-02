@@ -30,5 +30,12 @@ public interface LabApplyService {
 	 * @return
 	 */
 	LabManager queryEdit(int id,int userId);
+	/**
+	 * 验证申请信息
+	 * @param sy12
+	 * @return
+	 * @throws Exception
+	 */
+    Map validateArrage(Sy12 sy12) throws Exception;
 	
 }

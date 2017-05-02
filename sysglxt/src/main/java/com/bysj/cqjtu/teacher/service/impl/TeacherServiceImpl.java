@@ -3,8 +3,7 @@ package com.bysj.cqjtu.teacher.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bysj.cqjtu.manager.dao.Sy05Mapper;
@@ -14,7 +13,7 @@ import com.bysj.cqjtu.teacher.service.TeacherService;
 @Service
 public class TeacherServiceImpl implements TeacherService{
 
-	@Resource
+	@Autowired
 	private Sy05Mapper teacherDao;
 
 	@Override

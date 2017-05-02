@@ -147,19 +147,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			type:'POST',
   			url:"${pageContext.request.contextPath}/teacher/queryById?id="+id,
   			success:function(data){
-  				console.log(data);
   				$("#form2").empty();
-  				$("#form2").append("<p>实验室序号：<span id='csy110'>"+data.CSY110+"</span></p>"
-  						+"<p>实验室类别：<span id='csy101'>"+data.CSY101+"</span></p>"
-  						+"<p>实验室名称：<span id='csy111'>"+data.CSY111+"</span></p>"
-	      				+"<p>实验室位置：<span id='csy112'>"+data.CSY112+"</span></p>"
-	      				+"<p>申&nbsp;请&nbsp;时&nbsp;间：<input class='input' type='text' name='date' id='csy121'></p>"
-	      				+"<p>申&nbsp;请&nbsp;目&nbsp;的：<input class='input' type='text' name='text' id='csy122'></p>"
-	      				+"<p>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：<input class='input' type='text' id='csy123'></p>"
+  				$("#form2").append("<p><lable style='width:120px;text-align:right'>实验室序号：</lable><span id='csy110'>"+data.CSY110+"</span></p>"
+  						+"<p><lable  style='width:120px;text-align:right'>实验室类别：</lable><span id='csy101'>"+data.CSY101+"</span></p>"
+  						+"<p><lable  style='width:120px;text-align:right'>实验室名称：</lable><span id='csy111'>"+data.CSY111+"</span></p>"
+	      				+"<p><lable style='width:120px;text-align:right'>实验室位置：</lable><span id='csy112'>"+data.CSY112+"</span></p>"
+	      				/* +"<p>申&nbsp;请&nbsp;时&nbsp;间：<input class='input' type='text' name='date' id='csy121'></p>" */
+	      				+"<p><lable  style='width:200px;text-align:right'>申请目的：</lable><input class='input' type='text' name='text' id='csy122'></p>"
+	      				+"<p><lable  style='width:120px;text-align:right'>备注：</lable><input class='input' type='text' id='csy123'></p>"
 	      				
 	      				);
   				//日历控件
-	      		$( "#csy121" ).datepicker(); 	
+	      		/* $( "#csy121" ).datepicker();  */	
 	      	  	
 	      	}
   			
@@ -178,47 +177,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  		$("#"+index).css("display","none");
   		$("#"+index+1).show();
   		//获取div的内容
-  		var csy101 = $("#csy101").text();//实验室类别名称
+  		/* var csy101 = $("#csy101").text();//实验室类别名称
   		var sy10={
   				"csy101":csy101
-  		};
+  		}; */
   		var csy110 = $("#csy110").text();//实验室id
-  		var csy111 = $("#csy111").text();//实验室名称
-  		var csy112 = $("#csy112").text();//实验室位置
+  		/* var csy111 = $("#csy111").text();//实验室名称
+  		var csy112 = $("#csy112").text();//实验室位置 */
   		
-  		var sy11={
+  	/* 	var sy11={
   				"csy110":csy110,
   				"csy111":csy111,
   				"csy112":csy112
-  		};
-  	  	var csy121=new Date($("#csy121").val());//申请时间
+  		}; */
+  	  	//var csy121=new Date($("#csy121").val());//申请时间
   	  	var csy122 = $("#csy122").val();//申请目的
   	  	var csy123 = $("#csy123").val();//备注
   	  	var sy12={
-  	  			"csy121":csy121,
+  	  			"csy110":csy110,
   	  			"csy122":csy122,
   	  			"csy123":csy123
   	  	};
-  	  	var labManager={
+  	  	/* var labManager={
   	  			"sy10":sy10,
   	  			"sy11":sy11,
   	  			"sy12":sy12
-  	  	};
-  	 
-  		$.ajax({
-  			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/addLabArrange",
-  			contentType:"application/json;charset=utf-8",
-            data:JSON.stringify(labManager),
-            dataType: "json",
-  			success:function(data){
-  				
-  			}
-  			
+  	  	}; */
+  	  /* $.ajax({
+          type:'POST',
+          url:"${pageContext.request.contextPath}/teacher/validateArrage",
+          contentType:"application/json;charset=utf-8",
+          data:JSON.stringify(sy12),
+          dataType: "json",
+          success:function(data){
+             if(data=='success'){ */
+            	 $.ajax({
+                     type:'POST',
+                     url:"${pageContext.request.contextPath}/teacher/addLabArrange",
+                     contentType:"application/json;charset=utf-8",
+                     data:JSON.stringify(sy12),
+                     dataType: "json",
+                     success:function(data){
+                    	 if(data=='success'){
+                    		 sweetAlert("正在申请中");
+                    		  $("#form2").empty();
+                    	 }
+                     }
+                     
+                 
+                 });
+          /*        
+             } 
+          }
+          
+      
+      }); */
   		
-  		});
   		
-  		$("#form2").empty();
 		
 			
   	 }
