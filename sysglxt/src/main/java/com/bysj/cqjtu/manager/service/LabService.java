@@ -109,4 +109,17 @@ public interface LabService {
      * @throws Exception
      */
     public List<Map> queryCsy113() throws Exception;
+    /**
+     * 审核申请
+     * @return
+     * @throws Exception
+     */
+    public Map shenheinfo(String csy120) throws Exception;
+    /**
+     * 获取该实验室可以安排的时间
+     * @param csy110
+     * @return
+     * @throws Exception
+     */
+    public List<Map> getcsy126(String csy110) throws Exception;
 }

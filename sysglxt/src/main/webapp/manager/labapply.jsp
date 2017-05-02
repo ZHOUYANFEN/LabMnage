@@ -34,16 +34,7 @@
     </style>
 </head>
 <body style="font-family:'黑体';width:950px;margin:0 auto">
-    <div id="button_operatemenu" style="margin-top:50px;margin-left:340px">
-        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle='modal' data-target='#labapply'>
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            审核通过
-        </button>
-        <button type="button" class="btn btn-default" aria-label="Left Align" >
-            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                           审核不通过
-        </button>
-    </div>
+   
 	<div id="applyexp" style="height:350px;margin-top:20px;margin-right:20px;">
 	        <table class="table table-hover" id="applylist">
               <tr style="width:800px;" id="applyhead">
@@ -71,14 +62,8 @@
             <h4 class="modal-title" id="myModalLabel">实验室申请信息</h4>
           </div>
           <div class="modal-body" style="height:350px;width:600px;margin-left:80px">
-            <div style="margin-left:250px">
-	           <p><label style="width:100px;text-align:right">实验室序号:</label><label>111111</label></p>
-	           <p><label style="width:100px;text-align:right">实验室名称:</label><label>111111</label></p>
-	           <p><label style="width:100px;text-align:right">实验室类型:</label><label>111111</label></p>
-	           <p><label style="width:100px;text-align:right">实验室目的:</label><label>111111</label></p>
-	           <p><label style="width:100px;text-align:right" >申请目的:</label><label>111111</label></p>
-	           <p><label style="width:100px;text-align:right">实验室位置:</label ><select style="width:150px;height:27px"></select></p>
-	           <p><label style="width:100px;text-align:right">实验室时间:</label><select style="width:150px;height:27px"></select></p>
+            <div style="margin-left:250px" id="shenhe">
+	           
 	        </div>
 	        <div id="button_operatemenu" style="margin-top:20px;margin-left:250px">
                 <button type="button" class="btn btn-default" aria-label="Left Align" >
@@ -92,8 +77,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary" id="btnSaveLab_model" >保存</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>         
           </div>
         </div>
       </div>
@@ -127,17 +111,44 @@
             success:function(data){
                 $("#applyhead").siblings().remove();
                 for(var i=0;i<data.list.length;i++){
-                    $("#applylist").append("<tr style='width:800px;' >"
-                                                +"<td style='width:20px'><input type='checkbox' /></td>"
-                                                +"<td>"+data.list[i].csy111+"</td>"
-                                                +"<td>"+data.list[i].csy112+"</td>"
-                                                +"<td>"+data.list[i].csy101+"</td>"
-                                                +"<td>"+data.list[i].csy021+"</td>"
-                                                +" <td>"+data.list[i].csy121+"</td>"
-                                                +"<td>"+data.list[i].csy122+"</td>"
-                                                +"<td>"+data.list[i].csy123+"</td>"
-                                                +"<td><button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#labapply' onclick='shenhe("+data.list[i].csy120+")' >审核</button></td>"
-                                                +" </tr>");
+                	if(data.list[i].csy125==0){
+	                    $("#applylist").append("<tr style='width:800px;' >"
+	                                                +"<td style='width:20px'><input type='checkbox' /></td>"
+	                                                +"<td>"+data.list[i].csy111+"</td>"
+	                                                +"<td>"+data.list[i].csy112+"</td>"
+	                                                +"<td>"+data.list[i].csy101+"</td>"
+	                                                +"<td>"+data.list[i].csy021+"</td>"
+	                                                +"<td>"+data.list[i].csy121+"</td>"
+	                                                +"<td>"+data.list[i].csy122+"</td>"
+	                                                +"<td>"+data.list[i].csy123+"</td>"
+	                                                +"<td><button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#labapply' onclick='shenheinfo("+data.list[i].csy120+")' >审核</button></td>"
+	                                                +"</tr>");
+                	}else if(data.list[i].csy125==1){
+                		  $("#applylist").append("<tr style='width:800px;' >"
+                                  +"<td style='width:20px'><input type='checkbox' /></td>"
+                                  +"<td>"+data.list[i].csy111+"</td>"
+                                  +"<td>"+data.list[i].csy112+"</td>"
+                                  +"<td>"+data.list[i].csy101+"</td>"
+                                  +"<td>"+data.list[i].csy021+"</td>"
+                                  +"<td>"+data.list[i].csy121+"</td>"
+                                  +"<td>"+data.list[i].csy122+"</td>"
+                                  +"<td>"+data.list[i].csy123+"</td>"
+                                  +"<td>审核通过</td>"
+                                  +"</tr>");
+                	}else if(data.list[i].csy125==2){
+                		 $("#applylist").append("<tr style='width:800px;' >"
+                                 +"<td style='width:20px'><input type='checkbox' /></td>"
+                                 +"<td>"+data.list[i].csy111+"</td>"
+                                 +"<td>"+data.list[i].csy112+"</td>"
+                                 +"<td>"+data.list[i].csy101+"</td>"
+                                 +"<td>"+data.list[i].csy021+"</td>"
+                                 +"<td>"+data.list[i].csy121+"</td>"
+                                 +"<td>"+data.list[i].csy122+"</td>"
+                                 +"<td>"+data.list[i].csy123+"</td>"
+                                 +"<td>审核不通过</td>"
+                                 +"</tr>");
+                    }
+                  
                 }
             }
         });
@@ -151,11 +162,33 @@
         }
     }
     /*审核*/
-    function shenhe(data){
+    function shenheinfo(data){
     	$.ajax({
             type:'post',
-            url:'${pageContext.request.contextPath}/lab/shenhe?csy120='+data,
+            url:'${pageContext.request.contextPath}/lab/shenheinfo?csy120='+data,
             success:function(resultdata){
+               	$("#shenhe").empty();
+               	$("#shenhe").append(""
+                    +"<p><label style='width:100px;text-align:right'>实验室名称:</label><label>"+resultdata.csy111+"</label></p>"
+                    +"<p><label style='width:100px;text-align:right'>实验室类型:</label><label>"+resultdata.csy101+"</label></p>"
+                    +"<p><label style='width:100px;text-align:right'>申请目的:</label><label>"+resultdata.csy122+"</label></p>"
+                    +"<p><label style='width:100px;text-align:right' >备注:</label><label>"+resultdata.csy123+"</label></p>"
+                    +"<p><label style='width:100px;text-align:right'>实验室位置:</label ><label>"+resultdata.csy112+"</label></p>"
+                    +"<p><label style='width:100px;text-align:right'>安排时间:</label><select id='csy126' style='width:150px;height:27px'></select></p>"
+                );
+                $.ajax({
+                    type:'post',
+                    url:'${pageContext.request.contextPath}/lab/getcsy126?csy110='+resultdata.csy110, 
+                    success:function(resultdata_1){
+                    	$("#csy126").empty();
+                    	for(var i=0;i<resultdata_1.length;i++){
+                    		$("#csy126").append("<option value='"+resultdata_1[i].aaa103+"'>"+resultdata_1[i].aaa103+"</option>");
+                    	}
+                    }
+            });
+          }
+           
+    	});
     }
  </script>
 </html>

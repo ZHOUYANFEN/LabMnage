@@ -38,4 +38,15 @@ public interface Sy12Mapper {
      */
     List<Map> queryLabApply();
     Sy12 selectByKey(Integer csy120,Integer csy020);
+    /**
+     * 审核申请
+     * @param csy120
+     */
+    Map shenheinfo(String csy120);
+    /**
+     * 获取该实验室可以安排的时间
+     * @param csy110
+     * @return
+     */
+    List<Map> getcsy126(String csy110);
 }

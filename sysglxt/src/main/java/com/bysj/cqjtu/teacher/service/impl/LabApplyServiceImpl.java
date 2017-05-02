@@ -61,6 +61,7 @@ public  class LabApplyServiceImpl implements LabApplyService {
 	public void addLabArrange(Sy12 record) {
 	    record.setCsy121(new Date());
 	    record.setCsy127((byte)(0));
+	    record.setCsy125((byte)(0));
 		sy12.insertSelective(record);		
 	}
 

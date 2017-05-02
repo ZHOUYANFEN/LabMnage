@@ -173,5 +173,13 @@ public class LabServiceImpl implements LabService {
     public List<Map> queryCsy113() throws Exception {
         return aa10Mapper.queryCsy113();
     }
+    @Override
+    public Map shenheinfo(String csy120) throws Exception {
+        return sy12Mapper.shenheinfo(csy120);
+    }
+    @Override
+    public List<Map> getcsy126(String csy110) throws Exception {
+        return sy12Mapper.getcsy126(csy110);
+    }
 
 }
