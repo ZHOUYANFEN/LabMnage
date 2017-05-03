@@ -66,11 +66,11 @@
 	           
 	        </div>
 	        <div id="button_operatemenu" style="margin-top:20px;margin-left:250px">
-                <button type="button" class="btn btn-default" aria-label="Left Align" >
+                <button type="button" class="btn btn-default" aria-label="Left Align" onclick="shenhe(true)">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                              审核通过
                 </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" >
+                <button type="button" class="btn btn-default" aria-label="Left Align" onclick="shenhe(false)">
                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                              审核不通过
                 </button>
@@ -161,34 +161,44 @@
             $("[type='checkbox']").attr("checked",false);
         }
     }
-    /*审核*/
+    /*审核信息*/
     function shenheinfo(data){
     	$.ajax({
             type:'post',
             url:'${pageContext.request.contextPath}/lab/shenheinfo?csy120='+data,
             success:function(resultdata){
                	$("#shenhe").empty();
-               	$("#shenhe").append(""
+               	$("#shenhe").append("<input  id ='csy120' value='"+resultdata.csy120+"' hidden='hidden'>"
                     +"<p><label style='width:100px;text-align:right'>实验室名称:</label><label>"+resultdata.csy111+"</label></p>"
                     +"<p><label style='width:100px;text-align:right'>实验室类型:</label><label>"+resultdata.csy101+"</label></p>"
                     +"<p><label style='width:100px;text-align:right'>申请目的:</label><label>"+resultdata.csy122+"</label></p>"
                     +"<p><label style='width:100px;text-align:right' >备注:</label><label>"+resultdata.csy123+"</label></p>"
                     +"<p><label style='width:100px;text-align:right'>实验室位置:</label ><label>"+resultdata.csy112+"</label></p>"
-                    +"<p><label style='width:100px;text-align:right'>安排时间:</label><select id='csy126' style='width:150px;height:27px'></select></p>"
+                    +"<p><label style='width:100px;text-align:right'>安排时间:</label><select id='csy126_time' style='width:150px;height:27px'></select></p>"
                 );
                 $.ajax({
                     type:'post',
                     url:'${pageContext.request.contextPath}/lab/getcsy126?csy110='+resultdata.csy110, 
                     success:function(resultdata_1){
-                    	$("#csy126").empty();
+                    	$("#csy126_time").empty();
                     	for(var i=0;i<resultdata_1.length;i++){
-                    		$("#csy126").append("<option value='"+resultdata_1[i].aaa103+"'>"+resultdata_1[i].aaa103+"</option>");
+                    		$("#csy126_time").append("<option value='"+resultdata_1[i].aaa103+"'>"+resultdata_1[i].aaa103+"</option>");
                     	}
                     }
             });
           }
            
     	});
+    }
+    /*审核*/
+    function shenhe(flag){
+    	var csy120 = $("#csy120").val();
+    	if(flag==true){
+    		
+    		alert(csy120);
+    	}else{
+    		alert(2);
+    	}
     }
  </script>
 </html>

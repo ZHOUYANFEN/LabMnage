@@ -153,6 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						+"<p><lable  style='width:120px;text-align:right'>实验室名称：</lable><span id='csy111'>"+data.CSY111+"</span></p>"
 	      				+"<p><lable style='width:120px;text-align:right'>实验室位置：</lable><span id='csy112'>"+data.CSY112+"</span></p>"
 	      				/* +"<p>申&nbsp;请&nbsp;时&nbsp;间：<input class='input' type='text' name='date' id='csy121'></p>" */
+	      				/* +"<p><lable style='width:120px;text-align:right'>周次：</lable><span id='csy112'>"+data.CSY112+"</span></p>" */
 	      				+"<p><lable  style='width:200px;text-align:right'>申请目的：</lable><input class='input' type='text' name='text' id='csy122'></p>"
 	      				+"<p><lable  style='width:120px;text-align:right'>备注：</lable><input class='input' type='text' id='csy123'></p>"
 	      				
