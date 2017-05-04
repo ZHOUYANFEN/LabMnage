@@ -67,8 +67,20 @@
            CSY043 = #{csy043,jdbcType=VARCHAR}
      where CSY020 = #{csy020,jdbcType=INTEGER}
   </update>
-  
-  
+  <!-- 按照班级获取学生信息 -->
+  <select id="queryStudentList" resultType="com.bysj.cqjtu.manager.domain.Sy04" parameterType="java.lang.String" >
+    select *
+      from sy04
+     where CSY043 = #{csy043}
+  </select>
+  <!-- 按照实验课程获取学生列表 -->
+  <select id="queryStudentListByCourse" resultType="com.bysj.cqjtu.manager.domain.Sy04" parameterType="java.lang.String" >
+    select sy04.*
+      from sy04 sy04,
+           sy07 sy07
+     where sy07.csy040 = sy04.csy040
+       and sy07.csy060 = #{csy060}
+  </select>
   
   
   

@@ -3,6 +3,7 @@ package com.bysj.cqjtu.student.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.domain.Sy06;
 
@@ -36,4 +37,10 @@ public interface Sy06Mapper {
      * @return
      */
     List<Map> courselist(String csy052);
+    /**
+     * 获取自己的所有课程
+     * @param sy05
+     * @return
+     */
+    List<Map> queryCourse(Sy05 sy05);
 }

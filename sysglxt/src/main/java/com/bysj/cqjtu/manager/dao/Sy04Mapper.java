@@ -33,4 +33,16 @@ public interface Sy04Mapper {
      * @return
      */
     int updateSy04(Sy04 sy04);
+    /**
+     * 按照班级获取学生信息
+     * @param csy043
+     * @return
+     */
+    List<Sy04> queryStudentList(String csy043);
+    /**
+     * 按照实验课程获取学生列表
+     * @param csy060
+     * @return
+     */
+    List<Sy04> queryStudentListByCourse(String csy060);
 }

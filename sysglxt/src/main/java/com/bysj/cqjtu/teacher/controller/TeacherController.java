@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bysj.cqjtu.log.annotation.SystemControllerLog;
+import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
 import com.bysj.cqjtu.manager.domain.Sy12;
@@ -29,6 +30,7 @@ import com.bysj.cqjtu.teacher.dto.LabManager;
 import com.bysj.cqjtu.teacher.dto.ReportManager;
 import com.bysj.cqjtu.teacher.service.ExperimentService;
 import com.bysj.cqjtu.teacher.service.LabApplyService;
+import com.bysj.cqjtu.teacher.service.StudentManageService;
 import com.bysj.cqjtu.teacher.service.TeacherService;
 
 @Controller
@@ -41,6 +43,8 @@ public class TeacherController {
 	private LabApplyService lab;
 	@Autowired
 	private ExperimentService expService;
+	@Autowired
+	private StudentManageService studentManageService;
 	
 	@RequestMapping("/query")
 	@ResponseBody
@@ -200,5 +204,67 @@ public class TeacherController {
         sy12.setCsy020(String.valueOf(userId));
         return lab.validateArrage(sy12);
 	}
-	
+	/**
+	 * 获取所有实验课程
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryCourse")
+    @ResponseBody
+    @SystemControllerLog(description="获取所有实验课程")
+	public List<Map> queryCourse(HttpSession session) throws Exception{
+	    UserMessage userMassage = (UserMessage)session.getAttribute("user");
+        int csy050 =userMassage.getSy05().getCsy050();
+        Sy05 sy05 = new Sy05();
+        sy05.setCsy050(csy050);
+        return studentManageService.queryCourse(sy05);
+	}
+	/**
+	 * 获取所有的学院
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryCollege")
+    @ResponseBody
+    @SystemControllerLog(description="获取所有的学院")
+	public List<Map> queryCollege() throws Exception{
+	    return studentManageService.queryCollege();
+	}
+	/**
+	 * 获取学院下对应的班级
+	 * @param aaa105
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryClass")
+    @ResponseBody
+    @SystemControllerLog(description="获取学院下对应的班级")
+	public List<Map> queryClass(String aaa105) throws Exception{
+	    return studentManageService.queryClass(aaa105);
+	}
+	/**
+	 * 安装班级获取学生列表
+	 * @param csy043
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryStudentList")
+    @ResponseBody
+    @SystemControllerLog(description="安装班级获取学生列表")
+	public List<Sy04> queryStudentList(String csy043) throws Exception{
+	    return studentManageService.queryStudentList(csy043);
+	}
+	/**
+	 * 按照实验课程查询学生列表
+	 * @param csy060
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryStudentListByCourse")
+    @ResponseBody
+    @SystemControllerLog(description="按照实验课程查询学生列表")
+	public List<Sy04> queryStudentListByCourse(String csy060) throws Exception{
+	    return studentManageService.queryStudentListByCourse(csy060);
+	}
 }
