@@ -28,7 +28,7 @@
         <div style="float:right;text-align:center;line-height:30px;margin-top:60px;margin-right:400px">
             <label style="font-family:'楷体';font-size:35px;color:white">高校实验课程教学管理平台</label>
         </div>
-        <div style="float:right;margin-right:-620px;margin-top:90px" >
+        <div style="float:right;margin-right:-720px;margin-top:90px" >
             <label style="color:white">
                 <span class="glyphicon glyphicon-user" aria-hidden="true" style="top:2px"></span>
                 <label id="welcomeuser"></label>
