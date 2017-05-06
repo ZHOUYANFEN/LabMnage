@@ -102,8 +102,8 @@
           type:'POST',
           url:"${pageContext.request.contextPath}/student/queryGrade?pageNum="+pageNum+"&pageSize="+pageSize,
           success:function(data){
-              for(var i=0;i<data.list.length;i++){
-                  $("#syllabushead").siblings().remove();
+        	  $("#syllabushead").siblings().remove();
+              for(var i=0;i<data.list.length;i++){             
                   $("#syllabuslist").append("<tr style='width:800px;'>"
                   +"<td>"+data.list[i].CSY061+"</td>"
                   +"<td>"+data.list[i].csy051+"</td>"
