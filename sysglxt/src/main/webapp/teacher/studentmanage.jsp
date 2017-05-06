@@ -52,21 +52,22 @@
     
     <div style="float:right;margin-right:30px;margin-top:40px; width:600px;height:600px;padding:0;">
         <div>
-	        <button type="button" class="btn btn-default" aria-label="Left Align" id="addstudentBtn" data-toggle="modal" hidden="hidden" data-target="#studentlist" onclick="openwin(true)" style="margin-left:180px;margin-top:20px;float:left">
+	        <button type="button" class="btn btn-default" aria-label="Left Align" id="addstudentBtn" data-toggle="modal" disabled="disabled" data-target="#studentlist" onclick="openwin()" style="margin-left:180px;margin-top:20px;float:left">
 	            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 	                            添加学生
 	        </button> 
-	        <button type="button" class="btn btn-default" aria-label="Left Align" id="delstudentBtn" hidden="hidden" style="margin-left:290px;margin-top:-35px;float:left">
+	        <button type="button" class="btn btn-default" aria-label="Left Align" id="delstudentBtn" onclick="deleteStudentInCourseBatch()" disabled="disabled" style="margin-left:290px;margin-top:-35px;float:left">
 	            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 	                            删除学生
 	        </button>
         </div>
         
         <div >
-         <p id="current" hidden="hidden"></p>
+         <p id="currentcourse" hidden="hidden"></p>
+         <p id="currentcourseid" hidden="hidden"></p>
 	        <table class="table table-hover" id="students" style="font-size:10px;">
 	            <tr id="stuhead">
-	                <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox()"/></td>
+	                <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox('allcheck','students')"/></td>
 	                <td >学号</td>
 	                <td >姓名</td>
 	                <td >学院</td>
@@ -83,33 +84,32 @@
     <div class="modal-content" >
 	    <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 style="text-align:center">添加学生</h4>
+	        <h4 style="text-align:center" id="model_head">添加学生</h4>
 	    </div>
        <div style="height:470px;margin:20px 20px">
-	      <div class="tree" id="treelist2" style="width:200px;float:left">
+	      <div class="tree" id="treelist2" style="width:200px;float:left;margin-top:30px">
 	       </div> 
 	       <div style="float:right;width:650px;height:430px;">
 	         <h5 align="center">学生列表</h5>
 	         <table class="table table-hover" id="students_model" style="font-size:10px;">
                 <tr id="students_head">
-                    <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox()"/></td>
+                    <td style="width:20px"><input id="allcheck_1" type="checkbox" onclick="setCheckbox('allcheck_1','students_model')"/></td>
                     <td >学号</td>
                     <td >姓名</td>
                     <td >学院</td>
                     <td >班级</td>
-                    <td >操作</td>
                 </tr>
             </table> 
 	       </div> 
        </div>
-       <button type="button" class="btn btn-default" aria-label="Left Align"  style="margin-left:280px;margin-top:-35px;float:left">
+       <button type="button" class="btn btn-default" aria-label="Left Align" onclick="addStudentToCourse()"  style="margin-left:400px;margin-top:-35px;float:left">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 添加
        </button> 
-       <button type="button" class="btn btn-default" aria-label="Left Align" style="margin-left:390px;margin-top:-35px;float:left">
+     <!--   <button type="button" class="btn btn-default" aria-label="Left Align" style="margin-left:430px;margin-top:-35px;float:left">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                 删除
-       </button>
+       </button> -->
        <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
       </div>
@@ -131,7 +131,7 @@ $(document).ready(function () {
              for(var i=0;i<data.length;i++){
                  $("#treelist").append(" <ul>"
                                          +"<li>"
-                                         +"<span onclick='queryStudentListByCourse("+data[i].csy060+",\""+data[i].csy061+"\")' id='"+data[i].csy061+"' style='width:180px;margin-left:-30px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].csy061+"</span>"                      
+                                         +"<span onclick='queryStudentListByCourse(\""+data[i].csy060+"\",\""+data[i].csy061+"\")' id='"+data[i].csy061+"' style='width:180px;margin-left:-30px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].csy061+"</span>"                      
                                          +"</li>"
                                          +"</ul>");
              }
@@ -140,9 +140,10 @@ $(document).ready(function () {
  });
  /*查询每个课程下对应的学生*/
  function queryStudentListByCourse(csy060,csy061){
-	 $("#current").text(csy061);
-	 $("#addstudentBtn").attr("hidden","");
-	 $("#delstudentBtn").attr("hidden","");
+	 $("#currentcourse").text(csy061);
+	 $("#currentcourseid").text(csy060);
+	 $("#addstudentBtn").attr("disabled",false);
+	 $("#delstudentBtn").attr("disabled",false);
 	 $.ajax({
          type:'post',
          url:"${pageContext.request.contextPath}/teacher/queryStudentListByCourse?csy060="+csy060,
@@ -150,35 +151,36 @@ $(document).ready(function () {
         	 $("#stuhead").siblings().remove();
              for(var i=0;i<data.length;i++){
                  $("#students").append("<tr>"
-                                       +"<td style='width:20px'><input  type='checkbox' /></td>"
+                                       +"<td style='width:20px'><input  type='checkbox' id='"+data[i].csy040+"' /></td>"
                                        +"<td >"+data[i].csy040+"</td>"
                                        +"<td >"+data[i].csy041+"</td>"
                                        +"<td >"+data[i].csy042+"</td>"
                                        +"<td >"+data[i].csy043+"</td>"
-                                       +"<td >操作</td>"
+                                       +"<td ><button type='button' class='btn btn-primary btn-xs ' onclick='deleteStudent(\""+data[i].csy040+"\","+csy060+")'>删除</button></td>"
                                        +"</tr>");
              }
          }
      });
  }
- function setCheckbox(){
-	 if($('#allcheck').is(':checked')){
-         $("[type='checkbox']").attr("checked",true);
+ function setCheckbox(chid,id){
+	 if($('#'+chid).is(':checked')){
+         $("[type='checkbox']","#"+id).attr("checked",true);
      }else{
-         $("[type='checkbox']").attr("checked",false);
+         $("[type='checkbox']","#"+id).attr("checked",false);
      }
  }
- function openwin(flag){
-
+ function openwin(){
+	 var csy061= $("#currentcourse").text();
+	 $("#model_head").text(csy061+"--->添加学生");
      $.ajax({
          type:'post',
          url:"${pageContext.request.contextPath}/teacher/queryCollege",
          success:function(data){
         	 $("#treelist2").empty();
              for(var i=0;i<data.length;i++){
-                 $("#treelist2").append(" <ul style='padding-left:0'>"
+                 $("#treelist2").append(" <ul style='padding-left:0;margin-left:-10px'>"
                                          +"<li >"
-                                         +"<span onclick='queryClass(\"CSY042_"+data[i].aaa102+"\",event)' id='\"CSY042_"+data[i].aaa102+"\"' style='width:170px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].aaa103+"</span>"                      
+                                         +"<span onclick='queryClass(\"CSY042_"+data[i].aaa102+"\",event)' id='CSY042_"+data[i].aaa102+"' style='width:170px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].aaa103+"</span>"                      
                                          +"</li>"
                                          +"</ul>");
              }
@@ -190,7 +192,6 @@ $(document).ready(function () {
      var children = $("#"+querydata).parent('li.parent_li').find(' > ul');
      if (children.is(":visible")) {
            children.empty();
-           $("#"+querydata).empty();
            children.hide('fast');
            $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
      } else {
@@ -200,27 +201,12 @@ $(document).ready(function () {
                  type:'post',
                  url:"${pageContext.request.contextPath}/teacher/queryClass?aaa105="+querydata,
                  success:function(data){
-                     $("#"+querydata).empty();
                      for(var i=0;i<data.length;i++){                          
-                         $("#"+querydata).after("<ul>"
+                         $("#"+querydata).after("<ul style='margin-left:30px'>"
                                            +"<li>"
-                                           +"<span onclick='queryStudentList("+data[i].aaa103+")' class='badge badge-success' style='cursor:pointer'><i class='icon-minus-sign'></i>"+data[i].aaa103+"</span>"
-                                           /* +"<ul>"
-                                           +"<li>"
-                                           +"<span><i class='icon-time'></i>"+(new Date(data[i].csy136).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</span>"
-                                           +"</li>"
-                                           +"</ul>" */
+                                           +"<span onclick='queryStudentList(\""+data[i].aaa103+"\")' class='badge badge-success' style='cursor:pointer'><i class='icon-minus-sign'></i>"+data[i].aaa103+"</span>"  
                                            +"</li>"                                 
-                                           +"</ul>");
-                         
-                         /* $("#resourcelist").append("<tr onclick='queryResourceDetail("+data[i].csy130+")' data-toggle='modal' data-target='#rosourcedetail'>"
-                                                         +"<td >"+data[i].csy131+"</td>"
-                                                         +"<td >上传人</td>"
-                                                         +"<td >"+data[i].csy133+"</td>"
-                                                         +"<td >"+(new Date(data[i].csy136).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-                                                         +"<td><button type='button' class='btn btn-primary btn-xs'  onclick='queryResourceDetail("+data[i].csy130+")'>详情</button>"
-                                                         +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='${pageContext.request.contextPath}/student/download?csy130="+data[i].csy130+"'><span class='glyphicon glyphicon-download' aria-hidden='true'></span>下载</button></td>"
-                                                         +"</tr>"); */
+                                           +"</ul>");                                              
                      }
                  }
              });
@@ -236,16 +222,144 @@ $(document).ready(function () {
              $("#students_head").siblings().remove();
              for(var i=0;i<data.length;i++){
                  $("#students_model").append("<tr>"
-						                         +"<td style='width:20px'><input  type='checkbox' /></td>"
+						                         +"<td style='width:20px'><input  type='checkbox' id='"+data[i].csy040+"' /></td>"
 						                         +"<td >"+data[i].csy040+"</td>"
 						                         +"<td >"+data[i].csy041+"</td>"
 						                         +"<td >"+data[i].csy042+"</td>"
 						                         +"<td >"+data[i].csy043+"</td>"
-						                         +"<td >操作</td>"
 						                         +"</tr>");
              }
          }
      });
+ }
+ /*删除学生*/
+ function deleteStudent(csy040,csy060){
+	 var sy07={
+			 'csy040':csy040,
+			 'csy060':csy060
+	 };
+	 swal({  
+         title:"",  
+         text:"确认删除这个学生吗？",  
+         type:"warning",  
+         showCancelButton:"true",  
+         showConfirmButton:"true",  
+         confirmButtonText:"确定",  
+         cancelButtonText:"取消",  
+         animation:"slide-from-top"  
+    }, function() {
+		 $.ajax({
+	         type:"POST",
+	         url:"${pageContext.request.contextPath}/teacher/deleteStudent",
+	         contentType:"application/json;charset=utf-8",
+	         data:JSON.stringify(sy07),
+	         dataType: "json",
+	         success:function(data){
+	        	 if(data.statu=="success"){
+		        	 sweetAlert("删除成功");
+		        	 var csy061 = $("#currentcourse").text();
+		             if(!csy061){
+		            	 sweetAlert("未知错误");
+		             }else{
+		            	 queryStudentListByCourse(csy060,csy061);
+		             }
+	        	 }else{
+	        		 sweetAlert("删除失败");
+	        	 }
+	         }
+		 });
+    });
+ }
+ /*添加学生到*/
+ function addStudentToCourse(){
+	 var id_array=new Array();  
+     $("[type='checkbox']:checked","#students_model").each(function(){  
+         id_array.push($(this).attr('id'));//向数组中添加元素  
+     });
+     if(id_array.length<=0){
+         sweetAlert("还没有选择数据");
+         return;
+     }
+     var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串  
+     var csy060 = $("#currentcourseid").text();
+     var csy061 = $("#currentcourse").text();
+     $.ajax({
+         type:"POST",
+         url:"${pageContext.request.contextPath}/teacher/validateStudentInCource?ids="+idstr+"&csy060="+csy060,
+         success:function(data){
+        	 var failList=data.failList;
+        	 var failList_csy040Str=failList.join(",");
+        	 var successList=data.successList;
+             var successList_csy040Str=successList.join(",");
+           	 swal({  
+                    title:"",  
+                    text:"学号为:"+failList_csy040Str+"的学生已经存在，确认添加学号为:"+successList_csy040Str+"的学生吗？",  
+                    type:"warning",  
+                    showCancelButton:"true",  
+                    showConfirmButton:"true",  
+                    confirmButtonText:"确定",  
+                    cancelButtonText:"取消",  
+                    animation:"slide-from-top"  
+               }, function() {
+            	   if(successList.length==0){
+            		   sweetAlert("没有学生可以添加，请重新选择");
+            	   }else{
+	                    $.ajax({
+	                        type:"POST",
+	                        url:"${pageContext.request.contextPath}/teacher/addStudentToCourse?ids="+successList_csy040Str+"&csy060="+csy060,
+	                        success:function(data){
+	                            if(data.statu=='success'){
+	                                $("#stuhead").siblings().remove();
+	                                queryStudentListByCourse(csy060,csy061);
+	                                sweetAlert("添加成功");
+	                                $("#studentlist").modal('toggle');
+	                            }else{
+	                                sweetAlert("添加失败");
+	                            }
+	                        }
+	                    });
+            	   }
+             });
+         }
+     });
+     
+ }
+ /*批量删除学生*/
+ function deleteStudentInCourseBatch(){
+	 var id_array=new Array();  
+     $("[type='checkbox']:checked","#students").each(function(){  
+         id_array.push($(this).attr('id'));//向数组中添加元素  
+     });
+     if(id_array.length<=0){
+         sweetAlert("还没有选择数据");
+         return;
+     }
+     var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串  
+     var csy060 = $("#currentcourseid").text();
+     var csy061 = $("#currentcourse").text();
+     swal({  
+         title:"",  
+         text:"确认删除这些学生吗？",  
+         type:"warning",  
+         showCancelButton:"true",  
+         showConfirmButton:"true",  
+         confirmButtonText:"确定",  
+         cancelButtonText:"取消",  
+         animation:"slide-from-top"  
+    }, function() {
+         $.ajax({
+             type:"POST",
+             url:"${pageContext.request.contextPath}/teacher/deleteStudentInCourseBatch?ids="+idstr+"&csy060="+csy060,
+             success:function(data){
+                 if(data.statu=="success"){
+                	 queryStudentListByCourse(csy060,csy061);
+                     sweetAlert("删除成功");
+                 }else{
+                     sweetAlert("删除失败");
+                 }
+             }
+         });
+    });
  }
 </script>
 </html>

@@ -38,5 +38,24 @@ public interface Sy07Mapper {
      * @return
      */
     List<Map> classpeopleGradestatistics(Map map);
+    /**
+     * 删除课程下的学生
+     * @param sy07
+     * @return
+     */
+    int deleteStudent(Sy07 sy07);
+    /**
+     * 添加学生到课程
+     * @param ids
+     * @param csy060
+     * @return
+     */
+    int addStudentToCourse(Sy07 sy07);
+    /**
+     * 验证课程下是否有学生
+     * @param sy07
+     * @return
+     */
+    Sy07 validateStudentInCource(Sy07 sy07);
 
 }

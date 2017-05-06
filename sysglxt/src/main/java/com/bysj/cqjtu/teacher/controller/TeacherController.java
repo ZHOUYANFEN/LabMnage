@@ -25,7 +25,9 @@ import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
 import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy09;
+import com.bysj.cqjtu.teacher.constant.TeacherConstance;
 import com.bysj.cqjtu.teacher.dto.LabManager;
 import com.bysj.cqjtu.teacher.dto.ReportManager;
 import com.bysj.cqjtu.teacher.service.ExperimentService;
@@ -266,5 +268,73 @@ public class TeacherController {
     @SystemControllerLog(description="按照实验课程查询学生列表")
 	public List<Sy04> queryStudentListByCourse(String csy060) throws Exception{
 	    return studentManageService.queryStudentListByCourse(csy060);
+	}
+	/**
+	 * 删除该课程的学生
+	 * @param sy07
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/deleteStudent")
+    @ResponseBody
+    @SystemControllerLog(description="删除该课程的学生")
+	public Map deleteStudent(@RequestBody Sy07 sy07){
+	    try {
+            return studentManageService.deleteStudent(sy07);
+        } catch (Exception e) {
+            Map map = new HashMap();
+            map.put("statu", TeacherConstance.DELETE_STUDENT_INCOURCE_FAIL);
+            return map;
+        }
+	}
+	/**
+	 * 添加学生到课程
+	 * @param ids
+	 * @param csy060
+	 * @return
+	 */
+	@RequestMapping("/addStudentToCourse")
+    @ResponseBody
+    @SystemControllerLog(description="添加学生到课程")
+	public Map addStudentToCourse(String ids,String csy060){
+	    try {
+            return studentManageService.addStudentToCourse(ids,csy060);
+        } catch (Exception e) {
+            Map map = new HashMap();
+            map.put("statu", TeacherConstance.ADD_STUDENT_INCOURCE_FAIL);
+            return map;
+        }
+	}
+	/**
+	 * 验证是否已经有该学生
+	 * @param ids
+	 * @param csy060
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/validateStudentInCource")
+    @ResponseBody
+    @SystemControllerLog(description="验证是否已经有该学生")
+	public Map validateStudentInCource(String ids,String csy060) throws Exception{
+	    return studentManageService.validateStudentInCource(ids,csy060);
+	}
+	/**
+     * 批量删除课程下的学生
+     * @param ids
+     * @param csy060
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/deleteStudentInCourseBatch")
+    @ResponseBody
+    @SystemControllerLog(description="验证是否已经有该学生")
+	public Map deleteStudentInCourseBatch(String ids,String csy060){
+	    try {
+            return studentManageService.deleteStudentInCourseBatch(ids,csy060);
+        } catch (Exception e) {
+            Map map = new HashMap();
+            map.put("statu", TeacherConstance.DELETE_STUDENT_INCOURCE_FAIL);
+            return map;
+        }
 	}
 }

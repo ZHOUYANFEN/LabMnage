@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy05;
+import com.bysj.cqjtu.student.domain.Sy07;
 
 /**
  * 实验课程的学生管理service
@@ -46,4 +47,35 @@ public interface StudentManageService {
      * @throws Exception
      */
     public List<Sy04> queryStudentListByCourse(String csy060) throws Exception;
+    /**
+     * 删除课程下的学生
+     * @param sy07
+     * @return
+     * @throws Exception
+     */
+    public Map deleteStudent(Sy07 sy07) throws Exception;
+    /**
+     * 添加 学生到课程
+     * @param ids
+     * @param csy060
+     * @return
+     * @throws Exception
+     */
+    public Map addStudentToCourse(String ids, String csy060) throws Exception;
+    /**
+     * 验证该课程下是否有该学生
+     * @param ids
+     * @param csy060
+     * @return
+     * @throws Exception
+     */
+    public Map validateStudentInCource(String ids, String csy060) throws Exception;
+    /**
+     * 批量删除课程下的学生
+     * @param ids
+     * @param csy060
+     * @return
+     * @throws Exception
+     */
+    public Map deleteStudentInCourseBatch(String ids, String csy060) throws Exception;
 }

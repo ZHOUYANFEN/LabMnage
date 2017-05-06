@@ -75,7 +75,31 @@
           group by sy07.csy071      
    </select>
   
-  
+    <!--删除课程下的学生  -->
+    <delete id="deleteStudent" parameterType="com.bysj.cqjtu.student.domain.Sy07">
+        delete from sy07
+         where csy040 = #{csy040}
+           and csy060 = #{csy060}
+    </delete>
+    <!-- 添加学生到课程 -->
+    <insert id="addStudentToCourse" parameterType="com.bysj.cqjtu.student.domain.Sy07">
+	    insert into sy07 (CSY040, 
+	                      CSY060, 
+	                      CSY071
+	                     )
+	              values (#{csy040,jdbcType=VARCHAR}, 
+	                      #{csy060,jdbcType=VARCHAR}, 
+	                      #{csy071,jdbcType=INTEGER}
+	                     )
+  </insert>
+  <!-- 验证课程下是否有学生 -->
+  <select id="validateStudentInCource" parameterType="com.bysj.cqjtu.student.domain.Sy07" resultType="com.bysj.cqjtu.student.domain.Sy07">
+     select *
+       from sy07
+      where csy040 = #{csy040}
+        and csy060 = #{csy060}  
+  </select>
+    
   <insert id="insert" parameterType="com.bysj.cqjtu.student.domain.Sy07">
     insert into sy07 (CSY040, CSY060, CSY071
       )
