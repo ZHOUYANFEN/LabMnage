@@ -26,7 +26,7 @@
 <body style="font-family:'黑体';font-size:16px">
 	<div id="button_operatemenu" style="margin-top:50px;margin-left:340px">
 		<button  type="button" class="btn btn-default" aria-label="Left Align" id="btnSave" onclick="savaMenu()" >
-  			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+  			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
   					保存
 		</button>		
 		<button type="button" class="btn btn-default" aria-label="Left Align">
