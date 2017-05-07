@@ -56,7 +56,9 @@ public class UserManagerController {
     @ResponseBody
     @SystemControllerLog(description = "获取用户信息|getAllUser") 
     public PageEntity<Map> getAllUser(Integer pageNum, Integer pageSize)throws Exception{
+        System.out.println("start:----"+System.currentTimeMillis()); 
         PageEntity<Map> pageEntity=userManagerService.queryAllUser(pageNum,pageSize);
+        System.out.println("start:----"+System.currentTimeMillis()); 
         return pageEntity;
     }
     /**

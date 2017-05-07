@@ -29,9 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
   #form2{
   display:flex;
@@ -137,23 +134,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		});
   		
   	});
+    /**查询周次,返回复选框*/
+    function queryWeek(){
+    	var weekdata='';
+    	$.ajax({
+            type:'POST',
+            async: false,
+            url:"${pageContext.request.contextPath}/aa10/queryWeek",
+            success:function(data){
+            	for(var i=0;i<data.length;i++){
+            		weekdata=weekdata+data[i].aaa103+"<input name='week' type='checkbox' value='"+data[i].aaa103+"'>&nbsp;";
+            	}          
+            }
+    	});
+    	return weekdata;
+    }
    	var index;
    	/**
    	*申请实验室
    	*/
   	 function applyById(id){
   		 index=id;
+  		 var weekdata=queryWeek();
   		$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/teacher/queryById?id="+id,
   			success:function(data){
   				$("#form2").empty();
   				$("#form2").append("<p><lable style='width:120px;text-align:right'>实验室序号：</lable><span id='csy110'>"+data.CSY110+"</span></p>"
-  						+"<p><lable  style='width:120px;text-align:right'>实验室类别：</lable><span id='csy101'>"+data.CSY101+"</span></p>"
+  						+"<p><lable  style='width:120px;CSY110text-align:right'>实验室类别：</lable><span id='csy101'>"+data.CSY101+"</span></p>"
   						+"<p><lable  style='width:120px;text-align:right'>实验室名称：</lable><span id='csy111'>"+data.CSY111+"</span></p>"
 	      				+"<p><lable style='width:120px;text-align:right'>实验室位置：</lable><span id='csy112'>"+data.CSY112+"</span></p>"
 	      				/* +"<p>申&nbsp;请&nbsp;时&nbsp;间：<input class='input' type='text' name='date' id='csy121'></p>" */
-	      				/* +"<p><lable style='width:120px;text-align:right'>周次：</lable><span id='csy112'>"+data.CSY112+"</span></p>" */
+	      				+"<p><lable  style='width:200px;text-align:right'>周次：</lable>"+weekdata+"</p>"
 	      				+"<p><lable  style='width:200px;text-align:right'>申请目的：</lable><input class='input' type='text' name='text' id='csy122'></p>"
 	      				+"<p><lable  style='width:120px;text-align:right'>备注：</lable><input class='input' type='text' id='csy123'></p>"
 	      				
@@ -177,66 +190,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	 function applymsg(){
  		$("#"+index).css("display","none");
   		$("#"+index+1).show();
-  		//获取div的内容
-  		/* var csy101 = $("#csy101").text();//实验室类别名称
-  		var sy10={
-  				"csy101":csy101
-  		}; */
   		var csy110 = $("#csy110").text();//实验室id
-  		/* var csy111 = $("#csy111").text();//实验室名称
-  		var csy112 = $("#csy112").text();//实验室位置 */
-  		
-  	/* 	var sy11={
-  				"csy110":csy110,
-  				"csy111":csy111,
-  				"csy112":csy112
-  		}; */
-  	  	//var csy121=new Date($("#csy121").val());//申请时间
+  		 var week_array=new Array();  
+  	     $("[name='week']:checked").each(function(){  
+  	    	week_array.push($(this).attr('value'));//向数组中添加元素  
+  	     });
+  	     if(week_array.length<=0){
+  	         sweetAlert("还没有选择周次");
+  	         return;
+  	     }
+  	    var weekarray=week_array.join(',');//将数组元素连接起来以构建一个字符串  
   	  	var csy122 = $("#csy122").val();//申请目的
   	  	var csy123 = $("#csy123").val();//备注
   	  	var sy12={
+  	  			"csy126":"week-"+weekarray,
   	  			"csy110":csy110,
   	  			"csy122":csy122,
   	  			"csy123":csy123
   	  	};
-  	  	/* var labManager={
-  	  			"sy10":sy10,
-  	  			"sy11":sy11,
-  	  			"sy12":sy12
-  	  	}; */
-  	  /* $.ajax({
-          type:'POST',
-          url:"${pageContext.request.contextPath}/teacher/validateArrage",
-          contentType:"application/json;charset=utf-8",
-          data:JSON.stringify(sy12),
-          dataType: "json",
-          success:function(data){
-             if(data=='success'){ */
-            	 $.ajax({
-                     type:'POST',
-                     url:"${pageContext.request.contextPath}/teacher/addLabArrange",
-                     contentType:"application/json;charset=utf-8",
-                     data:JSON.stringify(sy12),
-                     dataType: "json",
-                     success:function(data){
-                    	 if(data=='success'){
-                    		 sweetAlert("正在申请中");
-                    		  $("#form2").empty();
-                    	 }
-                     }
-                     
-                 
-                 });
-          /*        
-             } 
-          }
-          
-      
-      }); */
-  		
-  		
-		
-			
+
+  	   $.ajax({
+            type:'POST',
+            url:"${pageContext.request.contextPath}/teacher/addLabArrange",
+            contentType:"application/json;charset=utf-8",
+            data:JSON.stringify(sy12),
+            dataType: "json",
+            success:function(data){
+           	 if(data=='success'){
+           		 sweetAlert("正在申请中");
+           		  $("#form2").empty();
+           	 }
+            }
+            
+        
+      });		 						
   	 }
   	 
   	 /*

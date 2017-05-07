@@ -82,5 +82,11 @@ public interface Aa10Service {
      * @throws Exception
      */
     public List<Aa10> getAa10ByCondtion(Aa10 aa10) throws Exception;
+    /**
+     * 查询week
+     * @return
+     * @throws Exception
+     */
+    public List<Aa10> queryWeek() throws Exception;
 
 }

@@ -118,5 +118,11 @@ public class Aa10ServiceImpl implements Aa10Service {
         return pageBean;*/
        return  aa10Mapper.getAa10ByCondtion(aa10);
     }
+    @Override
+    public List<Aa10> queryWeek() throws Exception {
+        Aa10 aa10 =new Aa10();
+        aa10.setAaa100("WEEK");;
+        return  aa10Mapper.getAa10ByCondtion(aa10);
+    }
 
 }

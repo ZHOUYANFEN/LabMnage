@@ -158,4 +158,15 @@ public class Aa10Controller {
    public List<Aa10> getAa10ByCondtion(@RequestBody Aa10 aa10) throws Exception{     
        return aa10Service.getAa10ByCondtion(aa10);
    }
+    /**
+     * 查询码值中的week
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryWeek")
+    @ResponseBody
+    @SystemControllerLog(description ="查询码值中的week")
+   public List<Aa10> queryWeek() throws Exception{
+       return aa10Service.queryWeek();
+   }
 }

@@ -13,11 +13,12 @@
      <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/default/easyui.css" type="text/css"/>
        <!-- 引入EasyUI的图标样式文件-->
      <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/icon.css" type="text/css"/>
-     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css" >
+     
      <!-- 时间 -->
-   <%--   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/clock.css" > --%>
+     <%--   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/clock.css" > --%>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css" >
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
