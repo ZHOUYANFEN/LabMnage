@@ -36,5 +36,11 @@ public interface Sy05Mapper {
     int updateSy05(Sy05 sy05);
     
     List<Sy05> queryTeacher();
+    /**
+     * 按照用户id查询教师信息
+     * @param csy020
+     * @return
+     */
+    Sy05 getUserByCsy020(Integer csy020);
 
 }

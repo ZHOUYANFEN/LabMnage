@@ -35,4 +35,10 @@ public interface Sy03Mapper {
      * @return
      */
     int updateSy03(Sy03 sy03);
+    /**
+     * 按照用户id查询科研人员信息
+     * @param csy020
+     * @return
+     */
+    Sy03 getUserByCsy020(Integer csy020);
 }

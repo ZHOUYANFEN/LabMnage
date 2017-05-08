@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bysj.cqjtu.log.dao.Sy17Mapper;
+import com.bysj.cqjtu.log.dao.Sy18Mapper;
 import com.bysj.cqjtu.log.domain.Sy17;
+import com.bysj.cqjtu.log.domain.Sy18;
 import com.bysj.cqjtu.manager.service.RecordService;
 import com.bysj.cqjtu.util.PageEntity;
 import com.github.pagehelper.PageHelper;
@@ -15,6 +17,9 @@ public class RecordServiceImpl implements RecordService {
     
     @Autowired 
     private Sy17Mapper sy17Mapper;
+    
+    @Autowired 
+    private Sy18Mapper sy18Mapper;
     @Override
     public PageEntity<Sy17> querySy17(Integer pageNum, Integer pageSize) throws Exception {
         PageHelper.startPage(pageNum, pageSize);
@@ -28,6 +33,21 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public int querySy17Count() throws Exception {
         return sy17Mapper.querySy17().size();
+    }
+    @Override
+    public PageEntity<Sy18> querySy18(Integer pageNum, Integer pageSize)
+            throws Exception {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Sy18> allList =sy18Mapper.querySy18();
+        PageEntity<Sy18> pageBean = new PageEntity<Sy18>();
+        pageBean.setList(allList);
+        int size =sy18Mapper.querySy18().size();
+        pageBean.setCount(size);
+        return pageBean;
+    }
+    @Override
+    public int querySy18Count() throws Exception {
+        return sy18Mapper.querySy18().size();
     }
 
 }

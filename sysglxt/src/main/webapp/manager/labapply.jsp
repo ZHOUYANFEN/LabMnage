@@ -34,7 +34,12 @@
     </style>
 </head>
 <body style="font-family:'黑体';width:950px;margin:0 auto">
-   
+     <div id="button_operatemenu" style="margin-top:50px;margin-left:400px">
+        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle='modal' data-target='#addlabarrange' onclick="openadd()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
+                             增加实验室安排
+        </button>
+    </div>
 	<div id="applyexp" style="height:350px;margin-top:20px;margin-right:20px;">
 	        <table class="table table-hover" id="applylist">
               <tr style="width:800px;" id="applyhead">
@@ -82,6 +87,51 @@
         </div>
       </div>
     </div>
+    
+    <div class="modal fade bs-example-modal-lg" id="addlabarrange" tabindex="-2" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">新增实验室安排</h4>
+          </div>
+          <div class="modal-body" style="height:350px;width:1000px;margin-left:10px">                        
+                 <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
+		            <label style='width:100px;text-align:right'>申请人ID:</label>&nbsp;<input type="text" id="csy021" onchange="setPerson(this.value)" >
+                    <label style='width:100px;text-align:right'>申请人姓名:</label>&nbsp;<input type="text" id="csy021_name" readonly="readonly"> 
+                    <label style='width:100px;text-align:right'>申请目的:</label>&nbsp;<input type="text" id="csy123_model" maxlength="50">    
+		         </div> 
+		         <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
+                    <label style='width:100px;text-align:right'>实验室类型:</label>&nbsp;<select style="width:150px;height:30px" id="csy100_model" onchange="queryLabList(this.value)"></select>
+                    <label style='width:100px;text-align:right'>实验室名称:</label>&nbsp;<select style="width:150px;height:30px" id="csy111_model" onchange="setCsy(this.value)"></select>
+                    <label style='width:100px;text-align:right'>实验室位置:</label >&nbsp;<input type="text" id="csy112_model" readonly="readonly">    
+                 </div> 
+                 <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
+                    <label style='width:100px;text-align:right' >备注:</label>&nbsp;<input type="text" style="width:600px" >
+                    
+                 </div> 
+                 <div style="float:left;margin-right:30px;width:800px;margin-top:20px" id="week">
+                    <label style='width:100px;text-align:right' >周次:</label>                  
+                 </div> 
+                 <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
+                    <label style='width:100px;text-align:right'>安排时间:</label>&nbsp;<select id='csy126_time_model' style='width:150px;height:27px'></select> 
+                 </div>                 
+		         
+           
+            <div id="button_operatemenu" style="margin-top:20px;margin-left:400px;float:left;">
+                <button type="button" class="btn btn-default" aria-label="Left Align" onclick="addArrage()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                             新增
+                </button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>         
+          </div>
+        </div>
+      </div>
+    </div>
+    
 </body>
  <script type="text/javascript">
     $(function(){
@@ -176,19 +226,22 @@
                     +"<p><label style='width:100px;text-align:right'>实验室位置:</label ><label>"+resultdata.csy112+"</label></p>"
                     +"<p><label style='width:100px;text-align:right'>安排时间:</label><select id='csy126_time' style='width:150px;height:27px'></select></p>"
                 );
-                $.ajax({
-                    type:'post',
-                    url:'${pageContext.request.contextPath}/lab/getcsy126?csy110='+resultdata.csy110, 
-                    success:function(resultdata_1){
-                    	$("#csy126_time").empty();
-                    	for(var i=0;i<resultdata_1.length;i++){
-                    		$("#csy126_time").append("<option value='"+resultdata_1[i].aaa103+"'>"+resultdata_1[i].aaa103+"</option>");
-                    	}
-                    }
-            });
+               	getcsy126(resultdata.csy110);               
           }
            
     	});
+    }
+    function getcsy126(csy110){
+    	$.ajax({
+            type:'post',
+            url:'${pageContext.request.contextPath}/lab/getcsy126?csy110='+csy110, 
+            success:function(resultdata_1){
+                $("#csy126_time").empty();
+                for(var i=0;i<resultdata_1.length;i++){
+                    $("#csy126_time").append("<option value='"+resultdata_1[i].aaa103+"'>"+resultdata_1[i].aaa103+"</option>");
+                }
+            }
+        });
     }
     /*审核*/
     function shenhe(flag){
@@ -199,6 +252,104 @@
     	}else{
     		alert(2);
     	}
+    }
+    /**查询周次,返回复选框*/
+    function queryWeek(){
+        var weekdata='';
+        $.ajax({
+            type:'POST',
+            async: false,
+            url:"${pageContext.request.contextPath}/aa10/queryWeek",
+            success:function(data){
+                for(var i=0;i<data.length;i++){
+                    weekdata=weekdata+"<lable>"+data[i].aaa103+"<input name='week' type='checkbox' value='"+data[i].aaa103+"'>&nbsp;</lable>";
+                }          
+            }
+        });
+        return weekdata;
+    }
+    /*查询实验室类型*/
+    function queryType(){
+        /*查询实验室类型*/
+        $.ajax({
+            type:'post',
+            url:"${pageContext.request.contextPath}/lab/queryLabType",
+            success:function(data){
+            	$("#csy100_model").empty();
+                for(var i=0;i<data.length;i++){
+                    $("#csy100_model").append("<option value ='"+data[i].csy100+"'>"+data[i].csy101+"</option>");
+                    
+                }
+                var csy100=$("#csy100_model").val();
+                queryLabList(csy100);
+                
+            }
+        });
+    }
+    /*查询各实验室类型下的实验室*/
+    function queryLabList(csy100){
+        $("#csy100").val(csy100);
+        $.ajax({
+            type:'post',
+            url:"${pageContext.request.contextPath}/lab/queryLabList?csy100="+csy100,
+            success:function(data){
+                $("#csy111_model").empty();
+                for(var i=0;i<data.length;i++){
+                	$("#csy111_model").append("<option value ='"+data[i].csy110+"'>"+data[i].csy111+"</option>");
+                }
+                var csy110=$("#csy111_model").val();
+                setCsy126(csy110);
+                setCsy112(csy110);
+            }
+        });
+    }
+    function setCsy(data){
+    	setCsy112(data);
+    	setCsy126(data);
+    }
+    /*查询有空时间*/
+    function setCsy126(data){
+    	$.ajax({
+            type:'post',
+            url:'${pageContext.request.contextPath}/lab/getcsy126?csy110='+data, 
+            success:function(resultdata_1){
+                $("#csy126_time_model").empty();
+                for(var i=0;i<resultdata_1.length;i++){
+                    $("#csy126_time_model").append("<option value='"+resultdata_1[i].aaa103+"'>"+resultdata_1[i].aaa103+"</option>");
+                }
+            }
+        });
+    }
+    /*查询位置*/
+    function setCsy112(data){
+    	$.ajax({
+            type:'POST',
+            url:"${pageContext.request.contextPath}/teacher/queryById?id="+data,
+            success:function(resultdata){
+                $("#csy112_model").val(resultdata.CSY112);
+            }
+    	});
+    }
+    /*设置周次*/
+    function openadd(){
+    	queryType();
+    	$("#week").empty();
+    	$("#week").append("<label style='width:100px;text-align:right' >周次:</label>"+queryWeek());
+    }
+    function setPerson(data){
+    	$.ajax({
+            type:'POST',
+            url:"${pageContext.request.contextPath}/userManager/queryUserById?csy021="+data,
+            success:function(resultdata){
+            	if(resultdata.name){
+            	    $("#csy021_name").val(resultdata.name);
+            	}else{
+            		sweetAlert("没有该用户，请输入正确的用户");
+            		$("#csy021").val("");
+            		 $("#csy021_name").val("");
+            	}
+            }
+        });
     }
  </script>
 </html>

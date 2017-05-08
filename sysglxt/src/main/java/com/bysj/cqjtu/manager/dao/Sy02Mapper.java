@@ -91,4 +91,10 @@ public interface Sy02Mapper {
      * @return
      */
     Map getUserCount();
+    /**
+     * 按照id查询用户
+     * @param sy02
+     * @return
+     */
+    Sy02 getUserById(String csy021);
   }

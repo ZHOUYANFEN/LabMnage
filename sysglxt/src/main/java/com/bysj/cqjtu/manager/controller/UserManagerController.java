@@ -361,4 +361,17 @@ public class UserManagerController {
         map.put("count", i);
         return map;
     }
+    /**
+     * 按照id查询用户信息
+     * @param csy020
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryUserById")
+    @ResponseBody
+    @SystemControllerLog(description = " 按照id查询用户信息|queryUserById")
+
+    public Map queryUserById(String csy021) throws Exception{
+        return userManagerService.queryUserById(csy021);
+    }
  }

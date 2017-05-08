@@ -146,7 +146,14 @@
        
   </select>
   
-  
+  <!-- 按照id查询用户 -->
+  <select id="getUserById" resultType="com.bysj.cqjtu.manager.domain.Sy02" parameterType="String" >
+    select sy02.*
+      from sy02
+     where csy023 = 0
+       and csy021 = #{csy021}
+       
+  </select>
   
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

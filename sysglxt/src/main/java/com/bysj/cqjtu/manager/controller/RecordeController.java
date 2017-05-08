@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.log.domain.Sy17;
+import com.bysj.cqjtu.log.domain.Sy18;
 import com.bysj.cqjtu.manager.service.RecordService;
 import com.bysj.cqjtu.util.PageEntity;
 
@@ -38,6 +39,31 @@ public class RecordeController {
     @SystemControllerLog(description ="获取日志数量")
     public Map querySy17Count()  throws Exception{
         int i=recordService.querySy17Count();
+        Map map =new HashMap();
+        map.put("count", i);
+        return map;
+    }
+    
+    /**
+     * 获取异常日志信息
+     * @return
+     */
+    @RequestMapping("/querySy18")
+    @ResponseBody
+    @SystemControllerLog(description ="获取异常日志信息")
+    public PageEntity<Sy18> querySy18(Integer pageNum, Integer pageSize) throws Exception{
+       return recordService.querySy18(pageNum,pageSize);
+    }
+    /**
+     * 获取异常日志数量
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/querySy18Count")
+    @ResponseBody
+    @SystemControllerLog(description ="获取异常日志数量")
+    public Map querySy18Count()  throws Exception{
+        int i=recordService.querySy18Count();
         Map map =new HashMap();
         map.put("count", i);
         return map;

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bysj.cqjtu.log.dao.Sy18Mapper" >
+  <resultMap id="BaseResultMap" type="com.bysj.cqjtu.log.domain.Sy18" >
+    <id column="CSY180" property="csy180" jdbcType="DECIMAL" />
+    <result column="CSY181" property="csy181" jdbcType="VARCHAR" />
+    <result column="CSY182" property="csy182" jdbcType="VARCHAR" />
+    <result column="CSY183" property="csy183" jdbcType="TIMESTAMP" />
+    <result column="CSY184" property="csy184" jdbcType="VARCHAR" />
+    <result column="CSY185" property="csy185" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CSY180, CSY181, CSY182, CSY183, CSY184, CSY185
+  </sql>
+  
+  <select id="querySy18"  resultType="com.bysj.cqjtu.log.domain.Sy18">
+    select *
+      from sy18
+    order by csy183 desc
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy18
+    where CSY180 = #{csy180,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sy18
+    where CSY180 = #{csy180,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.bysj.cqjtu.log.domain.Sy18" >
+    insert into sy18 ( CSY181, 
+                       CSY182, 
+                       CSY183, 
+                       CSY184,
+                       CSY185
+                     )
+              values ( #{csy181,jdbcType=VARCHAR}, 
+                       #{csy182,jdbcType=VARCHAR}, 
+                       #{csy183,jdbcType=TIMESTAMP},
+                       #{csy184,jdbcType=VARCHAR}, 
+                       #{csy185,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bysj.cqjtu.log.domain.Sy18" >
+    insert into sy18
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csy180 != null" >
+        CSY180,
+      </if>
+      <if test="csy181 != null" >
+        CSY181,
+      </if>
+      <if test="csy182 != null" >
+        CSY182,
+      </if>
+      <if test="csy183 != null" >
+        CSY183,
+      </if>
+      <if test="csy184 != null" >
+        CSY184,
+      </if>
+      <if test="csy185 != null" >
+        CSY185,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csy180 != null" >
+        #{csy180,jdbcType=DECIMAL},
+      </if>
+      <if test="csy181 != null" >
+        #{csy181,jdbcType=VARCHAR},
+      </if>
+      <if test="csy182 != null" >
+        #{csy182,jdbcType=VARCHAR},
+      </if>
+      <if test="csy183 != null" >
+        #{csy183,jdbcType=TIMESTAMP},
+      </if>
+      <if test="csy184 != null" >
+        #{csy184,jdbcType=VARCHAR},
+      </if>
+      <if test="csy185 != null" >
+        #{csy185,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bysj.cqjtu.log.domain.Sy18" >
+    update sy18
+    <set >
+      <if test="csy181 != null" >
+        CSY181 = #{csy181,jdbcType=VARCHAR},
+      </if>
+      <if test="csy182 != null" >
+        CSY182 = #{csy182,jdbcType=VARCHAR},
+      </if>
+      <if test="csy183 != null" >
+        CSY183 = #{csy183,jdbcType=TIMESTAMP},
+      </if>
+      <if test="csy184 != null" >
+        CSY184 = #{csy184,jdbcType=VARCHAR},
+      </if>
+      <if test="csy185 != null" >
+        CSY185 = #{csy185,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CSY180 = #{csy180,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.log.domain.Sy18" >
+    update sy18
+    set CSY181 = #{csy181,jdbcType=VARCHAR},
+      CSY182 = #{csy182,jdbcType=VARCHAR},
+      CSY183 = #{csy183,jdbcType=TIMESTAMP},
+      CSY184 = #{csy184,jdbcType=VARCHAR},
+      CSY185 = #{csy185,jdbcType=VARCHAR}
+    where CSY180 = #{csy180,jdbcType=DECIMAL}
+  </update>
+</mapper>

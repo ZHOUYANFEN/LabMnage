@@ -94,6 +94,13 @@ public interface UserManagerService {
      * @throws Exception
      */
     public Map deleteUserBatch(String ids) throws Exception;
+    /**
+     * 按照id查询用户信息
+     * @param csy020
+     * @return
+     * @throws Exception
+     */
+    public Map queryUserById(String csy021) throws Exception;
 
     
 }

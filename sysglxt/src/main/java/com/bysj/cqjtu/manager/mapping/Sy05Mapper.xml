@@ -45,6 +45,12 @@
     from sy05
   </select>
   
+  <!-- 按照用户id查询信息 -->
+  <select id="getUserByCsy020" resultType="com.bysj.cqjtu.manager.domain.Sy05" parameterType="Integer" >
+    select *
+    from sy05
+    where CSY020 = #{csy020}
+  </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
