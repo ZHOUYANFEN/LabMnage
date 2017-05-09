@@ -117,7 +117,8 @@
            sy12.csy121 as csy121,
            sy12.csy122 as csy122,
            sy12.csy123 as csy123,
-           sy12.csy125 as csy125
+           sy12.csy125 as csy125,
+           sy12.csy126 as csy126
       from sy10 sy10,
            sy11 sy11,
            sy02 sy02,
@@ -132,12 +133,20 @@
        and sy12.csy120 = #{csy120}
   </select>
   <!-- 获取该实验室可以安排的时间 -->
-  <select id="getcsy126" resultType="java.util.HashMap" parameterType="String" >
+  <select id="getAllcsy126" resultType="String"  >
      select aa10.aaa103 as aaa103
        from aa10 aa10
       where aa10.aaa100 = 'TIME'
         and aa10.aaa104 = 0
-       <!--  and aa10.aaa103 not in (select distinct sy12_1.csy126 from sy12 sy12_1 where csy110 = #{csy110})  -->
+  </select>
+  
+  <!-- 获取指定时间内实验室的安排情况 -->
+  <select id="getAlreadycsy126" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+     select distinct sy12.csy126 as csy126
+       from sy12 sy12
+      where sy12.csy127 = 0
+        and sy12.csy126 LIKE CONCAT('%',#{week},'%')
+        and sy12.csy110 = #{csy110}
   </select>
   
   <!-- 添加实验室安排 -->

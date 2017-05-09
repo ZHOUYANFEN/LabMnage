@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.manager.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -180,8 +181,30 @@ public class LabServiceImpl implements LabService {
         return sy12Mapper.shenheinfo(csy120);
     }
     @Override
-    public List<Map> getcsy126(String csy110) throws Exception {
-        return sy12Mapper.getcsy126(csy110);
+    public List<Map> getcsy126(String csy110,String week) throws Exception {
+        List<String> alllist= sy12Mapper.getAllcsy126();
+        Map parameterMap = new HashMap();
+        parameterMap.put("csy110", csy110);
+        parameterMap.put("week", week);
+        List<Map> alreadyList = sy12Mapper.getAlreadycsy126(parameterMap);
+        for (Map map : alreadyList) {
+            String csy126 = (String) map.get("csy126");
+            String []csy126arr = csy126.split(",");
+            for (String string : csy126arr) {
+                if (string.startsWith(week)) {
+                    String retimeString = string.substring(week.length());
+                    alllist.remove(retimeString);
+                }
+            }
+        }
+        List resultList= new ArrayList();
+        Map resultMap;
+        for (String aaa103 : alllist) {
+            resultMap = new HashMap();
+            resultMap.put("aaa103", aaa103);
+            resultList.add(resultMap);
+        }
+        return resultList;
     }
     @Override
     public Map addLabApply(Sy12 sy12) throws Exception {

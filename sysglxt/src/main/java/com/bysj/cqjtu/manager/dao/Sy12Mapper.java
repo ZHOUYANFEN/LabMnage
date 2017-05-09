@@ -48,7 +48,14 @@ public interface Sy12Mapper {
      * @param csy110
      * @return
      */
-    List<Map> getcsy126(String csy110);
+    List<String> getAllcsy126();
 
     Integer addLabApply(Sy12 sy12);
+    /**
+     * 获取指定时间类实验室的使用情况
+     * @param csy110
+     * @param week
+     * @return
+     */
+    List<Map> getAlreadycsy126(Map map);
 }

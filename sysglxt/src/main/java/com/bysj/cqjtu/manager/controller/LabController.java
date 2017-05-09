@@ -264,8 +264,8 @@ public class LabController {
     @RequestMapping("/getcsy126")
     @ResponseBody
     @SystemControllerLog(description ="获取该实验室可以安排的时间")
-    public List<Map> getcsy126(String csy110) throws Exception{
-        return labService.getcsy126(csy110);
+    public List<Map> getcsy126(String csy110,String week) throws Exception{
+        return labService.getcsy126(csy110,week);
     }
     /**
      * 添加实验室安排

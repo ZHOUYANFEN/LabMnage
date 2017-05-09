@@ -122,7 +122,7 @@ public interface LabService {
      * @return
      * @throws Exception
      */
-    public List<Map> getcsy126(String csy110) throws Exception;
+    public List<Map> getcsy126(String csy110,String week) throws Exception;
     /**
      * 添加实验室安排
      * @param sy12
