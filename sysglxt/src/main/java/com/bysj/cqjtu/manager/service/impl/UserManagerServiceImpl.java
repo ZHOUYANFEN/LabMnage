@@ -254,10 +254,10 @@ public class UserManagerServiceImpl implements UserManagerService {
         if(sy02!=null){
             Byte csy010 = sy02.getCsy010();
             Integer csy020 = sy02.getCsy020();
-          
+            map.put("csy020", csy020);
             if(csy010==2){
                 Sy05 sy05= sy05Mapper.getUserByCsy020(csy020);
-                map.put("name", sy05.getCsy051());
+                map.put("name", sy05.getCsy051());               
             }else if(csy010==3){
                 Sy03 sy03=sy03Mapper.getUserByCsy020(csy020);
                 map.put("name", sy03.getCsy031());

@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.manager.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import com.bysj.cqjtu.manager.dao.Sy11Mapper;
 import com.bysj.cqjtu.manager.dao.Sy12Mapper;
 import com.bysj.cqjtu.manager.domain.Sy10;
 import com.bysj.cqjtu.manager.domain.Sy11;
+import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.manager.service.LabService;
 import com.bysj.cqjtu.util.PageEntity;
 import com.github.pagehelper.PageHelper;
@@ -180,6 +182,20 @@ public class LabServiceImpl implements LabService {
     @Override
     public List<Map> getcsy126(String csy110) throws Exception {
         return sy12Mapper.getcsy126(csy110);
+    }
+    @Override
+    public Map addLabApply(Sy12 sy12) throws Exception {
+        sy12.setCsy121(new Date());
+        sy12.setCsy124(new Date());
+        sy12.setCsy127((byte)0);
+        sy12.setCsy125((byte)1);
+        Map map=new HashMap();
+        Integer i=sy12Mapper.addLabApply(sy12);
+        if(i!=1){
+            throw new RuntimeException(OperateStatu.INSERT_SY12_FAIL);
+        }
+        map.put("statu", OperateStatu.INSERT_SY12_SUCCESS);
+        return map;
     }
 
 }

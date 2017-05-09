@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.domain.Sy10;
 import com.bysj.cqjtu.manager.domain.Sy11;
+import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.manager.service.LabService;
 import com.bysj.cqjtu.util.PageEntity;
 /**
@@ -265,5 +266,23 @@ public class LabController {
     @SystemControllerLog(description ="获取该实验室可以安排的时间")
     public List<Map> getcsy126(String csy110) throws Exception{
         return labService.getcsy126(csy110);
+    }
+    /**
+     * 添加实验室安排
+     * @param sy12
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/addLabApply")
+    @ResponseBody
+    @SystemControllerLog(description ="添加实验室安排")
+    public Map addLabApply(@RequestBody Sy12 sy12){
+        try {
+            return labService.addLabApply(sy12);
+        } catch (Exception e) {
+            Map map =new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
     }
 }

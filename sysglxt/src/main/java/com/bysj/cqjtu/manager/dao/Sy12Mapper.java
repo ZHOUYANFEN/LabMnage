@@ -49,4 +49,6 @@ public interface Sy12Mapper {
      * @return
      */
     List<Map> getcsy126(String csy110);
+
+    Integer addLabApply(Sy12 sy12);
 }

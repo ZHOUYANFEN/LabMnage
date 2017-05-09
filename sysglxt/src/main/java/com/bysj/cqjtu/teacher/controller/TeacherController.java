@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bysj.cqjtu.log.annotation.SystemControllerLog;
+import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
@@ -34,6 +35,7 @@ import com.bysj.cqjtu.teacher.service.ExperimentService;
 import com.bysj.cqjtu.teacher.service.LabApplyService;
 import com.bysj.cqjtu.teacher.service.StudentManageService;
 import com.bysj.cqjtu.teacher.service.TeacherService;
+import com.bysj.cqjtu.util.PageEntity;
 
 @Controller
 @RequestMapping("/teacher")
@@ -64,12 +66,20 @@ public class TeacherController {
 	 */
 	@RequestMapping("/queryLab")
 	@ResponseBody
-	public List<Map> queryList(HttpSession session){
-		List<Map> list = new ArrayList<>();
-		list = lab.queryLabList();
-		//session.setAttribute("list", list);
-		return list;
+	public PageEntity<Map> queryList(HttpSession session,Integer pageNum, Integer pageSize){
+	    return lab.queryLabList(pageNum,pageSize);
+
 	}
+	/**
+	 * 查询实验室数量
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryLabCount")
+    @ResponseBody
+	public Map queryLabCount() throws Exception{
+	    return lab.queryLabCount();
+	} 
 	/**
 	 * 通过id查询实验室相关信息
 	 * @param request
@@ -94,11 +104,18 @@ public class TeacherController {
 	 */
 	@RequestMapping("/addLabArrange")
 	@ResponseBody
-	public void addLabArrange(@RequestBody Sy12 sy12,HttpSession session) throws IOException{
+	@SystemControllerLog(description ="申请实验室")
+	public Map addLabArrange(@RequestBody Sy12 sy12,HttpSession session) {
 		UserMessage userMassage = (UserMessage)session.getAttribute("user");
 		int userId =userMassage.getSy02().getCsy020();
 		sy12.setCsy020(String.valueOf(userId));
-		lab.addLabArrange(sy12);
+		try {
+            return lab.addLabArrange(sy12);
+        } catch (Exception e) {
+            Map map= new HashMap();
+            map.put("statu", OperateStatu.INSERT_SY12_FAIL);
+            return map;
+        }
 	}
 	/**
 	 * 查询出实验安排
@@ -117,7 +134,7 @@ public class TeacherController {
 	
 	@RequestMapping("/queryEdit")
 	@ResponseBody
-	public LabManager queryEdit(HttpServletRequest request, HttpSession session){
+	public LabManager queryEdit(HttpServletRequest request, HttpSession session) throws Exception{
 		UserMessage userMassage = (UserMessage)session.getAttribute("user");
 		LabManager labManager = new LabManager();
 		String id  = request.getParameter("id");

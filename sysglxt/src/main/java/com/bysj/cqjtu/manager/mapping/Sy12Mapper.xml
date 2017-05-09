@@ -140,6 +140,30 @@
        <!--  and aa10.aaa103 not in (select distinct sy12_1.csy126 from sy12 sy12_1 where csy110 = #{csy110})  -->
   </select>
   
+  <!-- 添加实验室安排 -->
+  <insert id="addLabApply" parameterType="com.bysj.cqjtu.manager.domain.Sy12" >
+    insert into sy12 (CSY110, 
+                      CSY020, 
+                      CSY121, 
+                      CSY122, 
+                      CSY124, 
+                      CSY125, 
+                      CSY126, 
+                      CSY127, 
+                      CSY123
+                     )
+              values (#{csy110,jdbcType=VARCHAR}, 
+                      #{csy020,jdbcType=VARCHAR}, 
+                      #{csy121,jdbcType=DATE}, 
+                      #{csy122,jdbcType=VARCHAR}, 
+                      #{csy124,jdbcType=DATE}, 
+                      #{csy125,jdbcType=TINYINT}, 
+                      #{csy126,jdbcType=VARCHAR}, 
+                      #{csy127,jdbcType=TINYINT}, 
+                      #{csy123,jdbcType=LONGVARCHAR}
+                     )
+  </insert>
+  
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

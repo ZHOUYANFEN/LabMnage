@@ -28,7 +28,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!-- 弹窗css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
+    <style>
+       a{ text-decoration:none;}
+       a:hover{ text-decoration:none;}
+       .tcdPageCode{padding: 15px 20px;text-align: left;color: #ccc;text-align:center;}
+       .tcdPageCode a{display: inline-block;color: #428bca;display: inline-block;height: 25px; line-height: 25px;  padding: 0 10px;border: 1px solid #ddd; margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode a:hover{text-decoration: none;border: 1px solid #428bca;}
+       .tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: #fff;background-color: #428bca; border: 1px solid #428bca;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode span.disabled{ display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px; color: #bfbfbf;background: #f2f2f2;border: 1px solid #bfbfbf;border-radius: 4px;vertical-align: middle;}
+    </style>
   <style>
   #form2{
   display:flex;
@@ -50,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div>
     	<form id="form" method="post" action="">
     		<table class="table table-hover" id="labInfo" style="font-size:10px">
-    		<tr>
+    		<tr id="labhead">
     			<th style="text-align:center">序号</th>
     			<th style="text-align:center">实验室类别</th>
     			<th style="text-align:center">实验室名称</th>
@@ -61,6 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<th style="text-align:center">操作</th>
     			</tr>
     		</table>
+    		<div class="tcdPageCode"></div>
     	</form>
     </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -110,30 +120,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   *显示实验室列表
   */
   	$(function(){
-  		$.ajax({
-  			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/queryLab",
-  			success:function(data){
-  				$("#labInfo").siblings().remove();
-  				for(var i=0;i<data.length;i++){
-  					$("#labInfo").append("<tr style='width:800px;' class="+data[i].CSY110+">"
-  		  			+"<td style='text-align:center'>"+data[i].CSY110+"</td>"
-  					+"<td style='text-align:center'>"+data[i].CSY101+"</td>"
-  					+"<td style='text-align:center'>"+data[i].CSY111+"</td>"
-  					+"<td style='text-align:center'>"+data[i].CSY112+"</td>"
-  					+"<td style='text-align:center'>"+data[i].CSY113+"</td>"
-  					+"<td style='text-align:center'>"+data[i].CSY114+"</td>"
-  					+"<td style='text-align:center'>"+data[i].CSY115+"</td>"
-  					+"<td style='text-align:center' id="+data[i].CSY110+" ><input type='button' class='apply-button btn btn-primary btn-xs' value='申请' data-toggle='modal' data-target='#myModal' onclick='applyById("+data[i].CSY110+")'></td>"
-  					+"<td style='display:none;text-align:center' id="+data[i].CSY110+1+"><input type='button' class='edit-button btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal1' value='详情'></td>"
-  					+"</tr>");
-  				};
-  				$("#labInfo .edit-button").click(checkMsg);
-  			}
-  		
-  		});
-  		
+  		init();          		
   	});
+   function init(){
+	   pageSize=10;
+	   queryLab(1,pageSize);
+       $.ajax({
+           type:'POST',
+           url:"${pageContext.request.contextPath}/teacher/queryLabCount",
+           success:function(data){
+               $(".tcdPageCode").createPage({
+                   pageCount:Math.ceil((data.count/pageSize)),
+                   current:1,
+                   backFn:function(pageNum){
+                	   queryLab(pageNum,pageSize);
+                   }
+               }); 
+           }
+       });        
+	   
+	   
+   }
+   function queryLab(pageNum,pageSize){
+	    $.ajax({	    	            
+           type:'POST',
+           url:"${pageContext.request.contextPath}/teacher/queryLab?pageNum="+pageNum+"&pageSize="+pageSize,
+           success:function(data){
+               $("#labhead").siblings().remove();
+               for(var i=0;i<data.list.length;i++){
+                   $("#labInfo").append("<tr style='width:800px;' class="+data.list[i].CSY110+">"
+                   +"<td style='text-align:center'>"+data.list[i].CSY110+"</td>"
+                   +"<td style='text-align:center'>"+data.list[i].CSY101+"</td>"
+                   +"<td style='text-align:center'>"+data.list[i].CSY111+"</td>"
+                   +"<td style='text-align:center'>"+data.list[i].CSY112+"</td>"
+                   +"<td style='text-align:center'>"+data.list[i].CSY113+"</td>"
+                   +"<td style='text-align:center'>"+data.list[i].CSY114+"</td>"
+                   +"<td style='text-align:center'>"+data.list[i].CSY115+"</td>"
+                   +"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='申请' data-toggle='modal' data-target='#myModal' onclick='applyById("+data.list[i].CSY110+")'></td>"                   
+                   +"</tr>");
+               };
+               $("#labInfo .edit-button").click(checkMsg);
+           }
+       
+       });
+   }
     /**查询周次,返回复选框*/
     function queryWeek(){
     	var weekdata='';
@@ -188,22 +218,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	 *确认提交申请
   	 */
   	 function applymsg(){
- 		$("#"+index).css("display","none");
-  		$("#"+index+1).show();
+ 		/* $("#"+index).css("display","none");
+  		$("#"+index+1).show(); */
   		var csy110 = $("#csy110").text();//实验室id
   		 var week_array=new Array();  
   	     $("[name='week']:checked").each(function(){  
-  	    	week_array.push($(this).attr('value'));//向数组中添加元素  
+  	    	week_array.push($(this).attr('value')+":");//向数组中添加元素  
   	     });
   	     if(week_array.length<=0){
   	         sweetAlert("还没有选择周次");
   	         return;
   	     }
+  	     
   	    var weekarray=week_array.join(',');//将数组元素连接起来以构建一个字符串  
   	  	var csy122 = $("#csy122").val();//申请目的
   	  	var csy123 = $("#csy123").val();//备注
   	  	var sy12={
-  	  			"csy126":"week-"+weekarray,
+  	  			"csy126":weekarray,
   	  			"csy110":csy110,
   	  			"csy122":csy122,
   	  			"csy123":csy123
@@ -216,13 +247,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             data:JSON.stringify(sy12),
             dataType: "json",
             success:function(data){
-           	 if(data=='success'){
+            	console.log(data);
+           	 if(data.statu=='success'){
            		 sweetAlert("正在申请中");
            		  $("#form2").empty();
-           	 }
-            }
-            
-        
+           	   }
+            }                 
       });		 						
   	 }
   	 

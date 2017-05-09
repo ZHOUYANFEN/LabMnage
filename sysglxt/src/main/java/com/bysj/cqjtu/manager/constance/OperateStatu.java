@@ -125,4 +125,7 @@ public interface OperateStatu {
     /********验证码表********/
     public static final Object VALIDATE_AA10_SUCCESS = "success";
     public static final Object VALIDATE_AA10_FAIL = "error";
+    /********SY12***********/
+    public static final String INSERT_SY12_FAIL = "error";
+    public static final String INSERT_SY12_SUCCESS = "success";
 }

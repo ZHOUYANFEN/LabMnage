@@ -1,19 +1,22 @@
 package com.bysj.cqjtu.teacher.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.dao.Sy10Mapper;
 import com.bysj.cqjtu.manager.dao.Sy11Mapper;
 import com.bysj.cqjtu.manager.dao.Sy12Mapper;
 import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.teacher.dto.LabManager;
 import com.bysj.cqjtu.teacher.service.LabApplyService;
+import com.bysj.cqjtu.util.PageEntity;
+import com.github.pagehelper.PageHelper;
 
 
 @Service
@@ -27,10 +30,14 @@ public  class LabApplyServiceImpl implements LabApplyService {
 	private Sy10Mapper sy10;
 	
 	@Override
-	public List<Map> queryLabList() {
-		List<Map> list = new ArrayList<>();
-		list = sy11.queryLabMsg();
-		return list;
+	public PageEntity<Map> queryLabList(Integer pageNum, Integer pageSize) {
+	    PageHelper.startPage(pageNum, pageSize);
+        List<Map> allList = sy11.queryLabMsg();
+        PageEntity<Map> pageBean = new PageEntity<Map>();
+        pageBean.setList(allList);
+        int size =sy11.queryLabMsg().size();
+        pageBean.setCount(size);
+        return pageBean;
 	}
 
 	@Override
@@ -58,17 +65,30 @@ public  class LabApplyServiceImpl implements LabApplyService {
 	 * 添加一个实验室的申请，提交一个安排
 	 */
 	@Override
-	public void addLabArrange(Sy12 record) {
+	public Map addLabArrange(Sy12 record) throws Exception{
 	    record.setCsy121(new Date());
 	    record.setCsy127((byte)(0));
 	    record.setCsy125((byte)(0));
-		sy12.insertSelective(record);		
+		int i=sy12.insertSelective(record);
+		if(i!=1){
+		    throw new RuntimeException("申请实验室安排失败");
+		}
+		Map map= new HashMap();
+		map.put("statu", OperateStatu.INSERT_SY12_SUCCESS);
+		return map;
 	}
 
     @Override
     public Map validateArrage(Sy12 sy12Domain) throws Exception {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public Map queryLabCount() throws Exception {
+        Map map= new HashMap();
+        map.put("count", sy11.queryLabMsg().size());
+        return map;
     }
 
 

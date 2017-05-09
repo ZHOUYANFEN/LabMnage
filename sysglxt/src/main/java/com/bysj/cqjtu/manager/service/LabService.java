@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy10;
 import com.bysj.cqjtu.manager.domain.Sy11;
+import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.util.PageEntity;
 
 /**
@@ -122,4 +123,11 @@ public interface LabService {
      * @throws Exception
      */
     public List<Map> getcsy126(String csy110) throws Exception;
+    /**
+     * 添加实验室安排
+     * @param sy12
+     * @return
+     * @throws Exception
+     */
+    public Map addLabApply(Sy12 sy12) throws Exception;
 }

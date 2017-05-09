@@ -97,24 +97,25 @@
           </div>
           <div class="modal-body" style="height:350px;width:1000px;margin-left:10px">                        
                  <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
-		            <label style='width:100px;text-align:right'>申请人ID:</label>&nbsp;<input type="text" id="csy021" onchange="setPerson(this.value)" >
+		            <label style='width:100px;text-align:right'> <span style="margin:0;padding:0;color:red" >*</span>申请人ID:</label>&nbsp;<input type="text" id="csy021_model" onchange="setPerson(this.value)" >
+		            <input type="text" id="csy020_model" hidden="hidden" >
                     <label style='width:100px;text-align:right'>申请人姓名:</label>&nbsp;<input type="text" id="csy021_name" readonly="readonly"> 
-                    <label style='width:100px;text-align:right'>申请目的:</label>&nbsp;<input type="text" id="csy123_model" maxlength="50">    
+                    <label style='width:100px;text-align:right'> <span style="margin:0;padding:0;color:red" >*</span>申请目的:</label>&nbsp;<input type="text" id="csy122_model" maxlength="50">    
 		         </div> 
 		         <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
                     <label style='width:100px;text-align:right'>实验室类型:</label>&nbsp;<select style="width:150px;height:30px" id="csy100_model" onchange="queryLabList(this.value)"></select>
-                    <label style='width:100px;text-align:right'>实验室名称:</label>&nbsp;<select style="width:150px;height:30px" id="csy111_model" onchange="setCsy(this.value)"></select>
+                    <label style='width:100px;text-align:right'>实验室名称:</label>&nbsp;<select style="width:150px;height:30px" id="csy111_model" onchange="setCsy(this.value)"></select>                  
                     <label style='width:100px;text-align:right'>实验室位置:</label >&nbsp;<input type="text" id="csy112_model" readonly="readonly">    
                  </div> 
                  <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
-                    <label style='width:100px;text-align:right' >备注:</label>&nbsp;<input type="text" style="width:600px" >
+                    <label style='width:100px;text-align:right' >备注:</label>&nbsp;<input type="text" style="width:600px" id="csy123_model" >
                     
                  </div> 
                  <div style="float:left;margin-right:30px;width:800px;margin-top:20px" id="week">
-                    <label style='width:100px;text-align:right' >周次:</label>                  
+                    <label style='width:100px;text-align:right' ><span style="margin:0;padding:0;color:red">*</span>周次:</label>                  
                  </div> 
                  <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
-                    <label style='width:100px;text-align:right'>安排时间:</label>&nbsp;<select id='csy126_time_model' style='width:150px;height:27px'></select> 
+                    <label style='width:100px;text-align:right'> <span style="margin:0;padding:0;color:red" >*</span>安排时间:</label>&nbsp;<select id='csy126_time_model' style='width:150px;height:27px'></select> 
                  </div>                 
 		         
            
@@ -334,14 +335,16 @@
     function openadd(){
     	queryType();
     	$("#week").empty();
-    	$("#week").append("<label style='width:100px;text-align:right' >周次:</label>"+queryWeek());
+    	$("#week").append("<label style='width:100px;text-align:right' ><span style='margin:0;padding:0;color:red'>*</span>周次:</label>"+queryWeek());
     }
+    /*设置用户信息*/
     function setPerson(data){
     	$.ajax({
             type:'POST',
             url:"${pageContext.request.contextPath}/userManager/queryUserById?csy021="+data,
             success:function(resultdata){
             	if(resultdata.name){
+            		$("#csy020_model").val(resultdata.csy020);
             	    $("#csy021_name").val(resultdata.name);
             	}else{
             		sweetAlert("没有该用户，请输入正确的用户");
@@ -351,5 +354,64 @@
             }
         });
     }
+    /*添加实验室安排*/
+    function addArrage(){
+    	var week_array=new Array();  
+    	 $("[name='week']:checked").each(function(){  
+    		 week_array.push($(this).attr('value'));//向数组中添加元素  
+        });
+        if(week_array.length<=0){
+            sweetAlert("还没有选择周次");
+            return;
+        }
+        var csy126_time = $("#csy126_time_model").val();
+        for(var i = 0;i<week_array.length;i++){
+        	week_array[i]=week_array[i]+":"+csy126_time;
+        }
+        var weekarr=week_array.join(",");
+    	var csy020 = $("#csy020_model").val();
+    	var csy110 = $("#csy111_model").val();
+    	var csy122 = $("#csy122_model").val();
+    	var csy123 = $("#csy123_model").val();
+    	if(week_array&&csy020&&csy110&&csy122&&csy123){
+	    	var sy12 = {
+	    		'csy020':csy020,
+	    		'csy110':csy110,
+	    		'csy122':csy122,
+	    		'csy123':csy123,
+	    		'csy126':weekarr
+	    	};
+	    	 swal({  
+	             title:"",  
+	             text:"确认添加这个实验室安排吗？",  
+	             type:"warning",  
+	             showCancelButton:"true",  
+	             showConfirmButton:"true",  
+	             confirmButtonText:"确定",  
+	             cancelButtonText:"取消",  
+	             animation:"slide-from-top"  
+	        }, function() {
+	        	$.ajax({
+	                type:"POST",
+	                url:"${pageContext.request.contextPath}/lab/addLabApply",
+	                contentType:"application/json;charset=utf-8",
+	                data:JSON.stringify(sy12),
+	                dataType: "json",
+	                success:function(data){
+	                	if(data.statu=="success"){
+	                		sweetAlert("添加成功");
+	                		$("#addlabarrange").modal('toggle');
+	                		init();
+	                	}else{
+	                		sweetAlert("添加失败");
+	                	}
+	                }
+	        	});
+	        });
+    	}else{
+    		 sweetAlert("填写的信息不完整");
+             return;
+    	}
+   }
  </script>
 </html>
