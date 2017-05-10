@@ -58,4 +58,15 @@ public interface Sy12Mapper {
      * @return
      */
     List<Map> getAlreadycsy126(Map map);
+    /**
+     * 审核实验室申请
+     * @param sy12
+     * @return
+     */
+    Integer updateApply(Sy12 sy12);
+    /**
+     * 查询申请的实验室信息
+     * @return
+     */
+    List<Map> queryApplyLabMsg(Map map);
 }

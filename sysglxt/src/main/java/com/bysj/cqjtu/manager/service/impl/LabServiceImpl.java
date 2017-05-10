@@ -220,5 +220,17 @@ public class LabServiceImpl implements LabService {
         map.put("statu", OperateStatu.INSERT_SY12_SUCCESS);
         return map;
     }
+    @Override
+    public Map updateApply(Sy12 sy12) throws Exception {
+        sy12.setCsy124(new Date());
+        sy12.setCsy127((byte)0);
+        Map map=new HashMap();
+        Integer i=sy12Mapper.updateApply(sy12);
+        if(i!=1){
+            throw new RuntimeException(OperateStatu.UPDATE_SY12_FAIL);
+        }
+        map.put("statu", OperateStatu.UPDATE_SY12_SUCCESS);
+        return map;
+    }
 
 }

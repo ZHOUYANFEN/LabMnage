@@ -45,7 +45,7 @@ public class MyRealm extends AuthorizingRealm {
             sy02 = loginService.findUserByUsername(csy021);
             if (sy02 != null){
                 //将查询到的用户账号和密码存放到 authenticationInfo用于后面的权限判断。第三个参数传入realName。
-                authenticationInfo = new SimpleAuthenticationInfo(sy02.getCsy021(),sy02.getCsy022(),"a") ;
+                authenticationInfo = new SimpleAuthenticationInfo(sy02.getCsy021(),sy02.getCsy022(),"a");
                 return authenticationInfo ;
             }else{
                 return  null ;

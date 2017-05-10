@@ -139,7 +139,7 @@
     	init();	   	
     });
     function init(){
-    	pageSize=10;
+    	pageSize=20;
         queryLabApply(1,pageSize);
         $.ajax({
             type:'POST',
@@ -223,14 +223,14 @@
                	var csy126arr= csy126s.split(",");
                	var csy126div = "";
                	for (var i =0;i<csy126arr.length;i++){
-               		csy126div+=("<label>"+csy126arr[i]+"</label>");
-               		csy126div+=("<select name='"+csy126arr[i]+"'>");
+               		csy126div+=("<p style='margin-left:110px;'><label>"+csy126arr[i]+"</label>");
+               		csy126div+=("<select name='addweek' id='"+csy126arr[i]+"'>");
                		var options=gettime(resultdata.csy110,csy126arr[i]);
                		csy126div+=options;
-               		csy126div+=("</select>");
+               		csy126div+=("</select></p>");
                		
                	};
-               	$("#shenhe").append("<input  id ='csy120' value='"+resultdata.csy120+"' hidden='hidden'>"
+               	$("#shenhe").append("<input  id ='csy120_add' value='"+resultdata.csy120+"' hidden='hidden'>"
                     +"<p><label style='width:100px;text-align:right'>实验室名称:</label><label>"+resultdata.csy111+"</label></p>"
                     +"<p><label style='width:100px;text-align:right'>实验室类型:</label><label>"+resultdata.csy101+"</label></p>"
                     +"<p><label style='width:100px;text-align:right'>申请目的:</label><label>"+resultdata.csy122+"</label></p>"
@@ -276,10 +276,70 @@
     function shenhe(flag){
     	var csy120 = $("#csy120").val();
     	if(flag==true){
-    		
-    		alert(csy120);
+    		var csy120 = $("#csy120_add").val();
+    		var week_array=new Array();  
+            $("[name='addweek']").each(function(){  
+                week_array.push($(this).attr('id')+$(this).val());//向数组中添加元素  
+           });
+           var weekarr=week_array.join(",");
+           var sy12={
+        	'csy120':csy120,
+        	'csy126':weekarr,
+        	'csy125':1
+           };
+           $.ajax({
+               type:"POST",
+               url:"${pageContext.request.contextPath}/lab/updateApply",
+               contentType:"application/json;charset=utf-8",
+               data:JSON.stringify(sy12),
+               dataType: "json",
+               success:function(data){
+            	 if(data.statu=='success'){
+            		 sweetAlert("审核通过");
+            		 init();
+            		 $("#labapply").modal('toggle');
+            		 return;
+            	 } else{
+            		 sweetAlert("异常");
+            		 return;
+            	 }  
+               }
+           })
     	}else{
-    		alert(2);
+    		var csy120 = $("#csy120_add").val();
+    		swal({  
+                title:"",  
+                text:"确认不通过这个申请吗？",  
+                type:"warning",  
+                showCancelButton:"true",  
+                showConfirmButton:"true",  
+                confirmButtonText:"确定",  
+                cancelButtonText:"取消",  
+                animation:"slide-from-top"  
+           }, function() {
+	    	   var sy12={
+	    	            'csy120':csy120,
+	    	            'csy125':2
+	    	           };
+   	           $.ajax({
+   	               type:"POST",
+   	               url:"${pageContext.request.contextPath}/lab/updateApply",
+   	               contentType:"application/json;charset=utf-8",
+   	               data:JSON.stringify(sy12),
+   	               dataType: "json",
+   	               success:function(data){
+   	                 if(data.statu=='success'){
+   	                     sweetAlert("审核不通过");
+   	                     init();
+   	                     $("#labapply").modal('toggle');
+   	                     return;
+   	                 } else{
+   	                     sweetAlert("异常");
+   	                     return;
+   	                 }  
+   	               }
+   	           });
+   	        });
     	}
     }
     /**查询周次,返回复选框*/

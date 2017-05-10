@@ -146,7 +146,7 @@
     </error-page>
 	   
     <welcome-file-list>  
-        <welcome-file>/loginexp.jsp</welcome-file>  
+        <welcome-file>/WEB-INF/jsp/loginexp.jsp</welcome-file>  
     </welcome-file-list>  
   
 </web-app>  

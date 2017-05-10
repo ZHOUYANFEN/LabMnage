@@ -106,7 +106,7 @@
     where CSY120 = #{0,jdbcType=INTEGER} and CSY020 = #{1,jdbcType=INTEGER}
   </select>
   
-   <!-- 查询对应实验室申请 -->
+  <!-- 查询对应实验室申请 -->
   <select id="shenheinfo" resultType="java.util.HashMap" parameterType="String" >
     select sy10.csy101 as csy101,
            sy11.csy110 as csy110,
@@ -172,6 +172,42 @@
                       #{csy123,jdbcType=LONGVARCHAR}
                      )
   </insert>
+  <!-- 审核实验室申请 -->
+  <update id="updateApply" parameterType="com.bysj.cqjtu.manager.domain.Sy12" >
+    update sy12
+       set CSY124 = #{csy124,jdbcType=DATE},
+	       CSY125 = #{csy125,jdbcType=TINYINT},
+	      <if test="csy126 != null" >
+            CSY126 = #{csy126,jdbcType=TINYINT},
+          </if>
+	       CSY127 = #{csy127,jdbcType=TINYINT}
+     where CSY120 = #{csy120,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询申请的实验室 -->
+  <select id="queryApplyLabMsg" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+    select sy10.csy101,
+           sy11.csy110,
+           sy11.csy111,
+           sy11.csy112,
+           sy11.csy113,
+           sy11.csy114,
+           sy11.csy115,
+           sy12.csy121,
+           sy12.csy124,
+           sy12.csy123,
+           sy12.csy126
+      from sy10 sy10,
+           sy11 sy11,
+           sy12 sy12
+     where sy12.csy127 = 0
+       and sy10.csy100=sy11.csy100 
+       and sy10.csy102=0 
+       and sy11.csy116=0
+       and sy12.csy110 = sy11.csy110
+       and sy12.csy125 = #{csy125}
+       and sy12.csy020 = #{csy020}
+  </select>
   
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 

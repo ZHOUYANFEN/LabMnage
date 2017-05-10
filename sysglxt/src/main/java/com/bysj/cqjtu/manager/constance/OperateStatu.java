@@ -128,4 +128,6 @@ public interface OperateStatu {
     /********SY12***********/
     public static final String INSERT_SY12_FAIL = "error";
     public static final String INSERT_SY12_SUCCESS = "success";
+    public static final String UPDATE_SY12_FAIL = "error";
+    public static final String UPDATE_SY12_SUCCESS = "success";
 }

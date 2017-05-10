@@ -158,7 +158,7 @@ button:active {
 }
 .alert{
     width:310px;
-    height:200px;
+    height:250px;
     background:#000;
     position:absolute;
     top:-40%;
@@ -169,8 +169,8 @@ button:active {
     height:40px;
     padding-left:8px;
     font-size:14px;
-    background:#FF0543;
-    text-align:left;
+    background:#EC191B;
+    text-align:center;
     line-height:40px;
 }
 .alert .alert_con{

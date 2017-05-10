@@ -285,4 +285,21 @@ public class LabController {
             return map;
         }
     }
+    /**
+     * 审核实验室申请信息
+     * @param sy12
+     * @return
+     */
+    @RequestMapping("/updateApply")
+    @ResponseBody
+    @SystemControllerLog(description ="审核实验室申请信息")
+    public Map updateApply(@RequestBody Sy12 sy12){
+        try {
+            return labService.updateApply(sy12);
+        } catch (Exception e) {
+            Map map =new HashMap();
+            map.put("statu", e.getMessage());
+            return map;
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.bysj.cqjtu.teacher.service;
 
 import java.util.Map;
 
+import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.teacher.dto.LabManager;
 import com.bysj.cqjtu.util.PageEntity;
@@ -12,7 +13,7 @@ public interface LabApplyService {
 	 * 显示试验室相关信息
 	 * @return
 	 */
-    PageEntity<Map> queryLabList(Integer pageNum, Integer pageSize);
+    PageEntity<Map> queryLabList(Integer pageNum, Integer pageSize,Integer csy125,Sy02 sy02);
 	/**
 	 * 通过id查询相关信息
 	 * @param id
@@ -42,6 +43,6 @@ public interface LabApplyService {
      * @return
      * @throws Exception
      */
-    Map queryLabCount() throws Exception;
+    Map queryLabCount(Integer csy125) throws Exception;
 	
 }

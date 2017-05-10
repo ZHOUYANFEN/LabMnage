@@ -12,7 +12,9 @@ import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.dao.Sy10Mapper;
 import com.bysj.cqjtu.manager.dao.Sy11Mapper;
 import com.bysj.cqjtu.manager.dao.Sy12Mapper;
+import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy12;
+import com.bysj.cqjtu.teacher.constant.TeacherConstance;
 import com.bysj.cqjtu.teacher.dto.LabManager;
 import com.bysj.cqjtu.teacher.service.LabApplyService;
 import com.bysj.cqjtu.util.PageEntity;
@@ -30,14 +32,25 @@ public  class LabApplyServiceImpl implements LabApplyService {
 	private Sy10Mapper sy10;
 	
 	@Override
-	public PageEntity<Map> queryLabList(Integer pageNum, Integer pageSize) {
+	public PageEntity<Map> queryLabList(Integer pageNum, Integer pageSize,Integer csy125,Sy02 sy02) {
 	    PageHelper.startPage(pageNum, pageSize);
-        List<Map> allList = sy11.queryLabMsg();
-        PageEntity<Map> pageBean = new PageEntity<Map>();
-        pageBean.setList(allList);
-        int size =sy11.queryLabMsg().size();
-        pageBean.setCount(size);
-        return pageBean;
+	    PageEntity<Map> pageBean = new PageEntity<Map>();
+	    if(TeacherConstance.APPLY_STATU_CSY125_ALL==csy125){
+            List<Map> allList = sy11.queryLabMsg();          
+            pageBean.setList(allList);
+            int size =sy11.queryLabMsg().size();
+            pageBean.setCount(size);
+           
+	    }else{
+	        Map paramterMap= new HashMap();
+	        paramterMap.put("csy125", csy125);
+	        paramterMap.put("csy020", sy02.getCsy020());
+	        List<Map> allList = sy12.queryApplyLabMsg(paramterMap);          
+            pageBean.setList(allList);
+            int size =sy12.queryApplyLabMsg(paramterMap).size();
+            pageBean.setCount(size);
+	    }
+	    return pageBean;
 	}
 
 	@Override
@@ -85,7 +98,7 @@ public  class LabApplyServiceImpl implements LabApplyService {
     }
 
     @Override
-    public Map queryLabCount() throws Exception {
+    public Map queryLabCount(Integer csy125) throws Exception {
         Map map= new HashMap();
         map.put("count", sy11.queryLabMsg().size());
         return map;

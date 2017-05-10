@@ -52,7 +52,7 @@
          <div style="float:left; margin-top:10px" id="sy04_message">
 	          <lable>学号:</lable><input type="text" name="csy040" width="80px" id="csy040" maxlength="20" onchange="setSaveBtn()">
 	          <lable style="margin-left:37px"> 姓名:</lable><input type="text" name="csy041" width="80px" id="csy041" maxlength="20" onchange="setSaveBtn()">
-	          <lable> 学院:</lable><select type="text" name="csy042" style="width:150px;height:30px" id="csy042" maxlength="30" onchange="setCsy043(this)" ></select> 
+	          <lable> 学院:</lable><select type="text" name="csy042" style="width:150px;height:30px" id="csy042" maxlength="30" onchange="setCsy043(this.value)" ></select> 
 	          <lable>班级:</lable><select type="text" name="csy043" style="width:150px;height:30px" width="80px" id="csy043" maxlength="30" onchange="setSaveBtn()" style="width:120px" ></select> 
          </div>
          <div style="float:left; margin-top:10px" hidden="hidden" id="sy03_message">
@@ -129,7 +129,7 @@
 		                  <lable> 姓名:</lable><input type="text" name="csy041_model" width="80px" id="csy041_model" maxlength="20" >
 		              </div>
 		              <div style="margin-left:100px;margin-top:10px">
-		                  <lable> 学院:</lable><select type="text" name="csy042_model" width="80px" id="csy042_model" maxlength="30"></select>
+		                  <lable> 学院:</lable><select type="text" name="csy042_model" width="80px" id="csy042_model" maxlength="30" onchange="setCsy043_model(this.value)"></select>
 		                  <lable>班级:</lable><select type="text" name="csy043_model" width="80px" id="csy043_model" maxlength="30" ></select>
 		              </div>
 		         </div>
@@ -234,10 +234,10 @@ function init(){
             }
         });
     }
-	function setCsy043(data){
+	function setCsy043(csy042){
 		setSaveBtn();
-		if(data.value){
-			var csy042_val = 'CSY042_'+data.value;
+		if(csy042){
+			var csy042_val = 'CSY042_'+csy042;
 			$.ajax({
 	            type:'POST',
 	            url:"${pageContext.request.contextPath}/aa10/queryCsy043?aaa105="+csy042_val,
@@ -262,7 +262,7 @@ function init(){
 	function deleteUser(userid){
 		swal({  
             title:"",  
-            text:"确认删除这个菜单功能吗？",  
+            text:"确认删除这个用户吗？",  
             type:"warning",  
             showCancelButton:"true",  
             showConfirmButton:"true",  
@@ -608,6 +608,7 @@ function init(){
 	                 $("#csy040_model").val(data.CSY040);
 	                 $("#csy041_model").val(data.CSY041);
 	                 $("#csy042_model").find("option[text='"+data.CSY042+"']").attr("selected",true);
+	                 setCsy043_model($("#csy042_model").val());
 	                 $("#csy043_model").find("option[text='"+data.CSY043+"']").attr("selected",true);
 	                // $("#csy042_model").val(data.CSY042);
 	                // $("#csy043_model").val(data.CSY043);
@@ -633,6 +634,23 @@ function init(){
              }
       });
 	} 
+	function setCsy043_model(csy042){
+        setSaveBtn();
+        if(csy042){
+            var csy042_val = 'CSY042_'+csy042;
+            $.ajax({
+                type:'POST',
+                async: false,
+                url:"${pageContext.request.contextPath}/aa10/queryCsy043?aaa105="+csy042_val,
+                success:function(data){
+                     $("#csy043_model").empty();
+                     for(var i=0;i<data.length;i++){
+                           $("#csy043_model").append("<option value ='"+data[i].aaa103+"'>"+data[i].aaa103+" </option>");
+                     }
+                }
+            });
+        }
+    }
 	/*批量添加数据信息*/
 	function addUserBacth(){
 		var isImport=$("#sy02 tr").find("input[type='checkbox']");

@@ -19,10 +19,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/default/easyui.css" type="text/css"/>
        <!-- 引入EasyUI的图标样式文件-->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/icon.css" />
-    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css " />
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css " />
     <!-- 弹窗js -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
@@ -39,7 +38,7 @@
 <body oncontextmenu="return false" style="font-family:'黑体';width:1300px;margin:0 auto">
 
 <div class="page-container">
-    <input type="hidden" id="error" value="${error}"/>
+    <input hidden="hidden"  id="error" value="${error}"/>
     <h1 style="color:black">高校实验课程教学管理平台</h1>
 <!--     <h1 style="color:black">登录</h1> -->
     <form action="${pageContext.request.contextPath }/userlogin/tologin" method="post">
@@ -63,7 +62,7 @@
     <h2>消息</h2>
     <div class="alert_con">
         <p id="ts"></p>
-        <p style="line-height:70px"><a class="btn">确定</a></p>
+        <p style="line-height:40px"><a class="btn">确定</a></p>
     </div>
 </div>
 
@@ -76,7 +75,7 @@
     })
     var u = $("input[name=username]");
     var p = $("input[name=password]");
-    $("#submit").live('click',function(){
+    $("#submit").click(function(){
         if(u.val() == '' || p.val() =='')
         {
             $("#ts").html("用户名或密码不能为空~");
@@ -101,10 +100,10 @@
             is_show();
         }
         $(".connect p").eq(0).animate({"left":"0%"}, 600);
-        $(".connect p").eq(1).animate({"left":"0%"}, 400);
+        $(".connect p").eq(1).animate({"left":"0%"}, 500);
     }
     function is_hide(){ $(".alert").animate({"top":"-40%"}, 300) }
-    function is_show(){ $(".alert").show().animate({"top":"45%"}, 300) }
+    function is_show(){ $(".alert").show().animate({"top":"40%"}, 300) }
 </script>
 </body>
 

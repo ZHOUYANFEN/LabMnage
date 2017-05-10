@@ -102,7 +102,7 @@
   </select>
   
   <!-- 多表查询 查询实验室，显示实验室名称 -->
-  <select id="queryLabMsg" resultType="java.util.HashMap">
+  <select id="queryLabMsg" resultType="java.util.HashMap" >
     SELECT sy10.CSY101,
            sy11.CSY110,
            sy11.CSY111,

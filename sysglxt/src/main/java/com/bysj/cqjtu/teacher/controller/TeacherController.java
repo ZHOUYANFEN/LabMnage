@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.constance.OperateStatu;
+import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
@@ -66,8 +67,10 @@ public class TeacherController {
 	 */
 	@RequestMapping("/queryLab")
 	@ResponseBody
-	public PageEntity<Map> queryList(HttpSession session,Integer pageNum, Integer pageSize){
-	    return lab.queryLabList(pageNum,pageSize);
+	public PageEntity<Map> queryList(HttpSession session,Integer pageNum, Integer pageSize,Integer csy125){
+	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
+	    Sy02 sy02 =userMessage.getSy02();
+	    return lab.queryLabList(pageNum,pageSize,csy125,sy02);
 
 	}
 	/**
@@ -77,8 +80,8 @@ public class TeacherController {
 	 */
 	@RequestMapping("/queryLabCount")
     @ResponseBody
-	public Map queryLabCount() throws Exception{
-	    return lab.queryLabCount();
+	public Map queryLabCount(Integer csy125) throws Exception{
+	    return lab.queryLabCount(csy125);
 	} 
 	/**
 	 * 通过id查询实验室相关信息

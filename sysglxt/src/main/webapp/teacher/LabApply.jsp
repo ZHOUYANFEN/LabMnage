@@ -57,18 +57,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body  style="font-family:'黑体';font-size:16px">
     <div>
+        <div>
+            <label>申请状态</label>
+	        <select id="apply_statu" onchange="init(this.value)">
+	            <option value="3">全部</option>
+	            <option value="0">审核中</option>
+	            <option value="1">审核通过</option>
+	            <option value="2">审核不通过</option>	           
+	        </select>
+	    </div>
     	<form id="form" method="post" action="">
     		<table class="table table-hover" id="labInfo" style="font-size:10px">
-    		<tr id="labhead">
-    			<th style="text-align:center">序号</th>
-    			<th style="text-align:center">实验室类别</th>
-    			<th style="text-align:center">实验室名称</th>
-    			<th style="text-align:center">实验室位置</th>
-    			<th style="text-align:center">开放时间</th>
-    			<th style="text-align:center">是否开放</th>
-    			<th style="text-align:center">实验室描述</th>
-    			<th style="text-align:center">操作</th>
-    			</tr>
+	    		<tr id="labhead">
+	    		</tr>
     		</table>
     		<div class="tcdPageCode"></div>
     	</form>
@@ -120,20 +121,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   *显示实验室列表
   */
   	$(function(){
-  		init();          		
+  		$("#apply_statu").val(3);
+  		var apply_statu = $("#apply_statu").val();
+  		init(apply_statu);          		
   	});
-   function init(){
+   function init(csy125){
+	   $("#labhead").empty();
+	   if(csy125==3){
+		   $("#labhead").append("<th style='text-align:center'>序号</th>"
+			                   +"<th style='text-align:center'>实验室类别</th>"
+			                   +"<th style='text-align:center'>实验室名称</th>"
+			                   +"<th style='text-align:center'>实验室位置</th>"
+			                   +"<th style='text-align:center'>开放时间</th>"
+			                   +"<th style='text-align:center'>是否开放</th>"
+			                   +"<th style='text-align:center'>实验室描述</th>"
+			                   +"<th style='text-align:center'>操作</th>");
+	   }else{
+		   $("#labhead").append("<th style='text-align:center'>序号</th>"
+                   +"<th style='text-align:center'>实验室类别</th>"
+                   +"<th style='text-align:center'>实验室名称</th>"
+                   +"<th style='text-align:center'>实验室位置</th>"
+                   +"<th style='text-align:center'>申请时间</th>"
+                   +"<th style='text-align:center'>审核时间</th>"
+                   +"<th style='text-align:center'>安排时间</th>"
+                   +"<th style='text-align:center'>备注</th>"
+                   +"<th style='text-align:center'>状态</th>");
+	   }
 	   pageSize=10;
-	   queryLab(1,pageSize);
+	   queryLab(1,pageSize,csy125);
        $.ajax({
            type:'POST',
-           url:"${pageContext.request.contextPath}/teacher/queryLabCount",
+           url:"${pageContext.request.contextPath}/teacher/queryLabCount?csy125="+csy125,
            success:function(data){
                $(".tcdPageCode").createPage({
                    pageCount:Math.ceil((data.count/pageSize)),
                    current:1,
                    backFn:function(pageNum){
-                	   queryLab(pageNum,pageSize);
+                	   queryLab(pageNum,pageSize,csy125);
                    }
                }); 
            }
@@ -141,25 +165,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   
 	   
    }
-   function queryLab(pageNum,pageSize){
+   function queryLab(pageNum,pageSize,csy125){
 	    $.ajax({	    	            
            type:'POST',
-           url:"${pageContext.request.contextPath}/teacher/queryLab?pageNum="+pageNum+"&pageSize="+pageSize,
+           url:"${pageContext.request.contextPath}/teacher/queryLab?pageNum="+pageNum+"&pageSize="+pageSize+"&csy125="+csy125,
            success:function(data){
-               $("#labhead").siblings().remove();
-               for(var i=0;i<data.list.length;i++){
-                   $("#labInfo").append("<tr style='width:800px;' class="+data.list[i].CSY110+">"
-                   +"<td style='text-align:center'>"+data.list[i].CSY110+"</td>"
-                   +"<td style='text-align:center'>"+data.list[i].CSY101+"</td>"
-                   +"<td style='text-align:center'>"+data.list[i].CSY111+"</td>"
-                   +"<td style='text-align:center'>"+data.list[i].CSY112+"</td>"
-                   +"<td style='text-align:center'>"+data.list[i].CSY113+"</td>"
-                   +"<td style='text-align:center'>"+data.list[i].CSY114+"</td>"
-                   +"<td style='text-align:center'>"+data.list[i].CSY115+"</td>"
-                   +"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='申请' data-toggle='modal' data-target='#myModal' onclick='applyById("+data.list[i].CSY110+")'></td>"                   
-                   +"</tr>");
-               };
-               $("#labInfo .edit-button").click(checkMsg);
+        	   $("#labhead").siblings().remove();
+        	   if(csy125=='3'){
+	               for(var i=0;i<data.list.length;i++){
+	                   $("#labInfo").append("<tr style='width:800px;' class="+data.list[i].CSY110+">"
+	                   +"<td style='text-align:center'>"+data.list[i].CSY110+"</td>"
+	                   +"<td style='text-align:center'>"+data.list[i].CSY101+"</td>"
+	                   +"<td style='text-align:center'>"+data.list[i].CSY111+"</td>"
+	                   +"<td style='text-align:center'>"+data.list[i].CSY112+"</td>"
+	                   +"<td style='text-align:center'>"+data.list[i].CSY113+"</td>"
+	                   +"<td style='text-align:center'>"+data.list[i].CSY114+"</td>"
+	                   +"<td style='text-align:center'>"+data.list[i].CSY115+"</td>"
+	                   +"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='申请' data-toggle='modal' data-target='#myModal' onclick='applyById("+data.list[i].CSY110+")'></td>"                   
+	                   +"</tr>");
+	               };
+	               $("#labInfo .edit-button").click(checkMsg);
+        	   }else{
+        		   var status=$("#apply_statu").find("option:selected").text();
+        		   for(var i=0;i<data.list.length;i++){
+                       $("#labInfo").append("<tr style='width:800px;' class="+data.list[i].csy110+">"
+                       +"<td style='text-align:center'>"+data.list[i].csy110+"</td>"
+                       +"<td style='text-align:center'>"+data.list[i].csy101+"</td>"
+                       +"<td style='text-align:center'>"+data.list[i].csy111+"</td>"
+                       +"<td style='text-align:center'>"+data.list[i].csy112+"</td>"
+                       +"<td style='text-align:center'>"+data.list[i].csy121+"</td>"
+                       +"<td style='text-align:center'>"+data.list[i].csy124+"</td>"
+                       +"<td style='text-align:center'>"+data.list[i].csy126+"</td>"
+                       +"<td style='text-align:center'>"+data.list[i].csy123+"</td>"
+                       +"<td style='text-align:center'>"+status+"</td>"                   
+                       +"</tr>");
+                   };
+        	   }
            }
        
        });
@@ -295,10 +336,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      				+"<p>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注："+data.sy12.csy123+"</p>"
 	      				      				
 	      				);
-
-  			}
-  			
-  		
+  			} 					
   		});
   	 }
   </script>

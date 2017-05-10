@@ -22,7 +22,7 @@ import com.bysj.cqjtu.util.Md5Encoder;
 
 @Controller
 @RequestMapping("/userlogin")
-public class userLoginController {
+public class UserLoginController {
     @Autowired
     private LoginService loginService;
     @RequestMapping("/tologin")
@@ -33,6 +33,9 @@ public class userLoginController {
         try {
             subject.login(token);
             List<Sy02> loginList=loginService.login(sy02);
+            if(loginList.get(0).getCsy010()!=sy02.getCsy010()){
+                throw new RuntimeException("登录失败");
+            }
             UserMessage userMessage=new UserMessage();
             if(sy02.getCsy010()!=LoginConstance.USER_TYPE_MANAGER){
                 userMessage=loginService.getUserMessage(loginList.get(0));

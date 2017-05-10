@@ -130,4 +130,11 @@ public interface LabService {
      * @throws Exception
      */
     public Map addLabApply(Sy12 sy12) throws Exception;
+    /**
+     * 审核实验室安排
+     * @param sy12
+     * @return
+     * @throws Exception
+     */
+    public Map updateApply(Sy12 sy12) throws Exception;
 }

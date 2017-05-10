@@ -65,4 +65,5 @@ public interface Sy11Mapper {
      * @return
      */
     public List<Map> queryLabMsg();
+    
 }
