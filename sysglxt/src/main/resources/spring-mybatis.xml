@@ -141,7 +141,7 @@
                 /common/*=authc
                 /error/*=authc
                 /exaplefile/*=authc
-                /img/*=authc
+                <!-- /img/*=authc -->
                 /resources/*=authc               
                 /teacher/*=authc
                 /index/*=authc
