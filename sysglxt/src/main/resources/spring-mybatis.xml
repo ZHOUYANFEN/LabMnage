@@ -115,7 +115,9 @@
      
     
     <!-- 配置自定义Realm -->
-    <bean id="myRealm" class="com.bysj.cqjtu.login.util.MyRealm"/>
+    <bean id="myRealm" class="com.bysj.cqjtu.login.util.MyRealm">
+         <property name="authorizationCachingEnabled" value="false"/>
+    </bean>
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
