@@ -5,24 +5,7 @@
 <html>
 <head>
     <title>学习资源</title> 
-    <!-- 引入JQuery -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/jquery.min.js"></script>
-       <!-- 引入EasyUI -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
-       <!-- 引入EasyUI的中文国际化js，让EasyUI支持中文 -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/locale/easyui-lang-zh_CN.js"></script>
-       <!-- 引入EasyUI的样式文件-->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/default/easyui.css" type="text/css"/>
-       <!-- 引入EasyUI的图标样式文件-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/icon.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
-        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
-    <!-- 弹窗css -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
-
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <%@include  file="/common/pt_head.jsp"%>
     
     
     <link href="${pageContext.request.contextPath}/resources/css/jquery-ui-1.10.1.css" rel="stylesheet">
@@ -133,7 +116,7 @@
                 	for(var i=0;i<data.length;i++){
                         $("#treelist").append(" <ul>"
                                                 +"<li>"
-                                                +"<span onclick='queryResourceList("+data[i].csy160+")' id='"+data[i].csy160+"' style='width:200px;margin-left:-30px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].csy161+"</span>"                      
+                                                +"<span onclick='queryResourceList("+data[i].csy160+",event)' id='"+data[i].csy160+"' style='width:200px;margin-left:-30px;cursor:pointer'><i class='icon-calendar' ></i> "+data[i].csy161+"</span>"                      
                                                 +"</li>"
                                                 +"</ul>");
                     }
@@ -142,7 +125,7 @@
         });
         
         /*查询每个类型的资源*/
-        function queryResourceList(csy160){
+        function queryResourceList(csy160,e){
         	$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
             var children = $("#"+csy160).parent('li.parent_li').find(' > ul');
             if (children.is(":visible")) {

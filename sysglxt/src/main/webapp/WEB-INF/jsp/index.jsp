@@ -4,25 +4,9 @@
 <html>
 <head>
      <title>主页</title>
-     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/jquery.min.js"></script>
-       <!-- 引入EasyUI -->
-     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
-       <!-- 引入EasyUI的中文国际化js，让EasyUI支持中文 -->
-     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/locale/easyui-lang-zh_CN.js"></script>
-       <!-- 引入EasyUI的样式文件-->
-     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/default/easyui.css" type="text/css"/>
-       <!-- 引入EasyUI的图标样式文件-->
-     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/icon.css" type="text/css"/>
-     
      <!-- 时间 -->
      <%--   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/clock.css" > --%>
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css" >
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
-    <!-- 弹窗css -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%@include  file="/common/pt_head.jsp"%>
 </head>
 <body style="font-family:'黑体';width:1300px;margin:0 auto">
     <div id="head" style="height:120px;margin-top:15px;background-image:url(${pageContext.request.contextPath}/resources/img/header_bg.png)">
@@ -154,16 +138,16 @@
 	                $.ajax({
 	                    type:"POST",
 	                    url:"${pageContext.request.contextPath}/menu/queryMenu?csy010="+data.sy02.csy010,
-	                    success:function(data){
+	                    success:function(rdata){
 	                        $("#center").empty();
 	                        //循环添加父级菜单
-	                        for(var i=0;i<data.length;i++){
+	                        for(var i=0;i<rdata.length;i++){
 	                            var margin="20px";
-	                            if(i==data.length-1){
+	                            if(i==rdata.length-1){
 	                                margin="80px";
 	                            }                   
-	                            var div = $("<div id='head_menu' class='dropdown' style='float:right; margin-right:"+margin+"; text-align:center;line-height:40px'><a id='"+data[i].csy157+"'+ data-target='#' href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false' onclick='"+data[i].csy152+"'>"
-	                                            + data[i].csy151
+	                            var div = $("<div id='head_menu' class='dropdown' style='float:right; margin-right:"+margin+"; text-align:center;line-height:40px'><a id='"+rdata[i].csy157+"'+ data-target='#' href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false' onclick='"+rdata[i].csy152+"'>"
+	                                            + rdata[i].csy151
 	                                            + "<span class='caret'></span></a></div>");
 	                            $("#center").prepend(div);
 	                        }

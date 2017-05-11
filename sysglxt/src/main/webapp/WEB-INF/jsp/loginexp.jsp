@@ -32,7 +32,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/login/css/supersized.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/login/css/style.css">
 
-
+    <script src="${pageContext.request.contextPath }/resources/login/js/supersized.3.2.7.min.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/login/js/supersized-init.js"></script>
 </head>
 
 <body oncontextmenu="return false" style="font-family:'黑体';width:1300px;margin:0 auto">
@@ -66,9 +67,7 @@
     </div>
 </div>
 
-
-<script src="${pageContext.request.contextPath }/resources/login/js/supersized.3.2.7.min.js"></script>
-<script src="${pageContext.request.contextPath }/resources/login/js/supersized-init.js"></script>
+</body>
 <script>
     $(".btn").click(function(){
         is_hide();
@@ -105,6 +104,4 @@
     function is_hide(){ $(".alert").animate({"top":"-40%"}, 300) }
     function is_show(){ $(".alert").show().animate({"top":"40%"}, 300) }
 </script>
-</body>
-
 </html>
