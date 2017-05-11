@@ -53,6 +53,7 @@ public class TeacherController {
 	
 	@RequestMapping("/query")
 	@ResponseBody
+	@SystemControllerLog(description ="查询教师列表")
 	public List<Sy05> queryMsg (Model model) throws Exception {
 		List<Sy05> list = teacherService.getTeacherList();
 		model.addAttribute("list", list);
@@ -63,10 +64,14 @@ public class TeacherController {
 	/**
 	 * 查询实验室相关信息
 	 * @param session
+	 * @param pageNum
+	 * @param pageSize
+	 * @param csy125
 	 * @return
 	 */
 	@RequestMapping("/queryLab")
 	@ResponseBody
+	@SystemControllerLog(description ="查询实验室相关信息")
 	public PageEntity<Map> queryList(HttpSession session,Integer pageNum, Integer pageSize,Integer csy125){
 	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
 	    Sy02 sy02 =userMessage.getSy02();
@@ -80,6 +85,7 @@ public class TeacherController {
 	 */
 	@RequestMapping("/queryLabCount")
     @ResponseBody
+    @SystemControllerLog(description ="查询实验室数量")
 	public Map queryLabCount(HttpSession session,Integer csy125) throws Exception{
 	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
         Sy02 sy02 =userMessage.getSy02();
@@ -92,6 +98,7 @@ public class TeacherController {
 	 */
 	@RequestMapping("/queryById")
 	@ResponseBody
+	@SystemControllerLog(description ="通过id查询实验室相关信息")
 	public Map queryByid(HttpServletRequest request){
 		//Sy11 labMsg = new Sy11();
 	    Map map= new HashMap();
@@ -129,6 +136,7 @@ public class TeacherController {
 	 */
 	@RequestMapping("/queryExp")
 	@ResponseBody
+	@SystemControllerLog(description ="查询出实验安排")
 	public List<Sy08Exp> queryExperiment(HttpSession session){
 	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
 		List<Sy08Exp> list = new ArrayList<>();
@@ -139,6 +147,7 @@ public class TeacherController {
 	
 	@RequestMapping("/queryEdit")
 	@ResponseBody
+	@SystemControllerLog(description ="查询详细信息")
 	public LabManager queryEdit(HttpServletRequest request, HttpSession session) throws Exception{
 		UserMessage userMassage = (UserMessage)session.getAttribute("user");
 		LabManager labManager = new LabManager();
@@ -197,6 +206,7 @@ public class TeacherController {
 	 */
 	@RequestMapping("/queryStudentReport")
 	@ResponseBody
+	@SystemControllerLog(description ="给学生实验报告评分")
 	public Sy09 queryStudentReport(HttpServletRequest request){
 		String id = request.getParameter("id");
 		//提交的实验
@@ -206,6 +216,7 @@ public class TeacherController {
 	}
 	@RequestMapping("/updateStudentReport")
 	@ResponseBody
+	@SystemControllerLog(description ="更新学生实验报告")
 	public void updateStudentReport(@RequestBody Sy09 sy09, HttpServletRequest request){
 		System.out.println("ididi="+sy09.getCsy094());
 		System.out.println("is="+sy09.getCsy090());
