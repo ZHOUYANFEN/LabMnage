@@ -43,6 +43,6 @@ public interface LabApplyService {
      * @return
      * @throws Exception
      */
-    Map queryLabCount(Integer csy125) throws Exception;
+    Map queryLabCount(Integer csy125,Sy02 sy02) throws Exception;
 	
 }

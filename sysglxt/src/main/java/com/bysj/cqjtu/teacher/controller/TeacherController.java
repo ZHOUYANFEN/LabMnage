@@ -80,8 +80,10 @@ public class TeacherController {
 	 */
 	@RequestMapping("/queryLabCount")
     @ResponseBody
-	public Map queryLabCount(Integer csy125) throws Exception{
-	    return lab.queryLabCount(csy125);
+	public Map queryLabCount(HttpSession session,Integer csy125) throws Exception{
+	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
+        Sy02 sy02 =userMessage.getSy02();
+	    return lab.queryLabCount(csy125,sy02);
 	} 
 	/**
 	 * 通过id查询实验室相关信息

@@ -98,9 +98,17 @@ public  class LabApplyServiceImpl implements LabApplyService {
     }
 
     @Override
-    public Map queryLabCount(Integer csy125) throws Exception {
+    public Map queryLabCount(Integer csy125,Sy02 sy02) throws Exception {
         Map map= new HashMap();
-        map.put("count", sy11.queryLabMsg().size());
+        if(TeacherConstance.APPLY_STATU_CSY125_ALL==csy125){
+            map.put("count", sy11.queryLabMsg().size());
+           
+        }else{
+            Map paramterMap= new HashMap();
+            paramterMap.put("csy125", csy125);
+            paramterMap.put("csy020", sy02.getCsy020());
+            map.put("count", sy12.queryApplyLabMsg(paramterMap).size());
+        }
         return map;
     }
 

@@ -194,6 +194,7 @@
            sy11.csy114,
            sy11.csy115,
            sy12.csy121,
+           sy12.csy122,
            sy12.csy124,
            sy12.csy123,
            sy12.csy126
@@ -207,6 +208,7 @@
        and sy12.csy110 = sy11.csy110
        and sy12.csy125 = #{csy125}
        and sy12.csy020 = #{csy020}
+       order by sy12.csy121 desc
   </select>
   
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >

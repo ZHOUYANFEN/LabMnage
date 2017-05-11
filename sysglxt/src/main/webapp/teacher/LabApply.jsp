@@ -127,6 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	});
    function init(csy125){
 	   $("#labhead").empty();
+	   $(".tcdPageCode").empty();
 	   if(csy125==3){
 		   $("#labhead").append("<th style='text-align:center'>序号</th>"
 			                   +"<th style='text-align:center'>实验室类别</th>"
@@ -142,6 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    +"<th style='text-align:center'>实验室名称</th>"
                    +"<th style='text-align:center'>实验室位置</th>"
                    +"<th style='text-align:center'>申请时间</th>"
+                   +"<th style='text-align:center'>申请目的</th>"
                    +"<th style='text-align:center'>审核时间</th>"
                    +"<th style='text-align:center'>安排时间</th>"
                    +"<th style='text-align:center'>备注</th>"
@@ -194,6 +196,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        +"<td style='text-align:center'>"+data.list[i].csy111+"</td>"
                        +"<td style='text-align:center'>"+data.list[i].csy112+"</td>"
                        +"<td style='text-align:center'>"+data.list[i].csy121+"</td>"
+                       +"<td style='text-align:center'>"+data.list[i].csy122+"</td>"
                        +"<td style='text-align:center'>"+data.list[i].csy124+"</td>"
                        +"<td style='text-align:center'>"+data.list[i].csy126+"</td>"
                        +"<td style='text-align:center'>"+data.list[i].csy123+"</td>"
@@ -233,13 +236,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			success:function(data){
   				$("#form2").empty();
   				$("#form2").append("<p><lable style='width:120px;text-align:right'>实验室序号：</lable><span id='csy110'>"+data.CSY110+"</span></p>"
-  						+"<p><lable  style='width:120px;CSY110text-align:right'>实验室类别：</lable><span id='csy101'>"+data.CSY101+"</span></p>"
+  						+"<p><lable  style='width:120px;text-align:right'>实验室类别：</lable><span id='csy101'>"+data.CSY101+"</span></p>"
   						+"<p><lable  style='width:120px;text-align:right'>实验室名称：</lable><span id='csy111'>"+data.CSY111+"</span></p>"
 	      				+"<p><lable style='width:120px;text-align:right'>实验室位置：</lable><span id='csy112'>"+data.CSY112+"</span></p>"
 	      				/* +"<p>申&nbsp;请&nbsp;时&nbsp;间：<input class='input' type='text' name='date' id='csy121'></p>" */
-	      				+"<p><lable  style='width:200px;text-align:right'>周次：</lable>"+weekdata+"</p>"
+	      				+"<p><lable  style='width:200px;text-align:right'>周&nbsp;&nbsp;&nbsp;&nbsp;次：</lable>"+weekdata+"</p>"
 	      				+"<p><lable  style='width:200px;text-align:right'>申请目的：</lable><input class='input' type='text' name='text' id='csy122'></p>"
-	      				+"<p><lable  style='width:120px;text-align:right'>备注：</lable><input class='input' type='text' id='csy123'></p>"
+	      				+"<p><lable  style='width:120px;text-align:right'>备&nbsp;&nbsp;&nbsp;&nbsp;注：</lable><input class='input' type='text' id='csy123'></p>"
 	      				
 	      				);
   				//日历控件
@@ -288,10 +291,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             data:JSON.stringify(sy12),
             dataType: "json",
             success:function(data){
-            	console.log(data);
            	 if(data.statu=='success'){
            		 sweetAlert("正在申请中");
            		  $("#form2").empty();
+           		 $("#apply_statu").val(0);
+           		  init(0);
            	   }
             }                 
       });		 						
