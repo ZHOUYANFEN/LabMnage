@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.dao.Sy10Mapper;
 import com.bysj.cqjtu.manager.dao.Sy11Mapper;
@@ -32,6 +33,7 @@ public  class LabApplyServiceImpl implements LabApplyService {
 	private Sy10Mapper sy10;
 	
 	@Override
+	@SystemServiceLog(description="查询实验室列表")
 	public PageEntity<Map> queryLabList(Integer pageNum, Integer pageSize,Integer csy125,Sy02 sy02) {
 	    PageHelper.startPage(pageNum, pageSize);
 	    PageEntity<Map> pageBean = new PageEntity<Map>();

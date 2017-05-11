@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.dao.Aa10Mapper;
 import com.bysj.cqjtu.manager.domain.Aa10;
@@ -20,6 +21,7 @@ public class Aa10ServiceImpl implements Aa10Service {
     @Autowired
     private Aa10Mapper aa10Mapper;
     @Override
+    @SystemServiceLog(description="获取学院信息")
     public List<Map> queryCsy042() throws Exception {
         return aa10Mapper.queryCsy042();
     }

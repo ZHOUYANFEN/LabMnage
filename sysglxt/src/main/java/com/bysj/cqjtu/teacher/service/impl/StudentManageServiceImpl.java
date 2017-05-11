@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.dao.Aa10Mapper;
 import com.bysj.cqjtu.manager.dao.Sy04Mapper;
 import com.bysj.cqjtu.manager.domain.Sy04;
@@ -28,6 +29,7 @@ public class StudentManageServiceImpl implements StudentManageService {
     @Autowired
     private Sy07Mapper sy07Mapper;
     @Override
+    @SystemServiceLog(description="查询课程")
     public List<Map> queryCourse(Sy05 sy05) throws Exception {
        return sy06Mapper.queryCourse(sy05);
     }

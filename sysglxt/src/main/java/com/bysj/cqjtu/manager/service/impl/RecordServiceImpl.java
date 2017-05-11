@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.log.dao.Sy17Mapper;
 import com.bysj.cqjtu.log.dao.Sy18Mapper;
 import com.bysj.cqjtu.log.domain.Sy17;
@@ -21,6 +22,7 @@ public class RecordServiceImpl implements RecordService {
     @Autowired 
     private Sy18Mapper sy18Mapper;
     @Override
+    @SystemServiceLog(description="获取日志信息")
     public PageEntity<Sy17> querySy17(Integer pageNum, Integer pageSize) throws Exception {
         PageHelper.startPage(pageNum, pageSize);
         List<Sy17> allList =sy17Mapper.querySy17();

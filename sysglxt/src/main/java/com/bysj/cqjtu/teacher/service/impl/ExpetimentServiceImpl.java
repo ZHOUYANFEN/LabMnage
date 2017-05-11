@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.dao.Sy04Mapper;
 import com.bysj.cqjtu.manager.dao.Sy08MapperExp;
 import com.bysj.cqjtu.manager.domain.Sy04;
@@ -34,6 +35,7 @@ public class ExpetimentServiceImpl implements ExperimentService {
 	/**
 	 * 查询所有实验安排
 	 */
+    @SystemServiceLog(description="查询所有实验安排")
 	public List<Sy08Exp> queryExp(Integer csy050) {
 		List<Sy08Exp> list = new ArrayList<>();
 		list = sy08.selectExp(csy050);

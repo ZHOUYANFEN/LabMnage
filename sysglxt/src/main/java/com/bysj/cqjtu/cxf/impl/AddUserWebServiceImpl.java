@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.bysj.cqjtu.cxf.IAddUserWebService;
 import com.bysj.cqjtu.cxf.common.GetException;
 import com.bysj.cqjtu.cxf.common.XmlAssembly;
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.domain.Sy02;
 import com.bysj.cqjtu.manager.domain.Sy03;
@@ -31,6 +32,7 @@ public class AddUserWebServiceImpl implements IAddUserWebService {
     @Autowired
     private UserManagerService userManagerService;
     @Override
+    @SystemServiceLog(description="接口添加用户")
     public String addUser(String xml) throws Exception {
         try{
             //解析xml

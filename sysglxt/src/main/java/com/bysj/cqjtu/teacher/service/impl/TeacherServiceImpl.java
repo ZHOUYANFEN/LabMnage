@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.dao.Sy05Mapper;
 import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.teacher.service.TeacherService;
@@ -17,6 +18,7 @@ public class TeacherServiceImpl implements TeacherService{
 	private Sy05Mapper teacherDao;
 
 	@Override
+	@SystemServiceLog(description="查询教师列表")
 	public List<Sy05> getTeacherList() throws Exception {
 		List<Sy05> list = new ArrayList<>();
 		list=teacherDao.queryTeacher();

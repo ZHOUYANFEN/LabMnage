@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.dao.Sy11Mapper;
 import com.bysj.cqjtu.manager.dao.Sy12Mapper;
 import com.bysj.cqjtu.manager.service.StatisticService;
@@ -28,6 +29,7 @@ public class StatisticServiceImpl implements StatisticService {
     @Autowired
     private Sy12Mapper sy12Mapper;
     @Override
+    @SystemServiceLog(description="课程统计")
     public List<Map> coursestatistics() throws Exception {
         return sy06Mapper.coursestatistics();
     }

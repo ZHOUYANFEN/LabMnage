@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.dao.Aa10Mapper;
 import com.bysj.cqjtu.manager.dao.Sy10Mapper;
@@ -31,6 +32,7 @@ public class LabServiceImpl implements LabService {
     @Autowired 
     private Aa10Mapper aa10Mapper;
     @Override
+    @SystemServiceLog(description="获取实验室类型")
     public List<Map> queryLabType() throws Exception {
         return sy10Mapper.queryLabType();
     }

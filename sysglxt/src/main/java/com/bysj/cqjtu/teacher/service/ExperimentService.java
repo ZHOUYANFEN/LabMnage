@@ -12,18 +12,23 @@ import com.bysj.cqjtu.student.domain.Sy09;
  *
  */
 public interface ExperimentService {
-
-	/**
-	 * 查询实验课程安排
-	 * @return
-	 */
+	
+    /**
+     * 查询实验课程安排
+     * @param csy050
+     * @return
+     */
 	List<Sy08Exp> queryExp(Integer csy050);
 	/**
 	 * 查询学生的实验报告
 	 * @return
 	 */
 	List<Sy09> queryReport();
-	
+	/**
+	 * 查询学生
+	 * @param csy040
+	 * @return
+	 */
 	Sy04 queryStudent(String csy040);
 	
 	/**

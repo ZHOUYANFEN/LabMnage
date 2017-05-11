@@ -12,6 +12,7 @@ import com.bysj.cqjtu.index.dao.Sy15Mapper;
 import com.bysj.cqjtu.index.domain.Sy01;
 import com.bysj.cqjtu.index.domain.Sy15;
 import com.bysj.cqjtu.index.service.MenuService;
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.util.PageEntity;
 import com.github.pagehelper.PageHelper;
 
@@ -23,18 +24,21 @@ public class MenuServiceImpl implements MenuService{
     private Sy01Mapper sy01Mapper;
     
     @Override
+    @SystemServiceLog(description="查询一级菜单")
     public List<Sy15> queryMenu(int csy010) throws Exception {
         List list = (List) sy15Mapper.selectSy15ByCsy010(csy010);
         return list;
     }
 
     @Override
+    @SystemServiceLog(description="查询子级菜单")
     public List<Sy15> queryMenuChilde(int csy155) throws Exception {
         List list = (List) sy15Mapper.selectSy15ByCsy155(csy155);
         return list;
     }
 
     @Override
+    @SystemServiceLog(description="分页查询所有菜单")
     public PageEntity<Sy15> queryAllMenu(Integer pageNum,Integer pageSize) throws Exception {
         PageHelper.startPage(pageNum, pageSize);
         List<Sy15> allList = sy15Mapper.queryAllMenu();
@@ -47,6 +51,7 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
+    @SystemServiceLog(description="删除菜单")
     public Map deleteMenuByCsy150(int csy150) throws Exception {
         int i=sy15Mapper.deleteMenuByCsy150(csy150);
         Map map=new HashMap();
@@ -59,16 +64,19 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
+    @SystemServiceLog(description="查询用户类型")
     public List<Sy01> queryCsy010() throws Exception {
         return sy01Mapper.getCsy010();
     }
 
     @Override
+    @SystemServiceLog(description="查询父级菜单")
     public List<Sy15> queryParentMenu(Integer csy010) throws Exception {
         return sy15Mapper.getParentMenu(csy010);
     }
 
     @Override
+    @SystemServiceLog(description="保存菜单")
     public Map  saveMenu(Sy15 sy15) throws Exception {       
         sy15.setCsy156(Byte.parseByte("0"));
         int i=sy15Mapper.saveMenu(sy15);
@@ -83,11 +91,13 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
+    @SystemServiceLog(description="按条件查询菜单")
     public List<Sy15> queryMenuByCondition(Sy15 sy15) throws Exception {
         return sy15Mapper.queryMenuByCondition(sy15);
     }
 
     @Override
+    @SystemServiceLog(description="获取菜单数量")
     public int getMenuCount() throws Exception {
        List<Sy15> list= sy15Mapper.queryAllMenu();    
        return list.size();

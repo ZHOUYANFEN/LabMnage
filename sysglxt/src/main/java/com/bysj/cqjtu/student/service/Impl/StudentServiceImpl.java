@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.constance.StudentOperateConstance;
@@ -39,6 +40,7 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private Sy16Mapper sy16Mapper;
     @Override
+    @SystemServiceLog(description="查询课表")
     public  PageEntity<Map> querySyllabus(UserMessage userMessage,Integer pageNum,Integer pageSize) throws Exception {
         PageHelper.startPage(pageNum, pageSize);
         List<Map> allList =sy06Mapper.getSyllabus(userMessage);

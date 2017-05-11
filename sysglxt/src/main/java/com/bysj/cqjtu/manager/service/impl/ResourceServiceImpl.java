@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.service.ResourceService;
 import com.bysj.cqjtu.student.dao.Sy13Mapper;
 import com.bysj.cqjtu.student.dao.Sy16Mapper;
@@ -24,6 +25,7 @@ public class ResourceServiceImpl implements ResourceService {
     private Sy13Mapper sy13Mapper;
    
     @Override
+    @SystemServiceLog(description="获取资源类型")
     public List<Map> queryResourceType() throws Exception {
         return sy16Mapper.queryResourceType();
     }

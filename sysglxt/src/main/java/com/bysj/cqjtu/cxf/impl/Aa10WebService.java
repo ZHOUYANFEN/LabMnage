@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.bysj.cqjtu.cxf.IAa10WebService;
 import com.bysj.cqjtu.cxf.common.GetException;
 import com.bysj.cqjtu.cxf.common.XmlAssembly;
+import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.manager.constance.OperateStatu;
 import com.bysj.cqjtu.manager.domain.Aa10;
 import com.bysj.cqjtu.manager.service.Aa10Service;
@@ -28,6 +29,7 @@ public class Aa10WebService implements IAa10WebService {
     @Autowired 
     private Aa10Service aa10Service;
     @Override
+    @SystemServiceLog(description="接口添加码表")
     public String AddAa10(String XML) throws Exception {
         try{       
             //并封装返回xml         
