@@ -18,7 +18,7 @@
                 <span class="glyphicon glyphicon-user" aria-hidden="true" style="top:2px"></span>
                 <label id="welcomeuser"></label>
             </label>
-            <a href="${pageContext.request.contextPath}/userlogin/loginexp" style="margin-left:20px;color:white" >
+            <a href="${pageContext.request.contextPath}/userlogin/loginexp" style="margin-left:20px;color:white" id="logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true" style="top:2px" ></span>
                                       退出
             </a>
@@ -172,6 +172,7 @@
                     	}
                     }
 	       });
+	       setInterval("getUserMessage()",1000*60*2);
 	});
 	//添加子级菜单
 	function selectMenu(menuid, csy155) {
@@ -208,6 +209,18 @@
 	function openPage(pagename) {
 		$("#iframe1").attr("src",
 				"${pageContext.request.contextPath}/" + pagename);
+	}
+	function getUserMessage(){
+		  $.ajax({
+	            type:"POST",
+	            url:"${pageContext.request.contextPath}/menu/getUserInfo",
+	            success:function(data){
+	            	console.log(data);
+	            	  if(!data.userMessage){
+	            		 $("#logout").click(); 
+	            	  }   	
+	            }
+		  });
 	}
 	/*退出*/
     /* function logout(){
