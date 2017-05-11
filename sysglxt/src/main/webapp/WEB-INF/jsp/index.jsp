@@ -146,7 +146,7 @@
 	                            if(i==rdata.length-1){
 	                                margin="80px";
 	                            }                   
-	                            var div = $("<div id='head_menu' class='dropdown' style='float:right; margin-right:"+margin+"; text-align:center;line-height:40px'><a id='"+rdata[i].csy157+"'+ data-target='#' href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false' onclick='"+rdata[i].csy152+"'>"
+	                            var div = $("<div id='head_menu' class='dropdown' style='float:right; margin-right:"+margin+"; text-align:center;line-height:40px'><a id='"+rdata[i].csy157+"'+  data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false' onclick='"+rdata[i].csy152+"'>"
 	                                            + rdata[i].csy151
 	                                            + "<span class='caret'></span></a></div>");
 	                            $("#center").prepend(div);

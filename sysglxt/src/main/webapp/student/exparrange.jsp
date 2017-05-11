@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>实验安排</title> 
-       
+     <%@include  file="/common/pt_head.jsp"%>   
     <!--树型结构主要样式-->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />
     	
