@@ -82,7 +82,7 @@ public  class SystemLogAspect {
         sy17.setCsy177(GetSystemUtil.getHostName(GetSystemUtil.getIpAddr(request)));
         sy17.setCsy178(GetSystemUtil.getMacAddress(GetSystemUtil.getIpAddr(request)));
         sy17Mapper.addSy17(sy17);
-        logger.info(description);
+        logger.info(sy17.toString());
     }    
     
     /**  
@@ -109,7 +109,7 @@ public  class SystemLogAspect {
         sy18.setCsy183(new Date());
         sy18.setCsy184(userMessage.getSy02().getCsy021());
         sy18Mapper.insert(sy18);
-        logger.info(description+e);
+        logger.info(sy18.toString()+"\n异常信息："+e);
     }    
     
     

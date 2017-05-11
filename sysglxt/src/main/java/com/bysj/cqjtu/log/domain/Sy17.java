@@ -97,4 +97,13 @@ public class Sy17 implements Serializable {
     public void setCsy178(String csy178) {
         this.csy178 = csy178 == null ? null : csy178.trim();
     }
+
+    @Override
+    public String toString() {
+        return "日志信息[ 登录用户：" + csy171 + ", 访问方法："
+                + csy172 + ", IP地址：" + csy173 + ",访问时间 ：" + csy174
+                + ", 浏览器类型：" + csy175 + ", 访问系统：" + csy176 + ", 主机名称："
+                + csy177 + ", MAC地址：" + csy178 + "]";
+    }
+    
 }

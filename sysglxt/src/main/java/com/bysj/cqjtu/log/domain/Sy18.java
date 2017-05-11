@@ -62,4 +62,12 @@ public class Sy18 {
     public void setCsy185(String csy185) {
         this.csy185 = csy185 == null ? null : csy185.trim();
     }
+
+    @Override
+    public String toString() {
+        return "系统异常 [异常信息：" + csy181 + ",异常详情 ："
+                + csy182 + ", 访问时间：" + csy183 + ", 登录ID：" + csy184
+                + ", 访问方法：" + csy185 + "]";
+    }
+    
 }
