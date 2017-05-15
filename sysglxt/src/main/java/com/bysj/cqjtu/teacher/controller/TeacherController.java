@@ -29,9 +29,11 @@ import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy09;
+import com.bysj.cqjtu.student.domain.Sy13;
 import com.bysj.cqjtu.teacher.constant.TeacherConstance;
 import com.bysj.cqjtu.teacher.dto.LabManager;
 import com.bysj.cqjtu.teacher.dto.ReportManager;
+import com.bysj.cqjtu.teacher.service.DownLoadResourceService;
 import com.bysj.cqjtu.teacher.service.ExperimentService;
 import com.bysj.cqjtu.teacher.service.LabApplyService;
 import com.bysj.cqjtu.teacher.service.StudentManageService;
@@ -50,6 +52,8 @@ public class TeacherController {
 	private ExperimentService expService;
 	@Autowired
 	private StudentManageService studentManageService;
+	@Autowired
+	private DownLoadResourceService downLoadResourceService;
 	
 	@RequestMapping("/query")
 	@ResponseBody
@@ -369,5 +373,14 @@ public class TeacherController {
             map.put("statu", TeacherConstance.DELETE_STUDENT_INCOURCE_FAIL);
             return map;
         }
+	}
+    
+    @RequestMapping("/resourceShow")
+    @ResponseBody
+	public List<Sy13> dowload(){
+    	System.out.println("**************************");
+    	System.out.println(downLoadResourceService.queryResource().get(0).getCsy134());
+        return downLoadResourceService.queryResource();
+   
 	}
 }
