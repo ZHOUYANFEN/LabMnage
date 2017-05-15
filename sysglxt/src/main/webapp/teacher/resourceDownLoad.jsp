@@ -221,7 +221,7 @@ $(function (){
 		type:'POST',
 		url:"${pageContext.request.contextPath}/teacher/resourceShow",
 		success:function(data){
-			console.log(data);
+			console.log(data[0]);
 			for(var i=0;i<data.length;i++){
 			$("#t_body").append("<tr><td class='text'><div class='checkbox-div'>"
 					+"</div>"+data[i].csy131+"</td>"

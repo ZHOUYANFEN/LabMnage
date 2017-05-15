@@ -29,10 +29,10 @@ import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy09;
-import com.bysj.cqjtu.student.domain.Sy13;
 import com.bysj.cqjtu.teacher.constant.TeacherConstance;
 import com.bysj.cqjtu.teacher.dto.LabManager;
 import com.bysj.cqjtu.teacher.dto.ReportManager;
+import com.bysj.cqjtu.teacher.dto.UserManager;
 import com.bysj.cqjtu.teacher.service.DownLoadResourceService;
 import com.bysj.cqjtu.teacher.service.ExperimentService;
 import com.bysj.cqjtu.teacher.service.LabApplyService;
@@ -377,9 +377,9 @@ public class TeacherController {
     
     @RequestMapping("/resourceShow")
     @ResponseBody
-	public List<Sy13> dowload(){
+	public List<UserManager> dowload(){
     	System.out.println("**************************");
-    	System.out.println(downLoadResourceService.queryResource().get(0).getCsy134());
+    	System.out.println(downLoadResourceService.queryResource().get(0).getSy02List().get(0).getCsy021());
         return downLoadResourceService.queryResource();
    
 	}

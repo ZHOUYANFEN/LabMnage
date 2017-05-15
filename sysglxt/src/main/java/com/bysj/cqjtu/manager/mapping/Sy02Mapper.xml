@@ -246,4 +246,10 @@
       CSY023 = #{csy023,jdbcType=TINYINT}
     where CSY020 = #{csy020,jdbcType=INTEGER}
   </update>
+  
+  <select id="queryUser" resultType="com.bysj.cqjtu.manager.domain.Sy02">
+   select *
+   from sy02
+   where csy023 = 0
+  </select>
 </mapper>
