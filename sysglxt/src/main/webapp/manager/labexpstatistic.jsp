@@ -8,7 +8,7 @@
     <!-- echarts -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/echarts/echarts.js"></script>
 </head>
-<body style="font-family:'黑体';width:950px;margin:0 auto">
+<body style="font-family:'黑体';font-size:16px;width:950px;margin:0 auto">
     <div id="labtype" style="width: 400px;height:400px;margin-left:20px"></div>
     <div id="labarrange" style="width: 400px;height:400px;margin-right:20px;margin-top:-400px;float:right"></div>
      <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-right:30px" onclick="download()">
@@ -16,7 +16,7 @@
                               下载
      </button> 
 	<div id="main_2" style="height:350px;margin-top:20px;margin-right:20px;">
-	        <table class="table table-hover" id="lablist">
+	        <table class="table table-hover" id="lablist" style="font-size:10px">
 
 	        </table>
     </div>

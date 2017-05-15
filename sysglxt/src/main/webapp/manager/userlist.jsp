@@ -40,14 +40,20 @@
             <select style="width:150px;height:30px" id="csy010">              
             </select>     
         </div>
-        <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-right:-400px" onclick="queryUserByCondition()">
+        <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-right:-350px" onclick="queryUserByCondition()">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 查询
         </button>  
         <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-right:-500px" onclick="downloadUser()">
             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                              下载
-        </button>      
+                              导出当前页数据
+        </button>
+        <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-right:-608px" >
+            <a href="${pageContext.request.contextPath}/userManager/downloadAllUser">
+                 <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                                       导出全部
+            </a>
+        </button>        
     </div>
      <div id="list_querymenu" style="margin-top:30px;margin-left:5px">
         <table class="table table-hover" id="sy02" style="font-size:10px" >
@@ -139,7 +145,6 @@ function init(){
             type:'POST',
             url:"${pageContext.request.contextPath}/userManager/getAllUser?pageNum="+pageNum+"&pageSize="+pageSize,
             success:function(data){
-            	console.log(data);
                 for(var i=0;i<data.list.length;i++){
                 	$("#sy02").append("<tr style='width:800px;'>"
                             +"<td style='width:20px'><input input type='checkbox' id='"+data.list[i].CSY020+"'/></td>"
@@ -566,5 +571,15 @@ function init(){
             });
        }
     }
+    /*下载全部数据*/
+/*     function downloadAllUser(){
+    	 $.ajax({
+             type:"POST",
+             url:"${pageContext.request.contextPath}/userManager/downloadAllUser",
+             success:function(validata){
+            	 
+             }
+    	 });
+    } */
 </script>
 </html>

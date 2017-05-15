@@ -101,6 +101,12 @@ public interface UserManagerService {
      * @throws Exception
      */
     public Map queryUserById(String csy021) throws Exception;
+    /**
+     * 获取所有的用户数据
+     * @return
+     * @throws Exception
+     */
+    public List<Object> downloadAllUser() throws Exception;
 
     
 }

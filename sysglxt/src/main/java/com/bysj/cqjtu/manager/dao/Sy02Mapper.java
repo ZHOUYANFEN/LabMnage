@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy02;
+import com.bysj.cqjtu.manager.pojo.UserPrint;
 
 public interface Sy02Mapper {
     int deleteByPrimaryKey(Integer csy020);
@@ -97,4 +98,6 @@ public interface Sy02Mapper {
      * @return
      */
     Sy02 getUserById(String csy021);
+
+    List<UserPrint> downloadAllUser();
   }

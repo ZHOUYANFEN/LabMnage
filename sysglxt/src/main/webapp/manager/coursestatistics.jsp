@@ -16,7 +16,7 @@
                               下载
      </button> 
     <div id="main_2" style="height:350px;margin-top:20px;margin-right:20px;">
-        <table class="table table-hover" id="courselist">
+        <table class="table table-hover" id="courselist" style="font-size:10px">
 		  <tr id="coursehead">
 		      <td>课程</td>
 		      <td>开课教师</td>

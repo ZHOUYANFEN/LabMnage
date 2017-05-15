@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.manager.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import com.bysj.cqjtu.manager.domain.Sy03;
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.manager.pojo.UserPrint;
 import com.bysj.cqjtu.manager.service.UserManagerService;
 import com.bysj.cqjtu.util.Md5Encoder;
 import com.bysj.cqjtu.util.PageEntity;
@@ -267,6 +269,16 @@ public class UserManagerServiceImpl implements UserManagerService {
             }
         }
         return map;
+    }
+
+    @Override
+    public List<Object> downloadAllUser() throws Exception {
+       List<UserPrint> list=sy02Mapper.downloadAllUser();
+       List<Object> reList=new ArrayList();
+       for (UserPrint userPrint : list) {
+        reList.add((Object)userPrint);
+       }
+       return reList;
     }
 
 

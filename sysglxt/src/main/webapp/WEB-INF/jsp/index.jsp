@@ -30,7 +30,7 @@
 
     <div id="content" style="background-color:#F5F5F5;padding:30px">
         <div id="left" style=" width:220px;height:700px;">
-            <div style="height:200px;background-color:white;overflow:auto" >
+            <div style="height:230px;background-color:white;overflow:auto" >
                 <div style="height:40px;text-align:center;line-height:40px;font-size:16px">
                     <p class="bg-primary">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -172,7 +172,7 @@
                     	}
                     }
 	       });
-	       setInterval("getUserMessage()",1000*60*2);
+	       setInterval("getUserMessage()",1000*60*31);
 	});
 	//添加子级菜单
 	function selectMenu(menuid, csy155) {
@@ -215,7 +215,6 @@
 	            type:"POST",
 	            url:"${pageContext.request.contextPath}/menu/getUserInfo",
 	            success:function(data){
-	            	console.log(data);
 	            	  if(!data.userMessage){
 	            		 $("#logout").click(); 
 	            	  }   	

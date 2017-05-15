@@ -18,7 +18,7 @@
        .tcdPageCode span.disabled{ display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px; color: #bfbfbf;background: #f2f2f2;border: 1px solid #bfbfbf;border-radius: 4px;vertical-align: middle;}
     </style>
 </head>
-<body style="font-family:'黑体';width:950px;margin:0 auto">
+<body style="font-family:'黑体';font-size:16px;width:950px;margin:0 auto">
      <div id="button_operatemenu" style="margin-top:50px;margin-left:400px">
         <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle='modal' data-target='#addlabarrange' onclick="openadd()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
@@ -26,7 +26,7 @@
         </button>
     </div>
 	<div id="applyexp" style="height:350px;margin-top:20px;margin-right:20px;">
-	        <table class="table table-hover" id="applylist">
+	        <table class="table table-hover" id="applylist" style="font-size:10px">
               <tr style="width:800px;" id="applyhead">
                 <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox()"/></td>
                 <td>实验室名称</td>

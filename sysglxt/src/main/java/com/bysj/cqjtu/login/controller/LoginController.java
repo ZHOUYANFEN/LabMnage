@@ -52,7 +52,8 @@ public class LoginController {
                userMessage=loginService.getUserMessage(loginList.get(0));
            }else {
               userMessage.setSy02(sy02); 
-           }           
+           }
+           session.setMaxInactiveInterval(5);
            session.setAttribute("user", userMessage);
            map.put("url", "index.jsp");
            map.put("statu","success");

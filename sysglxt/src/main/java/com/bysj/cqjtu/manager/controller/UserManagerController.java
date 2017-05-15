@@ -32,7 +32,7 @@ import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.manager.service.UserManagerService;
-import com.bysj.cqjtu.util.ExceltoList;
+import com.bysj.cqjtu.util.ExcelUtil;
 import com.bysj.cqjtu.util.PageEntity;
 
 /**
@@ -56,9 +56,7 @@ public class UserManagerController {
     @ResponseBody
     @SystemControllerLog(description = "获取用户信息|getAllUser") 
     public PageEntity<Map> getAllUser(Integer pageNum, Integer pageSize)throws Exception{
-        System.out.println("start:----"+System.currentTimeMillis()); 
         PageEntity<Map> pageEntity=userManagerService.queryAllUser(pageNum,pageSize);
-        System.out.println("start:----"+System.currentTimeMillis()); 
         return pageEntity;
     }
     /**
@@ -165,9 +163,9 @@ public class UserManagerController {
             //上传完毕
             //数据处理
             //读取到list
-            List<Integer> rowAndCol=ExceltoList.getExcelRowsAndCols(newfilename);
+            List<Integer> rowAndCol=ExcelUtil.getExcelRowsAndCols(newfilename);
             if(csy010==OperateStatu.TYPE_STUDENT&&rowAndCol.get(1)==7){
-                List<List> list=ExceltoList.excel2List(newfilename); 
+                List<List> list=ExcelUtil.excel2List(newfilename); 
                
                 for (List rowList : list) {  
                     UserMessage userMessage=new UserMessage();
@@ -189,7 +187,7 @@ public class UserManagerController {
                     }
                 }      
             }else if(csy010==OperateStatu.TYPE_TECHO&&rowAndCol.get(1)==OperateStatu.TECHO_FILE_COLS){
-                    List<List> list=ExceltoList.excel2List(newfilename); 
+                    List<List> list=ExcelUtil.excel2List(newfilename); 
                    
                     for (List rowList : list) {  
                         UserMessage userMessage=new UserMessage();
@@ -209,7 +207,7 @@ public class UserManagerController {
                         }
                     }
             }else if(csy010==OperateStatu.TYPE_TEACHER&&rowAndCol.get(1)==OperateStatu.TEACHER_FILE_COLS){
-                List<List> list=ExceltoList.excel2List(newfilename); 
+                List<List> list=ExcelUtil.excel2List(newfilename); 
                 
                 for (List rowList : list) {  
                     UserMessage userMessage=new UserMessage();
@@ -373,5 +371,32 @@ public class UserManagerController {
 
     public Map queryUserById(String csy021) throws Exception{
         return userManagerService.queryUserById(csy021);
+    }
+    /**
+     * 下载全部用户信息
+     * @param response
+     * @param request
+     * @throws Exception
+     */
+    @RequestMapping("/downloadAllUser")
+    @SystemControllerLog(description = " 下载全部用户信息|downloadAllUser")
+    public void downloadAllUser(HttpServletResponse response,HttpServletRequest request) throws Exception{
+      //设置输出内容的类型
+        response.setContentType("application/octet-stream"); //内容类型为二进制
+        //设置输出数据的内容配置，指定输出的内容为附件
+        response.setHeader("content-disposition",
+                "attachment;filename="+new String(
+                        "用户信息表.xls".getBytes(),"iso-8859-1"));
+        //创建导出报表的对象
+        //导出Excel报表
+        List<Object> list= userManagerService.downloadAllUser();
+        try {
+            ExcelUtil.exportExcel(response, "用户信息表", "用户信息表",
+                    new String[]{"序号","用户id","账号","类型"}, 
+                    new String[]{"orders","csy020","csy021","csy011"}, 
+                    list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
  }

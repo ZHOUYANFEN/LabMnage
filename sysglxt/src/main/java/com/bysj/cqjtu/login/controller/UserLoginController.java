@@ -41,7 +41,7 @@ public class UserLoginController {
                 userMessage=loginService.getUserMessage(loginList.get(0));
             }else {
                 userMessage.setSy02(sy02); 
-            }           
+            }
             session.setAttribute("user", userMessage);
             return "index" ;
         }catch (Exception e){

@@ -28,6 +28,11 @@
             
             <div class="item">
                 <div class="img-box" style="transform: scale(1.1);">
+                    <img src='${pageContext.request.contextPath}/resources/img/2.jpg' alt="" /> 
+                </div>
+            </div>
+             <div class="item">
+                <div class="img-box" style="transform: scale(1.1);">
                     <img src='${pageContext.request.contextPath}/resources/img/3.jpg' alt="" /> 
                 </div>
             </div>
@@ -51,7 +56,7 @@
     </div>
 </div>
 <!--轮播图结束-->
-<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script> 
 <script src="${pageContext.request.contextPath}/resources/js/carousel.js" type="text/javascript"></script>
  <div style="margin-top:50px;">
 	<address>

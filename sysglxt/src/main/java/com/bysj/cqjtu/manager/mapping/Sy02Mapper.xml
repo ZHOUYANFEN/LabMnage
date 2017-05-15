@@ -20,7 +20,7 @@
            sy01 sy01
      where csy023 = 0
        and sy01.csy010 = sy02.csy010   
-     order by csy010 
+     order by sy02.csy010 
   </select>
   
   <!-- 删除用户 -->
@@ -154,7 +154,18 @@
        and csy021 = #{csy021}
        
   </select>
-  
+   <!-- 查询所有的用户 -->
+   <select id="downloadAllUser" resultType="com.bysj.cqjtu.manager.pojo.UserPrint">
+    select sy01.csy011,
+           sy02.csy020 as orders,
+           sy02.csy020,
+           sy02.csy021           
+      from sy02 sy02,
+           sy01 sy01
+     where csy023 = 0
+       and sy01.csy010 = sy02.csy010   
+     order by sy02.csy010 
+  </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

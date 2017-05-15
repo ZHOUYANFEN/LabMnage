@@ -9,19 +9,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <title>登录页面</title> 
-        <!-- 引入JQuery -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/jquery.min.js"></script>
-       <!-- 引入EasyUI -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
-       <!-- 引入EasyUI的中文国际化js，让EasyUI支持中文 -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/locale/easyui-lang-zh_CN.js"></script>
-       <!-- 引入EasyUI的样式文件-->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/default/easyui.css" type="text/css"/>
-       <!-- 引入EasyUI的图标样式文件-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.1/themes/icon.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css " />
+           <!-- 引入JQuery -->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>       
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css " />
     <!-- 弹窗js -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
     <!-- 弹窗css -->
@@ -31,6 +23,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/login/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/login/css/supersized.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/login/css/style.css">
+
+    <script src="${pageContext.request.contextPath }/resources/login/js/supersized.3.2.7.min.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/login/js/supersized-init.js"></script>
 
 
 </head>
