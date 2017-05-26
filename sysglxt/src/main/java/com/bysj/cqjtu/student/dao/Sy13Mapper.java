@@ -39,5 +39,11 @@ public interface Sy13Mapper {
      */
     List<Map> queryAllResourceList(Sy13 sy13);
     
+    /**
+     * 显示所有资源列表
+     * @return
+     */
+    List<Sy13> queryResource();
+    
     
 }

@@ -100,4 +100,10 @@ public interface Sy02Mapper {
     Sy02 getUserById(String csy021);
 
     List<UserPrint> downloadAllUser();
+    
+    /**
+     * 查询出所有的用户，并封装在list中
+     * @return
+     */
+    List<Sy02> queryUser();
   }

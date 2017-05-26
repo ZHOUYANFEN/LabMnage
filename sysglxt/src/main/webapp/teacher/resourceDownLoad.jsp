@@ -8,10 +8,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <base href="<%=basePath%>">
-
+    <base href="<%=basePath%>">
 <title>资源下载</title>
 
 <%@include  file="/common/pt_head.jsp"%>
+ <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
 <style type="text/css">
 body{
     padding:0 10px;
@@ -144,7 +145,7 @@ table{
 		</div>
 		<div class="operate">
 			<div class="search-div">
-				<span class="glyphicon glyphicon-search "></span> <input type="text"
+				<input type="text"
 					id="search" placeholder="搜索">
 			</div>
 
@@ -167,31 +168,8 @@ table{
 				<th style="width:9%"></th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<td class="text"><div class="checkbox-div">
-						<input type="checkbox" class="checkbox" />
-					</div>2016本科生考取研究生信息统计12338889999</td>
-				<td>2017-04-20</td>
-				<td>45.25kb</td>
-				<td>熊庆林</td>
-				<td>10次</td>
-				<td><button class="download">
-						<span class="glyphicon glyphicon-save"></span>
-					</button></td>
-			</tr>
-			<tr>
-				<td class="text"><div class="checkbox-div">
-					<input type="checkbox" class="checkbox" />
-					</div>2016本科生考取研究生信息统计12338889999</td>
-				<td>2017-04-20</td>
-				<td>45.25kb</td>
-				<td>熊庆林</td>
-				<td>10次</td>
-				<td><button class="download">
-						<span class="glyphicon glyphicon-save"></span>
-					</button></td>
-			</tr>
+		<tbody id="t_body">
+			
 		</tbody>
 	</table>
 	<div class="select-num">
@@ -238,5 +216,27 @@ $(document).ready(function(){
         $("#title").css("display","none");
     })
 })
+$(function (){
+	$.ajax({
+		type:'POST',
+		url:"${pageContext.request.contextPath}/teacher/resourceShow",
+		success:function(data){
+			console.log(data[0]);
+			for(var i=0;i<data.length;i++){
+			$("#t_body").append("<tr><td class='text'><div class='checkbox-div'>"
+					+"</div>"+data[i].csy131+"</td>"
+					+"<td>"+data[i].csy136+"</td>"
+					+"<td>"+data[i].csy134+"</td>"
+					+"<td>"+data[i].csy020+"</td>"
+					+"<td>"+data[i].csy137+"</td>"
+					+"<td><button class='download'>"
+					+"<span class='glyphicon glyphicon-save'></span>"
+					+"</button></td>"
+					+"</tr>")
+			}
+		}
+	})
+})
+
 </script>
 </html>

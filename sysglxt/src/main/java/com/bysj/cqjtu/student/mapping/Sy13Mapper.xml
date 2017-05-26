@@ -169,4 +169,10 @@
       CSY137 = #{csy137,jdbcType=VARCHAR}
     where CSY130 = #{csy130,jdbcType=INTEGER}
   </update>
+  
+  <select id="queryResource" resultType="com.bysj.cqjtu.student.domain.Sy13">
+   select *
+   from sy13
+   where CSY135=0
+  </select>
 </mapper>
