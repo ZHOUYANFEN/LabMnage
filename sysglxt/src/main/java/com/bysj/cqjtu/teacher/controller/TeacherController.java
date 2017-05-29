@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.teacher.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,12 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.manager.constance.OperateStatu;
@@ -29,10 +37,10 @@ import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
 import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy09;
+import com.bysj.cqjtu.student.domain.Sy13;
 import com.bysj.cqjtu.teacher.constant.TeacherConstance;
 import com.bysj.cqjtu.teacher.dto.LabManager;
 import com.bysj.cqjtu.teacher.dto.ReportManager;
-import com.bysj.cqjtu.teacher.dto.UserManager;
 import com.bysj.cqjtu.teacher.service.DownLoadResourceService;
 import com.bysj.cqjtu.teacher.service.ExperimentService;
 import com.bysj.cqjtu.teacher.service.LabApplyService;
@@ -377,10 +385,54 @@ public class TeacherController {
     
     @RequestMapping("/resourceShow")
     @ResponseBody
-	public List<UserManager> dowload(){
+	public List<Sy13> show(){
     	System.out.println("**************************");
-    	System.out.println(downLoadResourceService.queryResource().get(0).getSy02List().get(0).getCsy021());
+//    	System.out.println(downLoadResourceService.queryResource().get(0).getSy02List().get(0).getCsy021());
         return downLoadResourceService.queryResource();
    
 	}
+    
+    @RequestMapping(value="/resourceUp", produces="text/plain; charset=utf-8")
+    @ResponseBody
+    public String upload(@RequestParam("file") MultipartFile multipartFile) {
+        try {
+            // ... 文件目录可做进一步处理,避免多个重名文件覆盖
+            String dirPath = "D:/";
+
+            // 1.获取上传的文件名称和内容
+            String filename = multipartFile.getOriginalFilename();
+            byte[] data = multipartFile.getBytes();
+            
+            // 2.将文件写入到本地，根据文件名命名
+            FileUtils.writeByteArrayToFile(new File(dirPath, filename), data);
+
+            // Log,显示文件全路径
+            System.out.println("成功上传文件: " + filename);
+            return "文件上传成功";
+        } catch (IOException e) {
+        	System.out.println("上传文件失败,发生了错误: " + e.getMessage());
+            return "文件上传失败";
+        }
+    }
+    
+    @RequestMapping("/resourceDown")
+    public ResponseEntity<byte[]> download(String filepath) {
+        try {
+            if (null != filepath && !"".equals(filepath.trim())) {
+                // ... 文件目录可做进一步处理,避免文件重名时获取不到正确的目标文件
+
+                // 1.获取文件名,读取本地磁盘
+                byte[] data = FileUtils.readFileToByteArray(new File(filepath));
+
+                // 2.设置响应头,并返回响应数据
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+                headers.setContentDispositionFormData("attachment", filepath);
+                return new ResponseEntity<byte[]>(data, headers, HttpStatus.CREATED);
+            }
+        } catch (IOException e) {
+            System.out.println("下载文件失败,发生了错误: " + e.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

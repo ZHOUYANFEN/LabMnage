@@ -153,8 +153,10 @@ table{
 				<span class="glyphicon glyphicon-list"></span>
 				<div id="title" style="position:absolute">进入批量模式</div>
 			</div>
-
 			<button id="upload">上传</button>
+			<form id="fileupload" enctype="multipart/form-data">
+				<input id="file" name="file" type="file" style="display: none; ">
+			</form>
 		</div>
 	</div>
 	<table class="table table-hover">
@@ -215,9 +217,8 @@ $(document).ready(function(){
     $("#icon").on("mouseout",function(){
         $("#title").css("display","none");
     })
-})
-$(function (){
-	$.ajax({
+
+    $.ajax({
 		type:'POST',
 		url:"${pageContext.request.contextPath}/teacher/resourceShow",
 		success:function(data){
@@ -229,13 +230,32 @@ $(function (){
 					+"<td>"+data[i].csy134+"</td>"
 					+"<td>"+data[i].csy020+"</td>"
 					+"<td>"+data[i].csy137+"</td>"
-					+"<td><button class='download'>"
+					+"<td><a class='download' href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + data[i].csy134 + "'>"
 					+"<span class='glyphicon glyphicon-save'></span>"
 					+"</button></td>"
 					+"</tr>")
 			}
 		}
-	})
+	});
+    
+    // 文件上传功能
+    $("#upload").click(function() {
+    	$("#file").click();
+    });
+    $("#file").change(function() {
+    	var formElem = $("#fileupload");
+    	var formData = new FormData(formElem[0]);
+    	$.ajax({
+    		type:'POST',
+    		url:"${pageContext.request.contextPath}/teacher/resourceUp",
+    		data:formData,
+    		contentType:false,
+    		processData:false,
+    		success:function(data){
+    			alert(data);
+    		}
+    	});
+    });
 })
 
 </script>
