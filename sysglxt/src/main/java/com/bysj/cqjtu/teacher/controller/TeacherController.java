@@ -2,7 +2,9 @@ package com.bysj.cqjtu.teacher.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -385,29 +387,55 @@ public class TeacherController {
     
     @RequestMapping("/resourceShow")
     @ResponseBody
-	public List<Sy13> show(){
-    	System.out.println("**************************");
-//    	System.out.println(downLoadResourceService.queryResource().get(0).getSy02List().get(0).getCsy021());
-        return downLoadResourceService.queryResource();
+	public Map<String,List>  show(){
+    	Map<String,List> map = new HashMap<>();
+    	map = downLoadResourceService.queryResource();
+        return map;
    
 	}
     
     @RequestMapping(value="/resourceUp", produces="text/plain; charset=utf-8")
     @ResponseBody
-    public String upload(@RequestParam("file") MultipartFile multipartFile) {
+    public String upload(@RequestParam("file") MultipartFile multipartFile,HttpSession session) {
         try {
+        	//创建资源表对象
+        	Sy13 record = new Sy13();
+        	UserMessage userMassage = (UserMessage)session.getAttribute("user");
+    		int userId =userMassage.getSy02().getCsy020();
+    		String userName = userMassage.getSy02().getCsy021();
+    		System.out.println("userid="+userId+"  userName="+userName);
             // ... 文件目录可做进一步处理,避免多个重名文件覆盖
             String dirPath = "D:/";
-
             // 1.获取上传的文件名称和内容
             String filename = multipartFile.getOriginalFilename();
+            System.out.println("文件大小："+multipartFile.getSize());
+            String size = "";
+            if((multipartFile.getSize()/1024)>1000){
+            	size = ((multipartFile.getSize()/1024)/1024)+"."+ ((multipartFile.getSize()/1024)%1024) + "M";
+            }else{
+            	size = (multipartFile.getSize()/1024)+"."+ (multipartFile.getSize()%1024) + "KB";
+            }
+            System.out.println(size);
+            String address = dirPath+"/"+filename;
+            Date currentDate = new Date();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String date = format.format(currentDate);
+            String []file = filename.split(".");
+            for(String s : file){
+            	System.out.println("文件："+s);
+            }
+            record.setCsy020(userId);
+            record.setCsy131(filename);
+            record.setCsy133(filename);
+            record.setCsy134(address);
+            record.setCsy136(new Date(date));
+            record.setCsy138(size);
             byte[] data = multipartFile.getBytes();
-            
             // 2.将文件写入到本地，根据文件名命名
             FileUtils.writeByteArrayToFile(new File(dirPath, filename), data);
-
             // Log,显示文件全路径
             System.out.println("成功上传文件: " + filename);
+            downLoadResourceService.upResource(record);
             return "文件上传成功";
         } catch (IOException e) {
         	System.out.println("上传文件失败,发生了错误: " + e.getMessage());
@@ -420,10 +448,8 @@ public class TeacherController {
         try {
             if (null != filepath && !"".equals(filepath.trim())) {
                 // ... 文件目录可做进一步处理,避免文件重名时获取不到正确的目标文件
-
                 // 1.获取文件名,读取本地磁盘
                 byte[] data = FileUtils.readFileToByteArray(new File(filepath));
-
                 // 2.设置响应头,并返回响应数据
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);

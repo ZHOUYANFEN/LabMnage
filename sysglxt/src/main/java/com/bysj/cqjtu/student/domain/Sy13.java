@@ -26,6 +26,8 @@ public class Sy13 implements Serializable{
     private Date csy136;
 
     private String csy137;
+    
+    private String csy138;
 
     public Integer getCsy130() {
         return csy130;
@@ -100,4 +102,14 @@ public class Sy13 implements Serializable{
     public void setCsy137(String csy137) {
         this.csy137 = csy137 == null ? null : csy137.trim();
     }
+
+	public String getCsy138() {
+		return csy138;
+	}
+
+	public void setCsy138(String csy138) {
+		this.csy138 = csy138;
+	}
+    
+    
 }

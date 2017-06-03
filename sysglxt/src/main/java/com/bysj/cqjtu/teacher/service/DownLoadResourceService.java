@@ -1,8 +1,10 @@
 package com.bysj.cqjtu.teacher.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bysj.cqjtu.student.domain.Sy13;
+
 
 public interface DownLoadResourceService {
 	
@@ -10,6 +12,12 @@ public interface DownLoadResourceService {
 	 * 查询资源列表
 	 * @return
 	 */
-	List<Sy13> queryResource();
+	Map<String,List> queryResource();
+	
+	/**
+	 * 上传资源
+	 * @return
+	 */
+	int upResource(Sy13 record);
 
 }

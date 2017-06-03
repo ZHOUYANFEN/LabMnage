@@ -166,7 +166,6 @@ table{
 				<th style="width:20%">更新时间</th>
 				<th style="width:13%">大小</th>
 				<th style="width:15%">上传者</th>
-				<th style="width:13%">下载次数</th>
 				<th style="width:9%"></th>
 			</tr>
 		</thead>
@@ -222,20 +221,52 @@ $(document).ready(function(){
 		type:'POST',
 		url:"${pageContext.request.contextPath}/teacher/resourceShow",
 		success:function(data){
-			console.log(data[0]);
-			for(var i=0;i<data.length;i++){
-			$("#t_body").append("<tr><td class='text'><div class='checkbox-div'>"
-					+"</div>"+data[i].csy131+"</td>"
-					+"<td>"+data[i].csy136+"</td>"
-					+"<td>"+data[i].csy134+"</td>"
-					+"<td>"+data[i].csy020+"</td>"
-					+"<td>"+data[i].csy137+"</td>"
-					+"<td><a class='download' href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + data[i].csy134 + "'>"
-					+"<span class='glyphicon glyphicon-save'></span>"
-					+"</button></td>"
-					+"</tr>")
+			var Data = data;
+			console.log(Data);
+			var resourcelist;
+			var personList;
+			var typeList;
+			for(var key in Data) {
+				console.log(key);
+				console.log(Data[key])
+				if("Sy13"==key){
+					resourcelist = Data[key];
+				}
+				if("Sy02"==key){
+					personList = Data[key];
+				}
+				if("Sy16"==key){
+					typeList = Data[key];
+				}
+				
 			}
+			for(var i=0;i<resourcelist.length;i++){
+				console.log(resourcelist[i].csy136);
+				var name;
+				var type;
+				if(resourcelist[i].csy020==personList[i].csy020){
+					name = personList[i].csy021;
+				}
+				if(resourcelist[i].csy160==typeList[i].csy160){
+					type = typeList[i].csy161;
+				}
+				console.log(personList[0].csy021);
+				var date = new Date(resourcelist[i].csy136);
+				var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+				$("#t_body").append("<tr><td class='text'><div class='checkbox-div'>"
+						+"</div>"+resourcelist[i].csy131+"</td>"
+						+"<td>"+dateTime+"</td>"
+						+"<td>"+resourcelist[i].csy138+"</td>"
+						+"<td>"+name+"</td>"
+						+"<td><a class='download' href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"
+						+"<span class='glyphicon glyphicon-save'></span>"
+						+"</button></td>"
+						+"</tr>")
+				}
+				
 		}
+
+		
 	});
     
     // 文件上传功能
