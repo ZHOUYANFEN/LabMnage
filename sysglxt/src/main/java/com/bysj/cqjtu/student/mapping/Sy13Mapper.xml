@@ -11,9 +11,10 @@
     <result column="CSY135" property="csy135" jdbcType="TINYINT" />
     <result column="CSY136" property="csy136" jdbcType="DATE" />
     <result column="CSY137" property="csy137" jdbcType="VARCHAR" />
+    <result column="CSY138" property="csy138" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    CSY130, CSY020, CSY131, CSY160, CSY133, CSY134, CSY135, CSY136, CSY137
+    CSY130, CSY020, CSY131, CSY160, CSY133, CSY134, CSY135, CSY136, CSY137,CSY138
   </sql>
   
    <!--查询每个类型下的资源列表  -->
@@ -96,6 +97,9 @@
       <if test="csy137 != null" >
         CSY137,
       </if>
+      <if test="csy138 != null" >
+        CSY138,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="csy130 != null" >
@@ -124,6 +128,9 @@
       </if>
       <if test="csy137 != null" >
         #{csy137,jdbcType=VARCHAR},
+      </if>
+      <if test="csy138 != null" >
+        #{csy138,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -154,6 +161,9 @@
       <if test="csy137 != null" >
         CSY137 = #{csy137,jdbcType=VARCHAR},
       </if>
+      <if test="csy138 != null" >
+        CSY138 = #{csy138,jdbcType=VARCHAR},
+      </if>
     </set>
     where CSY130 = #{csy130,jdbcType=INTEGER}
   </update>
@@ -167,6 +177,7 @@
       CSY135 = #{csy135,jdbcType=TINYINT},
       CSY136 = #{csy136,jdbcType=DATE},
       CSY137 = #{csy137,jdbcType=VARCHAR}
+      CSY138 = #{csy138,jdbcType=VARCHAR}
     where CSY130 = #{csy130,jdbcType=INTEGER}
   </update>
   

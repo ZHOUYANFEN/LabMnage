@@ -1,1 +1,5 @@
 /target
+/.myeclipse
+/.settings
+/.classpath
+/.project
