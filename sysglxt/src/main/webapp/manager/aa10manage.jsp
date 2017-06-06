@@ -35,7 +35,7 @@
         <label style="margin-left:5px;width:100px;text-align:right"> 代码总称:</label><input type="text" name="aaa101" width="100px" id="aaa101" >
         <label style="margin-left:5px;width:100px;text-align:right">代码名:</label><input type="text" name="aaa102" width="100px" id="aaa102" >   
          <button type="button" class="btn btn-default" aria-label="Left Align" style="margin-top:10px;margin-left:400px" onclick="getAa10ByCondtion()" >
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                       查询
         </button> 
     </div>

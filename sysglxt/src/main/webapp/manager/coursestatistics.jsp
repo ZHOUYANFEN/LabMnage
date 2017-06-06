@@ -35,8 +35,9 @@
                 success:function(coursedata){
                    var myChart = echarts.init(document.getElementById('main'));
                    option = {
-                            // 基于准备好的dom，初始化echarts实例           
-                           backgroundColor: '#FFFF99',
+                            // 基于准备好的dom，初始化echarts实例       
+                       /*     color:['red'],
+                           backgroundColor: '#FFFF99', */
                            title: {
                                text: '实验课程统计',
                                left: 'center',
