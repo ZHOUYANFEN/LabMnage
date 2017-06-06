@@ -2,6 +2,7 @@ package com.bysj.cqjtu.teacher.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -155,8 +157,24 @@ public class TeacherController {
 	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
 		List<Sy08Exp> list = new ArrayList<>();
 		list = expService.queryExp(userMessage.getSy05().getCsy050());
-		//session.setAttribute("list", list);
 		return list;
+	}
+	
+	@RequestMapping("/deleteExp")
+	public String deleteExp(HttpServletRequest request,HttpServletResponse response){
+		try{
+			String items = request.getParameter("delitems");
+			String []item = items.split(",");
+			for(int i=0;i<item.length;i++){
+				System.out.println(item[i]);
+			}
+			expService.deleteExp(item);
+			return "删除成功";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "删除文件失败";
+		}
+		
 	}
 	
 	@RequestMapping("/queryEdit")
@@ -184,12 +202,11 @@ public class TeacherController {
 	 */
 	@RequestMapping("/queryReport")
 	@ResponseBody
-	public List<Sy09> queryReport(HttpSession session){
-		List<ReportManager> list = new ArrayList<>();
-		List<Sy09> list09 = new ArrayList<>();
+	public Map queryReport(HttpSession session){
+		Map<String,List> map = new HashMap<>();
 		//查询实验报告
-		list09 = expService.queryReport();
-		return list09;
+		map = expService.queryReport();
+		return map;
 	}
 
 	@RequestMapping("/studentExp")
@@ -417,25 +434,29 @@ public class TeacherController {
             }
             System.out.println(size);
             String address = dirPath+"/"+filename;
-            Date currentDate = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            String date = format.format(currentDate);
-            String []file = filename.split(".");
-            for(String s : file){
-            	System.out.println("文件："+s);
-            }
+            String date = format.format(new Date());
+            String file = filename.substring(0,filename.lastIndexOf("."));
+            System.out.println("文件名:"+file);
             record.setCsy020(userId);
-            record.setCsy131(filename);
+            record.setCsy131(file);
             record.setCsy133(filename);
             record.setCsy134(address);
-            record.setCsy136(new Date(date));
+            try {
+				record.setCsy136(format.parse(date));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+            record.setCsy160(1);
+            record.setCsy135((byte)0);
+            record.setCsy137("1");
             record.setCsy138(size);
             byte[] data = multipartFile.getBytes();
             // 2.将文件写入到本地，根据文件名命名
             FileUtils.writeByteArrayToFile(new File(dirPath, filename), data);
             // Log,显示文件全路径
             System.out.println("成功上传文件: " + filename);
-            downLoadResourceService.upResource(record);
+            downLoadResourceService.insert(record);
             return "文件上传成功";
         } catch (IOException e) {
         	System.out.println("上传文件失败,发生了错误: " + e.getMessage());
@@ -446,6 +467,9 @@ public class TeacherController {
     @RequestMapping("/resourceDown")
     public ResponseEntity<byte[]> download(String filepath) {
         try {
+        	byte[] file = filepath.getBytes("ISO-8859-1");
+        	filepath = new String(file, "UTF-8");
+        	System.out.println("文件名为："+filepath);
             if (null != filepath && !"".equals(filepath.trim())) {
                 // ... 文件目录可做进一步处理,避免文件重名时获取不到正确的目标文件
                 // 1.获取文件名,读取本地磁盘

@@ -24,6 +24,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     display:flex;
     align-items:flex-start;
     }
+    .input{
+    
+    }
+
     </style>
 
   </head>
@@ -50,16 +54,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	      		<div class="modal-header">
   	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
   	        		<span aria-hidden="true">&times;</span></button>
-  	        		<h4 style="text-align: center" class="modal-title" id="myModalLabel">实验详情</h4>
+  	        		<h4 style="text-align: center" class="modal-title" id="myModalLabel">评分</h4>
   	        	</div>
   	        	<div class="modal-body" id="show">
   	      			<div  id="form2" style="padding-left:32%">
-  	      			<!-- <div class="text">学生学号：631306060220</div>
-  	      			<div class="text">实验名称：数据结构</div>
-  	      			<div class="text">布置时间：20170305</div>
-  	      			<div class="text">完成时间：20170406</div>
-  	      			<div class="textarea">实验内容：<textarea style="width:250px;height:48px"readonly="readonly">佛尔股尔康容光焕发很丰富能否快速开发吗发动机唧唧复唧唧附加费黑胡桃积极急急急急急急急急急急急急急急急急急急</textarea></div>
-  	      			 -->
   	      			</div>
   	      		</div>
   	      		<div class="modal-footer" style="text-align: center">
@@ -77,17 +75,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			url:"${pageContext.request.contextPath}/teacher/queryReport",
   			success:function(data){
   				$("#expInfo").siblings().remove();
-  				for(var i=0;i<data.length;i++){
-  					$("#expInfo").append("<tr style='width:800px;' class="+data[i].csy090+">"
-  					+"<td style='text-align:center'>"+data[i].csy040+"</td>"
-  					+"<td style='text-align:center'>"+data[i].csy080+"</td>"
-  					+"<td style='text-align:center'>"+data[i].csy091+"</td>"
-  					+"<td style='text-align:center'>"+(new Date(data[i].csy092).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-  					+"<td style='text-align:center'><div class='content'>"+data[i].csy094+"</div></td>"
-  					+"<td style='text-align:center'><a>"+data[i].csy093+"</a></td>"
-  					+"<td style='text-align:center'><input type='button' id="+data[i].csy090+" class='score-button btn btn-primary btn-xs' value='评分' data-toggle='modal' data-target='#myModal'></td>"
-  					+"<td style='display:none;text-align:center'><input id="+data[i].csy090+1+" type='button' class='edit-button btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal1' value='修改'></td>"
+  				var Data = data;
+  				var reportlist;
+  				var reportTypeList;
+  				for(var key in Data) {
+  					if("Sy09"==key){
+  						reportlist = Data[key];
+  					}
+  					if("Sy08"==key){
+  						reportTypeList = Data[key];
+  					}
+  				}
+  				for(var i=0;i<reportlist.length;i++){
+  					var file = reportlist[i].csy093;
+  					var filename = file.substring((file.lastIndexOf("//")+2),file.length);
+  					var score = reportlist[i].csy094;
+  					if(score==null){
+  						score = "未评分";
+  					}
+  					var typename;
+  					var content;
+  					console.log(reportlist[i].csy080+"   "+reportTypeList[i].csy080);
+  					console.log(reportTypeList[i].csy081);
+  					if(reportlist[i].csy080==reportTypeList[i].csy080){
+  						typename = reportTypeList[i].csy081;
+  						content = reportTypeList[i].csy082;
+  					}
+  					$("#expInfo").append("<tr style='width:800px;' class="+reportlist[i].csy090+">"
+  					+"<td style='text-align:center;width:10%;'>"+reportlist[i].csy040+"</td>"
+  					+"<td style='text-align:center;width:20%;'>"+typename+"</td>"
+  					+"<td style='text-align:center;width:20%;'>"+content+"</td>"
+  					+"<td style='text-align:center;width:10%;'>"+(new Date(reportlist[i].csy092).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  					+"<td style='text-align:center;width:10%;'><div class='content'>"+score+"</div></td>"
+  					+"<td style='text-align:center;width:10%;'><a href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + reportlist[i].csy093 + "'>"+filename+"</a></td>"
+  					+"<td style='text-align:center;width:10%;'><input type='button' id="+reportlist[i].csy090+" class='score-button btn btn-primary btn-xs' value='评分' data-toggle='modal' data-target='#myModal'></td>"
+  					+"<td style='display:none;text-align:center;width:10%;'><input id="+reportlist[i].csy090+1+" type='button' class='edit-button btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal1' value='修改'></td>"
   					+"</tr>");
+
   				};
   				$("#expInfo .score-button").click(checkScore);
   			},
@@ -110,12 +134,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			success:function(data){
   				$("#form2").siblings().remove();
   					$("#form2").append("<pi>学号："+data.csy040+"</p>"
-  	  						+"<p>实验名称："+data.csy080+"</p>"
-  	  						+"<p>完成实验内容："+data.csy091+"</p>"
-  		      				+"<p>完成实验时间："+data.csy092+"</p>"
-  		      				+"<p>实验评分：<input class='input' type='text' name="+data.csy090+" id='csy094'></p>"  					
+  		      				+"<p>实验评分：<input class='input form-control' type='text' name="+data.csy090+" id='csy094' style='display:inline-block;width:80px;height:30px;'></p>"  					
   		      				);
-  				
   			}
   					
   		});
@@ -137,10 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			contentType:"application/json;charset=utf-8",
             data:JSON.stringify(sy09),
             dataType: "json",
-  			success:function(data){
-  				
-  				
-  			}
+
   					
   		});
   

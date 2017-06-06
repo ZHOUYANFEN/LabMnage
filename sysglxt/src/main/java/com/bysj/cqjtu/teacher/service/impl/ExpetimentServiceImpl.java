@@ -1,7 +1,9 @@
 package com.bysj.cqjtu.teacher.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import com.bysj.cqjtu.manager.dao.Sy08MapperExp;
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
 import com.bysj.cqjtu.student.dao.Sy09Mapper;
+import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 import com.bysj.cqjtu.teacher.service.ExperimentService;
 
@@ -45,10 +48,21 @@ public class ExpetimentServiceImpl implements ExperimentService {
 	 * 查询所有学生的实验报告
 	 */
 	@Override
-	public List<Sy09> queryReport() {
+	public Map queryReport() {
+		Map<String,List> map = new HashMap<String, List>();
 		List<Sy09> list = new ArrayList<>();		
 		list = sy09.queryReport();
-		return list;
+		List<Sy08> sy08List = new ArrayList<>();
+		for(Sy09 s : list){
+			Sy08 type = new Sy08();
+			if(s.getCsy080()!=null){
+				type = sy08.queryInfo(Integer.parseInt(s.getCsy080()));
+			}
+			sy08List.add(type);
+		}
+		map.put("Sy09", list);
+		map.put("Sy08", sy08List);
+		return map;
 	}
 	/**
 	 * 通过学号查询学生信息
@@ -75,6 +89,16 @@ public class ExpetimentServiceImpl implements ExperimentService {
 		Sy09 sy09Result = new Sy09();
 		sy09Result = sy09.selectByPrimaryKey(csy090);
 		return sy09Result;
+	}
+	@Override
+	public void deleteExp(String[] record) {
+		int num=0;
+		if(record.length>0){
+			for(int i =0;i<record.length;i++){
+				num += sy08.deleteExp(Integer.valueOf(record[i]));
+			}
+		}
+		System.out.println("删除成功，共删除"+num+"条数据");
 	}
 	
 

@@ -18,6 +18,6 @@ public interface DownLoadResourceService {
 	 * 上传资源
 	 * @return
 	 */
-	int upResource(Sy13 record);
+	int insert(Sy13 record);
 
 }

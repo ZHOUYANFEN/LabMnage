@@ -60,11 +60,11 @@
   <insert id="insert" parameterType="com.bysj.cqjtu.student.domain.Sy13" >
     insert into sy13 (CSY130, CSY020, CSY131, 
       CSY160, CSY133, CSY134, 
-      CSY135, CSY136, CSY137
+      CSY135, CSY136, CSY137,CSY138
       )
     values (#{csy130,jdbcType=INTEGER}, #{csy020,jdbcType=INTEGER}, #{csy131,jdbcType=VARCHAR}, 
       #{csy160,jdbcType=TINYINT}, #{csy133,jdbcType=VARCHAR}, #{csy134,jdbcType=VARCHAR}, 
-      #{csy135,jdbcType=TINYINT}, #{csy136,jdbcType=DATE}, #{csy137,jdbcType=VARCHAR}
+      #{csy135,jdbcType=TINYINT}, #{csy136,jdbcType=DATE}, #{csy137,jdbcType=VARCHAR},#{csy138,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.bysj.cqjtu.student.domain.Sy13" >
