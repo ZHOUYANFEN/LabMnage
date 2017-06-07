@@ -62,8 +62,8 @@ public class DownLoadResourceServiceImpl implements DownLoadResourceService{
 
 
 	@Override
-	public int upResource(Sy13 record) {
-		return sy13.updateByPrimaryKeySelective(record);
+	public int insert(Sy13 record) {
+		return sy13.insert(record);
 	}
 	
 

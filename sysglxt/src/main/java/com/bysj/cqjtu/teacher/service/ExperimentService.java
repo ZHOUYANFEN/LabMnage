@@ -1,6 +1,7 @@
 package com.bysj.cqjtu.teacher.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
@@ -23,7 +24,7 @@ public interface ExperimentService {
 	 * 查询学生的实验报告
 	 * @return
 	 */
-	List<Sy09> queryReport();
+	Map<String,List> queryReport();
 	/**
 	 * 查询学生
 	 * @param csy040
@@ -38,4 +39,6 @@ public interface ExperimentService {
 	void updateReposrt(Sy09 record);
 	
 	Sy09 queryBykey(int csy090);
+	
+	void deleteExp(String []record);
 }

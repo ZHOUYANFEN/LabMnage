@@ -30,6 +30,18 @@
      AND sy08.CSY085=0
      AND sy08.csy050 = #{csy050}
   </select>
+  <select id="queryInfo" resultType="com.bysj.cqjtu.student.domain.Sy08" parameterType="java.lang.Integer" >
+   select * 
+   from sy08
+   where CSY085=0
+    and CSY080 = #{csy080}
+  </select>
+  <!-- 逻辑删除实验 -->
+  <update id="deleteExp" parameterType="java.lang.Integer">
+  	update sy08
+  	set CSY085 = 1
+  	where CSY080 = #{csy080,jdbcType=INTEGER}
+  </update>
   
   
   
