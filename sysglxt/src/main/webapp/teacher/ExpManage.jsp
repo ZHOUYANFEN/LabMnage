@@ -27,9 +27,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     display:flex;
     align-items:flex-start;
     }
-    #form button{
-    margin:15px 15px;
-    }
     </style>
 
   </head>
@@ -37,15 +34,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body  style="font-family:'黑体';font-size:16px">
      <div>
     	<form id="form" method="post" action="">
-    		<p>
-    			<button type="button" id="add_model" data-toggle="modal" class="btn btn-default" >添加</button>
-    			<button id="del_model" class=" btn btn-default">删除</button>
-    		
-    			<div class="input-group" style="width:150px">
-    				<input class="form-control" type="text" placeholder="search" style="width:100px">
-    				<span class="input-group-btn"><button class="btn btn-default">搜索</button></span>
-    			</div>
-    		</p>
+    	
+		     <div id="button_querymenu" style="margin:10px 40px;">
+		                     课程名称:<input type="text" width="100px"  >
+		        <button type="button" class="btn btn-default" aria-label="Left Align" style="margin-right:100px" >
+		            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		                      查询
+		        </button>  
+		         <button type="button" class="btn btn-default" aria-label="Left Align"  id="add_model" data-toggle="modal">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                             添加
+                </button>
+                <button type="button" id="del_model" class="btn btn-default" aria-label="Left Align" onclick="deleteMenuBatch()">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                             删除
+                </button>         
+		    </div>
     		<table class="table table-hover" id="expInfo" style="font-size:10px">
     		<tr>
     			<th style="width:80px;text-align:center"><input type="checkbox" id="allChk"/></th>
@@ -69,22 +73,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	        		<h4 style="text-align: center" class="modal-title" id="myModalLabel">实验详情</h4>
   	        	</div>
   	        	<div class="modal-body" id="show">
-  	      			<div  id="form2" style="padding-left:32%;margin:0 auto;">
+  	      			<div  id="form2" style="padding-left:12%;margin:0 auto;">
   	      			<div  style="width:280px;">
   	      			    <span style="display:inline-block;margin-top:5px;">课程名称：</span>
   	      				<select name="select_class" class="form-control pull-right" style="width: 200px;padding:0;">
   	      					<option>大学物理</option>
   	      					<option>数学</option>
   	      				</select>
-  	      			</div>
-  	      			<div class="text"><p>实验名称：</p><input type="text" class="form-control" style="width:200px;"/></div>
-  	      			<div class="text">布置时间：20170305</div>
-  	      			<div class="text">完成时间：20170406</div>
-  	      			<div class="textarea">实验内容：<textarea style="width:250px;height:48px"readonly="readonly">佛尔股尔康容光焕发很丰富能否快速开发吗发动机唧唧复唧唧附加费黑胡桃积极急急急急急急急急急急急急急急急急急急</textarea></div>
+  	      				
+  	      			</div>  	      			
+  	      			<div class="text"><span>实验名称：</span><input type="text" class="form-control" style="width:200px;"/></div>
+  	      			<div class="text">布置时间:<input type="date" class="form-control" style="width:200px;"/></div>
+  	      			<div class="text">完成时间:<input type="date" class="form-control" style="width:200px;"/></div>
+  	      			<!-- <div class="textarea">实验内容：<textarea style="width:250px;height:48px"readonly="readonly">佛尔股尔康容光焕发很丰富能否快速开发吗发动机唧唧复唧唧附加费黑胡桃积极急急急急急急急急急急急急急急急急急急</textarea></div>
   	      			
-  	      			</div>
+  	      			</div> -->
+  	      			<div>
+  	      			    实验内容：
+			            <!-- 加载编辑器的容器 -->
+			            <script id="container" name="content" type="text/plain"></script>
+			            <!-- 配置文件 -->
+			            <script type="text/javascript"
+			                src="${pageContext.request.contextPath}/resources/UEditor/ueditor.config.js"></script>
+			            <!-- 编辑器源码文件 -->
+			            <script type="text/javascript"
+			                src="${pageContext.request.contextPath}/resources/UEditor/ueditor.all.js"></script>
+			            <!-- 实例化编辑器 -->
+			            <script type="text/javascript">
+			                ue = UE.getEditor('container');
+			            </script>
+			        </div>
   	      		</div>
   	      		<div class="modal-footer" style="text-align: center">
+  	      		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="aaa()">保存</button>
   	      			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="aaa()">取消</button>
   	      		
   	      		</div>
@@ -129,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		$("#del_model").click(function() { 
   			// 判断是否至少选择一项 
   			var checkedNum = $("input[name='subChk']:checked").length; 
-  				if(checkedNum == 0) { 
+  				if(checkedNum <= 0) { 
   					alert("请选择至少一项！"); 
   					return; 
   				} 

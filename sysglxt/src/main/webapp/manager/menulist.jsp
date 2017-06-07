@@ -43,7 +43,7 @@
             </select>
         </div>
         <button type="button" class="btn btn-default" aria-label="Left Align" style="float:right;margin-top:10px;margin-right:40px" onclick="queryMenuByCondition()">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                       查询
         </button>        
     </div>
