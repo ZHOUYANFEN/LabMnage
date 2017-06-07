@@ -76,18 +76,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	      			<div  id="form2" style="padding-left:12%;margin:0 auto;">
   	      			<div  style="width:280px;">
   	      			    <span style="display:inline-block;margin-top:5px;">课程名称：</span>
-  	      				<select name="select_class" class="form-control pull-right" style="width: 200px;padding:0;">
-  	      					<option>大学物理</option>
-  	      					<option>数学</option>
+  	      				<select id="select" name="select_class" class="form-control pull-right" style="width: 200px;padding:0;">
+  	      					<option>---请选择课程---</option>
   	      				</select>
-  	      				
   	      			</div>  	      			
-  	      			<div class="text"><span>实验名称：</span><input type="text" class="form-control" style="width:200px;"/></div>
-  	      			<div class="text">布置时间:<input type="date" class="form-control" style="width:200px;"/></div>
-  	      			<div class="text">完成时间:<input type="date" class="form-control" style="width:200px;"/></div>
-  	      			<!-- <div class="textarea">实验内容：<textarea style="width:250px;height:48px"readonly="readonly">佛尔股尔康容光焕发很丰富能否快速开发吗发动机唧唧复唧唧附加费黑胡桃积极急急急急急急急急急急急急急急急急急急</textarea></div>
-  	      			
-  	      			</div> -->
+  	      			<div class="text"><span>实验名称：</span><input id="expName" type="text" class="form-control" style="width:200px;"/></div>
+  	      			<div class="text">布置时间:<input id="startTime" type="date" class="form-control" style="width:200px;"/></div>
+  	      			<div class="text">完成时间:<input id="endTime" type="date" class="form-control" style="width:200px;"/></div>
   	      			<div>
   	      			    实验内容：
 			            <!-- 加载编辑器的容器 -->
@@ -105,8 +100,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        </div>
   	      		</div>
   	      		<div class="modal-footer" style="text-align: center">
-  	      		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="aaa()">保存</button>
-  	      			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="aaa()">取消</button>
+  	      		<button type="button" class="btn btn-default" onclick="addModal()">保存</button>
+  	      			<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
   	      		
   	      		</div>
   	      	</div>
@@ -171,15 +166,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					}); 
   				} 
   			}); 
-  		$("#add_model").click(function(){
-  			$("#myModal")
-  			$("#myModal").modal("show");
+ 
+ 		$("#add_model").click(function(){
+ 			
+  	  		$.ajax({
+  	  			type:'POST',
+  	  			url:"${pageContext.request.contextPath}/teacher/queryExp",
+  	  			success:function(data){
+  	  				for(var i=1;i<data.length;i++){
+  	  					$("#myModal #select").append("<option>"+data[i].csy061+"</option>");
+  	  				};
+  	  				
+  	  			}
+  	  		});
+  	  		$("#myModal").modal("show");
+  	  		var className = $("#myModal #select").val();
+  			console.log("xxxx"+className);
+  			$("#select option").each(function() { 
+					var getText = $(this).text();
+					console.log("text"+getText);
+					if($("#select option:contains("+getText+")").length > 1) {
+						$("#select option:contains("+getText+"):gt(0)").remove();
+					}
+			});
+  
   			
-  		})
-  		
+  	  	});
 
   	})
-  	
+  	function addModal(){
+	  	var className = $("#myModal #select").val();
+	  	var expName = $("#expName").val();
+	  	var startTime = $("#startTime").val();
+	  	var endTime = $("#endTime").val();
+	  	var recordList = new Array(); 
+	  	var date = new Date();
+	  	alert(date);
+	  	if(className=="---请选择课程---"){
+	  		alert("请选择课程");
+	  	} else{
+	  		recordList.push(className);
+		  	if(expName==""){
+		  		alert("请输入实验名称");
+		  	}else{
+		  		recordList.push(expName);
+		  		if(startTime==""){
+		  			alert("请选择布置时间");
+		  		}else{
+		  			recordList.push(startTime);
+		  			console.log(startTime>date);
+		  			if(endTime==""){
+		  				alert("请选择完成时间");
+		  			}else{
+		  				recordList.push(endTime);
+		  			}
+		  		}
+		  	}
+	  	}
+	  	$.ajax({
+  			type:'POST',
+  			url:"${pageContext.request.contextPath}/teacher/addExp",
+  			data: {'additems':recordList.toString()}, 
+  			success:function(data){
+  			}
+  		});
+	  	if(endTime!=""){
+	  		$("#myModal").modal("hide");
+	  	}
+  		
+  	}
+
+  	 
 
 
   	

@@ -177,6 +177,23 @@ public class TeacherController {
 		
 	}
 	
+	@RequestMapping("/addExp")
+	public String addExp(HttpServletRequest request,HttpServletResponse response){
+		try{
+			String items = request.getParameter("additems");
+			String []item = items.split(",");
+			for(int i=0;i<item.length;i++){
+				System.out.println(item[i]);
+			}
+			
+			return "添加成功";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "添加实验安排失败";
+		}
+		
+	}
+	
 	@RequestMapping("/queryEdit")
 	@ResponseBody
 	@SystemControllerLog(description ="查询详细信息")

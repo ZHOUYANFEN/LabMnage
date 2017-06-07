@@ -140,19 +140,13 @@ table{
 
 <body  style="font-family:'黑体';font-size:16px">
 	<div class="file-operate">
-		<div class="number-div">
-			共<span>523</span>个文件
-		</div>
+
 		<div class="operate">
 			<div class="search-div">
 				<input type="text"
 					id="search" placeholder="搜索">
 			</div>
-
-			<div id="icon">
-				<span class="glyphicon glyphicon-list"></span>
-				<div id="title" style="position:absolute">进入批量模式</div>
-			</div>
+			<button id="search" style="margin-right: 8px;height: 33px">搜索</button>
 			<button id="upload">上传</button>
 			<form id="fileupload" enctype="multipart/form-data">
 				<input id="file" name="file" type="file" style="display: none; ">
