@@ -99,14 +99,8 @@
 
     <!--配置切面拦截方法 -->
     <aop:config proxy-target-class="false">
-        <!--将com.bysj.cqjtu包下的所有query开头的方法加入拦截
-        -->
-        <!-- <aop:pointcut id="serviceMethodPointcut" expression="
-        execution(* com.bysj.cqjtu.*.service.*.query*(..))"/> -->
          <aop:pointcut id="serviceMethodPointcut" expression="
         execution(* com.bysj.cqjtu.login.service.LoginService.getUserMessage(..))"/>
-       <!--  <aop:pointcut id="selectMethodPointcut" expression="
-        execution(* com.bysj.cqjtu.*.dao.*Mapper.query*(..))"/> -->
 
         <aop:advisor advice-ref="methodCacheInterceptor" pointcut-ref="serviceMethodPointcut"/>
 
@@ -138,13 +132,13 @@
                 <!--anon 表示匿名访问，不需要认证以及授权-->
                 /tologin=anon
                 <!--authc表示需要认证 没有进行身份认证是不能进行访问的-->
-                /student/*=authc
+                <!-- /student/*=authc
                 /manager/*=authc
                 /common/*=authc
                 /error/*=authc
-                /exaplefile/*=authc
+                /exaplefile/*=authc -->
                 <!-- /img/*=authc -->
-                /resources/*=authc               
+                <!-- /resources/*=authc               
                 /teacher/*=authc
                 /index/*=authc
                 /lab/*=authc
@@ -154,7 +148,7 @@
                 /userManager/*=authc
                 /menu/*=authc
                 /anouncement/*=authc
-                /user/*=authc                               
+                /user/*=authc  -->                              
             </value>
         </property>
     </bean>

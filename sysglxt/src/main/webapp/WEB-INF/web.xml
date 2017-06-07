@@ -67,6 +67,13 @@
         <url-pattern>/webservice/*</url-pattern>
     </servlet-mapping>
     
+    <!--获取缓存数据  -->
+    <servlet>
+	    <servlet-name>ProjectInitForGetData</servlet-name>
+	    <servlet-class>com.bysj.cqjtu.init.ProjectInitForGetData</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+    
     <!-- shiro过滤器定义 -->
     <filter>
         <filter-name>shiroFilter</filter-name>
@@ -107,6 +114,10 @@
 	      <servlet-name>default</servlet-name>
 	      <url-pattern>*.jpg</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+          <servlet-name>default</servlet-name>
+          <url-pattern>*.JPG</url-pattern>
+    </servlet-mapping>
 	<servlet-mapping>
           <servlet-name>default</servlet-name>
           <url-pattern>*.png</url-pattern>
