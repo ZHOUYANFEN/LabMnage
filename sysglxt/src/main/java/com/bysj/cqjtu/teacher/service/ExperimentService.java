@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
+import com.bysj.cqjtu.student.domain.Sy06;
+import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 
 /**
@@ -40,5 +42,31 @@ public interface ExperimentService {
 	
 	Sy09 queryBykey(int csy090);
 	
-	void deleteExp(String []record);
+	int deleteExp(String []record);
+	
+	/**
+	 * 根据课程名查询课程id
+	 * @param record
+	 * @return
+	 */
+	Sy06 queryClassByName(String className);
+	
+	/**
+	 * 添加实验安排表
+	 * @param record
+	 */
+	int addExp(Sy08 record);
+	
+	/**
+	 * 添加实验完成表
+	 * @param record
+	 */
+	void addExpComplete(Sy09 record);
+	
+	/**
+	 * 根据实验数据查出实验id
+	 * @param record
+	 * @return
+	 */
+	String queryId(Sy08 record);
 }

@@ -25,6 +25,21 @@ public class TeacherServiceImpl implements TeacherService{
 		return list;
 	}
 
+	@Override
+	public Sy05 queryTeacher(Integer csy020) throws Exception{
+		Sy05 teacher = teacherDao.getUserByCsy020(csy020);
+		if(null==teacher){
+			System.out.println("没有查到教师信息，请检查人员id是否正确");
+		}
+		return teacher;
+	}
+
+	@Override
+	public int insertTeacher(Sy05 record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 
 }

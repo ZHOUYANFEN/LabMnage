@@ -29,7 +29,6 @@
       and sy06.csy067 = '0'
       and sy07.csy060 = sy06.csy060
       and sy07.csy040 = #{sy04.csy040}
-           
  </select>
   
   <!-- 统计各学院的视频 -->
@@ -68,6 +67,13 @@
         where sy06.csy050 = sy05.csy050 
           and sy06.csy067 = 0
           and sy05.csy050 = #{csy050}
+   </select>
+   
+   <select id="queryClassByName" parameterType="String" resultType="com.bysj.cqjtu.student.domain.Sy06">
+   	select * 
+   	from sy06
+   	where csy061 = #{csy061,jdbcType=VARCHAR}
+   	 and csy067 = 0
    </select>
   
   

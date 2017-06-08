@@ -13,7 +13,9 @@ import com.bysj.cqjtu.manager.dao.Sy04Mapper;
 import com.bysj.cqjtu.manager.dao.Sy08MapperExp;
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
+import com.bysj.cqjtu.student.dao.Sy06Mapper;
 import com.bysj.cqjtu.student.dao.Sy09Mapper;
+import com.bysj.cqjtu.student.domain.Sy06;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 import com.bysj.cqjtu.teacher.service.ExperimentService;
@@ -34,6 +36,12 @@ public class ExpetimentServiceImpl implements ExperimentService {
 	 */
     @Autowired
 	private Sy04Mapper sy04;
+    
+    /**
+     * 课程表
+     */
+    @Autowired
+    private Sy06Mapper sy06;
 	
 	/**
 	 * 查询所有实验安排
@@ -91,14 +99,58 @@ public class ExpetimentServiceImpl implements ExperimentService {
 		return sy09Result;
 	}
 	@Override
-	public void deleteExp(String[] record) {
+	public int deleteExp(String[] record) {
 		int num=0;
 		if(record.length>0){
 			for(int i =0;i<record.length;i++){
 				num += sy08.deleteExp(Integer.valueOf(record[i]));
 			}
 		}
+		if(num>0){
 		System.out.println("删除成功，共删除"+num+"条数据");
+		}else{
+			System.out.println("删除失败！");
+		}
+		return num;
+		
+	}
+	@Override
+	public Sy06 queryClassByName(String className) {
+		Sy06 result = sy06.queryClassByName(className);
+		if(null==result){
+			System.out.println("没有找到该课程信息，请检查课程名是否正确！");
+		}
+		return result;
+	}
+	@Override
+	public int addExp(Sy08 record) {
+		int num = 0;
+		if(null!=record){
+			num = sy08.addExp(record);
+		}
+		if(num>0){
+			System.out.println("添加成功!");
+		}else{
+			System.out.println("添加失败!");
+		}
+		return num;
+		
+		
+	}
+	@Override
+	public void addExpComplete(Sy09 record) {
+		
+	}
+	@Override
+	public String queryId(Sy08 record) {
+		String csy080 = sy08.queryId(record);
+		if(csy080!=""){
+			System.out.println("查询成功");
+			return csy080;
+		}else{
+			System.out.println("查询失败");
+			return "查询失败";
+		}
 	}
 	
 

@@ -17,6 +17,24 @@ public interface Sy08MapperExp {
 	 * @return
 	 */
 	Sy08 queryInfo(Integer csy080);
-	
+	/**
+	 * 删除实验安排
+	 * @param csy080
+	 * @return
+	 */
 	int deleteExp(Integer csy080);
+	
+	/**
+	 * 添加实验安排
+	 * @param record
+	 * @return
+	 */
+	int addExp(Sy08 record);
+	
+	/**
+	 * 根据实验信息查出实验id
+	 * @param record
+	 * @return
+	 */
+	String queryId(Sy08 record);
 }

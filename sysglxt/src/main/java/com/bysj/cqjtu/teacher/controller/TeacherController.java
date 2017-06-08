@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,12 +38,13 @@ import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
 import com.bysj.cqjtu.manager.domain.Sy12;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.student.domain.Sy06;
 import com.bysj.cqjtu.student.domain.Sy07;
+import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 import com.bysj.cqjtu.student.domain.Sy13;
 import com.bysj.cqjtu.teacher.constant.TeacherConstance;
 import com.bysj.cqjtu.teacher.dto.LabManager;
-import com.bysj.cqjtu.teacher.dto.ReportManager;
 import com.bysj.cqjtu.teacher.service.DownLoadResourceService;
 import com.bysj.cqjtu.teacher.service.ExperimentService;
 import com.bysj.cqjtu.teacher.service.LabApplyService;
@@ -160,38 +160,90 @@ public class TeacherController {
 		return list;
 	}
 	
+	/**
+	 * 删除实验安排
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/deleteExp")
-	public String deleteExp(HttpServletRequest request,HttpServletResponse response){
+	@ResponseBody
+	public Map deleteExp(HttpServletRequest request,HttpServletResponse response){
+		Map<String,String> map = new HashMap<>();
 		try{
 			String items = request.getParameter("delitems");
 			String []item = items.split(",");
 			for(int i=0;i<item.length;i++){
 				System.out.println(item[i]);
 			}
-			expService.deleteExp(item);
-			return "删除成功";
+			int num = expService.deleteExp(item);
+			if(num>0){
+				map.put("status", "删除成功");
+				
+			}else{
+				map.put("status", "删除实验失败");
+			}
 		}catch(Exception e){
 			e.printStackTrace();
-			return "删除文件失败";
+		}
+		return map;
+		
+	}
+	/**
+	 * 添加实验安排
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/addExp")
+	@ResponseBody
+	public Map addExp(HttpServletRequest request,HttpServletResponse response,HttpSession session){
+		Map<String,String> map = new HashMap<>();
+		try{
+		    UserMessage userMassage = (UserMessage)session.getAttribute("user");
+	        int userId =userMassage.getSy02().getCsy020();
+	        System.out.println("userId"+userId);
+	        Sy05 teacher = teacherService.queryTeacher(userId);
+	        //教师id
+	        int csy050 = teacher.getCsy050();
+			String items = request.getParameter("additems");
+			String []item = items.split(",");
+			Sy06 classResult = expService.queryClassByName(item[0]);
+			//课程id
+			int csy060 = classResult.getCsy060();
+			Sy08 exp = new Sy08();
+			exp.setCsy050(String.valueOf(csy050));
+			exp.setCsy060(String.valueOf(csy060));
+			exp.setCsy081(item[1]);
+			exp.setCsy082(item[4]);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			exp.setCsy083(format.parse(item[2]));
+			exp.setCsy084(format.parse(item[3]));
+			exp.setCsy085((byte)0);
+			int num=expService.addExp(exp);
+			if(num>0){
+				map.put("status", "添加成功");
+			}else{
+				map.put("status", "添加实验安排失败");
+			}
+			
+			for(int i=0;i<item.length;i++){
+				System.out.println(item[i]);
+			}
+			return map;
+		}catch(Exception e){
+			e.printStackTrace();
+			return map;
 		}
 		
 	}
 	
-	@RequestMapping("/addExp")
-	public String addExp(HttpServletRequest request,HttpServletResponse response){
-		try{
-			String items = request.getParameter("additems");
-			String []item = items.split(",");
-			for(int i=0;i<item.length;i++){
-				System.out.println(item[i]);
-			}
-			
-			return "添加成功";
-		}catch(Exception e){
-			e.printStackTrace();
-			return "添加实验安排失败";
-		}
-		
+	@RequestMapping("/searchExp")
+	@ResponseBody
+	public Map searchExp(HttpServletRequest request,HttpServletResponse response){
+		Map<String,String> map = new HashMap<>();
+		return map;
 	}
 	
 	@RequestMapping("/queryEdit")

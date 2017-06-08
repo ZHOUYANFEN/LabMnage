@@ -43,4 +43,11 @@ public interface Sy06Mapper {
      * @return
      */
     List<Map> queryCourse(Sy05 sy05);
+    
+    /**
+     * 根据课程名查询课程id
+     * @param csy061
+     * @return
+     */
+    Sy06 queryClassByName(String csy061);
 }

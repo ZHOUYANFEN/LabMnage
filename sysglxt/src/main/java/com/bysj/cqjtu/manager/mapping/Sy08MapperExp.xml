@@ -42,6 +42,28 @@
   	set CSY085 = 1
   	where CSY080 = #{csy080,jdbcType=INTEGER}
   </update>
+  <!-- 添加实验安排 -->
+  <insert id="addExp" parameterType="com.bysj.cqjtu.student.domain.Sy08" >
+    insert into sy08 (CSY060, 
+      CSY050, CSY081, CSY082, 
+      CSY083, CSY084, CSY085)
+    values (#{csy060,jdbcType=VARCHAR}, 
+      #{csy050,jdbcType=VARCHAR}, #{csy081,jdbcType=VARCHAR}, #{csy082,jdbcType=VARCHAR}, 
+      #{csy083,jdbcType=DATE}, #{csy084,jdbcType=DATE}, #{csy085,jdbcType=TINYINT})
+  </insert>
+  
+  <select id="queryId" parameterType="com.bysj.cqjtu.student.domain.Sy08" >
+   select CSY080 
+   from sy08
+   where CSY050 = #{csy050}
+    and CSY060 = #{csy060}
+    and CSY081 = #{csy081}
+    and CSY082 = #{csy082}
+    and CSY083 = #{csy083}
+    and CSY084 = #{csy084}
+    and CSY085 = #{csy085}
+  </select>
+  
   
   
   

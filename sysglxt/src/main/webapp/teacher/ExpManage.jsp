@@ -36,8 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<form id="form" method="post" action="">
     	
 		     <div id="button_querymenu" style="margin:10px 40px;">
-		                     课程名称:<input type="text" width="100px"  >
-		        <button type="button" class="btn btn-default" aria-label="Left Align" style="margin-right:100px" >
+		                     课程名称:<input type="text" width="100px" id="search_text">
+		        <button type="button" class="btn btn-default" aria-label="Left Align" style="margin-right:100px" onclick="searchClass()">
 		            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 		                      查询
 		        </button>  
@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	      			<div class="text">完成时间:<input id="endTime" type="date" class="form-control" style="width:200px;"/></div>
   	      			<div>
   	      			    实验内容：
-			            <!-- 加载编辑器的容器 -->
+			            <%-- <!-- 加载编辑器的容器 -->
 			            <script id="container" name="content" type="text/plain"></script>
 			            <!-- 配置文件 -->
 			            <script type="text/javascript"
@@ -96,7 +96,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            <!-- 实例化编辑器 -->
 			            <script type="text/javascript">
 			                ue = UE.getEditor('container');
-			            </script>
+			            </script> --%>
+			            <textarea id="ue" rows="5" class="form-control" style="width:200px;"></textarea>
 			        </div>
   	      		</div>
   	      		<div class="modal-footer" style="text-align: center">
@@ -159,8 +160,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						type: "POST", 
   						url: "${pageContext.request.contextPath}/teacher/deleteExp", 
   						data: {'delitems':checkedList.toString()}, 
-  			 			success: function(result) { 
+  			 			success: function(data) { 
   							$("[name ='subChk']:checkbox").attr("checked", false); 
+  							alert(data.status);
   							window.location.reload(); 
   						} 
   					}); 
@@ -199,9 +201,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	var expName = $("#expName").val();
 	  	var startTime = $("#startTime").val();
 	  	var endTime = $("#endTime").val();
+	  	var csy091 = $("#ue").val();
 	  	var recordList = new Array(); 
 	  	var date = new Date();
-	  	alert(date);
+	  	var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+	  	alert(dateTime);
 	  	if(className=="---请选择课程---"){
 	  		alert("请选择课程");
 	  	} else{
@@ -214,26 +218,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  			alert("请选择布置时间");
 		  		}else{
 		  			recordList.push(startTime);
-		  			console.log(startTime>date);
 		  			if(endTime==""){
 		  				alert("请选择完成时间");
 		  			}else{
 		  				recordList.push(endTime);
+		  				if(csy091==""){
+		  					alert("请编写实验内容");
+		  				}else{
+		  					recordList.push(csy091);
+		  					console.log(csy091);
+		  				}
 		  			}
 		  		}
 		  	}
+	  	}
+	  	if(csy091!=""){
+	  		$("#myModal").modal("hide");
 	  	}
 	  	$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/teacher/addExp",
   			data: {'additems':recordList.toString()}, 
   			success:function(data){
+  				alert(data.status);
   			}
   		});
-	  	if(endTime!=""){
-	  		$("#myModal").modal("hide");
-	  	}
+
   		
+  	}
+  	function searchClass(){
+  		var className = $("#search_text").val();
+  		alert(className);
+  		$.ajax({
+  			type:'POST',
+  			url:"${pageContext.request.contextPath}/teacher/searchExp",
+  			data: {'searchitems':className.toString()}, 
+  			success:function(data){
+  			}
+  		});
   	}
 
   	 
