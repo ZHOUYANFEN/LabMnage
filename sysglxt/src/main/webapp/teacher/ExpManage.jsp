@@ -62,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<th style="width:80px;text-align:center">操作</th>
     		</tr>
     		</table>
+    		<!-- <div class="tcdPageCode"></div> -->
     	</form>
     </div>
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -80,12 +81,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	      					<option>---请选择课程---</option>
   	      				</select>
   	      			</div>  	      			
-  	      			<div class="text"><span>实验名称：</span><input id="expName" type="text" class="form-control" style="width:200px;"/></div>
-  	      			<div class="text">布置时间:<input id="startTime" type="date" class="form-control" style="width:200px;"/></div>
-  	      			<div class="text">完成时间:<input id="endTime" type="date" class="form-control" style="width:200px;"/></div>
+  	      			<div class="text"><span>实验名称：</span><input id="expName" type="text" style="width:200px;"/></div>
+  	      			<div class="text">布置时间：<input id="startTime" type="date" style="width:200px;"/></div>
+  	      			<div class="text">完成时间：<input id="endTime" type="date" style="width:200px;"/></div>
   	      			<div>
   	      			    实验内容：
-			            <%-- <!-- 加载编辑器的容器 -->
+			            <!-- 加载编辑器的容器 -->
 			            <script id="container" name="content" type="text/plain"></script>
 			            <!-- 配置文件 -->
 			            <script type="text/javascript"
@@ -96,8 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            <!-- 实例化编辑器 -->
 			            <script type="text/javascript">
 			                ue = UE.getEditor('container');
-			            </script> --%>
-			            <textarea id="ue" rows="5" class="form-control" style="width:200px;"></textarea>
+			            </script>
+			            <!-- <textarea id="ue" rows="5" class="form-control" style="width:200px;"></textarea> -->
 			        </div>
   	      		</div>
   	      		<div class="modal-footer" style="text-align: center">
@@ -183,10 +184,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  		});
   	  		$("#myModal").modal("show");
   	  		var className = $("#myModal #select").val();
-  			console.log("xxxx"+className);
+  			/* console.log("xxxx"+className); */
   			$("#select option").each(function() { 
 					var getText = $(this).text();
-					console.log("text"+getText);
+					/* console.log("text"+getText); */
 					if($("#select option:contains("+getText+")").length > 1) {
 						$("#select option:contains("+getText+"):gt(0)").remove();
 					}
@@ -201,11 +202,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	var expName = $("#expName").val();
 	  	var startTime = $("#startTime").val();
 	  	var endTime = $("#endTime").val();
-	  	var csy091 = $("#ue").val();
+	  	var csy091 = ue.getContent();
 	  	var recordList = new Array(); 
 	  	var date = new Date();
 	  	var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-	  	alert(dateTime);
+	  	/* alert(dateTime); */
 	  	if(className=="---请选择课程---"){
 	  		alert("请选择课程");
 	  	} else{
@@ -226,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  					alert("请编写实验内容");
 		  				}else{
 		  					recordList.push(csy091);
-		  					console.log(csy091);
+		  					/* console.log(csy091); */
 		  				}
 		  			}
 		  		}

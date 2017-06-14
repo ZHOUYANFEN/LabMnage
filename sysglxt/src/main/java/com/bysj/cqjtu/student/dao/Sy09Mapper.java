@@ -49,7 +49,7 @@ public interface Sy09Mapper {
      * @param sy09
      * @return
      */
-    void saveReport(Sy09 sy09);
+    int saveReport(Sy09 sy09);
     /**
      * 更新实验完成内容
      * @param sy09
