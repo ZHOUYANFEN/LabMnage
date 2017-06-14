@@ -82,8 +82,13 @@ public class StudentServiceImpl implements StudentService {
                  map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
              }
         }else{
-            //int i=sy09Mapper.saveExp(sy09);
-            map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
+            int i=sy09Mapper.saveExp(sy09);
+            if(i!=1){
+                throw new RuntimeException(StudentOperateConstance.SAVE_SY09_FAIL);
+            } else{
+                map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
+            }
+           // map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
         }
         return map;
     }
@@ -120,8 +125,13 @@ public class StudentServiceImpl implements StudentService {
                  map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
              }
          }else{
-             //sy09Mapper.saveReport(sy09);            
-             map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
+             int i=sy09Mapper.saveReport(sy09); 
+             if(i!=1){
+                 throw new RuntimeException(StudentOperateConstance.SAVE_SY09_FAIL);
+             }else{
+                 map.put("statu", StudentOperateConstance.SAVE_SY09_SUCCESS);
+             }
+             //map.put("statu", StudentOperateConstance.SAVE_SY09_FAIL);
          }
          return map;
     }

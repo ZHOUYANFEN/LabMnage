@@ -12,6 +12,6 @@ import javax.servlet.http.HttpServlet;
 public class ProjectInitForGetData extends HttpServlet {
     @Override
     public void init() throws ServletException {
-        System.out.println("232323系统启动");
+        System.out.println("系统启动成功，加载码值");
     }
 }
