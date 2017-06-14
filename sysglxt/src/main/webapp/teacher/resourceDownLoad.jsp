@@ -14,6 +14,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@include  file="/common/pt_head.jsp"%>
  <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
 <style type="text/css">
+*{
+    font-family:'黑体';
+    font-size:16px;
+}
 body{
     padding:0 10px;
 }
@@ -35,23 +39,23 @@ table{
 }
 
 #upload{
-    background-color: rgb(18,183,245);
-    width:72px;
+    background-color: #286090;
+   /*  width:100px; */
     height:30px;
     border:none;
     color:#ffffff;
     letter-spacing: 3px;
 }
-#search{
+/* #search{
     border:1px solid #ffffff;
     width:77px;
     height:28px;
-}
+} */
 #search:focus{
     outline: none;
 }
 .search-div{
-    border: 1px solid rgba(119,119,119,0.6);
+   /*  border: 1px solid rgba(119,119,119,0.6); */
     height:30px;
     width:100px;
     padding-left: 3px;
@@ -67,7 +71,7 @@ table{
 }
 .operate{
     display: flex;
-    width:230px;
+    width:500px;
     align-items: center;
     justify-content: space-around;
 
@@ -146,8 +150,14 @@ table{
 				<input type="text"
 					id="search" placeholder="搜索">
 			</div>
-			<button id="search" style="margin-right: 8px;height: 33px">搜索</button>
-			<button id="upload">上传</button>
+			
+			<button type="button" class="btn btn-default" aria-label="Left Align" id="search" style="margin-left: 30px;height: 31px;;margin-top:-1px">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                         搜索
+                </button> 
+			<button id="upload" type="button" class="btn btn-default" aria-label="Left Align" style="margin-left: -40px;height: 31px;;margin-top:-1px;text-align:center;line-height:31px"> 
+			     <span class="glyphicon glyphicon-upload" aria-hidden="true">上传</span>
+			</button>
 			<form id="fileupload" enctype="multipart/form-data">
 				<input id="file" name="file" type="file" style="display: none; ">
 			</form>
@@ -160,7 +170,7 @@ table{
 				<th style="width:20%">更新时间</th>
 				<th style="width:13%">大小</th>
 				<th style="width:15%">上传者</th>
-				<th style="width:9%"></th>
+				<th style="width:9%">下载</th>
 			</tr>
 		</thead>
 		<tbody id="t_body">
