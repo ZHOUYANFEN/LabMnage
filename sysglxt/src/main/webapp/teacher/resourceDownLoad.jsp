@@ -167,7 +167,7 @@ table{
 				<th style="width:20%">更新时间</th>
 				<th style="width:13%">大小</th>
 				<th style="width:15%">上传者</th>
-				<th style="width:9%"></th>
+				<th style="width:9%">操作</th>
 			</tr>
 		</thead>
 		<tbody id="t_body">
