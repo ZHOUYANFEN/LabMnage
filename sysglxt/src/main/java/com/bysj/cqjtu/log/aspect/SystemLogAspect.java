@@ -26,11 +26,8 @@ import com.bysj.cqjtu.log.annotation.SystemControllerLog;
 import com.bysj.cqjtu.log.annotation.SystemServiceLog;
 import com.bysj.cqjtu.log.dao.Sy17Mapper;
 import com.bysj.cqjtu.log.dao.Sy18Mapper;
-import com.bysj.cqjtu.log.domain.Sy17;
 import com.bysj.cqjtu.log.domain.Sy18;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
-import com.bysj.cqjtu.util.DateFormatUtil;
-import com.bysj.cqjtu.util.GetSystemUtil;
     
 /**
  * 切点类    
@@ -64,8 +61,9 @@ public  class SystemLogAspect {
      * @param joinPoint 切点  
      */
     @After("controllerAspect()") 
-    public  void doBefore(JoinPoint joinPoint) throws Exception {    
-        Map map=getControllerMethodDescription(joinPoint);
+    public  void doBefore(JoinPoint joinPoint) throws Exception { 
+        long start = System.nanoTime();
+        /*Map map=getControllerMethodDescription(joinPoint);
         String description = (String) map.get("description");
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
         HttpSession session = request.getSession();
@@ -82,7 +80,9 @@ public  class SystemLogAspect {
         sy17.setCsy177(GetSystemUtil.getHostName(GetSystemUtil.getIpAddr(request)));
         sy17.setCsy178(GetSystemUtil.getMacAddress(GetSystemUtil.getIpAddr(request)));
         sy17Mapper.addSy17(sy17);
-        logger.info(sy17.toString());
+        logger.info(sy17.toString());*/
+        long end = System.nanoTime();
+        System.out.println(end -start);
     }    
     
     /**  

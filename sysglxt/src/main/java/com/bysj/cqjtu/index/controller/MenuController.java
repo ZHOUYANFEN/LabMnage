@@ -39,8 +39,8 @@ public class MenuController {
     @RequestMapping("/queryMenu")
     @ResponseBody
     @SystemControllerLog(description ="查询父级菜单")
-    public List<Sy15> queryMenu(int csy010) throws Exception{
-        List list=menuService.queryMenu(csy010);
+    public List<Sy15> queryMenu(int csy010) throws Exception{            
+        List list=menuService.queryMenu(csy010);       
         return list;
     }
     /**
