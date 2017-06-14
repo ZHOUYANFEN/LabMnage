@@ -14,10 +14,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@include  file="/common/pt_head.jsp"%>
  <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
 <style type="text/css">
-*{
-    font-family:'黑体';
-    font-size:16px;
-}
 body{
     padding:0 10px;
 }
@@ -39,23 +35,23 @@ table{
 }
 
 #upload{
-    background-color: #286090;
-   /*  width:100px; */
+    background-color: rgb(18,183,245);
+    width:72px;
     height:30px;
     border:none;
     color:#ffffff;
     letter-spacing: 3px;
 }
-/* #search{
+#search{
     border:1px solid #ffffff;
     width:77px;
     height:28px;
-} */
+}
 #search:focus{
     outline: none;
 }
 .search-div{
-   /*  border: 1px solid rgba(119,119,119,0.6); */
+    border: 1px solid rgba(119,119,119,0.6);
     height:30px;
     width:100px;
     padding-left: 3px;
@@ -71,7 +67,7 @@ table{
 }
 .operate{
     display: flex;
-    width:500px;
+    width:230px;
     align-items: center;
     justify-content: space-around;
 
@@ -148,16 +144,10 @@ table{
 		<div class="operate">
 			<div class="search-div">
 				<input type="text"
-					id="search" placeholder="搜索">
+					id="search_text" placeholder="搜索">
 			</div>
-			
-			<button type="button" class="btn btn-default" aria-label="Left Align" id="search" style="margin-left: 30px;height: 31px;;margin-top:-1px">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                         搜索
-                </button> 
-			<button id="upload" type="button" class="btn btn-default" aria-label="Left Align" style="margin-left: -40px;height: 31px;;margin-top:-1px;text-align:center;line-height:31px"> 
-			     <span class="glyphicon glyphicon-upload" aria-hidden="true">上传</span>
-			</button>
+			<button id="search" style="margin-right: 8px;height: 33px" onclick="searchResource()">搜索</button>
+			<button id="upload">上传</button>
 			<form id="fileupload" enctype="multipart/form-data">
 				<input id="file" name="file" type="file" style="display: none; ">
 			</form>
@@ -170,7 +160,7 @@ table{
 				<th style="width:20%">更新时间</th>
 				<th style="width:13%">大小</th>
 				<th style="width:15%">上传者</th>
-				<th style="width:9%">下载</th>
+				<th style="width:9%"></th>
 			</tr>
 		</thead>
 		<tbody id="t_body">
@@ -292,6 +282,49 @@ $(document).ready(function(){
     	});
     });
 })
+/**
+ * 搜索功能
+ */
+function searchClass(){
+  		var resourceName = $("#search_text").val();
+  		alert(resourceName);
+  		$.ajax({
+  			type:'POST',
+  			url:"${pageContext.request.contextPath}/teacher/searchResource",
+  			data: {'searchitems':resourceName.toString()}, 
+  			success:function(data){
+  				var Data = data;
+  				var resultList;
+  				var error;
+  				for(var key in Data) {
+  					alert(key);
+  					if("error" == key){
+  						error = Data[key];
+  						sweetAlert(error[0]);
+  					}else{
+  						resultList = Data[key];
+  						console.log(resultList);
+  						$("#expInfo tr:not(:first)").empty(""); 
+  		  				for(var i=0;i<resultList.length;i++){
+  		  					$("#expInfo").append("<tr style='width:800px;'>"
+  		  		  					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+resultList[i].csy080+"'/></td> "
+  		  		  					+"<td style='text-align:center'>"+resultList[i].csy061+"</td>"
+  		  		  					+"<td style='text-align:center'>"+resultList[i].csy081+"</td>"
+  		  		  					+"<td style='text-align:center'>"+resultList[i].csy052+"</td>"
+  		  		  					+"<td style='text-align:center'><div class='content'>"+resultList[i].csy082+"</div></td>"
+  		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  		  		  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='修改' onclick=''>"
+  		  		  					+"<input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
+  		  		  					+"</tr>");
+  		  				}
+  					}
+  				}
+
+  			}
+  		});
+  	}
+
 
 </script>
 </html>

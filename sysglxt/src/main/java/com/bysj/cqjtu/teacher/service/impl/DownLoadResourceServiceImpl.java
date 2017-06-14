@@ -61,6 +61,9 @@ public class DownLoadResourceServiceImpl implements DownLoadResourceService{
 	}
 
 
+	/**
+	 * 插入数据到数据库
+	 */
 	@Override
 	public int insert(Sy13 record) {
 		return sy13.insert(record);

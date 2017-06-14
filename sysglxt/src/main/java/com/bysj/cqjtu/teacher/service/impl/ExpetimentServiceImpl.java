@@ -134,13 +134,11 @@ public class ExpetimentServiceImpl implements ExperimentService {
 			System.out.println("添加失败!");
 		}
 		return num;
-		
-		
 	}
-	@Override
-	public void addExpComplete(Sy09 record) {
-		
-	}
+
+	/**
+	 * 查询实验安排
+	 */
 	@Override
 	public String queryId(Sy08 record) {
 		String csy080 = sy08.queryId(record);
@@ -151,6 +149,15 @@ public class ExpetimentServiceImpl implements ExperimentService {
 			System.out.println("查询失败");
 			return "查询失败";
 		}
+	}
+	
+	/**
+	 * 根据课程名查询实验
+	 */
+	@Override
+	public List<Sy08Exp> searchExp(String record) {
+		List<Sy08Exp> resultLis = sy08.searchExp(record);
+		return resultLis;
 	}
 	
 
