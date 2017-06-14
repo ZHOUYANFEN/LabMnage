@@ -144,9 +144,9 @@ table{
 		<div class="operate">
 			<div class="search-div">
 				<input type="text"
-					id="search" placeholder="搜索">
+					id="search_text" placeholder="搜索">
 			</div>
-			<button id="search" style="margin-right: 8px;height: 33px">搜索</button>
+			<button id="search" style="margin-right: 8px;height: 33px" onclick="searchResource()">搜索</button>
 			<button id="upload">上传</button>
 			<form id="fileupload" enctype="multipart/form-data">
 				<input id="file" name="file" type="file" style="display: none; ">
@@ -282,6 +282,49 @@ $(document).ready(function(){
     	});
     });
 })
+/**
+ * 搜索功能
+ */
+function searchClass(){
+  		var resourceName = $("#search_text").val();
+  		alert(resourceName);
+  		$.ajax({
+  			type:'POST',
+  			url:"${pageContext.request.contextPath}/teacher/searchResource",
+  			data: {'searchitems':resourceName.toString()}, 
+  			success:function(data){
+  				var Data = data;
+  				var resultList;
+  				var error;
+  				for(var key in Data) {
+  					alert(key);
+  					if("error" == key){
+  						error = Data[key];
+  						sweetAlert(error[0]);
+  					}else{
+  						resultList = Data[key];
+  						console.log(resultList);
+  						$("#expInfo tr:not(:first)").empty(""); 
+  		  				for(var i=0;i<resultList.length;i++){
+  		  					$("#expInfo").append("<tr style='width:800px;'>"
+  		  		  					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+resultList[i].csy080+"'/></td> "
+  		  		  					+"<td style='text-align:center'>"+resultList[i].csy061+"</td>"
+  		  		  					+"<td style='text-align:center'>"+resultList[i].csy081+"</td>"
+  		  		  					+"<td style='text-align:center'>"+resultList[i].csy052+"</td>"
+  		  		  					+"<td style='text-align:center'><div class='content'>"+resultList[i].csy082+"</div></td>"
+  		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  		  		  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='修改' onclick=''>"
+  		  		  					+"<input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
+  		  		  					+"</tr>");
+  		  				}
+  					}
+  				}
+
+  			}
+  		});
+  	}
+
 
 </script>
 </html>

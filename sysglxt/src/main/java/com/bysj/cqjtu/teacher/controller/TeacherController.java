@@ -239,10 +239,36 @@ public class TeacherController {
 		
 	}
 	
+	/**
+	 * 搜索课程，模糊查询
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/searchExp")
 	@ResponseBody
-	public Map searchExp(HttpServletRequest request,HttpServletResponse response){
-		Map<String,String> map = new HashMap<>();
+	public Map searchExp(HttpServletRequest request,HttpServletResponse response,HttpSession session){
+		Map<String,List> map = new HashMap<>();
+	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
+		int id = userMessage.getSy05().getCsy050();
+		List<Sy08Exp> resultList = new ArrayList<>();
+		String items = request.getParameter("searchitems");
+		List<Sy08Exp> list = expService.searchExp(items);
+		System.out.println(id);
+		if(list.size()!=0){
+			for(Sy08Exp s :list ){
+				if(s.getCsy050().equals(String.valueOf(id))){
+					resultList.add(s);
+				}
+				System.out.println("结果"+s.getCsy050()+"  "+s.getCsy061());
+			}
+			map.put("result", resultList);
+		}else{
+			List<String> errorList = new ArrayList<>();
+			errorList.add("没有任何该课程信息");
+			map.put("error", errorList);
+		}
 		return map;
 	}
 	
@@ -554,4 +580,37 @@ public class TeacherController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    
+	/**
+	 * 搜索资源
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/searchResource")
+	@ResponseBody
+	public Map searchResource(HttpServletRequest request,HttpServletResponse response,HttpSession session){
+		Map<String,List> map = new HashMap<>();
+	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
+		int id = userMessage.getSy05().getCsy050();
+		List<Sy08Exp> resultList = new ArrayList<>();
+		String items = request.getParameter("searchitems");
+		List<Sy08Exp> list = expService.searchExp(items);
+		System.out.println(id);
+		if(list.size()!=0){
+			for(Sy08Exp s :list ){
+				if(s.getCsy050().equals(String.valueOf(id))){
+					resultList.add(s);
+				}
+				System.out.println("结果"+s.getCsy050()+"  "+s.getCsy061());
+			}
+			map.put("result", resultList);
+		}else{
+			List<String> errorList = new ArrayList<>();
+			errorList.add("没有任何该课程信息");
+			map.put("error", errorList);
+		}
+		return map;
+	}
 }

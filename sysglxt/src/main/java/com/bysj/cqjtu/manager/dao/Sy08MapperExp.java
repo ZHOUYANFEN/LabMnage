@@ -37,4 +37,13 @@ public interface Sy08MapperExp {
 	 * @return
 	 */
 	String queryId(Sy08 record);
+	
+	/**
+	 * 根据课程名查询课程
+	 * @param record
+	 * @return
+	 */
+	List<Sy08Exp> searchExp(String record);
+	
+	
 }

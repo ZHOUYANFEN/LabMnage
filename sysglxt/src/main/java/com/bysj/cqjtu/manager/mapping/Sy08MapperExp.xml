@@ -51,7 +51,7 @@
       #{csy050,jdbcType=VARCHAR}, #{csy081,jdbcType=VARCHAR}, #{csy082,jdbcType=VARCHAR}, 
       #{csy083,jdbcType=DATE}, #{csy084,jdbcType=DATE}, #{csy085,jdbcType=TINYINT})
   </insert>
-  
+  <!-- 查询实验安排id -->
   <select id="queryId" parameterType="com.bysj.cqjtu.student.domain.Sy08" >
    select CSY080 
    from sy08
@@ -62,6 +62,21 @@
     and CSY083 = #{csy083}
     and CSY084 = #{csy084}
     and CSY085 = #{csy085}
+  </select>
+  <!-- 根绝课程名搜索 -->
+  <select id="searchExp" resultType="com.bysj.cqjtu.manager.domain.Sy08Exp" parameterType="java.util.HashMap" >
+	SELECT sy05.CSY051,
+	       sy06.CSY061,
+	       sy05.CSY052,
+	       sy08.*
+	FROM sy08 sy08,
+	     sy06 sy06,
+	     sy05 sy05
+   WHERE sy08.CSY060=sy06.CSY060 
+     AND sy05.CSY050=sy08.CSY050 
+     AND sy06.csy067=0 
+     AND sy08.CSY085=0
+     AND sy06.CSY061 LIKE CONCAT(CONCAT('%',#{CSY061}),'%')
   </select>
   
   

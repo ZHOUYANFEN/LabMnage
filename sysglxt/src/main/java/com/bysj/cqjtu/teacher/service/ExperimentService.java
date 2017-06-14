@@ -58,15 +58,16 @@ public interface ExperimentService {
 	int addExp(Sy08 record);
 	
 	/**
-	 * 添加实验完成表
-	 * @param record
-	 */
-	void addExpComplete(Sy09 record);
-	
-	/**
 	 * 根据实验数据查出实验id
 	 * @param record
 	 * @return
 	 */
 	String queryId(Sy08 record);
+	
+	/**
+	 * 根据课程名称查询实验
+	 * @param record
+	 * @return
+	 */
+	List<Sy08Exp> searchExp(String record);
 }

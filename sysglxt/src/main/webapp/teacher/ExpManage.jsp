@@ -124,7 +124,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					+"<td style='text-align:center'><div class='content'>"+data[i].csy082+"</div></td>"
   					+"<td style='text-align:center'>"+(new Date(data[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
   					+"<td style='text-align:center'>"+(new Date(data[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-  					+"<td style='text-align:center'><a href='#' style='margin:15px 3px;'>修改</a><a href='#' style='margin:15px 1px;' id='del_model'>删除</a></td>"
+  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='修改' onclick=''>"
+  					+"<input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
   					+"</tr>");
   				};
   			}
@@ -143,6 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			$("#allChk").prop("checked", subChk.length == subChk.filter(":checked").length ? true:false); 
   		}); 
   		/* 批量删除 */ 
+  		
   		$("#del_model").click(function() { 
   			// 判断是否至少选择一项 
   			var checkedNum = $("input[name='subChk']:checked").length; 
@@ -162,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						data: {'delitems':checkedList.toString()}, 
   			 			success: function(data) { 
   							$("[name ='subChk']:checkbox").attr("checked", false); 
-  							alert(data.status);
+  							sweetAlert(data.status);
   							window.location.reload(); 
   						} 
   					}); 
@@ -196,6 +198,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  	});
 
   	})
+  	function deleteModal(){
+  		// 判断是否至少选择一项 
+  			var checkedNum = $("input[name='subChk']:checked").length; 
+  				if(checkedNum <= 0) { 
+  					sweetAlert("请选择至少一项！"); 
+  					return; 
+  				} 
+  				// 批量选择 
+  				if(confirm("确定要删除所选项目？")) { 
+  					var checkedList = new Array(); 
+  					$("input[name='subChk']:checked").each(function() { 
+  						checkedList.push($(this).val()); 
+  					}); 
+  					$.ajax({ 
+  						type: "POST", 
+  						url: "${pageContext.request.contextPath}/teacher/deleteExp", 
+  						data: {'delitems':checkedList.toString()}, 
+  			 			success: function(data) { 
+  							$("[name ='subChk']:checkbox").attr("checked", false); 
+  							sweetAlert(data.status);
+  							window.location.reload(); 
+  						} 
+  					}); 
+  				} 
+  		}
   	function addModal(){
 	  	var className = $("#myModal #select").val();
 	  	var expName = $("#expName").val();
@@ -207,23 +234,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
 	  	alert(dateTime);
 	  	if(className=="---请选择课程---"){
-	  		alert("请选择课程");
+	  		sweetAlert("请选择课程");
 	  	} else{
 	  		recordList.push(className);
 		  	if(expName==""){
-		  		alert("请输入实验名称");
+		  		sweetAlert("请输入实验名称");
 		  	}else{
 		  		recordList.push(expName);
 		  		if(startTime==""){
-		  			alert("请选择布置时间");
+		  			sweetAlert("请选择布置时间");
 		  		}else{
 		  			recordList.push(startTime);
 		  			if(endTime==""){
-		  				alert("请选择完成时间");
+		  				sweetAlert("请选择完成时间");
 		  			}else{
 		  				recordList.push(endTime);
 		  				if(csy091==""){
-		  					alert("请编写实验内容");
+		  					sweetAlert("请编写实验内容");
 		  				}else{
 		  					recordList.push(csy091);
 		  					console.log(csy091);
@@ -240,10 +267,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			url:"${pageContext.request.contextPath}/teacher/addExp",
   			data: {'additems':recordList.toString()}, 
   			success:function(data){
-  				alert(data.status);
+  				sweetAlert(data.status);
   			}
   		});
-
   		
   	}
   	function searchClass(){
@@ -254,6 +280,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			url:"${pageContext.request.contextPath}/teacher/searchExp",
   			data: {'searchitems':className.toString()}, 
   			success:function(data){
+  				var Data = data;
+  				var resultList;
+  				var error;
+  				for(var key in Data) {
+  					alert(key);
+  					if("error" == key){
+  						error = Data[key];
+  						sweetAlert(error[0]);
+  					}else{
+  						resultList = Data[key];
+  						console.log(resultList);
+  						$("#expInfo tr:not(:first)").empty(""); 
+  		  				for(var i=0;i<resultList.length;i++){
+  		  					$("#expInfo").append("<tr style='width:800px;'>"
+  		  		  					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+resultList[i].csy080+"'/></td> "
+  		  		  					+"<td style='text-align:center'>"+resultList[i].csy061+"</td>"
+  		  		  					+"<td style='text-align:center'>"+resultList[i].csy081+"</td>"
+  		  		  					+"<td style='text-align:center'>"+resultList[i].csy052+"</td>"
+  		  		  					+"<td style='text-align:center'><div class='content'>"+resultList[i].csy082+"</div></td>"
+  		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  		  		  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='修改' onclick=''>"
+  		  		  					+"<input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
+  		  		  					+"</tr>");
+  		  				}
+  					}
+  				}
+
   			}
   		});
   	}
