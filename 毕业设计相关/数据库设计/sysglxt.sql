@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-06-14 21:14:23
+Date: 2017-06-14 21:21:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -450,7 +450,7 @@ CREATE TABLE `sy15` (
   `CSY156` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   `CSY157` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '页面元素ID',
   PRIMARY KEY (`CSY150`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of sy15
@@ -516,6 +516,7 @@ INSERT INTO `sy15` VALUES ('61', '4', '系统日志信息', 'openPage(\"manager/
 INSERT INTO `sy15` VALUES ('62', '4', '开发者管理', 'selectMenu(\"slpt_develop\",62)', null, '1', null, '0', 'slpt_develop');
 INSERT INTO `sy15` VALUES ('63', '4', '码表管理', 'openPage(\"manager/aa10manage.jsp\")', 'manager/aa10manage.jsp', '2', '62', '0', '');
 INSERT INTO `sy15` VALUES ('64', '4', '异常日志管理', 'openPage(\"manager/exceptionrecorde.jsp\")', 'manager/exceptionrecorde.jsp', '2', '62', '0', '');
+INSERT INTO `sy15` VALUES ('65', '2', '课程管理', 'openPage(\"teacher/courseManage.jsp\")', 'teacher/courseManage', '2', '48', '0', '');
 
 -- ----------------------------
 -- Table structure for sy16
