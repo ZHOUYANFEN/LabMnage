@@ -23,4 +23,7 @@ public interface TeacherConstance {
     
     public static final String VALIDATE_INTOSY06_SUCCESS = "success";
     public static final String VALIDATE_INTOSY06_ERROR = "error";
+    
+    public static final String DELETE_SY06_SUCCESS = "success";
+    public static final String DELETE_SY06_ERROR = "error";
 }

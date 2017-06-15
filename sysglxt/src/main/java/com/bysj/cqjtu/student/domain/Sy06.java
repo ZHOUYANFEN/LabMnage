@@ -10,7 +10,7 @@ public class Sy06 implements Serializable {
 
     private Integer csy060;
 
-    private String csy050;
+    private int csy050;
 
     private String csy061;
 
@@ -47,12 +47,14 @@ public class Sy06 implements Serializable {
         this.csy060 = csy060;
     }
 
-    public String getCsy050() {
+   
+
+    public Integer getCsy050() {
         return csy050;
     }
 
-    public void setCsy050(String csy050) {
-        this.csy050 = csy050 == null ? null : csy050.trim();
+    public void setCsy050(Integer csy050) {
+        this.csy050 = csy050;
     }
 
     public String getCsy061() {

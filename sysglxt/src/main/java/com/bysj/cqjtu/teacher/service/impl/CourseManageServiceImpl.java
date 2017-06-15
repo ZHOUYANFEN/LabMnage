@@ -75,5 +75,38 @@ public class CourseManageServiceImpl implements CourseManageService {
         }
         return map;
     }
+    @Override
+    public Map deleteCourse(Sy06 sy06) throws Exception {
+        int i= sy06Mapper.deleteCourse(sy06);
+        Map map=new HashMap();
+        if(i!=1){
+            throw new RuntimeException(TeacherConstance.DELETE_SY06_ERROR);
+        }else {
+            map.put("statu", TeacherConstance.DELETE_SY06_SUCCESS);
+        }
+        return map;
+    }
+    @Override
+    public Map deleteCourseBatch(Sy05 sy05, String ids) throws Exception {
+        String []arr=ids.split(",");
+        int count=0;
+        Sy06 sy06;
+        for(int i=0;i<arr.length;i++){
+            sy06=new Sy06();
+            sy06.setCsy060(Integer.parseInt(arr[i]));
+            sy06.setCsy050(sy05.getCsy050());
+            int j = sy06Mapper.deleteCourse(sy06);
+            if(j==1){
+                count++;
+            }
+        }
+        Map map=new HashMap();
+        if(count==arr.length){           
+            map.put("statu", TeacherConstance.DELETE_SY06_SUCCESS);
+            return map;
+        }else {
+            throw new RuntimeException(TeacherConstance.DELETE_SY06_ERROR);
+        }     
+    }
 
 }

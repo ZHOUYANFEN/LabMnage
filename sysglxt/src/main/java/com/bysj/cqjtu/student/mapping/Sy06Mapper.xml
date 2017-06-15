@@ -58,7 +58,7 @@
    </select>
   
   
-   <!-- 查询各个学院的课程安排 -->
+   <!-- 查询课程安排 -->
   <select id="queryCourse" parameterType="com.bysj.cqjtu.manager.domain.Sy05" resultType="java.util.HashMap">  
        select sy06.csy061 as csy061,
               sy06.csy060 as csy060,
@@ -86,7 +86,7 @@
    </select>
   
   
-   <!-- 按照条件查询各个学院的课程安排 -->
+   <!-- 按照条件查询课程安排 -->
   <select id="getCourseByCondition" parameterType="com.bysj.cqjtu.student.domain.ConditionSearch" resultType="java.util.HashMap">  
        select sy06.csy061 as csy061,
               sy06.csy060 as csy060,
@@ -137,7 +137,13 @@
        and csy06a = #{csy06a}
        and csy067 = 0
   </select>
-  
+  <!-- 逻辑删除课程信息 -->
+  <update id="deleteCourse" parameterType="com.bysj.cqjtu.student.domain.Sy06" >
+    update sy06
+       set CSY067 = 1
+    where CSY060 = #{csy060}
+      and csy050 = #{csy050}
+  </update>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

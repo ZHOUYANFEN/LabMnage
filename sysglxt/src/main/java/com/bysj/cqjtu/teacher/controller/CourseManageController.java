@@ -109,7 +109,7 @@ public class CourseManageController {
     public Map addCourse(@RequestBody Sy06 sy06,HttpSession session){
         UserMessage userMessage = (UserMessage) session.getAttribute("user");
         Sy05 sy05=userMessage.getSy05();
-        sy06.setCsy050(sy05.getCsy050().toString());
+        sy06.setCsy050(sy05.getCsy050());
         Map map=new HashMap();
         try {
             map = courseManageService.addCourse(sy06);
@@ -131,9 +131,52 @@ public class CourseManageController {
     public Map validateCourse(@RequestBody Sy06 sy06,HttpSession session) throws Exception{
         UserMessage userMessage = (UserMessage) session.getAttribute("user");
         Sy05 sy05=userMessage.getSy05();
-        sy06.setCsy050(sy05.getCsy050().toString());
+        sy06.setCsy050(sy05.getCsy050());
         Map map=new HashMap();
         map = courseManageService.validateCourse(sy06);
+        return map;
+    }
+    /**
+     * 删除课程信息
+     * @param csy061
+     * @return
+     */
+    @RequestMapping("/deleteCourse")   
+    @ResponseBody
+    @SystemControllerLog(description ="删除课程信息")
+    public Map deleteCourse(Integer csy060,HttpSession session){
+        UserMessage userMessage = (UserMessage) session.getAttribute("user");
+        Sy05 sy05=userMessage.getSy05();
+        Sy06 sy06=new Sy06();
+        sy06.setCsy050(sy05.getCsy050());
+        sy06.setCsy060(csy060);
+        Map map=new HashMap();
+        try {
+            map = courseManageService.deleteCourse(sy06);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("statu", TeacherConstance.DELETE_SY06_ERROR);
+        }
+        return map;
+    }
+    /**
+     * 批量删除课程信息
+     * @param ids
+     * @param session
+     * @return
+     */
+    @RequestMapping("/deleteCourseBatch")
+    @ResponseBody
+    @SystemControllerLog(description="批量删除课程信息")
+    public Map deleteCourseBatch(String ids,HttpSession session){
+        UserMessage userMessage = (UserMessage) session.getAttribute("user");
+        Sy05 sy05=userMessage.getSy05();
+        Map map=new HashMap();
+        try {
+            map = courseManageService.deleteCourseBatch(sy05,ids);
+        } catch (Exception e) {
+            map.put("statu", TeacherConstance.DELETE_SY06_ERROR);
+        }
         return map;
     }
 }

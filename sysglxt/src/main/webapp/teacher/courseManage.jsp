@@ -262,7 +262,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
     /*删除课程*/
     function deleteCourse(csy060){
-    	alert(csy060);
+    	 $.ajax({
+             type:"POST",
+             url:"${pageContext.request.contextPath}/courseManage/deleteCourse?csy060="+csy060,
+             success:function(data){
+            	  if(data.statu=="success"){
+            		  sweetAlert("删除成功");
+            		  init();
+            	  }else{
+            		  sweetAlert("删除失败");
+            		  return;
+            	  }
+             }
+    	 });
     }
     /* 批量删除课程 */
     function deleteCourseBatch(){
@@ -287,10 +299,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        }, function() {
             $.ajax({
                 type:"POST",
-                url:"${pageContext.request.contextPath}/userManager/deleteCourseBatch?ids="+idstr,
+                url:"${pageContext.request.contextPath}/courseManage/deleteCourseBatch?ids="+idstr,
                 success:function(data){
-                    if(data.statu==1){
-                        $("#menuhead").siblings().remove();
+                    if(data.statu=="success"){
+                        $("#coursehead").siblings().remove();
                         init();
                         sweetAlert("删除成功");
                     }else{

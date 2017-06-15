@@ -60,4 +60,18 @@ public interface CourseManageService {
      * @throws Exception
      */
     public Map validateCourse(Sy06 sy06) throws Exception;
+    /**
+     * 删除实验课程
+     * @param sy06
+     * @return
+     * @throws Exception
+     */
+    public Map deleteCourse(Sy06 sy06) throws Exception;
+    /**
+     * 批量删除课程信息
+     * @param sy05
+     * @param ids
+     * @return
+     */
+    public Map deleteCourseBatch(Sy05 sy05, String ids) throws Exception;
 }

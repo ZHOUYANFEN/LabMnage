@@ -70,4 +70,10 @@ public interface Sy06Mapper {
      * @return
      */
     List<Map> validateCourse(Sy06 sy06);
+    /**
+     * 删除课程
+     * @param sy06
+     * @return
+     */
+    int deleteCourse(Sy06 sy06);
 }
