@@ -81,26 +81,26 @@
             <h4 class="modal-title" id="myModalLabel">新增实验室安排</h4>
           </div>
           <div class="modal-body" style="height:350px;width:1000px;margin-left:10px">                        
-                 <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
+                 <div style="float:left;margin-right:30px;width:900px;margin-top:20px">
 		            <label style='width:100px;text-align:right'> <span style="margin:0;padding:0;color:red" >*</span>申请人ID:</label>&nbsp;<input type="text" id="csy021_model" onchange="setPerson(this.value)" >
 		            <input type="text" id="csy020_model" hidden="hidden" >
                     <label style='width:100px;text-align:right'>申请人姓名:</label>&nbsp;<input type="text" id="csy021_name" readonly="readonly"> 
                     <label style='width:100px;text-align:right'> <span style="margin:0;padding:0;color:red" >*</span>申请目的:</label>&nbsp;<input type="text" id="csy122_model" maxlength="50">    
 		         </div> 
-		         <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
-                    <label style='width:100px;text-align:right'>实验室类型:</label>&nbsp;<select style="width:150px;height:30px" id="csy100_model" onchange="queryLabList(this.value)"></select>
-                    <label style='width:100px;text-align:right'>实验室名称:</label>&nbsp;<select style="width:150px;height:30px" id="csy111_model" onchange="setCsy(this.value)"></select>                  
-                    <label style='width:100px;text-align:right'>实验室位置:</label >&nbsp;<input type="text" id="csy112_model" readonly="readonly">    
+		         <div style="float:left;margin-right:30px;width:900px;margin-top:20px">
+                    <label style='width:100px;text-align:right'>实验室类型:</label>&nbsp;<select style="width:172px;height:30px" id="csy100_model" onchange="queryLabList(this.value)"></select>
+                    <label style='width:100px;text-align:right'>实验室名称:</label>&nbsp;<select style="width:172px;height:30px" id="csy111_model" onchange="setCsy(this.value)"></select>                  
+                    <label style='width:100px;text-align:right'>实验室位置:</label >&nbsp;<input type="text" id="csy112_model" style="width:172px;height:30px" readonly="readonly">    
                  </div> 
-                 <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
+                 <div style="float:left;margin-right:30px;width:900px;margin-top:20px">
                     <label style='width:100px;text-align:right' >备注:</label>&nbsp;<input type="text" style="width:600px" id="csy123_model" >
                     
                  </div> 
-                 <div style="float:left;margin-right:30px;width:800px;margin-top:20px" id="week">
+                 <div style="float:left;margin-right:30px;width:900px;margin-top:20px" id="week">
                     <label style='width:100px;text-align:right' ><span style="margin:0;padding:0;color:red">*</span>周次:</label>                  
                  </div> 
-                 <div style="float:left;margin-right:30px;width:800px;margin-top:20px">
-                    <label style='width:100px;text-align:right'> <span style="margin:0;padding:0;color:red" >*</span>安排时间:</label>&nbsp;<select id='csy126_time_model' style='width:150px;height:27px'></select> 
+                 <div style="float:left;margin-right:30px;width:900px;margin-top:20px">
+                    <label style='width:100px;text-align:right'> <span style="margin:0;padding:0;color:red" >*</span>安排时间:</label>&nbsp;<select id='csy126_time_model' style='width:172px;height:27px'></select> 
                  </div>                 
 		         
            

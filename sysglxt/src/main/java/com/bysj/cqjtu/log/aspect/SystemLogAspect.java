@@ -63,7 +63,7 @@ public  class SystemLogAspect {
     @After("controllerAspect()") 
     public  void doBefore(JoinPoint joinPoint) throws Exception { 
         long start = System.nanoTime();
-        /*Map map=getControllerMethodDescription(joinPoint);
+       /* Map map=getControllerMethodDescription(joinPoint);
         String description = (String) map.get("description");
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
         HttpSession session = request.getSession();

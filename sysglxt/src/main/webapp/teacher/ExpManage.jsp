@@ -65,27 +65,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<!-- <div class="tcdPageCode"></div> -->
     	</form>
     </div>
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
-  	    	<div class="modal-content">
-  	      		<div class="modal-header">
-  	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-  	        		<span aria-hidden="true">&times;</span></button>
-  	        		<h4 style="text-align: center" class="modal-title" id="myModalLabel">实验详情</h4>
-  	        	</div>
-  	        	<div class="modal-body" id="show">
-  	      			<div  id="form2" style="padding-left:12%;margin:0 auto;">
-  	      			<div  style="width:280px;">
-  	      			    <span style="display:inline-block;margin-top:5px;">课程名称：</span>
-  	      				<select id="select" name="select_class" class="form-control pull-right" style="width: 200px;padding:0;">
-  	      					<option>---请选择课程---</option>
-  	      				</select>
-  	      			</div>  	      			
-  	      			<div class="text"><span>实验名称：</span><input id="expName" type="text" style="width:200px;"/></div>
-  	      			<div class="text">布置时间：<input id="startTime" type="date" style="width:200px;"/></div>
-  	      			<div class="text">完成时间：<input id="endTime" type="date" style="width:200px;"/></div>
-  	      			<div>
-  	      			    实验内容：
+	 	    	<div class="modal-content">
+	 	      		<div class="modal-header">
+	 	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	 	        		<span aria-hidden="true">&times;</span></button>
+	 	        		<h4 style="text-align: center" class="modal-title" id="myModalLabel">实验详情</h4>
+	 	        	</div>
+	 	        	<div class="modal-body" id="show">
+	 	      			<div  id="form2" style="padding-left:12%;margin:0 auto;">
+	 	      			<div  style="width:280px;">
+	 	      			    <span style="display:inline-block;margin-top:5px;">课程名称：</span>
+	 	      				<select id="select" name="select_class" class="form-control pull-right" style="width: 200px;padding:0;">
+	 	      					<option>---请选择课程---</option>
+	 	      				</select>
+	 	      			</div>  	      			
+	 	      			<div class="text"><span>实验名称：</span><input id="expName" type="text" style="width:200px;"/></div>
+	 	      			<div class="text">布置时间：<input id="startTime" type="date" style="width:200px;"/></div>
+	 	      			<div class="text">完成时间：<input id="endTime" type="date" style="width:200px;"/></div>
+	 	      			<div>
+	 	      			    实验内容：
 			            <!-- 加载编辑器的容器 -->
 			            <script id="container" name="content" type="text/plain"></script>
 			            <!-- 配置文件 -->
@@ -100,15 +100,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            </script>
 			            <!-- <textarea id="ue" rows="5" class="form-control" style="width:200px;"></textarea> -->
 			        </div>
-  	      		</div>
-  	      		<div class="modal-footer" style="text-align: center">
-  	      		<button type="button" class="btn btn-default" onclick="addModal()">保存</button>
-  	      			<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-  	      		
-  	      		</div>
-  	      	</div>
-  	     </div>
-    </div>
+	 	      		</div>
+	 	      		<div class="modal-footer" style="text-align: center">
+	 	      		<button type="button" class="btn btn-default" onclick="addModal()">保存</button>
+	 	      			<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	 	      		
+	 	      		</div>
+	 	      	</div>
+	 	     </div>
+	   </div>
+  </div>
   </body>
   <script type="text/javascript">
   	$(function (){

@@ -17,4 +17,10 @@ public interface TeacherConstance {
     public static final Integer APPLY_STATU_CSY125_NO = 2;
     public static final Integer APPLY_STATU_CSY125_ALL = 3;
     
+    
+    public static final String INSERT_INTOSY06_SUCCESS = "success";
+    public static final String INSERT_INTOSY06_ERROR = "error";
+    
+    public static final String VALIDATE_INTOSY06_SUCCESS = "success";
+    public static final String VALIDATE_INTOSY06_ERROR = "error";
 }
