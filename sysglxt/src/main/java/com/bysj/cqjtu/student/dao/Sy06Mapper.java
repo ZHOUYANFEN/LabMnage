@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy05;
 import com.bysj.cqjtu.manager.pojo.UserMessage;
+import com.bysj.cqjtu.student.domain.ConditionSearch;
 import com.bysj.cqjtu.student.domain.Sy06;
 
 public interface Sy06Mapper {
@@ -50,4 +51,29 @@ public interface Sy06Mapper {
      * @return
      */
     Sy06 queryClassByName(String csy061);
+    /**
+     * 按条件查询课程信息
+     * @param sy05
+     * @param csy061
+     * @return
+     */
+    List<Map> getCourseByCondition(ConditionSearch conditionSearch);
+    /**
+     * 添加实验课程
+     * @param sy06
+     * @return
+     */
+    int addCourse(Sy06 sy06);
+    /**
+     * 验证课程
+     * @param sy06
+     * @return
+     */
+    List<Map> validateCourse(Sy06 sy06);
+    /**
+     * 删除课程
+     * @param sy06
+     * @return
+     */
+    int deleteCourse(Sy06 sy06);
 }

@@ -10,13 +10,13 @@ public class Sy06 implements Serializable {
 
     private Integer csy060;
 
-    private String csy050;
+    private int csy050;
 
     private String csy061;
 
     private Integer csy062;
 
-    private Byte csy063;
+    private Integer csy063;
 
     private String csy064;
 
@@ -24,11 +24,20 @@ public class Sy06 implements Serializable {
 
     private String csy066;
 
-    private Byte csy067;
+    private Integer csy067;
 
     private String csy068;
 
     private String csy069;
+    private String csy06a;
+
+    public String getCsy06a() {
+        return csy06a;
+    }
+
+    public void setCsy06a(String csy06a) {
+        this.csy06a = csy06a;
+    }
 
     public Integer getCsy060() {
         return csy060;
@@ -38,12 +47,14 @@ public class Sy06 implements Serializable {
         this.csy060 = csy060;
     }
 
-    public String getCsy050() {
+   
+
+    public Integer getCsy050() {
         return csy050;
     }
 
-    public void setCsy050(String csy050) {
-        this.csy050 = csy050 == null ? null : csy050.trim();
+    public void setCsy050(Integer csy050) {
+        this.csy050 = csy050;
     }
 
     public String getCsy061() {
@@ -62,11 +73,11 @@ public class Sy06 implements Serializable {
         this.csy062 = csy062;
     }
 
-    public Byte getCsy063() {
+    public Integer getCsy063() {
         return csy063;
     }
 
-    public void setCsy063(Byte csy063) {
+    public void setCsy063(Integer csy063) {
         this.csy063 = csy063;
     }
 
@@ -94,11 +105,11 @@ public class Sy06 implements Serializable {
         this.csy066 = csy066 == null ? null : csy066.trim();
     }
 
-    public Byte getCsy067() {
+    public Integer getCsy067() {
         return csy067;
     }
 
-    public void setCsy067(Byte csy067) {
+    public void setCsy067(Integer csy067) {
         this.csy067 = csy067;
     }
 

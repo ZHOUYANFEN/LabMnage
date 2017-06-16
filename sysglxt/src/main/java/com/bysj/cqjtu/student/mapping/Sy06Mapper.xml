@@ -58,10 +58,19 @@
    </select>
   
   
-   <!-- 查询各个学院的课程安排 -->
+   <!-- 查询课程安排 -->
   <select id="queryCourse" parameterType="com.bysj.cqjtu.manager.domain.Sy05" resultType="java.util.HashMap">  
        select sy06.csy061 as csy061,
-              sy06.csy060 as csy060
+              sy06.csy060 as csy060,
+              sy06.csy062 as csy062,
+              sy06.csy063 as csy063,
+              sy06.csy064 as csy064,
+              sy06.csy065 as csy065,
+              sy06.csy066 as csy066,
+              sy06.csy067 as csy067,
+              sy06.csy068 as csy068,
+              sy06.csy069 as csy069,
+              sy06.csy06a as csy06a
          from sy06 sy06,
               sy05 sy05
         where sy06.csy050 = sy05.csy050 
@@ -77,11 +86,64 @@
    </select>
   
   
-  
-  
-  
-  
-  
+   <!-- 按照条件查询课程安排 -->
+  <select id="getCourseByCondition" parameterType="com.bysj.cqjtu.student.domain.ConditionSearch" resultType="java.util.HashMap">  
+       select sy06.csy061 as csy061,
+              sy06.csy060 as csy060,
+              sy06.csy062 as csy062,
+              sy06.csy063 as csy063,
+              sy06.csy064 as csy064,
+              sy06.csy065 as csy065,
+              sy06.csy066 as csy066,
+              sy06.csy067 as csy067,
+              sy06.csy068 as csy068,
+              sy06.csy069 as csy069,
+              sy06.csy06a as csy06a
+         from sy06 sy06,
+              sy05 sy05
+        where sy06.csy050 = sy05.csy050 
+          and sy06.csy067 = 0
+          and sy06.csy061 like concat(concat('%',#{csy061}),'%') 
+          and sy05.csy050 = #{sy05.csy050}
+   </select>
+  <!-- 添加课程 -->
+  <insert id="addCourse" parameterType="com.bysj.cqjtu.student.domain.Sy06" >
+    insert into sy06 (CSY050, 
+                      CSY061, 
+                      CSY062, 
+                      CSY063, 
+                      CSY064, 
+                      CSY065, 
+                      CSY066, 
+                      CSY067, 
+                      CSY068, 
+                      CSY06A)
+              values (#{csy050,jdbcType=VARCHAR}, 
+                      #{csy061,jdbcType=VARCHAR}, 
+                      #{csy062,jdbcType=INTEGER}, 
+                      #{csy063,jdbcType=TINYINT},
+                      #{csy064,jdbcType=VARCHAR}, 
+                      #{csy065,jdbcType=VARCHAR}, 
+                      #{csy066,jdbcType=VARCHAR}, 
+                      #{csy067,jdbcType=TINYINT}, 
+                      #{csy068,jdbcType=VARCHAR}, 
+                      #{csy06a,jdbcType=VARCHAR})
+  </insert>
+  <!-- 验证课程存在 -->
+  <select id="validateCourse" resultType="java.util.HashMap" parameterType="com.bysj.cqjtu.student.domain.Sy06" >
+    select csy060
+      from sy06
+     where csy050 = #{csy050}
+       and csy06a = #{csy06a}
+       and csy067 = 0
+  </select>
+  <!-- 逻辑删除课程信息 -->
+  <update id="deleteCourse" parameterType="com.bysj.cqjtu.student.domain.Sy06" >
+    update sy06
+       set CSY067 = 1
+    where CSY060 = #{csy060}
+      and csy050 = #{csy050}
+  </update>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
