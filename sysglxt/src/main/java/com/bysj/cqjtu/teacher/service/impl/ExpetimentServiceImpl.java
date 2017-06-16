@@ -3,6 +3,7 @@ package com.bysj.cqjtu.teacher.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -71,11 +72,13 @@ public class ExpetimentServiceImpl implements ExperimentService {
 		list = sy09.queryReport();
 		List<Sy08> sy08List = new ArrayList<>();
 		List<Sy04> sy04List = new ArrayList<>();
+		HashSet<Integer> hash = new HashSet<>();
 		for(Sy09 s : list){
 			Sy04 student = new Sy04();
 			Sy08 type = new Sy08();
 			if(s.getCsy080()!=null){
 				type = sy08.queryInfo(Integer.parseInt(s.getCsy080()));
+				hash.add(type.getCsy080());
 			}
 			if(s.getCsy040()!=null){
 				student = sy04.queryStudentById(s.getCsy040());
@@ -87,9 +90,14 @@ public class ExpetimentServiceImpl implements ExperimentService {
 		map.put("Sy09", list);
 		map.put("Sy08", sy08List);
 		map.put("Sy04", sy04List);
-		HashSet<Sy08> hash = new HashSet<>(sy08List);
 		List<Sy08> clearList = new ArrayList<>();
-		clearList.addAll(hash);
+		Iterator<Integer> it=hash.iterator();
+		Sy08 sy08model;
+		while(it.hasNext()){
+			sy08model=new Sy08();
+			sy08model = sy08.queryInfo(it.next());
+			clearList.add(sy08model);
+		}
 		map.put("Sy08Clear", clearList);
 		return map;
 	}
@@ -103,6 +111,7 @@ public class ExpetimentServiceImpl implements ExperimentService {
 		list = sy07.queryScore();
 		List<Sy06> sy06List = new ArrayList<>();
 		List<Sy04> sy04List = new ArrayList<>();
+		HashSet<Integer> hash = new HashSet<>();
 		for(Sy07 s : list){
 			Sy04 student = new Sy04();
 			Sy06 className = new Sy06();
@@ -111,16 +120,23 @@ public class ExpetimentServiceImpl implements ExperimentService {
 			}
 			if(s.getCsy060()!=null){
 				className = sy06.selectByPrimaryKey(Integer.parseInt(s.getCsy060()));
+				hash.add(className.getCsy060());
 			}
 			sy04List.add(student);
 			sy06List.add(className);
+			
 		}
 		map.put("Sy07", list);
 		map.put("Sy06", sy06List);
 		map.put("Sy04", sy04List);
-		HashSet<Sy06> hash = new HashSet<>(sy06List);
 		List<Sy06> clearList = new ArrayList<>();
-		clearList.addAll(hash);
+		Iterator<Integer> it=hash.iterator();
+		Sy06 sy06model;
+		while(it.hasNext()){
+			sy06model=new Sy06();
+			sy06model = sy06.selectByPrimaryKey(it.next());
+			clearList.add(sy06model);
+		}
 		map.put("Sy06Clear", clearList);
 		return map;
 	}
@@ -158,8 +174,8 @@ public class ExpetimentServiceImpl implements ExperimentService {
 	 * 对学生报告评分，修改学生完成情况
 	 */
 	@Override
-	public void updateReposrt(Sy09 record) {
-		sy09.updateByPrimaryKeySelective(record);		
+	public int updateReposrt(Sy09 record) {
+		return sy09.updateByPrimaryKeySelective(record);		
 	}
 	/**
 	 * 通过提交的实验报告id查询实验报告详细情况
@@ -239,6 +255,32 @@ public class ExpetimentServiceImpl implements ExperimentService {
 	@Override
 	public int insert(Sy07 record){
 		return sy07.updateByPrimaryKey(record);
+	}
+	
+	@Override
+	public Map queryReportByid(int parseInt) {
+		Map<String,List> map = new HashMap<String, List>();
+		List<Sy09> list = new ArrayList<>();		
+		list = sy09.queryReportByid(parseInt);
+		List<Sy08> sy08List = new ArrayList<>();
+		List<Sy04> sy04List = new ArrayList<>();
+		for(Sy09 s : list){
+			Sy04 student = new Sy04();
+			Sy08 type = new Sy08();
+			if(s.getCsy080()!=null){
+				type = sy08.queryInfo(Integer.parseInt(s.getCsy080()));
+			}
+			if(s.getCsy040()!=null){
+				student = sy04.queryStudentById(s.getCsy040());
+			}
+			sy04List.add(student);
+			sy08List.add(type);
+		}
+
+		map.put("Sy09", list);
+		map.put("Sy08", sy08List);
+		map.put("Sy04", sy04List);
+		return map;
 	}
 	
 

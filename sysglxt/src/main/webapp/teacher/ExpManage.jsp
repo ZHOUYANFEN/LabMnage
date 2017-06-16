@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	      					<option>---请选择课程---</option>
 	 	      				</select>
 	 	      			</div>  	      			
-	 	      			<div class="text"><span>实验名称：</span><input id="expName" type="text" style="width:200px;"/></div>
+	 	      			<div class="text"><span>实验名称：</span><input maxlength="50" id="expName" type="text" style="width:200px;"/></div>
 	 	      			<div class="text">布置时间：<input id="startTime" type="date" style="width:200px;"/></div>
 	 	      			<div class="text">完成时间：<input id="endTime" type="date" style="width:200px;"/></div>
 	 	      			<div>
@@ -140,25 +140,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
   <script type="text/javascript">
   	$(function (){
-  		$.ajax({
-  			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/queryExp",
-  			success:function(data){
-  				for(var i=0;i<data.length;i++){
-  					$("#expInfo").append("<tr style='width:800px;'>"
-  					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+data[i].csy080+"'/></td> "
-  					+"<td style='text-align:center'>"+data[i].csy061+"</td>"
-  					+"<td style='text-align:center'>"+data[i].csy081+"</td>"
-  					+"<td style='text-align:center'>"+data[i].csy052+"</td>"
-  					+"<td style='text-align:center'><div class='content'>"+data[i].csy082+"</div></td>"
-  					+"<td style='text-align:center'>"+(new Date(data[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-  					+"<td style='text-align:center'>"+(new Date(data[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-  					+"<td style='text-align:center'><input type='button' style='margin-right:3px' class='apply-button btn btn-primary btn-xs' value='修改' onclick='changeModal("+data[i].csy080+")'>"
-  					+"<input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
-  					+"</tr>");
-  				};
-  			}
-  		});
+  		init();
+  		
+  		
   		/**
   		*全选
   		*/
@@ -218,6 +202,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  	});
 
   	})
+  	function init(){
+  		$("#expInfo tr:not(:first)").empty(""); 
+  		$.ajax({
+  			type:'POST',
+  			url:"${pageContext.request.contextPath}/teacher/queryExp",
+  			success:function(data){
+  				for(var i=0;i<data.length;i++){
+  					$("#expInfo").append("<tr style='width:800px;'>"
+  					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+data[i].csy080+"'/></td> "
+  					+"<td style='text-align:center'>"+data[i].csy061+"</td>"
+  					+"<td style='text-align:center'>"+data[i].csy081+"</td>"
+  					+"<td style='text-align:center'>"+data[i].csy052+"</td>"
+  					+"<td style='text-align:center'><div class='content'>"+data[i].csy082+"</div></td>"
+  					+"<td style='text-align:center'>"+(new Date(data[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  					+"<td style='text-align:center'>"+(new Date(data[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
+  					+"</tr>");
+  				};
+  			}
+  		});
+  	}
   	//删除实验安排
   	function deleteModal(){
   		// 判断是否至少选择一项 
@@ -239,6 +244,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			 			success: function(data) { 
   							$("[name ='subChk']:checkbox").attr("checked", false); 
   							sweetAlert(data.status);
+  							
+  							init();
   						} 
   					}); 
   				} 
@@ -289,6 +296,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			data: {'additems':recordList.toString()}, 
   			success:function(data){
   				sweetAlert(data.status);
+  				init();
   			}
   		});
   		
@@ -339,6 +347,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		
   		
   	}
+  
 
   	 
 

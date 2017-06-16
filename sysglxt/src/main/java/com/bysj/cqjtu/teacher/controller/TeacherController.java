@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -372,9 +373,23 @@ public class TeacherController {
 		String id = request.getParameter("id");
 		//提交的实验
 		Sy09 result = expService.queryBykey(Integer.parseInt(id));
-		Sy04 student = expService.queryStudent(id);
+		Sy04 student = expService.queryStudent(result.getCsy040());
 		map.put("Sy09", result);
 		map.put("Sy04", student);
+		return map;
+		
+	}
+	
+	/**
+	 * 查询特定的学生
+	 */
+	@RequestMapping("/queryStudentReportByid")
+	@ResponseBody
+	@SystemControllerLog(description ="查询特定的学生")
+	public Map queryStudentReportByid(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<>();
+		String id = request.getParameter("id");
+		map = expService.queryReportByid(Integer.parseInt(id));
 		return map;
 		
 	}
@@ -387,11 +402,16 @@ public class TeacherController {
 	@RequestMapping("/updateStudentReport")
 	@ResponseBody
 	@SystemControllerLog(description ="更新学生实验报告")
-	public void updateStudentReport(@RequestBody Sy09 sy09, HttpServletRequest request){
-		System.out.println("ididi="+sy09.getCsy094());
-		System.out.println("is="+sy09.getCsy090());
+	public Map updateStudentReport(@RequestBody Sy09 sy09, HttpServletRequest request){
+		Map<String,String> map = new HashMap<>();
 		//修改实验分数
-		expService.updateReposrt(sy09);
+		int i = expService.updateReposrt(sy09);
+		if(i==0){
+			map.put("Status", "评分失败");
+		}if(i!=0){
+			map.put("Status", "评分成功");
+		}
+		return map;
 		
 	}
 	
@@ -423,7 +443,7 @@ public class TeacherController {
 	@SystemControllerLog(description ="更新学生课程")
 	public Map updateStudentClass(HttpServletRequest request){
 		Map<String,String> map = new HashMap<>();
-		String items = request.getParameter("additems");
+		String items = request.getParameter("items");
 		String []item = items.split(",");
 		Sy07 score = new Sy07();
 		score.setCsy040(item[0]);

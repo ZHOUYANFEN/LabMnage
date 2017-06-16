@@ -39,7 +39,7 @@ public interface ExperimentService {
 	 * 更改实验完成情况，对实验报告评分
 	 * @param sy09
 	 */
-	void updateReposrt(Sy09 record);
+	int updateReposrt(Sy09 record);
 	
 	Sy09 queryBykey(int csy090);
 	
@@ -84,4 +84,10 @@ public interface ExperimentService {
 	public Map queryStudentClass(Sy07 record);
 	
 	int insert(Sy07 record);
+	/**
+	 * 根据实验id查询所有实验
+	 * @param parseInt
+	 * @return
+	 */
+	Map queryReportByid(int parseInt);
 }

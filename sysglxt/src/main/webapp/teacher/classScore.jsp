@@ -97,6 +97,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
   <script type="text/javascript">
   	$(function (){
+  		init();
+
+  	});
+  	function init(){
+  		$("#expInfo tr:not(:first)").empty(""); 
   		$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/teacher/queryClassScore",
@@ -141,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					+"<td style='text-align:center;width:20%;'>"+studentName+"</td>"
   					+"<td style='text-align:center;width:20%;'>"+className+"</td>"
   					+"<td style='text-align:center;width:10%;'>"+sy07List[i].csy071+"</td>"
-  					+"<td style='text-align:center;width:10%;'><input type='button' class='score-button btn btn-primary btn-xs' value='评分' onclick='addScore("+studentClassName+")'></td>"
+  					+"<td style='text-align:center;width:10%;'><input type='button' class='score-button btn btn-primary btn-xs' value='评分' onclick='addScore(\""+studentClassName+"\")'></td>"
   					+"<td style='display:none;text-align:center;width:10%;'><input type='button' class='edit-button btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal1' value='修改'></td>"
   					+"</tr>");
   					
@@ -152,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			},
   	
   		})
-  	})
+  	}
   	
   	/**
   	*评分
@@ -160,6 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	function addScore(id){
   		$("#form2").empty();
   		var ids=id;
+  		alert(ids);
   		$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/teacher/queryStudentClass",
@@ -169,6 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				var sy04;
   				var sy06;
   				var sy07;
+  				console.log(Data);
   				for(var key in Data) {
   					if("Sy07"==key){
   						sy07 = Data[key];
@@ -184,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$("#form2").append("<p name="+sy07.csy040+" id='sy07csy040'>学号："+sy07.csy040+"</p>"
 							+"<p>姓名："+sy04.csy041+"</p>"
 							+"<p name="+sy07.csy060+" id='sy07csy060'>课程："+sy06.csy061+"</p>"
-		      				+"<p>实验评分：<input class='input form-control' type='text' id='csy071' style='display:inline-block;width:80px;height:30px;'></p>"  					
+		      				+"<p>实验评分：<input class='input form-control' type='number' id='csy071' style='display:inline-block;width:80px;height:30px;'></p>"  					
 		      				);
   			}
   			
@@ -211,13 +218,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	if(csy071!=""){
 	  		$("#myModal").modal("hide");
 	  	}
+	  	alert(resultList.toString());
  		$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/teacher/updateStudentClass",
-  			contentType:"application/json;charset=utf-8",
-  			data: {'additems':resultList.toString()}, 
+  			data: {'items':resultList.toString()}, 
   			success:function(data){
   				sweetAlert(data.Status);
+  				init();
   			}
   		});
   	}

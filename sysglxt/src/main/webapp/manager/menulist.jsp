@@ -20,7 +20,7 @@
     
 </head>
 <body style="font-family:'黑体';font-size:16px">
-    <div id="button_operatemenu" style="margin-top:50px;margin-left:340px">
+   <!--  <div id="button_operatemenu" style="margin-top:50px;margin-left:340px">
         <button type="button" class="btn btn-default" aria-label="Left Align">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     增加功能
@@ -33,7 +33,7 @@
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     修改功能
         </button>
-    </div>
+    </div> -->
     <div id="button_querymenu" style="margin-top:20px;margin-left:60px">
                      功能id:<input type="text" name="csy150" width="100px" id="csy150" >
                      功能名称:<input type="text" name="csy151" width="100px" id="csy151" >

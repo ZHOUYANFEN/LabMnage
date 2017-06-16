@@ -132,13 +132,12 @@
                 <!--anon 表示匿名访问，不需要认证以及授权-->
                 /tologin=anon
                 <!--authc表示需要认证 没有进行身份认证是不能进行访问的-->
-                <!-- /student/*=authc
+                /student/*=authc
                 /manager/*=authc
                 /common/*=authc
                 /error/*=authc
-                /exaplefile/*=authc -->
-                <!-- /img/*=authc -->
-                <!-- /resources/*=authc               
+                /exaplefile/*=authc
+                /resources/*=authc               
                 /teacher/*=authc
                 /index/*=authc
                 /lab/*=authc
@@ -147,8 +146,10 @@
                 /statistic/*=authc
                 /userManager/*=authc
                 /menu/*=authc
+                /courseManage/*=authc
                 /anouncement/*=authc
-                /user/*=authc  -->                              
+                /user/*=authc          
+                <!-- /*=authc   -->                   
             </value>
         </property>
     </bean>
