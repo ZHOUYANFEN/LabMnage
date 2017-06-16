@@ -27,7 +27,7 @@
                 <td>教师</td>
                 <td>课时</td>
                 <td>学分</td>
-                <td>班级</td>
+                <!-- <td>班级</td> -->
                 <td>成绩</td>
                 <td>备注</td>
                 <td>操作</td>
@@ -93,7 +93,7 @@
                   +"<td>"+data.list[i].csy051+"</td>"
                   +"<td>"+data.list[i].CSY062+"</td>"
                   +"<td>"+data.list[i].CSY063+"</td>"
-                  +"<td>"+data.list[i].CSY069+"</td>"
+                 /*  +"<td>"+data.list[i].CSY069+"</td>" */
                   +"<td>"+data.list[i].csy071+"</td>"
                   +"<td>"+data.list[i].CSY068+"</td>"
                   +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#gradedetail'  onclick='queryGradeDetai("+data.list[i].CSY060+")'>"
