@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                              添加
                 </button>
-                <button type="button" id="del_model" class="btn btn-default" aria-label="Left Align" onclick="deleteMenuBatch()">
+                <button type="button" id="del_model" class="btn btn-default" aria-label="Left Align" onclick="deleteModal()">
                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                              删除
                 </button>         
@@ -141,8 +141,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript">
   	$(function (){
   		init();
-  		
-  		
   		/**
   		*全选
   		*/
@@ -156,39 +154,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		subChk.click(function() { 
   			$("#allChk").prop("checked", subChk.length == subChk.filter(":checked").length ? true:false); 
   		}); 
-  		/* 批量删除 */ 
-  		
-  		$("#del_model").click(function() { 
-  			// 判断是否至少选择一项 
-  			var checkedNum = $("input[name='subChk']:checked").length; 
-  				if(checkedNum <= 0) { 
-  					alert("请选择至少一项！"); 
-  					return; 
-  				} 
-  				// 批量选择 
-  				if(confirm("确定要删除所选项目？")) { 
-  					var checkedList = new Array(); 
-  					$("input[name='subChk']:checked").each(function() { 
-  						checkedList.push($(this).val()); 
-  					}); 
-  					$.ajax({ 
-  						type: "POST", 
-  						url: "${pageContext.request.contextPath}/teacher/deleteExp", 
-  						data: {'delitems':checkedList.toString()}, 
-  			 			success: function(data) { 
-  							$("[name ='subChk']:checkbox").attr("checked", false); 
-  							sweetAlert(data.status);
-  							window.location.reload(); 
-  						} 
-  					}); 
-  				} 
-  			}); 
+
  
  		$("#add_model").click(function(){
  			$("#myModal #select").empty();
   	  		$.ajax({
   	  			type:'POST',
-  	  			url:"${pageContext.request.contextPath}/teacher/queryExpName",
+  	  			url:"${pageContext.request.contextPath}/expManage/queryExpName",
   	  			success:function(data){
   	  				for(var i=0;i<data.length;i++){
   	  					$("#myModal #select").append("<option>---请选择课程---</option>"
@@ -206,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		$("#expInfo tr:not(:first)").empty(""); 
   		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/queryExp",
+  			url:"${pageContext.request.contextPath}/expManage/queryExp",
   			success:function(data){
   				for(var i=0;i<data.length;i++){
   					$("#expInfo").append("<tr style='width:800px;'>"
@@ -239,12 +211,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					}); 
   					$.ajax({ 
   						type: "POST", 
-  						url: "${pageContext.request.contextPath}/teacher/deleteExp", 
+  						url: "${pageContext.request.contextPath}/expManage/deleteExp", 
   						data: {'delitems':checkedList.toString()}, 
   			 			success: function(data) { 
   							$("[name ='subChk']:checkbox").attr("checked", false); 
   							sweetAlert(data.status);
-  							
   							init();
   						} 
   					}); 
@@ -276,13 +247,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  			if(endTime==""){
 		  				sweetAlert("请选择完成时间");
 		  			}else{
-		  				recordList.push(endTime);
-		  				if(csy091==""){
-		  					sweetAlert("请编写实验内容");
-		  				}else{
-		  					recordList.push(csy091);
-		  					/* console.log(csy091); */
-		  				}
+		  		    	if(startTime>endTime){
+		  		    		sweetAlert("完成时间不能早于布置时间");
+		  		    		return;
+		  		    	}
+		  		    	else{
+		  					recordList.push(endTime);
+			  				if(csy091==""){
+			  					sweetAlert("请编写实验内容");
+			  				}else{
+			  					recordList.push(csy091);
+			  					/* console.log(csy091); */
+			  				}
+		  		    	}
+
 		  			}
 		  		}
 		  	}
@@ -292,7 +270,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	}
 	  	$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/addExp",
+  			url:"${pageContext.request.contextPath}/expManage/addExp",
   			data: {'additems':recordList.toString()}, 
   			success:function(data){
   				sweetAlert(data.status);
@@ -308,7 +286,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		var className = $("#search_text").val();
   		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/searchExp",
+  			url:"${pageContext.request.contextPath}/expManage/searchExp",
   			data: {'searchitems':className.toString()}, 
   			success:function(data){
   				var Data = data;
@@ -340,13 +318,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			}
   		});
   	}
-  	/**
-  	*修改实验安排
-  	*/
-  	function changeModal(id){
-  		
-  		
-  	}
+
   
 
   	 

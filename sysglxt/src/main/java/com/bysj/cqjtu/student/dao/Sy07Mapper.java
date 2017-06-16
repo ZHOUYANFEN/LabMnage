@@ -69,6 +69,18 @@ public interface Sy07Mapper {
      */
     Sy07 queryScoreById(Sy07 record);
     
+    /**
+     * 添加分数
+     * @param record
+     * @return
+     */
     int updateByPrimaryKey(Sy07 record);
+
+    /**
+     * 根据课程名查询学生
+     * @param parseInt
+     * @return
+     */
+	List<Sy07> queryClassByid(int parseInt);
 
 }

@@ -218,7 +218,7 @@ $(document).ready(function(){
 
     $.ajax({
 		type:'POST',
-		url:"${pageContext.request.contextPath}/teacher/resourceShow",
+		url:"${pageContext.request.contextPath}/resourceDownload/resourceShow",
 		success:function(data){
 			var Data = data;
 			console.log(Data);
@@ -253,11 +253,11 @@ $(document).ready(function(){
 				var date = new Date(resourcelist[i].csy136);
 				var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
 				$("#t_body").append("<tr><td class='text'><div class='checkbox-div'>"
-						+"</div><a class='download' href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"+resourcelist[i].csy131+"</a></td>"
+						+"</div><a class='download' href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"+resourcelist[i].csy131+"</a></td>"
 						+"<td>"+dateTime+"</td>"
 						+"<td>"+resourcelist[i].csy138+"</td>"
 						+"<td>"+name+"</td>"
-						+"<td><a class='download' href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"
+						+"<td><a class='download' href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"
 						+"<span class='glyphicon glyphicon-save'></span>"
 						+"</button></td>"
 						+"</tr>")
@@ -277,7 +277,7 @@ $(document).ready(function(){
     	var formData = new FormData(formElem[0]);
     	$.ajax({
     		type:'POST',
-    		url:"${pageContext.request.contextPath}/teacher/resourceUp",
+    		url:"${pageContext.request.contextPath}/resourceDownload/resourceUp",
     		data:formData,
     		contentType:false,
     		processData:false,
@@ -294,7 +294,7 @@ function searchResource(){
   		var resourceName = $("#search_text").val();
   		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/searchResource",
+  			url:"${pageContext.request.contextPath}/resourceDownload/searchResource",
   			data: {'searchitems':resourceName.toString()}, 
   			success:function(data){
   				var Data = data;
@@ -335,11 +335,11 @@ function searchResource(){
   	  					var date = new Date(resourcelist[i].csy136);
   	  					var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
   	  					$("#t_body").append("<tr><td class='text'><div class='checkbox-div'>"
-  	  							+"</div><a class='download' href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"+resourcelist[i].csy131+"</a></td>"
+  	  							+"</div><a class='download' href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"+resourcelist[i].csy131+"</a></td>"
   	  							+"<td>"+dateTime+"</td>"
   	  							+"<td>"+resourcelist[i].csy138+"</td>"
   	  							+"<td>"+name+"</td>"
-  	  							+"<td><a class='download' href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"
+  	  							+"<td><a class='download' href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"
   	  							+"<span class='glyphicon glyphicon-save'></span>"
   	  							+"</button></td>"
   	  							+"</tr>")

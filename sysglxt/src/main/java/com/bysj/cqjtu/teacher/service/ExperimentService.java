@@ -90,4 +90,10 @@ public interface ExperimentService {
 	 * @return
 	 */
 	Map queryReportByid(int parseInt);
+	/**
+	 * 根据课程id查询所有学生
+	 * @param parseInt
+	 * @return
+	 */
+	Map queryClassByid(int csy060);
 }

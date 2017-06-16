@@ -108,7 +108,7 @@ $(document).ready(function () {
      
      $.ajax({
          type:'post',
-         url:"${pageContext.request.contextPath}/teacher/queryCourse",
+         url:"${pageContext.request.contextPath}/studentManager/queryCourse",
          success:function(data){
              for(var i=0;i<data.length;i++){
                  $("#treelist").append(" <ul>"
@@ -128,7 +128,7 @@ $(document).ready(function () {
 	 $("#delstudentBtn").attr("disabled",false);
 	 $.ajax({
          type:'post',
-         url:"${pageContext.request.contextPath}/teacher/queryStudentListByCourse?csy060="+csy060,
+         url:"${pageContext.request.contextPath}/studentManager/queryStudentListByCourse?csy060="+csy060,
          success:function(data){
         	 $("#stuhead").siblings().remove();
              for(var i=0;i<data.length;i++){
@@ -156,7 +156,7 @@ $(document).ready(function () {
 	 $("#model_head").text(csy061+"--->添加学生");
      $.ajax({
          type:'post',
-         url:"${pageContext.request.contextPath}/teacher/queryCollege",
+         url:"${pageContext.request.contextPath}/studentManager/queryCollege",
          success:function(data){
         	 $("#treelist2").empty();
              for(var i=0;i<data.length;i++){
@@ -181,7 +181,7 @@ $(document).ready(function () {
              $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
              $.ajax({
                  type:'post',
-                 url:"${pageContext.request.contextPath}/teacher/queryClass?aaa105="+querydata,
+                 url:"${pageContext.request.contextPath}/studentManager/queryClass?aaa105="+querydata,
                  success:function(data){
                      for(var i=0;i<data.length;i++){                          
                          $("#"+querydata).after("<ul style='margin-left:30px'>"
@@ -199,7 +199,7 @@ $(document).ready(function () {
  function queryStudentList(aaa103){
 	 $.ajax({
          type:'post',
-         url:"${pageContext.request.contextPath}/teacher/queryStudentList?csy043="+aaa103,
+         url:"${pageContext.request.contextPath}/studentManager/queryStudentList?csy043="+aaa103,
          success:function(data){
              $("#students_head").siblings().remove();
              for(var i=0;i<data.length;i++){
@@ -232,7 +232,7 @@ $(document).ready(function () {
     }, function() {
 		 $.ajax({
 	         type:"POST",
-	         url:"${pageContext.request.contextPath}/teacher/deleteStudent",
+	         url:"${pageContext.request.contextPath}/studentManager/deleteStudent",
 	         contentType:"application/json;charset=utf-8",
 	         data:JSON.stringify(sy07),
 	         dataType: "json",
@@ -267,7 +267,7 @@ $(document).ready(function () {
      var csy061 = $("#currentcourse").text();
      $.ajax({
          type:"POST",
-         url:"${pageContext.request.contextPath}/teacher/validateStudentInCource?ids="+idstr+"&csy060="+csy060,
+         url:"${pageContext.request.contextPath}/studentManager/validateStudentInCource?ids="+idstr+"&csy060="+csy060,
          success:function(data){
         	 var failList=data.failList;
         	 var failList_csy040Str=failList.join(",");
@@ -288,7 +288,7 @@ $(document).ready(function () {
             	   }else{
 	                    $.ajax({
 	                        type:"POST",
-	                        url:"${pageContext.request.contextPath}/teacher/addStudentToCourse?ids="+successList_csy040Str+"&csy060="+csy060,
+	                        url:"${pageContext.request.contextPath}/studentManager/addStudentToCourse?ids="+successList_csy040Str+"&csy060="+csy060,
 	                        success:function(data){
 	                            if(data.statu=='success'){
 	                                $("#stuhead").siblings().remove();
@@ -331,7 +331,7 @@ $(document).ready(function () {
     }, function() {
          $.ajax({
              type:"POST",
-             url:"${pageContext.request.contextPath}/teacher/deleteStudentInCourseBatch?ids="+idstr+"&csy060="+csy060,
+             url:"${pageContext.request.contextPath}/studentManager/deleteStudentInCourseBatch?ids="+idstr+"&csy060="+csy060,
              success:function(data){
                  if(data.statu=="success"){
                 	 queryStudentListByCourse(csy060,csy061);

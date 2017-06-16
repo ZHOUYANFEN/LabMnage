@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<select
 			id="select" name="select_class" class="form-control pull-right"
 			style="width: 200px;padding:0;" onchange="changeClass(this.value)">
-			<option value="defalut">---请选择课程---</option>
+			<option value="defalut">---请选择实验---</option>
 		</select>
 	</div>
 	<div>
@@ -80,15 +80,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript">
   	$(function (){
   		init();
-
-  		
   	});
   	function init(){
   		$("#select option:not(:first)").remove("");
   		$("#expInfo tr:not(:first)").empty(""); 
   		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/queryReport",
+  			url:"${pageContext.request.contextPath}/reportScore/queryReport",
   			success:function(data){
   				$("#expInfo").siblings().remove();
   				var Data = data;
@@ -116,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					var file = reportlist[i].csy093;
   					var filename = file.substring((file.lastIndexOf("//")+2),file.length);
   					var score = reportlist[i].csy094;
-  					if(score==null){
+  					if(score==null||score==""){
   						score = "未评分";
   					}
   					var typename;
@@ -133,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					+"<td style='text-align:center;width:10%;'>"+(new Date(reportlist[i].csy092).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
   					+"<td style='text-align:center;width:10%;'><div class='content'>"+score+"</div></td>"
   					+"<td style='text-align:center;width:10%;'><a href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + reportlist[i].csy093 + "'>"+filename+"</a></td>"
-  					+"<td style='text-align:center;width:10%;'><input type='button' id="+reportlist[i].csy090+" class='score-button btn btn-primary btn-xs' value='评分' data-toggle='modal' data-target='#myModal'></td>"
+  					+"<td style='text-align:center;width:10%;'><input type='button' id="+reportlist[i].csy090+" class='score-button btn btn-primary btn-xs' value='评分'></td>"
   					+"<td style='display:none;text-align:center;width:10%;'><input id="+reportlist[i].csy090+1+" type='button' class='edit-button btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal1' value='修改'></td>"
   					+"</tr>");
   				};
@@ -144,16 +142,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			},
   		})
   	}
-  	//查询实验名
+  
+  	
+  
+
+  	/**
+  	*提交
+  	*/
+  	$("#myModal .submit-button").click(submitScore);
+  	function submitScore(){
+/*  		$("#"+index).css("display","none");
+  		$("#"+index+1).show(); */
+  		var csy094 = $("#csy094").val();
+  		var csy090 = $("#csy094").attr("name");
+  		var sy09={
+  				"csy094":csy094,
+  				"csy090":csy090
+  		}
+ 		$.ajax({
+  			type:'POST',
+  			url:"${pageContext.request.contextPath}/reportScore/updateStudentReport?sy09="+sy09,
+  			contentType:"application/json;charset=utf-8",
+            data:JSON.stringify(sy09),
+            dataType: "json",
+            success:function(data){
+            	sweetAlert(data.Status);
+  				var selectValue = $("#select").val();
+  				changeClass(selectValue);
+            }
+  		});
+  	}
+  	
+	//查询实验名
   	function changeClass(id){
-  		
   		if(id=="defalut"){
   			init();
   		}else{
   			$("#expInfo tr:not(:first)").empty(""); 
   			$.ajax({
   	  			type:'POST',
-  	  			url:"${pageContext.request.contextPath}/teacher/queryStudentReportByid?id="+id,
+  	  			url:"${pageContext.request.contextPath}/reportScore/queryStudentReportByid?id="+id,
   	  			success:function(data){
   	  				var Data = data;
   	  				var reportlist;
@@ -194,8 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  					+"<td style='text-align:center;width:10%;'>"+(new Date(reportlist[i].csy092).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
   	  					+"<td style='text-align:center;width:10%;'><div class='content'>"+score+"</div></td>"
   	  					+"<td style='text-align:center;width:10%;'><a href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + reportlist[i].csy093 + "'>"+filename+"</a></td>"
-  	  					+"<td style='text-align:center;width:10%;'><input type='button' id="+reportlist[i].csy090+" class='score-button btn btn-primary btn-xs' value='评分' data-toggle='modal' data-target='#myModal'></td>"
-  	  					+"<td style='display:none;text-align:center;width:10%;'><input id="+reportlist[i].csy090+1+" type='button' class='edit-button btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal1' value='修改'></td>"
+  	  					+"<td style='text-align:center;width:10%;'><input type='button' id="+reportlist[i].csy090+" class='score-button btn btn-primary btn-xs' value='评分'></td>"
   	  					+"</tr>");
   	  				};
   	  				$("#expInfo .score-button").click(checkScore);
@@ -203,8 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			});
   		}
   	}
-  	
-  	/**
+	/**
   	*评分
   	*/
    $("#expInfo .score-button").click(checkScore); 
@@ -214,7 +240,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		var id = $(this).closest("tr").attr("class");
   		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/queryStudentReport?id="+id,
+  			url:"${pageContext.request.contextPath}/reportScore/queryStudentReport?id="+id,
   			success:function(data){
   				var Data = data;
   				console.log(Data);
@@ -228,43 +254,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						sy04 = Data[key];
   					}
   				}
-  				$("#form2").empty();
-  				alert(sy09.csy040);
-  				alert(sy04.csy041)
+  				if(sy09.csy094==null||sy09.csy094==""){
+  					$("#myModal").modal("show");
+  					$("#form2").empty();
   					$("#form2").append("<p>学号："+sy09.csy040+"</p>"
   							+"<p>姓名："+sy04.csy041+"</p>"
   		      				+"<p>实验评分：<input class='input form-control' type='number' name="+sy09.csy090+" id='csy094' style='display:inline-block;width:80px;height:30px;'></p>"  					
   		      				);
+  					
+  				}else{
+  					swal({  
+  			            title:"",  
+  			            text:"该生已经评分，是否确认重新评分？",  
+  			            type:"warning",  
+  			            showCancelButton:"true",  
+  			            showConfirmButton:"true",  
+  			            confirmButtonText:"确定",  
+  			            cancelButtonText:"取消",  
+  			            animation:"slide-from-top"  
+  			       }, function() {
+  			    	 $("#myModal").modal("show");
+  			    	 	$("#form2").empty();
+   						$("#form2").append("<p>学号："+sy09.csy040+"</p>"
+   							+"<p>姓名："+sy04.csy041+"</p>"
+   		      				+"<p>实验评分：<input class='input form-control' type='number' name="+sy09.csy090+" id='csy094' style='display:inline-block;width:80px;height:30px;'></p>"  					
+   		      				);
+  			       })
+  				}
+  				
+  					
   			}
   					
   		});
   		
-  	}
-
-  	/**
-  	*提交
-  	*/
-  	$("#myModal .submit-button").click(submitScore);
-  	function submitScore(){
-/*  		$("#"+index).css("display","none");
-  		$("#"+index+1).show(); */
-  		var csy094 = $("#csy094").val();
-  		var csy090 = $("#csy094").attr("name");
-  		var sy09={
-  				"csy094":csy094,
-  				"csy090":csy090
-  		}
- 		$.ajax({
-  			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/updateStudentReport?sy09="+sy09,
-  			contentType:"application/json;charset=utf-8",
-            data:JSON.stringify(sy09),
-            dataType: "json",
-            success:function(data){
-            	sweetAlert(data.Status);
-            	init();
-            }
-  		});
   	}
   	
   </script>

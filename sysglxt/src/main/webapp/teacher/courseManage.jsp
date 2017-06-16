@@ -154,13 +154,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             type:'POST',
             url:"${pageContext.request.contextPath}/courseManage/getCourseCountByCondition?csy061="+csy061,
             success:function(data){
-                $(".tcdPageCode").createPage({
-                    pageCount:Math.ceil((data.count/pageSize)),
-                    current:1,
-                    backFn:function(pageNum){
-                    	getCourseByCondition(csy061,pageNum,pageSize);
-                    }
-                }); 
+            	if(data["count"]==0){
+            		sweetAlert("没有这门课程");
+            		init();
+            	}else{
+                	$(".tcdPageCode").createPage({
+                    	pageCount:Math.ceil((data.count/pageSize)),
+                    	current:1,
+                   	 	backFn:function(pageNum){
+                    		getCourseByCondition(csy061,pageNum,pageSize);
+                    	}
+                	});
+            	}
             }
         });
     }

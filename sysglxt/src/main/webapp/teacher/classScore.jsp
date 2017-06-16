@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<select
 			id="select" name="select_class" class="form-control pull-right"
 			style="width: 200px;padding:0;" onchange="changeClass(this.value)">
-			<option>---请选择课程---</option>
+			<option value="defalut">---请选择课程---</option>
 		</select>
 	</div>
      <div>
@@ -101,10 +101,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   	});
   	function init(){
+  		$("#select option:not(:first)").remove("");
   		$("#expInfo tr:not(:first)").empty(""); 
   		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/queryClassScore",
+  			url:"${pageContext.request.contextPath}/classScore/queryClassScore",
   			success:function(data){
   				$("#expInfo").siblings().remove();
   				var Data = data;
@@ -137,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						className=sy06List[i].csy061;
   					}
   					var score = sy07List[i].csy071;
-  					if(score==null){
+  					if(score==null||score==""){
   						score = "未评分";
   					}
   					var studentClassName = sy07List[i].csy040+","+sy07List[i].csy060;
@@ -145,14 +146,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					+"<td style='text-align:center;width:10%;'>"+sy07List[i].csy040+"</td>"
   					+"<td style='text-align:center;width:20%;'>"+studentName+"</td>"
   					+"<td style='text-align:center;width:20%;'>"+className+"</td>"
-  					+"<td style='text-align:center;width:10%;'>"+sy07List[i].csy071+"</td>"
+  					+"<td style='text-align:center;width:10%;'>"+score+"</td>"
   					+"<td style='text-align:center;width:10%;'><input type='button' class='score-button btn btn-primary btn-xs' value='评分' onclick='addScore(\""+studentClassName+"\")'></td>"
-  					+"<td style='display:none;text-align:center;width:10%;'><input type='button' class='edit-button btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal1' value='修改'></td>"
   					+"</tr>");
   					
   				};
   				for(var i = 0;i<clearList.length;i++){
-  					$("#select").append("<option id="+clearList[i].csy060+">"+clearList[i].csy061+"</option>")
+  					$("#select").append("<option value="+clearList[i].csy060+">"+clearList[i].csy061+"</option>")
   				}
   			},
   	
@@ -165,17 +165,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	function addScore(id){
   		$("#form2").empty();
   		var ids=id;
-  		alert(ids);
   		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/queryStudentClass",
+  			url:"${pageContext.request.contextPath}/classScore/queryStudentClass",
   			data: {'additems':ids.toString()}, 
   			success:function(data){
   				var Data = data;
   				var sy04;
   				var sy06;
   				var sy07;
-  				console.log(Data);
   				for(var key in Data) {
   					if("Sy07"==key){
   						sy07 = Data[key];
@@ -187,16 +185,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						sy04 = Data[key];
   					}
   				}
-  				$("#form2").siblings().remove();
+  				if(sy07.csy071==null||sy07.csy071==""){
+  					$("#myModal").modal("show");
+  					$("#form2").siblings().remove();
 					$("#form2").append("<p name="+sy07.csy040+" id='sy07csy040'>学号："+sy07.csy040+"</p>"
 							+"<p>姓名："+sy04.csy041+"</p>"
 							+"<p name="+sy07.csy060+" id='sy07csy060'>课程："+sy06.csy061+"</p>"
 		      				+"<p>实验评分：<input class='input form-control' type='number' id='csy071' style='display:inline-block;width:80px;height:30px;'></p>"  					
 		      				);
+  				}else{
+  					swal({  
+  			            title:"",  
+  			            text:"该生已经评分，是否确认重新评分？",  
+  			            type:"warning",  
+  			            showCancelButton:"true",  
+  			            showConfirmButton:"true",  
+  			            confirmButtonText:"确定",  
+  			            cancelButtonText:"取消",  
+  			            animation:"slide-from-top"  
+  			       }, function() {
+  			    	 	$("#myModal").modal("show");
+  	  					$("#form2").siblings().remove();
+  						$("#form2").append("<p name="+sy07.csy040+" id='sy07csy040'>学号："+sy07.csy040+"</p>"
+  								+"<p>姓名："+sy04.csy041+"</p>"
+  								+"<p name="+sy07.csy060+" id='sy07csy060'>课程："+sy06.csy061+"</p>"
+  			      				+"<p>实验评分：<input class='input form-control' type='number' id='csy071' style='display:inline-block;width:80px;height:30px;'></p>"  					
+  			      				);
+  			       })
+  				}
   			}
   			
   		})
-  		$("#myModal").modal("show");
   	}
 
   	/**
@@ -218,16 +237,71 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	if(csy071!=""){
 	  		$("#myModal").modal("hide");
 	  	}
-	  	alert(resultList.toString());
  		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/updateStudentClass",
+  			url:"${pageContext.request.contextPath}/classScore/updateStudentClass",
   			data: {'items':resultList.toString()}, 
   			success:function(data){
   				sweetAlert(data.Status);
-  				init();
+  				var selectValue = $("#select").val();
+  				changeClass(selectValue);
   			}
   		});
+  	}
+  	
+  	//查询实验名
+  	function changeClass(id){
+  		if(id=="defalut"){
+  			init();
+  		}else{
+  			$("#expInfo tr:not(:first)").empty(""); 
+  			$.ajax({
+  	  			type:'POST',
+  	  			url:"${pageContext.request.contextPath}/classScore/queryStudentClassByid?id="+id,
+  	  			success:function(data){
+  	  			$("#expInfo").siblings().remove();
+  				var Data = data;
+  				var sy04list;
+  				var sy06List;
+  				var sy07List;
+  				for(var key in Data) {
+  					if("Sy07"==key){
+  						sy07List = Data[key];
+  					}
+  					if("Sy06"==key){
+  						sy06List = Data[key];
+  					}
+  					if("Sy04"==key){
+  						sy04list = Data[key];
+  					}
+  				}
+  				for(var i=0;i<sy07List.length;i++){
+  					var studentName;
+  					var className;
+  					if(sy07List[i].csy040==sy04list[i].csy040){
+  						studentName=sy04list[i].csy041;
+  					}
+  					if(sy07List[i].csy060==sy06List[i].csy060){
+  						className=sy06List[i].csy061;
+  					}
+  					var score = sy07List[i].csy071;
+  					if(score==null||score==""){
+  						score = "未评分";
+  					}
+  					var studentClassName = sy07List[i].csy040+","+sy07List[i].csy060;
+  					$("#expInfo").append("<tr style='width:800px;'>"
+  					+"<td style='text-align:center;width:10%;'>"+sy07List[i].csy040+"</td>"
+  					+"<td style='text-align:center;width:20%;'>"+studentName+"</td>"
+  					+"<td style='text-align:center;width:20%;'>"+className+"</td>"
+  					+"<td style='text-align:center;width:10%;'>"+score+"</td>"
+  					+"<td style='text-align:center;width:10%;'><input type='button' class='score-button btn btn-primary btn-xs' value='评分' onclick='addScore(\""+studentClassName+"\")'></td>"
+  					+"<td style='display:none;text-align:center;width:10%;'><input type='button' class='edit-button btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal1' value='修改'></td>"
+  					+"</tr>");
+  					
+  				};
+  	  			}
+  			});
+  		}
   	}
   	
   	

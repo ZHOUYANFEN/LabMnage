@@ -282,6 +282,31 @@ public class ExpetimentServiceImpl implements ExperimentService {
 		map.put("Sy04", sy04List);
 		return map;
 	}
+	@Override
+	public Map<String, List> queryClassByid(int csy060) {
+		Map<String, List> map = new HashMap<String, List>();
+		List<Sy07> list = new ArrayList<>();		
+		list = sy07.queryClassByid(csy060);
+		List<Sy06> sy06List = new ArrayList<>();
+		List<Sy04> sy04List = new ArrayList<>();
+		for(Sy07 s : list){
+			Sy04 student = new Sy04();
+			Sy06 className = new Sy06();
+			if(s.getCsy040()!=null){
+				student = sy04.selectByPrimaryKey(s.getCsy040());
+			}
+			if(s.getCsy060()!=null){
+				className = sy06.selectByPrimaryKey(Integer.parseInt(s.getCsy060()));
+			}
+			sy04List.add(student);
+			sy06List.add(className);
+			
+		}
+		map.put("Sy07", list);
+		map.put("Sy06", sy06List);
+		map.put("Sy04", sy04List);
+		return map;
+	}
 	
 
 }

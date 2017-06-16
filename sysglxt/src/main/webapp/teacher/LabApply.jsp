@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   queryLab(1,pageSize,csy125);
        $.ajax({
            type:'POST',
-           url:"${pageContext.request.contextPath}/teacher/queryLabCount?csy125="+csy125,
+           url:"${pageContext.request.contextPath}/labManage/queryLabCount?csy125="+csy125,
            success:function(data){
                $(".tcdPageCode").createPage({
                    pageCount:Math.ceil((data.count/pageSize)),
@@ -155,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    function queryLab(pageNum,pageSize,csy125){
 	    $.ajax({	    	            
            type:'POST',
-           url:"${pageContext.request.contextPath}/teacher/queryLab?pageNum="+pageNum+"&pageSize="+pageSize+"&csy125="+csy125,
+           url:"${pageContext.request.contextPath}/labManage/queryLab?pageNum="+pageNum+"&pageSize="+pageSize+"&csy125="+csy125,
            success:function(data){
         	   $("#labhead").siblings().remove();
         	   if(csy125=='3'){
@@ -217,7 +217,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		 var weekdata=queryWeek();
   		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/queryById?id="+id,
+  			url:"${pageContext.request.contextPath}/labManage/queryById?id="+id,
   			success:function(data){
   				$("#form2").empty();
   				$("#form2").append("<p><lable style='width:120px;text-align:right'>实验室序号：</lable><span id='csy110'>"+data.CSY110+"</span></p>"
@@ -275,7 +275,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	  	   $.ajax({
 	            type:'POST',
-	            url:"${pageContext.request.contextPath}/teacher/addLabArrange",
+	            url:"${pageContext.request.contextPath}/labManage/addLabArrange",
 	            contentType:"application/json;charset=utf-8",
 	            data:JSON.stringify(sy12),
 	            dataType: "json",
@@ -301,7 +301,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		var id = $(this).closest("tr").attr("class");
    		$.ajax({
   			type:'POST',
-  			url:"${pageContext.request.contextPath}/teacher/queryEdit?id="+id,
+  			url:"${pageContext.request.contextPath}/labManage/queryEdit?id="+id,
   			success:function(data){
   				var date = new Date(data.sy12.csy121);
   				var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();

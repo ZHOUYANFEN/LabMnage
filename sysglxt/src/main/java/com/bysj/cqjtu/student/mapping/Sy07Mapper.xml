@@ -136,6 +136,12 @@
   	select *
   	from sy07
   </select>
+    <!-- 根据课程名查询学生的成绩 -->
+  <select id="queryClassByid" resultType="com.bysj.cqjtu.student.domain.Sy07">
+  	select *
+  	from sy07
+  	where csy060= #{csy060}
+  </select>
   <!-- 查询某个学生的成绩 -->
   <select id="queryScoreById" resultType="com.bysj.cqjtu.student.domain.Sy07">
   	select *
