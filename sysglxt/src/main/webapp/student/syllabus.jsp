@@ -29,7 +29,7 @@
                 <td>学分</td>
                 <td>开放时间</td>
                 <td>地点</td>
-                <td>班级</td>
+               <!--  <td>班级</td> -->
                 <td>备注</td>
             </tr>
         </table>
@@ -71,7 +71,7 @@
                   +"<td>"+data.list[i].CSY063+"</td>"
                   +"<td>"+data.list[i].CSY064+"</td>"
                   +"<td>"+data.list[i].CSY066+"</td>"
-                  +"<td>"+data.list[i].CSY069+"</td>"
+                  /* +"<td>"+data.list[i].CSY069+"</td>" */
                   +"<td>"+data.list[i].CSY068+"</td>"
                   +"</tr>");
               }

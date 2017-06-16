@@ -394,6 +394,7 @@ function init(){
                 	sweetAlert("添加科研人员成功");
                     $("#btnSave").attr("disabled",true);
                     $("#menuhead").siblings().remove();
+                    $("#button_querymenu input").val();
                     init();
                 	break; 
                 case "40":
@@ -403,6 +404,7 @@ function init(){
                 	sweetAlert("添加学生成功");
                     $("#btnSave").attr("disabled",true);
                     $("#menuhead").siblings().remove();
+                    $("#button_querymenu input").val();
                     init();
                     break;
                 case "42":
@@ -415,6 +417,7 @@ function init(){
                 	sweetAlert("添加教师成功");
                     $("#btnSave").attr("disabled",true);
                     $("#menuhead").siblings().remove();
+                    $("#button_querymenu input").val();
                     init();
                     break;     
                 default:break;
