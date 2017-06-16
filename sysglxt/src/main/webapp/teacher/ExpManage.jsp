@@ -109,6 +109,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	      	</div>
   	     </div>
     </div>
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+  	    	<div class="modal-content">
+  	      		<div class="modal-header">
+  	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  	        		<span aria-hidden="true">&times;</span></button>
+  	        		<h4 style="text-align: center" class="modal-title" id="myModalLabel">实验详情</h4>
+  	        	</div>
+  	        	<div class="modal-body" id="show2">
+  	      			<div  id="form2" style="padding-left:12%;margin:0 auto;">
+  	      			<div  style="width:280px;">
+  	      			    <span style="display:inline-block;margin-top:5px;">课程名称：</span>
+  	      			    <p id="className2"></p>
+  	      			</div>  	      			
+  	      			<div class="text"><span>实验名称：</span><p id="expName2"></p></div>
+  	      			<div class="text">布置时间：<p id="startTime2"></p></div>
+  	      			<div class="text">完成时间：<p id="endTime2"></p></div>
+  	      			<div class="text">实验内容：<p id="expContent2"></p></div>
+  	      		</div>
+  	      		<div class="modal-footer" style="text-align: center">
+  	      		<button type="button" class="btn btn-default" onclick="addModal()">保存</button>
+  	      			<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+  	      		
+  	      		</div>
+  	      	</div>
+  	     </div>
+    </div>
   </body>
   <script type="text/javascript">
   	$(function (){
@@ -125,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					+"<td style='text-align:center'><div class='content'>"+data[i].csy082+"</div></td>"
   					+"<td style='text-align:center'>"+(new Date(data[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
   					+"<td style='text-align:center'>"+(new Date(data[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='修改' onclick=''>"
+  					+"<td style='text-align:center'><input type='button' style='margin-right:3px' class='apply-button btn btn-primary btn-xs' value='修改' onclick='changeModal("+data[i].csy080+")'>"
   					+"<input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
   					+"</tr>");
   				};
@@ -173,32 +200,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			}); 
  
  		$("#add_model").click(function(){
- 			
+ 			$("#myModal #select").empty();
   	  		$.ajax({
   	  			type:'POST',
-  	  			url:"${pageContext.request.contextPath}/teacher/queryExp",
+  	  			url:"${pageContext.request.contextPath}/teacher/queryExpName",
   	  			success:function(data){
-  	  				for(var i=1;i<data.length;i++){
-  	  					$("#myModal #select").append("<option>"+data[i].csy061+"</option>");
+  	  				for(var i=0;i<data.length;i++){
+  	  					$("#myModal #select").append("<option>---请选择课程---</option>"
+  	  							+"<option>"+data[i]+"</option>");
   	  				};
-  	  				
   	  			}
   	  		});
   	  		$("#myModal").modal("show");
-  	  		var className = $("#myModal #select").val();
-  			/* console.log("xxxx"+className); */
-  			$("#select option").each(function() { 
-					var getText = $(this).text();
-					/* console.log("text"+getText); */
-					if($("#select option:contains("+getText+")").length > 1) {
-						$("#select option:contains("+getText+"):gt(0)").remove();
-					}
-			});
   
   			
   	  	});
 
   	})
+  	//删除实验安排
   	function deleteModal(){
   		// 判断是否至少选择一项 
   			var checkedNum = $("input[name='subChk']:checked").length; 
@@ -219,11 +238,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			 			success: function(data) { 
   							$("[name ='subChk']:checkbox").attr("checked", false); 
   							sweetAlert(data.status);
-  							window.location.reload(); 
   						} 
   					}); 
   				} 
   		}
+  	//添加实验安排
   	function addModal(){
 	  	var className = $("#myModal #select").val();
 	  	var expName = $("#expName").val();
@@ -273,9 +292,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		});
   		
   	}
+  	/**
+  	*搜索实验安排
+  	*/
   	function searchClass(){
   		var className = $("#search_text").val();
-  		alert(className);
   		$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/teacher/searchExp",
@@ -285,7 +306,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				var resultList;
   				var error;
   				for(var key in Data) {
-  					alert(key);
   					if("error" == key){
   						error = Data[key];
   						sweetAlert(error[0]);
@@ -302,8 +322,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		  		  					+"<td style='text-align:center'><div class='content'>"+resultList[i].csy082+"</div></td>"
   		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
   		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-  		  		  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='修改' onclick=''>"
-  		  		  					+"<input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
+  		  		  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
   		  		  					+"</tr>");
   		  				}
   					}
@@ -311,6 +330,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   			}
   		});
+  	}
+  	/**
+  	*修改实验安排
+  	*/
+  	function changeModal(id){
+  		
+  		
   	}
 
   	 

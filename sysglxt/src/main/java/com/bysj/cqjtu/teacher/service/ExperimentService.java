@@ -6,6 +6,7 @@ import java.util.Map;
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
 import com.bysj.cqjtu.student.domain.Sy06;
+import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 
@@ -70,4 +71,17 @@ public interface ExperimentService {
 	 * @return
 	 */
 	List<Sy08Exp> searchExp(String record);
+	/**
+	 * 查询所有学生的课程
+	 * @return
+	 */
+	public Map queryClass();
+	
+	/**
+	 * 查询某个学生的课程
+	 * @return
+	 */
+	public Map queryStudentClass(Sy07 record);
+	
+	int insert(Sy07 record);
 }

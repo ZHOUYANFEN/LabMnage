@@ -44,6 +44,12 @@ public interface Sy13Mapper {
      * @return
      */
     List<Sy13> queryResource();
+    /**
+     * 搜索资源
+     * @param resourceName
+     * @return
+     */
+    List<Sy13> searchResource(String resourceName);
     
     
 }

@@ -57,5 +57,18 @@ public interface Sy07Mapper {
      * @return
      */
     Sy07 validateStudentInCource(Sy07 sy07);
+    /**
+     * 查询所有学生的成绩
+     * @return
+     */
+    List<Sy07> queryScore();
+    /**
+     * 查看某个特定的学生成绩
+     * @param csy040
+     * @return
+     */
+    Sy07 queryScoreById(Sy07 record);
+    
+    int updateByPrimaryKey(Sy07 record);
 
 }

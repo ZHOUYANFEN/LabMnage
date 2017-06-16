@@ -81,7 +81,12 @@
      where sy07.csy040 = sy04.csy040
        and sy07.csy060 = #{csy060}
   </select>
-  
+  <!--  -->
+  <select id="queryStudentById" resultType="com.bysj.cqjtu.manager.domain.Sy04" parameterType="java.lang.String" >
+    select *
+      from sy04
+     where csy040 = #{csy040}
+  </select>
   
   
   
