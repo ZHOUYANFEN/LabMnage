@@ -45,4 +45,10 @@ public interface Sy04Mapper {
      * @return
      */
     List<Sy04> queryStudentListByCourse(String csy060);
+    /**
+     * 根据id查询学生信息
+     * @param csy040
+     * @return
+     */
+    Sy04 queryStudentById(String csy040);
 }

@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -156,9 +158,32 @@ public class TeacherController {
 	public List<Sy08Exp> queryExperiment(HttpSession session){
 	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
 		List<Sy08Exp> list = new ArrayList<>();
+		System.out.println("教师id"+userMessage.getSy05().getCsy050());
 		list = expService.queryExp(userMessage.getSy05().getCsy050());
 		return list;
 	}
+	
+	@RequestMapping("/queryExpName")
+	@ResponseBody
+	@SystemControllerLog(description ="查询出实验安排")
+	public List<String> queryExpName(HttpSession session){
+	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
+	    List<String> result = new ArrayList<>();
+		List<Sy08Exp> list = new ArrayList<>();
+		list = expService.queryExp(userMessage.getSy05().getCsy050());
+		for(Sy08Exp s : list){
+			result.add(s.getCsy061());
+		}
+		//去重
+		HashSet<String> hash = new HashSet<>(result);
+		result.clear();
+		result.addAll(hash);
+		for(String name:result){
+			System.out.println("课程名"+name);
+		}
+		return result;
+	}
+	
 	
 	/**
 	 * 删除实验安排
@@ -303,6 +328,16 @@ public class TeacherController {
 		map = expService.queryReport();
 		return map;
 	}
+	
+	@RequestMapping("/queryClassScore")
+	@ResponseBody
+	public Map queryClassScore(){
+		Map<String,List> map = new HashMap<>();
+		//查询课程成绩
+		map = expService.queryClass();
+		return map;
+	}
+	
 
 	@RequestMapping("/studentExp")
 	@ResponseBody
@@ -333,23 +368,97 @@ public class TeacherController {
 	@RequestMapping("/queryStudentReport")
 	@ResponseBody
 	@SystemControllerLog(description ="给学生实验报告评分")
-	public Sy09 queryStudentReport(HttpServletRequest request){
+	public Map queryStudentReport(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<>();
 		String id = request.getParameter("id");
 		//提交的实验
 		Sy09 result = expService.queryBykey(Integer.parseInt(id));
-		return result;
+		Sy04 student = expService.queryStudent(result.getCsy040());
+		map.put("Sy09", result);
+		map.put("Sy04", student);
+		return map;
 		
 	}
+	
+	/**
+	 * 查询特定的学生
+	 */
+	@RequestMapping("/queryStudentReportByid")
+	@ResponseBody
+	@SystemControllerLog(description ="查询特定的学生")
+	public Map queryStudentReportByid(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<>();
+		String id = request.getParameter("id");
+		map = expService.queryReportByid(Integer.parseInt(id));
+		return map;
+		
+	}
+
+	/**
+	 * 修改实验分数
+	 * @param sy09
+	 * @param request
+	 */
 	@RequestMapping("/updateStudentReport")
 	@ResponseBody
 	@SystemControllerLog(description ="更新学生实验报告")
-	public void updateStudentReport(@RequestBody Sy09 sy09, HttpServletRequest request){
-		System.out.println("ididi="+sy09.getCsy094());
-		System.out.println("is="+sy09.getCsy090());
+	public Map updateStudentReport(@RequestBody Sy09 sy09, HttpServletRequest request){
+		Map<String,String> map = new HashMap<>();
 		//修改实验分数
-		expService.updateReposrt(sy09);
+		int i = expService.updateReposrt(sy09);
+		if(i==0){
+			map.put("Status", "评分失败");
+		}if(i!=0){
+			map.put("Status", "评分成功");
+		}
+		return map;
 		
 	}
+	
+	/**
+	 * 给学生实验课程评分
+	 */
+	@RequestMapping("/queryStudentClass")
+	@ResponseBody
+	@SystemControllerLog(description ="给学生实验课程评分")
+	public Map queryStudentClass(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<>();
+		String items = request.getParameter("additems");
+		String []item = items.split(",");
+		Sy07 record = new Sy07();
+		record.setCsy040(item[0]);
+		record.setCsy060(item[1]);
+		map = expService.queryStudentClass(record);
+		return map;
+		
+	}
+	
+	/**
+	 * 修改课程分数
+	 * @param sy09
+	 * @param request
+	 */
+	@RequestMapping("/updateStudentClass")
+	@ResponseBody
+	@SystemControllerLog(description ="更新学生课程")
+	public Map updateStudentClass(HttpServletRequest request){
+		Map<String,String> map = new HashMap<>();
+		String items = request.getParameter("items");
+		String []item = items.split(",");
+		Sy07 score = new Sy07();
+		score.setCsy040(item[0]);
+		score.setCsy060(item[1]);
+		score.setCsy071(Integer.parseInt(item[2]));
+		int i = expService.insert(score);
+		if(i==0){
+			map.put("Status", "评分失败");
+		}if(i!=0){
+			map.put("Status", "评分成功");
+		}
+		return map;
+		
+	}
+	
 	/**
 	 * 验证申请
 	 * @param sy12
@@ -593,24 +702,19 @@ public class TeacherController {
 	public Map searchResource(HttpServletRequest request,HttpServletResponse response,HttpSession session){
 		Map<String,List> map = new HashMap<>();
 	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
+	    //用户id
 		int id = userMessage.getSy05().getCsy050();
-		List<Sy08Exp> resultList = new ArrayList<>();
 		String items = request.getParameter("searchitems");
-		List<Sy08Exp> list = expService.searchExp(items);
 		System.out.println(id);
-		if(list.size()!=0){
-			for(Sy08Exp s :list ){
-				if(s.getCsy050().equals(String.valueOf(id))){
-					resultList.add(s);
-				}
-				System.out.println("结果"+s.getCsy050()+"  "+s.getCsy061());
-			}
-			map.put("result", resultList);
+    	map = downLoadResourceService.searchResource(items);
+		if(map.get("Sy13").size()!=0){
+			return map;
 		}else{
 			List<String> errorList = new ArrayList<>();
-			errorList.add("没有任何该课程信息");
+			errorList.add("没有任何该资源");
 			map.put("error", errorList);
+			return map;
 		}
-		return map;
+		
 	}
 }

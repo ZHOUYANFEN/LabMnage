@@ -119,19 +119,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            success:function(coursedata){
 		            for(var i=0;i<coursedata.list.length;i++){
 		               $("#courseInfo").append("<tr>"
-							                       +"<th style='width:80px;text-align:center'><input type='checkbox' id='"+coursedata.list[i].csy060+"'/></th>"
-							                       +"<th style='width:80px;text-align:center'>"+coursedata.list[i].csy061+"</th>"
-							                       +"<th style='width:80px;text-align:center'>"+coursedata.list[i].csy06a+"</th>"
-							                       +"<th style='width:80px;text-align:center'>"+coursedata.list[i].csy062+"</th>"
-							                       +"<th style='width:80px;text-align:center'>"+coursedata.list[i].csy063+"</th>"
-							                       +"<th style='width:120px;text-align:center'>"+coursedata.list[i].csy064+"</th>"
-							                     /*   +"<th style='width:80px;text-align:center'>"+coursedata.list[i].csy069+"</th>" */
-							                       +"<th style='width:80px;text-align:center'>"+coursedata.list[i].csy066+"</th>"
-							                       +"<th style='width:80px;text-align:center'>"+coursedata.list[i].csy068+"</th>"
-							                       +"<th style='width:80px;text-align:center'>"
+							                       +"<td style='width:80px;text-align:center'><input type='checkbox' id='"+coursedata.list[i].csy060+"'/></td>"
+							                       +"<td style='width:80px;text-align:center'>"+coursedata.list[i].csy061+"</td>"
+							                       +"<td style='width:80px;text-align:center'>"+coursedata.list[i].csy06a+"</td>"
+							                       +"<td style='width:80px;text-align:center'>"+coursedata.list[i].csy062+"</td>"
+							                       +"<td style='width:80px;text-align:center'>"+coursedata.list[i].csy063+"</td>"
+							                       +"<td style='width:120px;text-align:center'>"+coursedata.list[i].csy064+"</td>"
+							                     /*   +"<td style='width:80px;text-align:center'>"+coursedata.list[i].csy069+"</td>" */
+							                       +"<td style='width:80px;text-align:center'>"+coursedata.list[i].csy066+"</td>"
+							                       +"<td style='width:80px;text-align:center'>"+coursedata.list[i].csy068+"</td>"
+							                       +"<td style='width:80px;text-align:center'>"
 							                       /*  +"<input type='button' class='apply-button btn btn-primary btn-xs' value='修改' data-toggle='modal' data-target='#myModal'>" */
 							                        +"<input type='button' class='apply-button btn btn-primary btn-xs' style='margin-left:3px' value='删除' onclick='deleteCourse("+coursedata.list[i].csy060+")'>"
-							                       +"</th>"							                    
+							                       +"</td>"							                    
 							                  +"</tr>");
 		            }
 		        }

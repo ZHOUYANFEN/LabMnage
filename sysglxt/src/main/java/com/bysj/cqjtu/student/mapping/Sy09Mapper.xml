@@ -147,7 +147,10 @@
   <select id="queryReport" resultType="com.bysj.cqjtu.student.domain.Sy09">
     select * from sy09 where CSY095=0;
   </select>
-  
+  <!-- 根据 实验id查询实验-->
+  <select id="queryReportByid" resultType="com.bysj.cqjtu.student.domain.Sy09" parameterType="java.lang.Integer">
+    select * from sy09 where CSY095=0 and CSY080 = #{csy080,jdbcType=INTEGER}
+  </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

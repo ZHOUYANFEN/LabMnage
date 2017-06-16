@@ -86,4 +86,6 @@ public interface Sy09Mapper {
      */
     List<Sy09> queryReport();
     
+    List<Sy09> queryReportByid(Integer csy080);
+    
 }

@@ -131,4 +131,23 @@
       </if>
     </trim>
   </insert>
+  <!-- 查询学生的成绩 -->
+  <select id="queryScore" resultType="com.bysj.cqjtu.student.domain.Sy07">
+  	select *
+  	from sy07
+  </select>
+  <!-- 查询某个学生的成绩 -->
+  <select id="queryScoreById" resultType="com.bysj.cqjtu.student.domain.Sy07">
+  	select *
+  	from sy07
+  	where csy040 = #{csy040}
+  	and csy060= #{csy060}
+  </select>
+  <!-- 修改分数 -->
+  <update id="updateByPrimaryKey" parameterType="com.bysj.cqjtu.student.domain.Sy07" >
+    update sy07
+    set csy071 = #{csy071}
+    where csy040 = #{csy040,jdbcType=VARCHAR}
+     and csy060= #{csy060,jdbcType=VARCHAR}
+  </update>
 </mapper>

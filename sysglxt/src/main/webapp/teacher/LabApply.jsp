@@ -41,9 +41,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body  style="font-family:'黑体';font-size:16px">
     <div>
-        <div>
-            <label>申请状态</label>
-	        <select id="apply_statu" onchange="init(this.value)">
+        <div  style="width:280px;margin:10px">
+            <span  style="display:inline-block;margin-top:5px;">申请状态:</span>
+	        <select id="apply_statu" onchange="init(this.value)" class="form-control pull-right"
+			style="width: 200px;padding:0;">
 	            <option value="3">全部</option>
 	            <option value="0">审核中</option>
 	            <option value="1">审核通过</option>
@@ -74,12 +75,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	      		</div>
   	      		<div class="modal-footer" style="text-align: center">
   	      			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="aaa()">取消</button>
-  	      			<button type="submit" class="btn btn-primary" data-dismiss="modal" onclick="applymsg()">确认</button>
+  	      			<button type="submit" class="btn btn-primary"  onclick="applymsg()">确认</button>
   	      		</div>
   	      	</div>
   	     </div>
     </div>
-     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+     <!-- <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
   	    	<div class="modal-content">
   	      		<div class="modal-header">
@@ -98,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	      		</div>
   	      	</div>
   	     </div>
-    </div>
+    </div> -->
   </body>
   <script type="text/javascript">
   /*
@@ -260,29 +261,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	     
   	    var weekarray=week_array.join(',');//将数组元素连接起来以构建一个字符串  
   	  	var csy122 = $("#csy122").val();//申请目的
-  	  	var csy123 = $("#csy123").val();//备注
-  	  	var sy12={
-  	  			"csy126":weekarray,
-  	  			"csy110":csy110,
-  	  			"csy122":csy122,
-  	  			"csy123":csy123
-  	  	};
-
-  	   $.ajax({
-            type:'POST',
-            url:"${pageContext.request.contextPath}/teacher/addLabArrange",
-            contentType:"application/json;charset=utf-8",
-            data:JSON.stringify(sy12),
-            dataType: "json",
-            success:function(data){
-           	 if(data.statu=='success'){
-           		 sweetAlert("正在申请中");
-           		  $("#form2").empty();
-           		 $("#apply_statu").val(0);
-           		  init(0);
-           	   }
-            }                 
-      });		 						
+  	  	if(!csy122){
+  	  		 sweetAlert("没有填写目的");
+	         /* return; */
+  	  	}else{
+	  	  	var csy123 = $("#csy123").val();//备注
+	  	  	var sy12={
+	  	  			"csy126":weekarray,
+	  	  			"csy110":csy110,
+	  	  			"csy122":csy122,
+	  	  			"csy123":csy123
+	  	  	};
+	
+	  	   $.ajax({
+	            type:'POST',
+	            url:"${pageContext.request.contextPath}/teacher/addLabArrange",
+	            contentType:"application/json;charset=utf-8",
+	            data:JSON.stringify(sy12),
+	            dataType: "json",
+	            success:function(data){
+	           	 if(data.statu=='success'){
+	           		 sweetAlert("正在申请中");
+	           		  $("#form2").empty();
+	           		 $("#apply_statu").val(0);
+	           		  init(0);
+	           		$("#myModal").modal("hide");
+	           	   }
+	            }                 
+	      });	
+  	  	}
   	 }
   	 
   	 /*

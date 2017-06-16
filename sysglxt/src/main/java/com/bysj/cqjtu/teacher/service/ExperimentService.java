@@ -6,6 +6,7 @@ import java.util.Map;
 import com.bysj.cqjtu.manager.domain.Sy04;
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
 import com.bysj.cqjtu.student.domain.Sy06;
+import com.bysj.cqjtu.student.domain.Sy07;
 import com.bysj.cqjtu.student.domain.Sy08;
 import com.bysj.cqjtu.student.domain.Sy09;
 
@@ -38,7 +39,7 @@ public interface ExperimentService {
 	 * 更改实验完成情况，对实验报告评分
 	 * @param sy09
 	 */
-	void updateReposrt(Sy09 record);
+	int updateReposrt(Sy09 record);
 	
 	Sy09 queryBykey(int csy090);
 	
@@ -70,4 +71,23 @@ public interface ExperimentService {
 	 * @return
 	 */
 	List<Sy08Exp> searchExp(String record);
+	/**
+	 * 查询所有学生的课程
+	 * @return
+	 */
+	public Map queryClass();
+	
+	/**
+	 * 查询某个学生的课程
+	 * @return
+	 */
+	public Map queryStudentClass(Sy07 record);
+	
+	int insert(Sy07 record);
+	/**
+	 * 根据实验id查询所有实验
+	 * @param parseInt
+	 * @return
+	 */
+	Map queryReportByid(int parseInt);
 }

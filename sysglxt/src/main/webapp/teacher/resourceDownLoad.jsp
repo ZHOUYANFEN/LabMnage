@@ -146,8 +146,6 @@ table{
 				<input type="text"
 					id="search_text" placeholder="搜索">
 			</div>
-			<!-- <button id="search" style="margin-right: 8px;height: 33px" onclick="searchResource()">搜索</button>
-			<button id="upload">上传</button> -->
 			<button type="button" class="btn btn-default" aria-label="Left Align" id="search" style="margin-left: 30px;height: 31px;;margin-top:-1px" onclick="searchResource()">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                          搜索
@@ -292,42 +290,63 @@ $(document).ready(function(){
 /**
  * 搜索功能
  */
-function searchClass(){
+function searchResource(){
   		var resourceName = $("#search_text").val();
-  		alert(resourceName);
   		$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/teacher/searchResource",
   			data: {'searchitems':resourceName.toString()}, 
   			success:function(data){
   				var Data = data;
-  				var resultList;
-  				var error;
+  				var resourcelist;
+  				var personList;
+  				var typeList;
+  				var error=null;
   				for(var key in Data) {
-  					alert(key);
-  					if("error" == key){
-  						error = Data[key];
-  						sweetAlert(error[0]);
-  					}else{
-  						resultList = Data[key];
-  						console.log(resultList);
-  						$("#expInfo tr:not(:first)").empty(""); 
-  		  				for(var i=0;i<resultList.length;i++){
-  		  					$("#expInfo").append("<tr style='width:800px;'>"
-  		  		  					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+resultList[i].csy080+"'/></td> "
-  		  		  					+"<td style='text-align:center'>"+resultList[i].csy061+"</td>"
-  		  		  					+"<td style='text-align:center'>"+resultList[i].csy081+"</td>"
-  		  		  					+"<td style='text-align:center'>"+resultList[i].csy052+"</td>"
-  		  		  					+"<td style='text-align:center'><div class='content'>"+resultList[i].csy082+"</div></td>"
-  		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-  		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-  		  		  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='修改' onclick=''>"
-  		  		  					+"<input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
-  		  		  					+"</tr>");
-  		  				}
+  					console.log(key);
+  					console.log(Data[key])
+  					if("Sy13"==key){
+  						resourcelist = Data[key];
+  					}
+  					if("Sy02"==key){
+  						personList = Data[key];
+  					}
+  					if("Sy16"==key){
+  						typeList = Data[key];
+  					}
+  					if("error"==key){
+  						error=Data[key];
   					}
   				}
-
+  				if(error!=null){
+  					sweetAlert(error[0]);
+  				}else{
+	  				$("#t_body").empty(); 
+  					for(var i=0;i<resourcelist.length;i++){
+  	  					var name;
+  	  					var type;
+  	  					if(resourcelist[i].csy020==personList[i].csy020){
+  	  						name = personList[i].csy021;
+  	  					}
+  	  					if(resourcelist[i].csy160==typeList[i].csy160){
+  	  						type = typeList[i].csy161;
+  	  					}
+  	  					console.log(personList[0].csy021);
+  	  					var date = new Date(resourcelist[i].csy136);
+  	  					var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+  	  					$("#t_body").append("<tr><td class='text'><div class='checkbox-div'>"
+  	  							+"</div><a class='download' href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"+resourcelist[i].csy131+"</a></td>"
+  	  							+"<td>"+dateTime+"</td>"
+  	  							+"<td>"+resourcelist[i].csy138+"</td>"
+  	  							+"<td>"+name+"</td>"
+  	  							+"<td><a class='download' href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"
+  	  							+"<span class='glyphicon glyphicon-save'></span>"
+  	  							+"</button></td>"
+  	  							+"</tr>")
+  	  					}
+  					sweetAlert("搜索成功！");
+  					
+  				}
   			}
   		});
   	}

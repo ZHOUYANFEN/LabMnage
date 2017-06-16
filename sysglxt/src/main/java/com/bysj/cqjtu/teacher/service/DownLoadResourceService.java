@@ -19,5 +19,12 @@ public interface DownLoadResourceService {
 	 * @return
 	 */
 	int insert(Sy13 record);
+	/**
+	 * 根据名称查询资源
+	 * @param resourceName
+	 * @return
+	 */
+	Map<String,List> searchResource(String resourceName);
+	
 
 }
