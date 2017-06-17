@@ -3,6 +3,7 @@ package com.bysj.cqjtu.manager.dao;
 import java.util.List;
 
 import com.bysj.cqjtu.manager.domain.Sy08Exp;
+import com.bysj.cqjtu.student.domain.Sy06;
 import com.bysj.cqjtu.student.domain.Sy08;
 
 public interface Sy08MapperExp {
@@ -44,6 +45,12 @@ public interface Sy08MapperExp {
 	 * @return
 	 */
 	List<Sy08Exp> searchExp(String record);
+	/**
+	 * 查询该教师所有课程
+	 * @param csy050
+	 * @return
+	 */
+	List<Sy06> queryExpName(Integer csy050);
 	
 	
 }

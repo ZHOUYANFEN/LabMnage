@@ -96,4 +96,10 @@ public interface ExperimentService {
 	 * @return
 	 */
 	Map queryClassByid(int csy060);
+	/**
+	 * 查实验课程名
+	 * @param csy050
+	 * @return
+	 */
+	List<Sy06> queryExpName(Integer csy050);
 }

@@ -78,6 +78,9 @@
      AND sy08.CSY085=0
      AND sy06.CSY061 LIKE CONCAT(CONCAT('%',#{CSY061}),'%')
   </select>
+  <select id="queryExpName" resultType="com.bysj.cqjtu.student.domain.Sy06">
+   SELECT DISTINCT CSY060,CSY061  from sy06 WHERE CSY050 = #{csy050}
+  </select>
   
   
   

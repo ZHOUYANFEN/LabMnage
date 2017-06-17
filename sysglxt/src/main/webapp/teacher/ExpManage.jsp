@@ -166,14 +166,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
  
  		$("#add_model").click(function(){
- 			$("#myModal #select").empty();
+ 			$("#myModal #select option:not(:first)").remove();
   	  		$.ajax({
   	  			type:'POST',
   	  			url:"${pageContext.request.contextPath}/expManage/queryExpName",
   	  			success:function(data){
   	  				for(var i=0;i<data.length;i++){
-  	  					$("#myModal #select").append("<option>---请选择课程---</option>"
-  	  							+"<option>"+data[i]+"</option>");
+  	  					$("#myModal #select").append("<option>"+data[i].csy061+"</option>");
   	  				};
   	  			}
   	  		});
@@ -186,13 +185,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	function init(){
   		$("#expInfo tr:not(:first)").empty(""); 
   		$(".tcdPageCode").empty();
-  		 pageSize=5;
+  		 pageSize=10;
   		query(1,pageSize);
   		$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/expManage/queryExp",
   			success:function(data){
-  				console.log(data);
 /*   				for(var i=0;i<data.length;i++){
   					$("#expInfo").append("<tr style='width:800px;'>"
   					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+data[i].csy080+"'/></td> "
@@ -215,6 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			}
   		});
   	}
+  	//分页查询
   	function query(pageNum,pageSize){
   		$.ajax({
   			type:'POST',
@@ -343,9 +342,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						sweetAlert(error[0]);
   					}else{
   						resultList = Data[key];
-  						console.log(resultList);
   						$("#expInfo tr:not(:first)").empty(""); 
-  		  				for(var i=0;i<resultList.length;i++){
+  					  	$(".tcdPageCode").empty();
+  				  		searchpage(1,pageSize);
+  						/* console.log(resultList); */
+/*   		  				for(var i=0;i<resultList.length;i++){
   		  					$("#expInfo").append("<tr style='width:800px;'>"
   		  		  					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+resultList[i].csy080+"'/></td> "
   		  		  					+"<td style='text-align:center'>"+resultList[i].csy061+"</td>"
@@ -356,13 +357,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		  		  					+"<td style='text-align:center'>"+(new Date(resultList[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
   		  		  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
   		  		  					+"</tr>");
-  		  				}
+  		  				} */
+  		  			$(".tcdPageCode").createPage({
+  	                    pageCount:Math.ceil((resultList.length/pageSize)),
+  	                    current:1,
+  	                    backFn:function(pageNum){
+  	                    	searchpage(pageNum,pageSize);
+  	                    }
+  	                }); 
   					}
   				}
 
   			}
   		});
   	}
+  	//按条件搜索查询后分页
+  	function searchpage(pageNum,pageSize){
+  		var className = $("#search_text").val();
+  		$.ajax({
+  			type:'POST',
+  			url:"${pageContext.request.contextPath}/expManage/searchExp2?pageNum="+pageNum+"&pageSize="+pageSize,
+  			data: {'searchitems':className.toString()}, 
+  			success:function(data){
+  		  				for(var i=0;i<data.list.length;i++){
+  		  					$("#expInfo").append("<tr style='width:800px;'>"
+  		  		  					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+data.list[i].csy080+"'/></td> "
+  		  		  					+"<td style='text-align:center'>"+data.list[i].csy061+"</td>"
+  		  		  					+"<td style='text-align:center'>"+data.list[i].csy081+"</td>"
+  		  		  					+"<td style='text-align:center'>"+data.list[i].csy052+"</td>"
+  		  		  					+"<td style='text-align:center'><div class='content'>"+data.list[i].csy082+"</div></td>"
+  		  		  					+"<td style='text-align:center'>"+(new Date(data.list[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  		  		  					+"<td style='text-align:center'>"+(new Date(data.list[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  		  		  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
+  		  		  					+"</tr>");
+  		  				}
+  			}
+  		});
+  	}
+  	
 
   
 

@@ -307,6 +307,10 @@ public class ExpetimentServiceImpl implements ExperimentService {
 		map.put("Sy04", sy04List);
 		return map;
 	}
+	@Override
+	public List<Sy06> queryExpName(Integer csy050) {
+		return sy08.queryExpName(csy050);
+	}
 	
 
 }

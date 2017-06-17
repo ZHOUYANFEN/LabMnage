@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,10 @@ import com.github.pagehelper.PageHelper;
 @Controller
 @RequestMapping("/expManage")
 public class ExpManagerController {
+	/**
+	 * 日志记录对象
+	 */
+	private static final Logger LOGGER = Logger.getLogger(ExpManagerController.class);
 
 	@Autowired
 	private ExperimentService expManageService;
@@ -44,23 +49,16 @@ public class ExpManagerController {
 	 */
 	@RequestMapping("/queryExpName")
 	@ResponseBody
-	@SystemControllerLog(description ="查询出实验安排")
-	public List<String> queryExpName(HttpSession session){
+	@SystemControllerLog(description ="查询课程名称")
+	public List<Sy06> queryExpName(HttpSession session){
+		List<Sy06> list = new ArrayList<>();
+		try{
 	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
-	    List<String> result = new ArrayList<>();
-		List<Sy08Exp> list = new ArrayList<>();
-		list = expManageService.queryExp(userMessage.getSy05().getCsy050());
-		for(Sy08Exp s : list){
-			result.add(s.getCsy061());
+		list = expManageService.queryExpName(userMessage.getSy05().getCsy050());
+		}catch(Exception e){
+			LOGGER.error("查询课程名称失败", e);
 		}
-		//去重
-		HashSet<String> hash = new HashSet<>(result);
-		result.clear();
-		result.addAll(hash);
-		for(String name:result){
-			System.out.println("课程名"+name);
-		}
-		return result;
+		return list;
 	}
 	
 	/**
@@ -118,12 +116,14 @@ public class ExpManagerController {
 			int num = expManageService.deleteExp(item);
 			if(num>0){
 				map.put("status", "删除成功");
+				LOGGER.info("删除实验成功");
 				
 			}else{
 				map.put("status", "删除实验失败");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+			LOGGER.error("删除实验失败",e);
 		}
 		return map;
 		
@@ -201,7 +201,6 @@ public class ExpManagerController {
 				if(s.getCsy050().equals(String.valueOf(id))){
 					resultList.add(s);
 				}
-				System.out.println("结果"+s.getCsy050()+"  "+s.getCsy061());
 			}
 			map.put("result", resultList);
 		}else{
@@ -210,5 +209,34 @@ public class ExpManagerController {
 			map.put("error", errorList);
 		}
 		return map;
+	}
+	/**
+	 * 搜索课程，模糊查询
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/searchExp2")
+	@ResponseBody
+	public PageEntity<Sy08Exp> searchExp2(HttpServletRequest request,Integer pageNum, Integer pageSize,HttpSession session){
+	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
+		int id = userMessage.getSy05().getCsy050();
+		List<Sy08Exp> resultList = new ArrayList<>();
+		String items = request.getParameter("searchitems");
+		List<Sy08Exp> list = expManageService.searchExp(items);
+	    PageHelper.startPage(pageNum, pageSize);
+	    PageEntity<Sy08Exp> pageBean = new PageEntity<Sy08Exp>();
+		if(list.size()!=0){
+			for(Sy08Exp s :list ){
+				if(s.getCsy050().equals(String.valueOf(id))){
+					resultList.add(s);
+				}
+				System.out.println("结果"+s.getCsy050()+"  "+s.getCsy061());
+			}
+		}
+        pageBean.setList(resultList);
+        pageBean.setCount(resultList.size());
+		return pageBean;
 	}
 }
