@@ -21,7 +21,7 @@
 		      <td>课程</td>
 		      <td>开课教师</td>
 		      <td>开课学院</td>		      
-		      <td>班级</td>
+		      <!-- <td>班级</td> -->
 		      <td>学时</td>
 		      <td>学分</td>
 		  </tr>
@@ -115,7 +115,7 @@
 					                        	              +"<td>"+data[i].csy061+"</td>"
 					                        	              +"<td>"+data[i].csy051+"</td>"
 					                        	              +"<td>"+data[i].csy052+"</td>"         
-					                        	              +"<td>"+data[i].csy069+"</td>"
+					                        	         /*      +"<td>"+data[i].csy069+"</td>" */
 					                        	              +"<td>"+data[i].csy062+"</td>"
 					                        	              +"<td>"+data[i].csy063+"</td>"
 					                        	              +"</tr>");

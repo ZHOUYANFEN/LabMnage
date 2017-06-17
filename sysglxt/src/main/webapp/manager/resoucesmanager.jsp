@@ -140,6 +140,7 @@
                         type:'post',
                         url:"${pageContext.request.contextPath}/resource/queryResourceList?csy160="+csy160,
                         success:function(data){
+                        	console.log(data);
                             $("#resorcehead").siblings().remove();
                             for(var i=0;i<data.length;i++){                          
                                 $("#"+csy160).after("<ul>"
@@ -155,10 +156,10 @@
                                 
                                 $("#resourcelist").append("<tr onclick='queryResourceDetail("+data[i].csy130+")' data-toggle='modal' data-target='#rosourcedetail'>"
                                                                 +"<td >"+data[i].csy131+"</td>"
-                                                                +"<td >上传人</td>"
+                                                                +"<td >"+data[i].csy021+"</td>"
                                                                 +"<td >"+data[i].csy133+"</td>"
                                                                 +"<td >"+(new Date(data[i].csy136).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-                                                                +"<td><button type='button' class='btn btn-primary btn-xs'  onclick='queryResourceDetail("+data[i].csy130+")'>详情</button>"
+                                                                +"<td style='width:106px'><button type='button' class='btn btn-primary btn-xs'  onclick='queryResourceDetail("+data[i].csy130+")'>详情</button>"
                                                                 +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='download("+data[i].csy130+")'><span class='glyphicon glyphicon-download' aria-hidden='true'></span>下载</button></td>"
                                                                 +"</tr>");
                             }

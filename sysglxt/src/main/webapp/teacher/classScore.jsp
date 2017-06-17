@@ -242,6 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			url:"${pageContext.request.contextPath}/classScore/updateStudentClass",
   			data: {'items':resultList.toString()}, 
   			success:function(data){
+  				console.log(data);
   				sweetAlert(data.Status);
   				var selectValue = $("#select").val();
   				changeClass(selectValue);

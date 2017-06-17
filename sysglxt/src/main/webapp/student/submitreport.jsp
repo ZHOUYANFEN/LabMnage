@@ -20,10 +20,10 @@
 <body  style="font-family:'黑体';font-size:16px">
   
     <h2 align="center">实验列表</h2>
-    <div id="button_querymenu" style="margin-top:20px;margin-left:60px">
-     <div style="float:left;margin-right:30px;margin-bottom:10px">
-            <label style="font-family:'黑体';font-size:16px"> 课程名称:</label>
-            <select style="width:122px;height:30px"  id="csy061" ></select>    
+    <div id="button_querymenu" style="margin-top:20px">
+     <div style="float:left;margin-bottom:3px">
+            <!-- <label style="font-family:'黑体';font-size:16px">  -->课程名称:<!-- </label> -->
+            <select style="width:122px;height:30px"  id="csy061"  class="form-control pull-right"></select>    
         </div>                    
 
                                          
@@ -36,12 +36,12 @@
     <div id="button_querymenu" style="margin-top:40px;margin-left:5px;width:950px">
         <table class="table table-hover" id="sy08" style="font-size:10px;margin-top:20px" >
             <tr style="width:600px;" id="menuhead">
-                <td >课程</td>
-                <td >实验名称</td>
-                <td >布置时间</td>
-                <td >截止时间</td>
-                <td >完成状态</td>
-                <td >操作</td>
+                <th >课程</td>
+                <th >实验名称</td>
+                <th >布置时间</td>
+                <th >截止时间</td>
+                <th >完成状态</td>
+                <th >操作</td>
             </tr>
         </table>      
     </div>
@@ -168,7 +168,7 @@
                  $("#csy084").val(data[0].CSY084);
                  $("#csy083").val(data[0].CSY083);
                  $("#csy084").val(data[0].CSY084);
-                 $("#csy082").text("内容："+data[0].CSY082);
+                 $("#csy082").html("内容："+data[0].CSY082);
             }
     	});
     }

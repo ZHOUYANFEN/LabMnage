@@ -91,6 +91,7 @@
                     type:'post',
                     url:"${pageContext.request.contextPath}/student/queryExpArrangeList?csy060="+data,
                     success:function(list){
+                    	console.log(list);
                         for(var i=0;i<list.length;i++){
                             var csy083=new Date(parseInt(list[i].csy083)).toLocaleString().replace(/:\d{1,2}$/,' ').substring(0,9);
                             var csy084=new Date(parseInt(list[i].csy084)).toLocaleString().replace(/:\d{1,2}$/,' ').substring(0,9);
@@ -116,6 +117,7 @@
             type:'post',
             url:"${pageContext.request.contextPath}/student/queryExpArrangeContent?csy080="+data,
             success:function(data){
+            	console.log(data);
                $("#csy081").text(data[0].CSY081);
                $("#csy080").val(data[0].CSY080);
                $("#csy061").text("所属课程："+data[0].csy061);
@@ -124,7 +126,7 @@
                $("#csy084").text("完成时间："+data[0].CSY084);
                $("#csy083").val(data[0].CSY083);
                $("#csy084").val(data[0].CSY084);
-               $("#csy082").text("内容："+data[0].CSY082);
+               $("#csy082").html("内容："+data[0].CSY082);
             }
         })
     }

@@ -44,7 +44,7 @@
             			if(i%2==0){
 	            			$("#announcementlist").append("<dd class='pos-left clearfix'>"
 	            				                         +"<div class='circ'></div>"
-	            				                         +"<div class='time' style='width:200px'>"+ (new Date(data[i].csy142).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</div>"
+	            				                         +"<div class='time' style='width:200px'>"+ (new Date(data[i].csy142).toLocaleDateString().replace(/\//g,"-").substr(0,9))+"</div>"
 	            				                         +"<div class='events'>"
 	            				                         +"<div class='events-header'>"+data[i].csy141+"</div>"
 	            				                         +"<div class='events-body' >"

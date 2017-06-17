@@ -160,7 +160,7 @@ table{
 	</div>
 	<table class="table table-hover">
 		<thead>
-			<tr style="background-color: rgb(243,243,244);color:rgb(119,119,119)">
+			<tr  style="background-color: rgb(243,243,244);color:rgb(119,119,119)">
 				<th style="width:30%">文件</th>
 				<th style="width:20%">更新时间</th>
 				<th style="width:13%">大小</th>
@@ -260,14 +260,68 @@ $(document).ready(function(){
 						+"<td><a class='download' href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"
 						+"<span class='glyphicon glyphicon-save'></span>"
 						+"</button></td>"
-						+"</tr>")
+						+"</tr>");
 				}
 				
 		}
 
 		
 	});
-    
+    /*初始化*/
+    function init(){
+    	$("#t_body").empty();
+        $.ajax({
+            type:'POST',
+            url:"${pageContext.request.contextPath}/resourceDownload/resourceShow",
+            success:function(data){
+                var Data = data;
+                console.log(Data);
+                var resourcelist;
+                var personList;
+                var typeList;
+                for(var key in Data) {
+                    console.log(key);
+                    console.log(Data[key])
+                    if("Sy13"==key){
+                        resourcelist = Data[key];
+                    }
+                    if("Sy02"==key){
+                        personList = Data[key];
+                    }
+                    if("Sy16"==key){
+                        typeList = Data[key];
+                    }
+                    
+                }
+                for(var i=0;i<resourcelist.length;i++){
+                    console.log(resourcelist[i].csy136);
+                    var name;
+                    var type;
+                    if(resourcelist[i].csy020==personList[i].csy020){
+                        name = personList[i].csy021;
+                    }
+                    if(resourcelist[i].csy160==typeList[i].csy160){
+                        type = typeList[i].csy161;
+                    }
+                    console.log(personList[0].csy021);
+                    var date = new Date(resourcelist[i].csy136);
+                    var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                    $("#t_body").append("<tr><td class='text'><div class='checkbox-div'>"
+                            +"</div><a class='download' href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"+resourcelist[i].csy131+"</a></td>"
+                            +"<td>"+dateTime+"</td>"
+                            +"<td>"+resourcelist[i].csy138+"</td>"
+                            +"<td>"+name+"</td>"
+                            +"<td><a class='download' href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"
+                            +"<span class='glyphicon glyphicon-save'></span>"
+                            +"</button></td>"
+                            +"</tr>");
+                    }
+                    
+            }
+
+            
+        });
+    }
     // 文件上传功能
     $("#upload").click(function() {
     	$("#file").click();
@@ -282,7 +336,9 @@ $(document).ready(function(){
     		contentType:false,
     		processData:false,
     		success:function(data){
-    			alert(data);
+    			init();
+    			
+    			sweetAlert(data);
     		}
     	});
     });

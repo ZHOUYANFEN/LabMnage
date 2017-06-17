@@ -3,7 +3,7 @@
 <!DOCTYPE>
 <html>
 <head>
-     <title>成绩统计</title>
+     <title>教师实验安排统计</title>
      <%@include  file="/common/pt_head.jsp"%>
     <!-- echarts -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/echarts/echarts.js"></script>
@@ -21,7 +21,7 @@
 	              <td>教师</td>
 	              <td>课程名称</td>
 	              <td>实验次数</td>
-	              <td>班级</td>           
+	              <!-- <td>班级</td>  -->          
 	          </tr>
 	        </table>
     </div>
@@ -72,13 +72,12 @@
                             url:"${pageContext.request.contextPath}/statistic/expListStatistics?csy052="+param.name,
                             success:function(expdata){
                                  $("#exphead").siblings().remove();
-                                 console.log(expdata);
                                  for(var i=0;i<expdata.length;i++){
                                      $("#explist").append("<tr>"
                                                                  +"<td>"+expdata[i].csy051+"</td>"
                                                                  +"<td>"+expdata[i].csy061+"</td>"
                                                                  +"<td>"+expdata[i].csy080+"</td>"          
-                                                                 +"<td>"+expdata[i].csy069+"</td>"
+                                                                /*  +"<td>"+expdata[i].csy069+"</td>" */
                                                                +"</tr>");
                                  }
                             }

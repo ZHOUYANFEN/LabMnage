@@ -29,14 +29,14 @@
 	        <table class="table table-hover" id="applylist" style="font-size:10px">
               <tr style="width:800px;" id="applyhead">
                 <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox()"/></td>
-                <td>实验室名称</td>
-                <td>实验室位置</td>
-                <td>实验室类别</td>
-                <td>申请人</td>
-                <td>申请时间</td>
-                <td>申请目的</td>
-                <td>备注</td>
-                <td>操作</td>
+                <th>实验室名称</th>
+                <th>实验室位置</th>
+                <th>实验室类别</th>
+                <th>申请人</th>
+                <th>申请时间</th>
+                <th>申请目的</th>
+                <th>备注</th>
+                <th>操作</th>
             </tr>
 	        </table>
 	        <div class="tcdPageCode"></div>

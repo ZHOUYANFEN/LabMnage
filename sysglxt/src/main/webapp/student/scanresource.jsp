@@ -155,10 +155,10 @@
                                 
                                 $("#resourcelist").append("<tr onclick='queryResourceDetail("+data[i].csy130+")' data-toggle='modal' data-target='#rosourcedetail'>"
 								                                +"<td >"+data[i].csy131+"</td>"
-								                                +"<td >上传人</td>"
+								                                +"<td >"+data[i].csy021+"</td>"
 								                                +"<td >"+data[i].csy133+"</td>"
 								                                +"<td >"+(new Date(data[i].csy136).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-								                                +"<td><button type='button' class='btn btn-primary btn-xs'  onclick='queryResourceDetail("+data[i].csy130+")'>详情</button>"
+								                                +"<td style='width:106px'><button type='button' class='btn btn-primary btn-xs'  onclick='queryResourceDetail("+data[i].csy130+")'>详情</button>"
 								                                +"&nbsp<button type='button' class='btn btn-primary btn-xs' onclick='${pageContext.request.contextPath}/student/download?csy130="+data[i].csy130+"'><span class='glyphicon glyphicon-download' aria-hidden='true'></span>下载</button></td>"
 								                                +"</tr>");
                             }
@@ -171,7 +171,8 @@
  
         /*查询每个资源的详情*/
         function queryResourceDetail(csy130){
-        	$("#download").attr("onclick","onclick='${pageContext.request.contextPath}/student/download?csy130="+csy130);
+        	/* $("#download").attr("onclick","${pageContext.request.contextPath}/student/download?csy130="+csy130); */
+        	 $("#download").attr("onclick","download("+csy130+")");
         	$.ajax({
                 type:'post',
                 url:"${pageContext.request.contextPath}/student/queryResourceDetail?csy130="+csy130,
@@ -197,14 +198,15 @@
         }
         /*下载资源*/
         function download(csy130){
-        	$.ajax({
+        	/* $.ajax({
                 type:'post',
                 async: false,
                 url:"${pageContext.request.contextPath}/student/download?csy130="+csy130,
-                success:function(data){
+                 success:function(data){
                     
-                }
-        	});
+                } 
+        	}); */
+        	  window.location.href="${pageContext.request.contextPath}/student/download?csy130="+csy130;
         }
     </script>
 

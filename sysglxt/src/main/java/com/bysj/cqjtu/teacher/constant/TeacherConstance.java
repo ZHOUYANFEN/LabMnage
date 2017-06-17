@@ -28,5 +28,5 @@ public interface TeacherConstance {
     public static final String DELETE_SY06_ERROR = "error";
     
     public static final String CLASSSCORE_ERROR = "评分失败";
-    public static final String CLASSSCORE_SUCCESS = "评分失败";
+    public static final String CLASSSCORE_SUCCESS = "评分成功";
 }

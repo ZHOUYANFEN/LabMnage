@@ -33,7 +33,7 @@ public class ResourceServiceImpl implements ResourceService {
     public List<Map> queryResourceList(String csy160) throws Exception {
         Sy13 sy13 =new Sy13();
         sy13.setCsy160(Integer.parseInt(csy160));
-        return sy13Mapper.queryAllResourceList(sy13);
+        return sy13Mapper.queryResourceList(sy13);
     }
 
 }

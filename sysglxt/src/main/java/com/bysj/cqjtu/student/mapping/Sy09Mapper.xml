@@ -96,13 +96,8 @@
                      sy06.csy061,
                      sy06.csy060
                 from sy06 sy06,
-                     sy09 sy09,
                      sy08 sy08
-               where sy08.csy060 = sy06.csy060
-                 and sy09.csy095 = '0'
-                 and sy08.csy080 = sy09.csy080
-                 and sy08.csy085 = '0'
-                 and sy09.csy040 = #{csy040}
+               where sy08.csy060 in(select distinct csy060 from sy07 where csy040 =#{csy040})
 
             
   </select>
@@ -114,12 +109,9 @@
             sy08.csy081,
             sy08.csy083,
             sy08.csy084
-       from sy08 sy08,
-            sy09 sy09
+       from sy08 sy08
       where sy08.csy085 = '0'
-        and sy09.csy080 = sy08.csy080
         and sy08.csy060 = #{csy060}
-        and sy09.csy040 = #{csy040}
 
             
   </select>
@@ -132,13 +124,10 @@
             sy08.*
        from sy06 sy06,
             sy05 sy05,
-            sy08 sy08,
-            sy09 sy09
+            sy08 sy08
       where sy08.csy085 = '0'
         and sy08.csy060 = sy06.csy060
         and sy08.csy050 = sy05.csy050
-        and sy09.csy080 = sy08.csy080
-        and sy09.csy040 = #{csy040}
         and sy08.csy080 = #{csy080}       
 
             

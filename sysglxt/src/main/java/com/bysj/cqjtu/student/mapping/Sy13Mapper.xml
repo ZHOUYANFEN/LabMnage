@@ -18,12 +18,21 @@
   </sql>
   
    <!--查询每个类型下的资源列表  -->
-   <select id="queryResourceList" resultMap="BaseResultMap" parameterType="com.bysj.cqjtu.student.domain.Sy13" >
-    select 
-    <include refid="Base_Column_List" />
-    from sy13
-    where csy137 = 1 
-      and CSY160 = #{csy160,jdbcType=INTEGER}
+   <select id="queryResourceList" resultType="java.util.HashMap" parameterType="com.bysj.cqjtu.student.domain.Sy13" >
+    select sy13.csy130 as csy130,
+           sy13.csy131 as csy131,
+           sy13.csy133 as csy133,
+           sy13.csy134 as csy134,
+           sy13.csy135 as csy135,
+           sy13.csy136 as csy136,
+           sy13.csy137 as csy137,
+           sy13.csy138 as csy138,    
+           sy02.csy021 as csy021
+    from sy13 sy13,
+         sy02 sy02
+    where csy137 = 1
+      and sy13.csy020 = sy02.csy020 
+      and CSY160 = #{csy160}
   </select>
   
   <!-- 查询资源详细信息 -->

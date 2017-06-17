@@ -68,23 +68,23 @@
                              success:function(labdata){
                             	 $("#lablist").empty();
                             	 $("#lablist").append("<tr id='labhead'>"
-				                                         +"<td>实验室名称</td>"
-				                                         +"<td>实验室位置</td>"
-				                                         +"<td >开放时间</td>"
-				                                         +"<td>是否开放</td>"        
+				                                         +"<th>实验室名称</th>"
+				                                         +"<th>实验室位置</th>"
+				                                         +"<th>开放时间</th>"
+				                                         +"<th>是否开放</th>"        
 				                                         +"</tr>");
                             	 $("#labhead").siblings().remove();
                                  for(var i=0;i<labdata.length;i++){
-                                     if(labdata[i].csy114==0){
+                                   /*   if(labdata[i].csy114==0){
                                     	 labdata[i].csy114='开放';
                                      }else{
                                     	 labdata[i].csy114='暂不开放';
-                                     }
+                                     } */
                                      $("#lablist").append("<tr style='width:800px;'>"                                                     
-                                                         +"<td >"+labdata[i].csy111+"</td>"
-                                                         +"<td >"+labdata[i].csy112+"</td>"
-                                                         +"<td >"+labdata[i].csy113+"</td>"
-                                                         +"<td >"+labdata[i].csy114+"</td>"                                                  
+                                                         +"<td>"+labdata[i].csy111+"</td>"
+                                                         +"<td>"+labdata[i].csy112+"</td>"
+                                                         +"<td>"+labdata[i].csy113+"</td>"
+                                                         +"<td>"+labdata[i].csy114+"</td>"                                                  
                                                      +"</tr>");
                                  }
                              }
@@ -138,12 +138,12 @@
                              url:"${pageContext.request.contextPath}/statistic/labArrangeListStatistics?csy010="+param.data.id,
                              success:function(labArrangeListData){
                             	 $("#lablist").empty();
-                                  $("#lablist").append("<tr >"
-                                                         +"<td>实验室名称</td>"
-                                                         +"<td>申请人</td>"
-                                                         +"<td>申请时间</td>"
-                                                         +"<td>申请目的</td>"
-                                                         +"<td>安排时间</td>"
+                                  $("#lablist").append("<tr>"
+                                                         +"<th>实验室名称</th>"
+                                                         +"<th>申请人</th>"
+                                                         +"<th>申请时间</th>"
+                                                         +"<th>申请目的</th>"
+                                                         +"<th>安排时间</th>"
                                                          +"</tr>");
                                  //$("#labarrange").siblings().remove();
                                  for(var i=0;i<labArrangeListData.length;i++){
