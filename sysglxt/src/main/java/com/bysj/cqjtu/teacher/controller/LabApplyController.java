@@ -2,6 +2,7 @@ package com.bysj.cqjtu.teacher.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -123,6 +124,19 @@ public class LabApplyController {
 		}
 		return labManager;
 		
+	}
+	/**
+	 * 按条件查询
+	 * @param csy111
+	 * @param csy101
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryLabCountByCondition")
+	@ResponseBody
+	@SystemControllerLog(description ="按条件查询")
+	public List<Map> queryLabCountByCondition(String csy111,String csy101) throws Exception{
+	    return labService.queryLabCountByCondition(csy111,csy101);
 	}
 
 }

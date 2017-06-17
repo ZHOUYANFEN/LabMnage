@@ -114,6 +114,19 @@ public  class LabApplyServiceImpl implements LabApplyService {
         return map;
     }
 
+    @Override
+    public List<Map> queryLabCountByCondition(String csy111, String csy101)
+            throws Exception {
+        Map map= new HashMap();
+        if(csy111!=""){
+            map.put("csy111", csy111); 
+        }
+        if(csy101!=""){
+            map.put("csy101", csy101);
+        }
+        return sy11.queryLabCountByCondition(map);
+    }
+
 
 
 

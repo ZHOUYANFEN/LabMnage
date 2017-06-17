@@ -50,25 +50,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <option value="0">审核中</option>
 	            <option value="1">审核通过</option>
 	            <option value="2">审核不通过</option>	           
-	        </select>
+	        </select>	                     
 	    </div>
-<!-- 		<div style="width:280px;">
-			<span style="display:inline-block;margin-top:5px;">实验室类别：</span> 
-			<select
-				id="select" name="select_class" class="form-control pull-right"
-				style="width: 200px;padding:0;">
-				<option>---请选择实验室类别---</option>
-			</select>
-		</div>
-		<div style="width:280px;">
-			<span style="display:inline-block;margin-top:5px;">实验室名称：</span>
-			<select
-				id="select2" name="select_class" class="form-control pull-right"
-				style="width: 200px;padding:0;">
-				<option>---请选择实验室名称---</option>
-			</select>
-		</div> -->
-		<form id="form" method="post" action="">
+	    <div id="button_querylab" style="float:right;margin-top:-38px;margin-right:-80px">
+                                实验室名称:<input type="text" width="100px" id="search_csy111" >
+                                实验室类型:<input type="text" width="100px" id="search_csy101" >
+               <button type="button" class="btn btn-default" aria-label="Left Align" style="margin-right:100px" onclick="searchLab()">
+                   <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                              查询所有
+               </button>  
+                      
+           </div>
+    	<form id="form" method="post" action="">
     		<table class="table table-hover" id="labInfo" style="font-size:10px">
 	    		<tr id="labhead">
 	    		</tr>
@@ -183,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                   +"<td style='text-align:center'>"+data.list[i].CSY111+"</td>"
 	                   +"<td style='text-align:center'>"+data.list[i].CSY112+"</td>"
 	                   +"<td style='text-align:center'>"+data.list[i].CSY113+"</td>"
-	                   +"<td style='text-align:center'>"+data.list[i].CSY114+"</td>"
+	                   +"<td style='text-align:center'>"+data.list[i].csy114+"</td>"
 	                   +"<td style='text-align:center'>"+data.list[i].CSY115+"</td>"
 	                   +"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='申请' data-toggle='modal' data-target='#myModal' onclick='applyById("+data.list[i].CSY110+")'></td>"                   
 	                   +"</tr>");
@@ -350,6 +343,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      				);
   			} 					
   		});
+  	 }
+  	 /*按条件查找实验室*/
+  	 function searchLab(){
+  		 var csy111=$("#search_csy111").val();
+  		 var csy101=$("#search_csy101").val();
+  	     $("#apply_statu").val(3);
+  	     var apply_statu = $("#apply_statu").val();
+  		 if(!csy111&&!csy101){
+  	        init(apply_statu);
+  		 }else{
+  			   $("#labhead").empty();
+	           $("#labhead").append(
+	        		               +"<th style='text-align:center'>序号</th>"
+	                               +"<th style='text-align:center'>实验室类别</th>"
+	                               +"<th style='text-align:center'>实验室名称</th>"
+	                               +"<th style='text-align:center'>实验室位置</th>"
+	                               +"<th style='text-align:center'>开放时间</th>"
+	                               +"<th style='text-align:center'>是否开放</th>"
+	                               +"<th style='text-align:center'>实验室描述</th>"
+	                               +"<th style='text-align:center'>操作</th>"
+	                               );		      
+  		       $.ajax({
+  		           type:'POST',
+  		           url:"${pageContext.request.contextPath}/labManage/queryLabCountByCondition?csy111="+csy111+"&csy101="+csy101,
+  		           success:function(conditiondata){
+  		        	 $("#labhead").siblings().remove();
+	  		        	for(var i=0;i<conditiondata.length;i++){
+	  		        		console.log(conditiondata);
+		  		        	 $("#labInfo").append("<tr>"
+		  		        			 +"<td style='text-align:center'>"+conditiondata[i].csy110+"</td>"
+		                             +"<td style='text-align:center'>"+conditiondata[i].csy101+"</td>"
+		                             +"<td style='text-align:center'>"+conditiondata[i].csy111+"</td>"
+		                             +"<td style='text-align:center'>"+conditiondata[i].csy112+"</td>"
+		                             +"<td style='text-align:center'>"+conditiondata[i].csy113+"</td>"
+		                             +"<td style='text-align:center'>"+conditiondata[i].csy114+"</td>"
+		                             +"<td style='text-align:center'>"+conditiondata[i].csy115+"</td>"
+		                             +"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='申请' data-toggle='modal' data-target='#myModal' onclick='applyById("+conditiondata[i].csy110+")'></td>"
+		                             +"</tr>");   
+	  		        	}
+  		           }
+  		       });
+  		 }
   	 }
   </script>
 </html>

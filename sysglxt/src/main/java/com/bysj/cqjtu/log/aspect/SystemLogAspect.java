@@ -63,16 +63,16 @@ public  class SystemLogAspect {
     @After("controllerAspect()") 
     public  void doBefore(JoinPoint joinPoint) throws Exception { 
         long start = System.nanoTime();
-       /* Map map=getControllerMethodDescription(joinPoint);
-        String description = (String) map.get("description");
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
+         Map map=getControllerMethodDescription(joinPoint);
+         String description = (String) map.get("description");
+         /* HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); 
         HttpSession session = request.getSession();
         UserMessage userMessage=(UserMessage) session.getAttribute("user");
         Sy17 sy17 = new Sy17();
         if(userMessage!=null){
             sy17.setCsy171(userMessage.getSy02().getCsy021());
         }
-        sy17.setCsy172(description);
+        sy17.setCsy172("访问");
         sy17.setCsy173(GetSystemUtil.getIpAddr(request));
         sy17.setCsy174(DateFormatUtil.getNewTime(1));
         sy17.setCsy175(GetSystemUtil.getRequestBrowserInfo(request));
@@ -81,8 +81,9 @@ public  class SystemLogAspect {
         sy17.setCsy178(GetSystemUtil.getMacAddress(GetSystemUtil.getIpAddr(request)));
         sy17Mapper.addSy17(sy17);
         logger.info(sy17.toString());*/
+        logger.info(description);
         long end = System.nanoTime();
-        System.out.println(end -start);
+        //System.out.println(end -start);
     }    
     
     /**  
