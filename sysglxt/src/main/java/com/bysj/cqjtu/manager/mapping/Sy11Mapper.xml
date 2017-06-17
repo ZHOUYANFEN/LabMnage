@@ -20,7 +20,7 @@
            sy11.csy111 as csy111,
            sy11.csy112 as csy112,
            sy11.csy113 as csy113,
-           sy11.csy114 as csy114,
+           if(sy11.csy114,0,'是') as csy114,
            sy11.csy115 as csy115,
            sy11.csy116 as csy116,
            sy10.csy101 as csy101   
@@ -61,7 +61,7 @@
            csy111,
            csy112,
            csy113,
-           csy114,
+          if(csy114,0,'是'),
            csy115,
            csy116              
       from sy11
@@ -108,7 +108,7 @@
            sy11.CSY111,
            sy11.CSY112,
            sy11.CSY113,
-           sy11.CSY114,
+          if(sy11.csy114,0,'是') as csy114,
            sy11.CSY115
       FROM sy10 sy10,
            sy11 sy11
@@ -117,7 +117,27 @@
       AND sy11.CSY116=0
   </select>
   
-  
+   <select id="queryLabCountByCondition" resultType="java.util.HashMap" parameterType="java.util.HashMap" >
+    select sy11.csy110 as csy110,
+           sy11.csy111 as csy111,
+           sy11.csy112 as csy112,
+           sy11.csy113 as csy113,
+           if(sy11.csy114,0,'是') as csy114,
+           sy11.csy115 as csy115,
+           sy11.csy116 as csy116,
+           sy10.csy101 as csy101   
+      from sy11 sy11,
+           sy10 sy10
+     where sy11.csy100 = sy10.csy100
+     <if test="csy111!=null">
+       and sy11.csy111 like concat(concat('%',#{csy111}),'%')
+     </if>
+     <if test="csy101!=null">
+       and sy10.csy101 like concat(concat('%',#{csy101}),'%')
+     </if>
+       and sy10.csy102 = 0
+       and sy11.csy116 = 0
+  </select>
   
   <select id="selectByPrimaryKey" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
 	  SELECT sy10.CSY101,

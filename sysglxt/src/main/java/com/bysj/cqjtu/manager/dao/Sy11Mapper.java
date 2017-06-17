@@ -65,5 +65,11 @@ public interface Sy11Mapper {
      * @return
      */
     public List<Map> queryLabMsg();
+    /**
+     * 按条件查询实验室
+     * @param map
+     * @return
+     */
+    List<Map> queryLabCountByCondition(Map map);
     
 }

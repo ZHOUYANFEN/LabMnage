@@ -1,5 +1,6 @@
 package com.bysj.cqjtu.teacher.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.bysj.cqjtu.manager.domain.Sy02;
@@ -44,5 +45,13 @@ public interface LabApplyService {
      * @throws Exception
      */
     Map queryLabCount(Integer csy125,Sy02 sy02) throws Exception;
+    /**
+     * 按条件查询
+     * @param csy111
+     * @param csy101
+     * @return
+     * @throws Exception
+     */
+    List<Map> queryLabCountByCondition(String csy111, String csy101) throws Exception;
 	
 }
