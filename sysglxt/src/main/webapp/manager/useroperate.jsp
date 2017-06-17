@@ -8,6 +8,7 @@
      <%@include  file="/common/pt_head.jsp"%>
     
     <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/ajaxfileupload.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
 	   a{ text-decoration:none;}
@@ -74,7 +75,8 @@
         </input>
      </div>
      <div id="button_querymenu" style="margin-top:30px;margin-left:5px">
-        <table class="table table-hover" id="sy02" style="font-size:10px" >
+        <table class="table table-hover" style="font-size:10px" >
+            <tbody  id="sy02">
             <tr style="width:800px;" id="menuhead">
                 <td style="width:20px"><input id="allcheck" type="checkbox" onclick="setCheckbox()"/></td>
                 <td >用户id</td>
@@ -83,6 +85,7 @@
                 <td hidden="hidden">用户密码</td>
                 <td style="width:300px">操作</td>
             </tr>
+            </tbody>
         </table>
         <div class="tcdPageCode"></div>
 
@@ -449,14 +452,14 @@ function init(){
 		            	$("#csy010").attr("disabled",true);
 		            	 if(csy010==1){
 		            		 $("#sy02").empty();
-			            	 $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
-			            			               +"<td >用户账号</td>"
-			            			               +"<td >用户类型</td>"
-			            			               +"<td >用户密码</td>"
-			            			               +"<td >学号</td>"
-			            			               +"<td >姓名</td>"
-			            			               +"<td >学院</td>"
-			            			               +"<td >班级</td>"
+			            	 $("#sy02").append("<tr style='width:800px;' id='thead'>"
+			            			               +"<th >用户账号</th>"
+			            			               +"<th >用户类型</th>"
+			            			               +"<th >用户密码</th>"
+			            			               +"<th >学号</th>"
+			            			               +"<th >姓名</th>"
+			            			               +"<th >学院</th>"
+			            			               +"<th >班级</th>"
 			            			               +"</tr>");
 			            	for(var i=0;i<data.length;i++){
 			            		$("#sy02").append("<tr style='width:800px;'>"
@@ -472,16 +475,16 @@ function init(){
 		            	 }else if(csy010==2){
 		            		 $("#sy02").empty();
 		            		 $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
-                                     +"<td >用户账号</td>"
-                                     +"<td >用户类型</td>"
-                                     +"<td >用户密码</td>"
-                                     +"<td >姓名</td>"
-                                     +"<td >学院</td>"
-                                     +"<td >职称</td>"
+                                     +"<th >用户账号</th>"
+                                     +"<th >用户类型</th>"
+                                     +"<th >用户密码</th>"
+                                     +"<th >姓名</th>"
+                                     +"<th >学院</th>"
+                                     +"<th >职称</th>"
                                      +"</tr>");
 				              for(var i=0;i<data.length;i++){
 				                  $("#sy02").append("<tr style='width:800px;'>"
-				                                    +"<td >"+data[i].sy02.csy021+"</td>"
+				                                    +"<th >"+data[i].sy02.csy021+"</td>"
 				                                    +"<td >"+data[i].sy02.csy010+"</td>"
 				                                    +"<td >"+data[i].sy02.csy022+"</td>"
 				                                    +"<td >"+data[i].sy05.csy051+"</td>"
@@ -492,11 +495,11 @@ function init(){
 		            	 }else if(csy010==3){
 		            		 $("#sy02").empty();
                              $("#sy02").append("<tr style='width:800px;' id='menuhead'>"
-                                     +"<td >用户账号</td>"
-                                     +"<td >用户类型</td>"
-                                     +"<td >用户密码</td>"
-                                     +"<td >姓名</td>"
-                                     +"<td >职称</td>"
+                                     +"<td >用户账号</th>"
+                                     +"<th >用户类型</th>"
+                                     +"<th >用户密码</th>"
+                                     +"<th >姓名</th>"
+                                     +"<th >职称</th>"
                                      +"</tr>");
                               for(var i=0;i<data.length;i++){
                                   $("#sy02").append("<tr style='width:800px;'>"
@@ -552,6 +555,7 @@ function init(){
 		$("#csy010_model").val(csy010);
 		setHidden(csy010);
 		$("#csy021_model").attr("readonly","readonly");
+		$("#csy022_model").attr("readonly","readonly");
 		if(ischange==false){
 			 $("#btnSave_model").attr("disabled","disabled");	
 	         $("#csy022_model").attr("readonly","readonly");
@@ -566,7 +570,7 @@ function init(){
              $("#csy032_model").attr("readonly","readonly");
 		}else{
 			$("#btnSave_model").removeAttr("disabled"); 
-			$("#csy022_model").removeAttr("readonly");
+			/* $("#csy022_model").removeAttr("readonly"); */
 			$("#csy040_model").removeAttr("readonly");
 			$("#csy041_model").removeAttr("readonly");
 			$("#csy042_model").removeAttr("readonly");
