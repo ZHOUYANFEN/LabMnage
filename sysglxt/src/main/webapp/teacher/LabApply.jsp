@@ -41,7 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body  style="font-family:'黑体';font-size:16px">
     <div>
-        <div  style="width:280px;margin:10px">
+    
+        <div  style="width:280px;margin:10px;">
             <span  style="display:inline-block;margin-top:5px;">申请状态:</span>
 	        <select id="apply_statu" onchange="init(this.value)" class="form-control pull-right"
 			style="width: 200px;padding:0;">
@@ -51,7 +52,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <option value="2">审核不通过</option>	           
 	        </select>
 	    </div>
-    	<form id="form" method="post" action="">
+<!-- 		<div style="width:280px;">
+			<span style="display:inline-block;margin-top:5px;">实验室类别：</span> 
+			<select
+				id="select" name="select_class" class="form-control pull-right"
+				style="width: 200px;padding:0;">
+				<option>---请选择实验室类别---</option>
+			</select>
+		</div>
+		<div style="width:280px;">
+			<span style="display:inline-block;margin-top:5px;">实验室名称：</span>
+			<select
+				id="select2" name="select_class" class="form-control pull-right"
+				style="width: 200px;padding:0;">
+				<option>---请选择实验室名称---</option>
+			</select>
+		</div> -->
+		<form id="form" method="post" action="">
     		<table class="table table-hover" id="labInfo" style="font-size:10px">
 	    		<tr id="labhead">
 	    		</tr>

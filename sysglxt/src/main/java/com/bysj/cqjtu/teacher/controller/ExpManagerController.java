@@ -80,6 +80,26 @@ public class ExpManagerController {
 	}
 	
 	/**
+	 * 查询出实验安排
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/queryExp2")
+	@ResponseBody
+	@SystemControllerLog(description ="查询出实验安排")
+	public PageEntity<Sy08Exp> queryExperiment2(HttpSession session,Integer pageNum, Integer pageSize){
+	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
+		List<Sy08Exp> list = new ArrayList<>();
+		System.out.println("教师id"+userMessage.getSy05().getCsy050());
+	    PageHelper.startPage(pageNum, pageSize);
+	    PageEntity<Sy08Exp> pageBean = new PageEntity<Sy08Exp>();
+		list = expManageService.queryExp(userMessage.getSy05().getCsy050());
+        pageBean.setList(list);
+        pageBean.setCount(list.size());
+		return pageBean;
+	}
+	
+	/**
 	 * 删除实验安排
 	 * @param request
 	 * @param response

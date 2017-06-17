@@ -124,11 +124,9 @@ public class ResourceDownloadController {
 	@ResponseBody
 	public Map searchResource(HttpServletRequest request,HttpServletResponse response,HttpSession session){
 		Map<String,List> map = new HashMap<>();
-	    UserMessage userMessage = (UserMessage) session.getAttribute("user");
-	    //用户id
-		int id = userMessage.getSy05().getCsy050();
+	    //搜索的内容
 		String items = request.getParameter("searchitems");
-		System.out.println(id);
+		System.out.println(items);
     	map = downLoadResourceService.searchResource(items);
 		if(map.get("Sy13").size()!=0){
 			return map;
@@ -149,6 +147,9 @@ public class ResourceDownloadController {
     @RequestMapping("/resourceDown")
     public ResponseEntity<byte[]> download(String filepath) {
         try {
+        	String filepathName = filepath.substring((filepath.lastIndexOf("/")+1), filepath.length());
+        	
+        	System.out.println(filepathName);
         	byte[] file = filepath.getBytes("ISO-8859-1");
         	filepath = new String(file, "UTF-8");
         	System.out.println("文件名为："+filepath);
@@ -159,7 +160,7 @@ public class ResourceDownloadController {
                 // 2.设置响应头,并返回响应数据
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-                headers.setContentDispositionFormData("attachment", filepath);
+                headers.setContentDispositionFormData("attachment", filepathName);
                 return new ResponseEntity<byte[]>(data, headers, HttpStatus.CREATED);
             }
         } catch (IOException e) {

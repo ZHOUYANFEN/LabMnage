@@ -292,6 +292,7 @@ $(document).ready(function(){
  */
 function searchResource(){
   		var resourceName = $("#search_text").val();
+  		alert(resourceName);
   		$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/resourceDownload/searchResource",

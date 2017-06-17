@@ -28,7 +28,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     align-items:flex-start;
     }
     </style>
-
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.page.js"></script>
+    <style>
+       a{ text-decoration:none;}
+       a:hover{ text-decoration:none;}
+       .tcdPageCode{padding: 15px 20px;text-align: left;color: #ccc;text-align:center;}
+       .tcdPageCode a{display: inline-block;color: #428bca;display: inline-block;height: 25px; line-height: 25px;  padding: 0 10px;border: 1px solid #ddd; margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode a:hover{text-decoration: none;border: 1px solid #428bca;}
+       .tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: #fff;background-color: #428bca; border: 1px solid #428bca;border-radius: 4px;vertical-align: middle;}
+       .tcdPageCode span.disabled{ display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px; color: #bfbfbf;background: #f2f2f2;border: 1px solid #bfbfbf;border-radius: 4px;vertical-align: middle;}
+    </style>
   </head>
   
   <body  style="font-family:'黑体';font-size:16px">
@@ -62,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<th style="width:80px;text-align:center">操作</th>
     		</tr>
     		</table>
-    		<!-- <div class="tcdPageCode"></div> -->
+    		<div class="tcdPageCode"></div>
     	</form>
     </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -176,11 +185,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	})
   	function init(){
   		$("#expInfo tr:not(:first)").empty(""); 
+  		$(".tcdPageCode").empty();
+  		 pageSize=5;
+  		query(1,pageSize);
   		$.ajax({
   			type:'POST',
   			url:"${pageContext.request.contextPath}/expManage/queryExp",
   			success:function(data){
-  				for(var i=0;i<data.length;i++){
+  				console.log(data);
+/*   				for(var i=0;i<data.length;i++){
   					$("#expInfo").append("<tr style='width:800px;'>"
   					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+data[i].csy080+"'/></td> "
   					+"<td style='text-align:center'>"+data[i].csy061+"</td>"
@@ -191,10 +204,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					+"<td style='text-align:center'>"+(new Date(data[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
   					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
   					+"</tr>");
+  				}; */
+                $(".tcdPageCode").createPage({
+                    pageCount:Math.ceil((data.length/pageSize)),
+                    current:1,
+                    backFn:function(pageNum){
+                    	query(pageNum,pageSize);
+                    }
+                }); 
+  			}
+  		});
+  	}
+  	function query(pageNum,pageSize){
+  		$.ajax({
+  			type:'POST',
+  			url:"${pageContext.request.contextPath}/expManage/queryExp2?pageNum="+pageNum+"&pageSize="+pageSize,
+  			success:function(data){
+  				console.log(data);
+  				$("#expInfo tr:not(:first)").empty(""); 
+  				for(var i=0;i<data.list.length;i++){
+  					$("#expInfo").append("<tr style='width:800px;'>"
+  					+"<td style='text-align:center'><input type='checkbox' name='subChk' value='"+data.list[i].csy080+"'/></td> "
+  					+"<td style='text-align:center'>"+data.list[i].csy061+"</td>"
+  					+"<td style='text-align:center'>"+data.list[i].csy081+"</td>"
+  					+"<td style='text-align:center'>"+data.list[i].csy052+"</td>"
+  					+"<td style='text-align:center'><div class='content'>"+data.list[i].csy082+"</div></td>"
+  					+"<td style='text-align:center'>"+(new Date(data.list[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  					+"<td style='text-align:center'>"+(new Date(data.list[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  					+"<td style='text-align:center'><input type='button' class='apply-button btn btn-primary btn-xs' value='删除' onclick='deleteModal()'></td>"
+  					+"</tr>");
   				};
   			}
   		});
   	}
+  	
   	//删除实验安排
   	function deleteModal(){
   		// 判断是否至少选择一项 
@@ -274,6 +317,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			data: {'additems':recordList.toString()}, 
   			success:function(data){
   				sweetAlert(data.status);
+  				$("#myModal input").val("");
+  				ue.setContent("");
   				init();
   			}
   		});
