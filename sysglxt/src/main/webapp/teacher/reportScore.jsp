@@ -49,9 +49,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<th style="width:7%;text-align:center">姓名</th>
     			<th style="width:7%;text-align:center">实验名称</th>
     			<th style="width:9%;text-align:center">完成实验内容</th>
-    			<th style="width:9%;text-align:center">完成实验时间</th>
-    			<th style="width:30%;text-align:center">实验评分</th>
-    			<th style="width:30%;text-align:center">附件</th>
+    			<th style="width:8%;text-align:center">完成实验时间</th>
+    			<th style="width:8%;text-align:center">实验评分</th>
+    			<th style="width:39%;text-align:center">附件</th>
     			<th style="width:6%;text-align:center">操作</th>
     			</tr>
     		</table>
@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				}
   				for(var i=0;i<reportlist.length;i++){
   					var file = reportlist[i].csy093;
-  					var filename = file.substring((file.lastIndexOf("//")+2),file.length);
+  					var filename = file.substring((file.lastIndexOf("/")+1),file.length);
   					var score = reportlist[i].csy094;
   					if(score==null||score==""){
   						score = "未评分";
@@ -128,9 +128,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					+"<td style='text-align:center;width:10%;'>"+studentList[i].csy041+"</td>"
   					+"<td style='text-align:center;width:20%;'>"+typename+"</td>"
   					+"<td style='text-align:center;width:20%;'>"+content+"</td>"
-  					+"<td style='text-align:center;width:10%;'>"+(new Date(reportlist[i].csy092).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-  					+"<td style='text-align:center;width:10%;'><div class='content'>"+score+"</div></td>"
-  					+"<td style='text-align:center;width:10%;'><a href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + reportlist[i].csy093 + "'>"+filename+"</a></td>"
+  					+"<td style='text-align:center;width:6%;'>"+(new Date(reportlist[i].csy092).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+  					+"<td style='text-align:center;width:5%;'><div class='content'>"+score+"</div></td>"
+  					+"<td style='text-align:center;width:19%;'><a href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + reportlist[i].csy093 + "'>"+filename+"</a></td>"
   					+"<td style='text-align:center;width:10%;'><input type='button' id="+reportlist[i].csy090+" class='score-button btn btn-primary btn-xs' value='评分'></td>"
   					+"<td style='display:none;text-align:center;width:10%;'><input id="+reportlist[i].csy090+1+" type='button' class='edit-button btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal1' value='修改'></td>"
   					+"</tr>");
@@ -155,6 +155,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		$("#"+index+1).show(); */
   		var csy094 = $("#csy094").val();
   		var csy090 = $("#csy094").attr("name");
+  		if(csy094==null||csy094<0||csy094>100){
+  			sweetAlert("请输入正确分数");
+            return;
+  		}
   		var sy09={
   				"csy094":csy094,
   				"csy090":csy090
@@ -198,12 +202,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  						studentList = Data[key];
   	  					}
   	  				}
-  	  				console.log(reportlist);
-  	  				console.log(reportTypeList);
-  	  				console.log(studentList);
+  	  		       
   	  				for(var i=0;i<reportlist.length;i++){
   	  					var file = reportlist[i].csy093;
-  	  					var filename = file.substring((file.lastIndexOf("//")+2),file.length);
+  	  					var filename = file.substring((file.lastIndexOf("/")+1),file.length);
   	  					var score = reportlist[i].csy094;
   	  					if(score==null){
   	  						score = "未评分";
@@ -221,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  					+"<td style='text-align:center;width:20%;'>"+content+"</td>"
   	  					+"<td style='text-align:center;width:10%;'>"+(new Date(reportlist[i].csy092).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
   	  					+"<td style='text-align:center;width:10%;'><div class='content'>"+score+"</div></td>"
-  	  					+"<td style='text-align:center;width:10%;'><a href='${pageContext.request.contextPath}/teacher/resourceDown?filepath=" + reportlist[i].csy093 + "'>"+filename+"</a></td>"
+  	  					+"<td style='text-align:center;width:10%;'><a href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + reportlist[i].csy093 + "'>"+filename+"</a></td>"
   	  					+"<td style='text-align:center;width:10%;'><input type='button' id="+reportlist[i].csy090+" class='score-button btn btn-primary btn-xs' value='评分'></td>"
   	  					+"</tr>");
   	  				};
@@ -259,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					$("#form2").empty();
   					$("#form2").append("<p>学号："+sy09.csy040+"</p>"
   							+"<p>姓名："+sy04.csy041+"</p>"
-  		      				+"<p>实验评分：<input class='input form-control' type='number' name="+sy09.csy090+" id='csy094' style='display:inline-block;width:80px;height:30px;'></p>"  					
+  		      				+"<p>实验评分：<input class='input form-control' type='number' name="+sy09.csy090+" id='csy094' min='0' max='100'  style='display:inline-block;width:80px;height:30px;'></p>"  					
   		      				);
   					
   				}else{
@@ -277,7 +279,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			    	 	$("#form2").empty();
    						$("#form2").append("<p>学号："+sy09.csy040+"</p>"
    							+"<p>姓名："+sy04.csy041+"</p>"
-   		      				+"<p>实验评分：<input class='input form-control' type='number' name="+sy09.csy090+" id='csy094' style='display:inline-block;width:80px;height:30px;'></p>"  					
+   		      				+"<p>实验评分：<input class='input form-control' type='number' name="+sy09.csy090+" id='csy094' min='0' max='100' style='display:inline-block;width:80px;height:30px;'></p>"  					
    		      				);
   			       })
   				}

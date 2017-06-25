@@ -151,25 +151,25 @@ table{
                                          搜索
                 </button> 
             <button id="upload" type="button" class="btn btn-default" aria-label="Left Align" style="margin-left: -40px;height: 31px;;margin-top:-1px;text-align:center;line-height:31px"> 
-                 <span class="glyphicon glyphicon-upload" aria-hidden="true">上传</span>
+                 <span class="glyphicon glyphicon-upload" aria-hidden="true" style="line-hight:31px;text-align:center">上传</span>
             </button>
 			<form id="fileupload" enctype="multipart/form-data">
 				<input id="file" name="file" type="file" style="display: none; ">
 			</form>
 		</div>
 	</div>
-	<table class="table table-hover">
-		<thead>
-			<tr  style="background-color: rgb(243,243,244);color:rgb(119,119,119)">
-				<th style="width:30%">文件</th>
-				<th style="width:20%">更新时间</th>
-				<th style="width:13%">大小</th>
-				<th style="width:15%">上传者</th>
-				<th style="width:9%">操作</th>
-			</tr>
-		</thead>
-		<tbody id="t_body">
+	<table class="table table-hover" style="font-family:'黑体';font-size:10px">
+		<!-- <thead>
 			
+		</thead> -->
+		<tbody id="t_body" >
+			<tr >
+                <th style="width:30%">文件</th>
+                <th style="width:20%">更新时间</th>
+                <th style="width:13%">大小</th>
+                <th style="width:15%">上传者</th>
+                <th style="width:9%">操作</th>
+            </tr>
 		</tbody>
 	</table>
 	<div class="select-num">
@@ -253,7 +253,7 @@ $(document).ready(function(){
 				var date = new Date(resourcelist[i].csy136);
 				var dateTime = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
 				$("#t_body").append("<tr><td class='text'><div class='checkbox-div'>"
-						+"</div><a class='download' href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"+resourcelist[i].csy131+"</a></td>"
+						+"</div><a class='download' href='${pageContext.request.contextPath}/resourceDownload/resourceDown?filepath=" + resourcelist[i].csy134 + "'>"+resourcelist[i].csy134.substring(resourcelist[i].csy134.lastIndexOf("/")+1)+"</a></td>"
 						+"<td>"+dateTime+"</td>"
 						+"<td>"+resourcelist[i].csy138+"</td>"
 						+"<td>"+name+"</td>"
@@ -269,7 +269,7 @@ $(document).ready(function(){
 	});
     /*初始化*/
     function init(){
-    	$("#t_body").empty();
+    	$("#t_body tr :not(:first)").remove();
         $.ajax({
             type:'POST',
             url:"${pageContext.request.contextPath}/resourceDownload/resourceShow",

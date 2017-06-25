@@ -191,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$("#form2").append("<p name="+sy07.csy040+" id='sy07csy040'>学号："+sy07.csy040+"</p>"
 							+"<p>姓名："+sy04.csy041+"</p>"
 							+"<p name="+sy07.csy060+" id='sy07csy060'>课程："+sy06.csy061+"</p>"
-		      				+"<p>实验评分：<input class='input form-control' type='number' id='csy071' style='display:inline-block;width:80px;height:30px;'></p>"  					
+		      				+"<p>实验评分：<input class='input form-control' type='number' id='csy071' min='0' max='100' style='display:inline-block;width:80px;height:30px;'></p>"  					
 		      				);
   				}else{
   					swal({  
@@ -209,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						$("#form2").append("<p name="+sy07.csy040+" id='sy07csy040'>学号："+sy07.csy040+"</p>"
   								+"<p>姓名："+sy04.csy041+"</p>"
   								+"<p name="+sy07.csy060+" id='sy07csy060'>课程："+sy06.csy061+"</p>"
-  			      				+"<p>实验评分：<input class='input form-control' type='number' id='csy071' style='display:inline-block;width:80px;height:30px;'></p>"  					
+  			      				+"<p>实验评分：<input class='input form-control' type='number' id='csy071' min='0' max='100' style='display:inline-block;width:80px;height:30px;'></p>"  					
   			      				);
   			       })
   				}
@@ -229,8 +229,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		var resultList = new Array(); 
   		resultList.push(csy040);
   		resultList.push(csy060);
-  		if(csy071==null){
-  			sweetAlert("请输入分数");
+  		if(csy071==null||csy071<0||csy071>100){
+  			sweetAlert("请输入正确分数");
+  			return;
   		}else{
   			resultList.push(csy071);
   		}

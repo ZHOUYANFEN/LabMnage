@@ -40,7 +40,7 @@
                 <th >实验名称</td>
                 <th >布置时间</td>
                 <th >截止时间</td>
-                <th >完成状态</td>
+               <!--  <th >完成状态</td> -->
                 <th >操作</td>
             </tr>
         </table>      
@@ -95,6 +95,7 @@
             type:'post',
             url:"${pageContext.request.contextPath}/student/queryExpList",
             success:function(data){
+            	 console.log(data);
                 $("#menuhead").siblings().remove();
                 for(var i=0;i<data.length;i++){
                 if(data[i].csy096==1){
@@ -107,7 +108,7 @@
                                         +"<td >"+data[i].CSY081+"</td>"
                                         +"<td >"+data[i].CSY083+"</td>"
                                         +"<td >"+data[i].CSY084+"</td>"
-                                        +"<td >"+data[i].csy096+"</td>"
+                                        /* +"<td >"+data[i].csy096+"</td>" */
                                         +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#uploadPage' onclick='openUpload("+data[i].CSY080+")' >"
                                         +"<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
                                         +"提交报告"
@@ -132,18 +133,20 @@
     /*查询课程所属的实验*/
     function queryExp(){
     	var csy060=$("#csy061").val();
-        var csy061=$("#csy061").text();
+        var csy061=$("#csy061 >option:selected").text();
     	 $.ajax({
              type:"POST",
              url:"${pageContext.request.contextPath}/student/queryExpArrangeList?csy060="+csy060,
              success:function(data){
+            	 console.log(data);
             	 $("#menuhead").siblings().remove();
                  for(var i=0;i<data.length;i++){
                   $("#sy08").append("<tr style='width:600px;margin-left:20px'>"
                                          +"<td >"+csy061+"</td>"
                                          +"<td >"+data[i].csy081+"</td>"
-                                         +"<td >"+ (new Date(data[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
-                                         +"<td >"+ (new Date(data[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,8))+"</td>"
+                                         +"<td >"+ (new Date(data[i].csy083).toLocaleDateString().replace(/\//g,"-").substr(0,9))+"</td>"
+                                         +"<td >"+ (new Date(data[i].csy084).toLocaleDateString().replace(/\//g,"-").substr(0,9))+"</td>"
+                              
                                          +"<td ><button type='button' class='btn btn-primary btn-xs ' data-toggle='modal' data-target='#uploadPage' onclick='openUpload("+data[i].csy080+")' >"
                                          +"<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>"
                                          +"提交报告"

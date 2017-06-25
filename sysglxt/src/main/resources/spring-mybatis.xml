@@ -138,6 +138,12 @@
                 /error/*=authc
                 /exaplefile/*=authc
                 /resources/*=authc               
+                /classScore/*=authc
+                /courseManage/*=authc
+                /expManage/*=authc
+                /labManage/*=authc
+                /resourceDownload/*=authc
+                /studentManager/*=authc
                 /teacher/*=authc
                 /index/*=authc
                 /lab/*=authc

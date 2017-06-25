@@ -191,7 +191,9 @@ public class StudentController {
     @RequestMapping("/uploadReport")
     @ResponseBody
     @SystemControllerLog(description =" 上传实验报告")
-    public Map uploadReport(@RequestParam MultipartFile btnFile, HttpServletRequest request, HttpServletResponse response) throws Exception{
+    public Map uploadReport(@RequestParam MultipartFile btnFile, HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception{
+        UserMessage userMessage=(UserMessage) session.getAttribute("user"); 
+        String csy040=userMessage.getSy04().getCsy040();
         InputStream is = btnFile.getInputStream();//多文件也适用,我这里就一个文件  
         byte[] b = new byte[(int)btnFile.getSize()];  
         int read = 0;  
@@ -201,8 +203,12 @@ public class StudentController {
             i++;  
         }  
         is.close(); 
-        filename="D://sysglptdir/"+btnFile.getOriginalFilename();       
-        OutputStream os = new FileOutputStream(new File(filename));
+        filename="D://sysglptdir/"+btnFile.getOriginalFilename(); 
+        File file=new File(filename);
+/*        if(!file.exists()){
+            file.mkdirs();
+        }*/
+        OutputStream os = new FileOutputStream(file);
         os.write(b);  
         os.flush();  
         os.close();

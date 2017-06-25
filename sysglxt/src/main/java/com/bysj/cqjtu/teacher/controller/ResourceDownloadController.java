@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,7 +71,7 @@ public class ResourceDownloadController {
     		String userName = userMassage.getSy02().getCsy021();
     		System.out.println("userid="+userId+"  userName="+userName);
             // ... 文件目录可做进一步处理,避免多个重名文件覆盖
-            String dirPath = "D:/";
+            String dirPath = "D:/sysglptdir";
             // 1.获取上传的文件名称和内容
             String filename = multipartFile.getOriginalFilename();
             System.out.println("文件大小："+multipartFile.getSize());
@@ -80,12 +81,22 @@ public class ResourceDownloadController {
             }else{
             	size = (multipartFile.getSize()/1024)+"."+ (multipartFile.getSize()%1024) + "KB";
             }
-            System.out.println(size);
-            String address = dirPath+"/"+filename;
+            
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            String date = format.format(new Date());
+            String date = format.format(new Date());         
+            Map<String,List> map = new HashMap<>();
+            map = downLoadResourceService.queryResource();
+            List<Sy13> sy13list=map.get("Sy13");
+            for (Sy13 sy13 : sy13list) {
+                if(filename.equals(sy13.getCsy133())){
+                    String filename_1=filename.substring(0,filename.indexOf("."));
+                    filename_1+="_"+UUID.randomUUID().toString();
+                    filename=filename_1+filename.substring(filename.indexOf("."));
+                    break;
+                }
+            }
+            String address = dirPath+"/"+filename;
             String file = filename.substring(0,filename.lastIndexOf("."));
-            System.out.println("文件名:"+file);
             record.setCsy020(userId);
             record.setCsy131(file);
             record.setCsy133(filename);
@@ -101,7 +112,7 @@ public class ResourceDownloadController {
             record.setCsy138(size);
             byte[] data = multipartFile.getBytes();
             // 2.将文件写入到本地，根据文件名命名
-            FileUtils.writeByteArrayToFile(new File(dirPath, filename), data);
+            FileUtils.writeByteArrayToFile(new File(address), data);
             // Log,显示文件全路径
             System.out.println("成功上传文件: " + filename);
             downLoadResourceService.insert(record);
@@ -150,8 +161,8 @@ public class ResourceDownloadController {
         	String filepathName = filepath.substring((filepath.lastIndexOf("/")+1), filepath.length());
         	
         	System.out.println(filepathName);
-        	byte[] file = filepath.getBytes("ISO-8859-1");
-        	filepath = new String(file, "UTF-8");
+        	/*byte[] file = filepath.getBytes("ISO-8859-1");
+        	filepath = new String(file, "UTF-8");*/
         	System.out.println("文件名为："+filepath);
             if (null != filepath && !"".equals(filepath.trim())) {
                 // ... 文件目录可做进一步处理,避免文件重名时获取不到正确的目标文件
@@ -160,7 +171,7 @@ public class ResourceDownloadController {
                 // 2.设置响应头,并返回响应数据
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-                headers.setContentDispositionFormData("attachment", filepathName);
+                headers.setContentDispositionFormData("attachment", new String(filepathName.getBytes("UTF-8"),"ISO-8859-1"));
                 return new ResponseEntity<byte[]>(data, headers, HttpStatus.CREATED);
             }
         } catch (IOException e) {
