@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50537
 File Encoding         : 65001
 
-Date: 2017-06-18 02:37:23
+Date: 2017-06-26 20:40:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -91,17 +91,18 @@ CREATE TABLE `sy02` (
   PRIMARY KEY (`CSY020`),
   KEY `FK_Relationship_1` (`CSY010`),
   CONSTRAINT `FK_Relationship_1` FOREIGN KEY (`CSY010`) REFERENCES `sy01` (`CSY010`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
 
 -- ----------------------------
 -- Records of sy02
 -- ----------------------------
 INSERT INTO `sy02` VALUES ('46', '4', 'developer', '5e8edd851d2fdfbd7415232c67367cc3', '0');
-INSERT INTO `sy02` VALUES ('48', '1', '009', 'dc5c7986daef50c1e02ab09b442ee34f', '1');
+INSERT INTO `sy02` VALUES ('48', '1', '009', 'dc5c7986daef50c1e02ab09b442ee34f', '0');
 INSERT INTO `sy02` VALUES ('49', '1', '001', 'dc5c7986daef50c1e02ab09b442ee34f', '0');
 INSERT INTO `sy02` VALUES ('51', '2', '002', '93dd4de5cddba2c733c65f233097f05a', '0');
 INSERT INTO `sy02` VALUES ('52', '2', '003', 'e88a49bccde359f0cabb40db83ba6080', '0');
 INSERT INTO `sy02` VALUES ('53', '3', '004', '11364907cf269dd2183b64287156072a', '0');
+INSERT INTO `sy02` VALUES ('54', '1', '109', '900150983cd24fb0d6963f7d28e17f72', '0');
 
 -- ----------------------------
 -- Table structure for sy03
@@ -138,6 +139,7 @@ CREATE TABLE `sy04` (
 -- ----------------------------
 INSERT INTO `sy04` VALUES ('49', '631306050202', '李四', '信息科学与工程学院', '计软1302班');
 INSERT INTO `sy04` VALUES ('48', '631306050218', '张三', '信息科学与工程学院', '计软1302班');
+INSERT INTO `sy04` VALUES ('54', '631306050219', '呜呜呜', '信息科学与工程学院', '计软1302班');
 
 -- ----------------------------
 -- Table structure for sy05
@@ -176,12 +178,13 @@ CREATE TABLE `sy06` (
   `CSY069` varchar(30) COLLATE utf8_bin DEFAULT NULL COMMENT '班级',
   `CSY06A` varchar(30) CHARACTER SET utf8 DEFAULT NULL COMMENT '课程代码',
   PRIMARY KEY (`CSY060`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='课程表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='课程表';
 
 -- ----------------------------
 -- Records of sy06
 -- ----------------------------
 INSERT INTO `sy06` VALUES ('10', '10', '大学物理', '2', '2', '2017-06-15-2017-06-30', '1', 'A01234', '0', '', null, 'CQJTDXWL201701');
+INSERT INTO `sy06` VALUES ('11', '10', '高等数学', '2', '2', '2017-06-18-2017-06-30', '1', 'A01213', '0', '', null, 'CQJTUGDSX001');
 
 -- ----------------------------
 -- Table structure for sy07
@@ -197,7 +200,8 @@ CREATE TABLE `sy07` (
 -- Records of sy07
 -- ----------------------------
 INSERT INTO `sy07` VALUES ('631306050202', '10', '87');
-INSERT INTO `sy07` VALUES ('631306050218', '10', '1');
+INSERT INTO `sy07` VALUES ('631306050202', '11', '76');
+INSERT INTO `sy07` VALUES ('631306050218', '11', '0');
 
 -- ----------------------------
 -- Table structure for sy08
@@ -213,13 +217,15 @@ CREATE TABLE `sy08` (
   `CSY084` date DEFAULT NULL COMMENT '完成时间',
   `CSY085` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`CSY080`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验安排表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验安排表';
 
 -- ----------------------------
 -- Records of sy08
 -- ----------------------------
 INSERT INTO `sy08` VALUES ('10', '5', '10', '物理实验1', '<p>完成实验教材实验一的内容。</p>', '2017-06-08', '2017-06-18', '1');
 INSERT INTO `sy08` VALUES ('10', '6', '10', '物理实验2', '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成实验教材实验二。</p>', '2017-06-01', '2017-06-24', '0');
+INSERT INTO `sy08` VALUES ('11', '7', '10', '高等数学实验一', '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成实验一</p>', '2017-06-19', '2017-06-24', '0');
+INSERT INTO `sy08` VALUES ('10', '8', '10', '实验二', '<p>&nbsp;&nbsp;&nbsp;&nbsp;完成实验三。<br/></p>', '2017-06-16', '2017-06-24', '0');
 
 -- ----------------------------
 -- Table structure for sy09
@@ -236,12 +242,14 @@ CREATE TABLE `sy09` (
   `CSY095` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
   `CSY096` tinyint(4) DEFAULT '0' COMMENT '完成标记',
   PRIMARY KEY (`CSY090`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验完成表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验完成表';
 
 -- ----------------------------
 -- Records of sy09
 -- ----------------------------
-INSERT INTO `sy09` VALUES ('631306050202', '6', '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成实验内容。</p>', '2017-06-18', 'D://sysglptdir/付政俊.任务书.doc', '90', '4', '0', '1');
+INSERT INTO `sy09` VALUES ('631306050202', '6', '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成实验内容。</p>', '2017-06-18', 'D://sysglptdir/上传用户信息模板.xls', '20', '4', '0', '1');
+INSERT INTO `sy09` VALUES ('631306050202', '7', null, '2017-06-18', 'D://sysglptdir/6323123123.doc', '98', '5', '0', '1');
+INSERT INTO `sy09` VALUES ('631306050202', '8', '<p>&nbsp;完成</p>', '2017-06-18', 'D://sysglptdir/aaa.doc', '50', '6', '0', '1');
 
 -- ----------------------------
 -- Table structure for sy10
@@ -311,13 +319,14 @@ CREATE TABLE `sy12` (
   `CSY127` tinyint(4) DEFAULT '0' COMMENT '删除标记',
   `CSY128` bit(1) DEFAULT NULL COMMENT '实验室是否已申请',
   PRIMARY KEY (`CSY120`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验室安排表';
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='实验室安排表';
 
 -- ----------------------------
 -- Records of sy12
 -- ----------------------------
-INSERT INTO `sy12` VALUES ('15', '93', '51', '2017-06-18', '上课', '', '', '0', '第一周:,第二周:,第三周:', '0', null);
+INSERT INTO `sy12` VALUES ('15', '93', '51', '2017-06-18', '上课', '', '2017-06-18', '1', '第一周:周二 20:00-22:00,第二周:周一 14:00-16:00,第三周:周一 20:00-22:00', '0', null);
 INSERT INTO `sy12` VALUES ('19', '94', '51', '2017-06-18', '上课', 0xE4BDA0E5A5BD, '2017-06-18', '1', '第一周:周一 8:00-10:00,第二周:周一 8:00-10:00,第三周:周一 8:00-10:00,第四周:周一 8:00-10:00', '0', null);
+INSERT INTO `sy12` VALUES ('19', '95', '51', '2017-06-18', '实验课程', '', '', '0', '第六周:,第七周:', '0', null);
 
 -- ----------------------------
 -- Table structure for sy13
@@ -326,7 +335,7 @@ DROP TABLE IF EXISTS `sy13`;
 CREATE TABLE `sy13` (
   `CSY020` int(11) DEFAULT NULL COMMENT '人员ID',
   `CSY130` int(11) NOT NULL AUTO_INCREMENT COMMENT '资源ID',
-  `CSY131` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '资源名称',
+  `CSY131` varchar(200) COLLATE utf8_bin DEFAULT NULL COMMENT '资源名称',
   `CSY160` tinyint(15) NOT NULL COMMENT '资源类型',
   `CSY133` varchar(5000) COLLATE utf8_bin DEFAULT '' COMMENT '资源类容',
   `CSY134` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '资源附件地址',
@@ -337,18 +346,16 @@ CREATE TABLE `sy13` (
   PRIMARY KEY (`CSY130`),
   KEY `CSY160` (`CSY160`),
   CONSTRAINT `sy13_ibfk_1` FOREIGN KEY (`CSY160`) REFERENCES `sy16` (`csy160`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='资源表';
 
 -- ----------------------------
 -- Records of sy13
 -- ----------------------------
-INSERT INTO `sy13` VALUES ('51', '4', '631306050218_计软_付政俊_上传版改', '1', '631306050218_计软_付政俊_上传版改.docx', 'D://631306050218_计软_付政俊_上传版改.docx', '0', '2017-06-18', '1', '1.898M');
-INSERT INTO `sy13` VALUES ('51', '5', '付政俊.任务书', '1', '付政俊.任务书.doc', 'D://付政俊.任务书.doc', '0', '2017-06-18', '1', '208.710KB');
-INSERT INTO `sy13` VALUES ('51', '6', '开题报告模版', '1', '开题报告模版.doc', 'D://开题报告模版.doc', '0', '2017-06-18', '1', '60.0KB');
-INSERT INTO `sy13` VALUES ('51', '7', '选题汇总表', '1', '选题汇总表.doc', 'D://选题汇总表.doc', '0', '2017-06-18', '1', '40.512KB');
-INSERT INTO `sy13` VALUES ('51', '8', '文献综述模版', '1', '文献综述模版.doc', 'D://文献综述模版.doc', '0', '2017-06-18', '1', '56.512KB');
-INSERT INTO `sy13` VALUES ('51', '9', '选题审批表', '1', '选题审批表.doc', 'D://选题审批表.doc', '0', '2017-06-18', '1', '36.0KB');
-INSERT INTO `sy13` VALUES ('53', '10', 'aaa', '1', 'aaa.xls', 'D://aaa.xls', '0', '2017-06-18', '1', '18.512KB');
+INSERT INTO `sy13` VALUES ('51', '16', '上传用户信息模板', '1', '上传用户信息模板.xls', 'D://sysglptdir/上传用户信息模板.xls', '0', '2017-06-18', '1', '18.512KB');
+INSERT INTO `sy13` VALUES ('51', '17', 'aaa', '1', 'aaa.doc', 'D://sysglptdir/aaa.doc', '0', '2017-06-18', '1', '208.710KB');
+INSERT INTO `sy13` VALUES ('51', '18', '631306050218_计软_付政俊_上传版改', '1', '631306050218_计软_付政俊_上传版改.docx_7dc72ae1-95ed-47da-82d3-0499d1e1fba0', 'D://sysglptdir/631306050218_计软_付政俊_上传版改.docx', '0', '2017-06-18', '1', '1.898M');
+INSERT INTO `sy13` VALUES ('51', '21', '付政俊任务书', '1', '付政俊任务书.doc', 'D:/sysglptdir/付政俊任务书.doc', '0', '2017-06-18', '1', '208.710KB');
+INSERT INTO `sy13` VALUES ('51', '24', 'aaa_2a5d6a1e-2214-49f7-8fdd-a20fb7c2c966', '1', 'aaa_2a5d6a1e-2214-49f7-8fdd-a20fb7c2c966.doc', 'D:/sysglptdir/aaa_2a5d6a1e-2214-49f7-8fdd-a20fb7c2c966.doc', '0', '2017-06-18', '1', '208.710KB');
 
 -- ----------------------------
 -- Table structure for sy14
